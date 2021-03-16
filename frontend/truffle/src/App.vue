@@ -1,8 +1,12 @@
 <template>
   <div id="app">
+    <!-- navbar 위치 -->
     <div id="nav">
-      <router-link to="/">Home</router-link> |
+      <router-link to="/">Home</router-link>
+      |
       <router-link to="/login">Login</router-link>
+      |
+      <router-link to="/landing">FullPage</router-link>
     </div>
     <router-view />
   </div>
@@ -10,7 +14,7 @@
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -19,6 +23,9 @@
 
 #nav {
   padding: 30px;
+  position: fixed;
+  /* text-align: center; */
+  z-index: 1;
 }
 
 #nav a {
