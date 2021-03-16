@@ -49,6 +49,5 @@ export default {
       }
     },
   },
->>>>>>> 2813692b88a6fb262a0ed8ce74ea795dbb20e368
 };
 </script>
