@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <v-app id="app">
     <!-- navbar 위치 -->
     <div id="nav">
       <router-link to="/">Home</router-link>
@@ -10,10 +10,44 @@
       |
       <router-link to="/landing">FullPage</router-link>
     </div>
-    <router-view />
-  </div>
-</template>
 
+    <div>
+      <router-view />
+    </div>
+
+    <div id="footer">
+      <hr />
+      <footer class="footer">
+        <div class="container">
+          <div class="copyright">&copy; {{ year }}, made with by Team TruffleMaker for a better web.</div>
+          <nav>
+            <ul>
+              <li>
+                <a href="">
+                  개인정보 처리방침
+                </a>
+              </li>
+              <li>
+                <a href="">
+                  사이트 이용안내
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </footer>
+    </div>
+  </v-app>
+</template>
+<script>
+export default {
+  data() {
+    return {
+      year: new Date().getFullYear(),
+    };
+  },
+};
+</script>
 <style>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;

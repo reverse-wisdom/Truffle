@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
+import Vuetify from 'vuetify';
+import 'vuetify/dist/vuetify.min.css';
 import store from './store';
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
@@ -14,8 +16,11 @@ const sweetalert2_options = {
 
 Vue.use(VueSweetalert2, sweetalert2_options); // alert API
 
+Vue.use(Vuetify);
+
 new Vue({
   router,
   store,
+  vuetify: new Vuetify(),
   render: (h) => h(App),
 }).$mount('#app');
