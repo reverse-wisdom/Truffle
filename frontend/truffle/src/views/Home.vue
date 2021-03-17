@@ -1,24 +1,21 @@
 <template>
+  <!-- 현재 Home은 테스트 페이지 입니다. -->
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png" />
     <br />
-    <input type="button" value="sweetalert test1" @click="sweetalertTest1" />
-    <input type="button" value="sweetalert test2" @click="sweetalertTest2" />
+    <v-btn depressed color="primary" @click="sweetalertTest1">sweetalert test1</v-btn>
     <br />
-    <input type="button" value="sweetalert test3" @click="sweetalertTest3" />
-
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <v-btn depressed color="primary" @click="sweetalertTest2">sweetalert test2</v-btn>
+    <br />
+    <v-btn depressed color="error" @click="sweetalertTest3">sweetalert test3</v-btn>
+    <br />
   </div>
 </template>
 
 <script>
-import HelloWorld from '@/components/HelloWorld.vue';
-
 export default {
   name: 'Home',
-  components: {
-    HelloWorld,
-  },
+  components: {},
   methods: {
     sweetalertTest1() {
       this.$swal({
