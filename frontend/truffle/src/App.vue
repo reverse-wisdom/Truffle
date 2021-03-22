@@ -4,9 +4,7 @@
     <div id="nav">
       <router-link to="/">Home</router-link>
       |
-      <router-link to="/login">Login</router-link>
-      |
-      <router-link to="/signup">Signup</router-link>
+      <router-link to="/signin-signup">signin-signup</router-link>
       |
       <router-link to="/landing">FullPage</router-link>
     </div>
@@ -14,29 +12,7 @@
     <div>
       <router-view />
     </div>
-
-    <div id="footer">
-      <hr />
-      <footer class="footer">
-        <div class="container">
-          <div class="copyright">&copy; {{ year }}, made with by Team TruffleMaker for a better web.</div>
-          <nav>
-            <ul>
-              <li>
-                <a href="">
-                  개인정보 처리방침
-                </a>
-              </li>
-              <li>
-                <a href="">
-                  사이트 이용안내
-                </a>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </footer>
-    </div>
+    <router-view name="footer" />
   </v-app>
 </template>
 <script>
@@ -56,13 +32,13 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
-
+/* 
 #nav {
   padding: 30px;
   position: fixed;
-  /* text-align: center; */
+  text-align: center;
   z-index: 1;
-}
+} */
 
 #nav a {
   font-weight: bold;
