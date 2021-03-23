@@ -3,8 +3,8 @@ import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
 import Main from '../views/Main.vue';
 
-import MainNavbar from '../views/Layout/MainNavbar.vue';
-import MainFooter from '../views/Layout/MainFooter.vue';
+import MainNavbar from '../views/layout/MainNavbar.vue';
+import MainFooter from '../views/layout/MainFooter.vue';
 
 import Sign from '../views/User/Sign.vue';
 import ResisterUser from '../views/User/ResisterUser.vue';
