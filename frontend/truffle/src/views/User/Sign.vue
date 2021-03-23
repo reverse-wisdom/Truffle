@@ -14,6 +14,7 @@
             <input type="password" placeholder="Password" />
           </div>
           <input type="submit" value="로그인" class="btn solid" />
+          <naverLogin @loginComplete="login"></naverLogin>
           <p class="social-text">Or Sign in with social platforms</p>
         </form>
         <!-- 회원가입 폼 -->
@@ -53,8 +54,7 @@
         <div class="content">
           <h3>어서오세요 트러플 회원님!</h3>
           <p style="font-size: 0.8rem;">
-            서비스 이용을 위해 로그인을 진행해주세요 서비스 이용을 위해 로그인을 진행해주세요
-            서비스 이용을 위해 로그인을 진행해주세요
+            서비스 이용을 위해 로그인을 진행해주세요 서비스 이용을 위해 로그인을 진행해주세요 서비스 이용을 위해 로그인을 진행해주세요
           </p>
           <p style="font-size:10px; margin-bottom: -1rem;">계정이 없으신가요?</p>
           <button class="btn transparent" id="sign-up-btn" @click="goSignup">
@@ -67,11 +67,10 @@
         <div class="content">
           <h3>환영합니다!</h3>
           <p>
-            서비스 이용을 위해 회원가입을 진행해주세요 서비스 이용을 위해 회원가입을 진행해주세요
-            서비스 이용을 위해 회원가입을 진행해주세요
+            서비스 이용을 위해 회원가입을 진행해주세요 서비스 이용을 위해 회원가입을 진행해주세요 서비스 이용을 위해 회원가입을 진행해주세요
           </p>
           <p style="font-size:10px; margin-bottom: -1rem;">이미 계정이 있으신가요?</p>
-          <button class="btn transparent" id="sign-in-btn"  @click="goSignin">
+          <button class="btn transparent" id="sign-in-btn" @click="goSignin">
             →SIGN IN
           </button>
         </div>
@@ -83,7 +82,7 @@
 
 <script>
 import { loginUser } from '@/api/auth';
-
+import NaverLogin from '@/components/SocialLogin/NaverLogin.vue';
 export default {
   data() {
     return {
@@ -91,7 +90,27 @@ export default {
       password: '',
     };
   },
+  components: {
+    NaverLogin,
+  },
   methods: {
+    naver() {
+      naverLogin.getLoginStatus(function(status) {
+        console.log(status);
+        if (status) {
+          var email = naverLogin.user.getEmail();
+          if (email == undefined || email == null) {
+            alert('이메일은 필수정보입니다. 정보제공을 동의해주세요.');
+            naverLogin.reprompt();
+          }
+          alert(email); // 로그인 한 이메일 ***@naver.com 이 출력된다.
+          //window.location.replace("http://127.0.0.1/test2.html");
+        } else {
+          console.log('callback 처리에 실패하였습니다.');
+        }
+      });
+    },
+
     async Login() {
       const userData = {
         Id: this.Id,
@@ -127,21 +146,22 @@ export default {
         },
       });
     },
+
     goSignup() {
-      const container = document.querySelector(".container");
-      container.classList.add("sign-up-mode");
-   
+      const container = document.querySelector('.container');
+      container.classList.add('sign-up-mode');
     },
     goSignin() {
-      const container = document.querySelector(".container");
-      container.classList.remove("sign-up-mode");
-    }
+      const container = document.querySelector('.container');
+      container.classList.remove('sign-up-mode');
+    },
+    login() {
+      console.log('네이버 성공');
+    },
   },
 };
 </script>
 <style scoped>
-
-
 * {
   margin: 0;
   padding: 0;
@@ -149,7 +169,7 @@ export default {
 }
 
 input {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 p {
   font-size: 0.2rem;
@@ -166,7 +186,7 @@ p {
   /* overflow: hidden; */
 }
 
-.forms-container { 
+.forms-container {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -249,7 +269,6 @@ form.sign-in-form {
   font-weight: 500;
 }
 
-
 /* .social-icon:hover {
   color: #4481eb;
   border-color: #4481eb;
@@ -287,7 +306,7 @@ form.sign-in-form {
 }
 
 .container:before {
-  content: "";
+  content: '';
   position: absolute;
   height: 2000px;
   width: 2000px;
@@ -341,7 +360,6 @@ form.sign-in-form {
   font-size: 0.95rem;
   padding: 0.7rem 0;
 }
-
 
 .btn.transparent {
   margin: 0;
@@ -546,5 +564,4 @@ form.sign-in-form {
     left: 50%;
   }
 }
-
 </style>
