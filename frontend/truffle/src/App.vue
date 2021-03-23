@@ -1,14 +1,7 @@
 <template>
   <v-app id="app">
     <!-- navbar 위치 -->
-    <div id="nav">
-      <router-link to="/">Home</router-link>
-      |
-      <router-link to="/signin-signup">signin-signup</router-link>
-      |
-      <router-link to="/landing">FullPage</router-link>
-    </div>
-
+    <router-view name="header" />
     <div>
       <router-view />
     </div>
