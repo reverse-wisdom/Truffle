@@ -6,11 +6,11 @@
         <form action="#" class="sign-in-form">
           <h2 class="title">LOGIN</h2>
           <div class="input-field">
-            <em class="fas fa-user"></em>
+            <i class="fas fa-user"></i>
             <input type="text" placeholder="Username" />
           </div>
           <div class="input-field">
-            <em class="fas fa-lock"></em>
+            <i class="fas fa-lock"></i>
             <input type="password" placeholder="Password" />
           </div>
           <input type="submit" value="로그인" class="btn solid" />
@@ -20,7 +20,7 @@
         <form action="#" class="sign-up-form">
           <h2 class="title">Sign up</h2>
           <div class="input-field">
-            <em class="fas fa-user"></em>
+            <i class="fas fa-user"></i>
             <input type="text" placeholder="Username" />
           </div>
           <div class="input-field">
@@ -34,6 +34,7 @@
           <input type="submit" class="btn" value="Sign up" />
           <p class="social-text">Or Sign up with social platforms</p>
         </form>
+
       </div>
     </div>
 
@@ -42,7 +43,8 @@
         <div class="content">
           <h3>어서오세요 트러플 회원님!</h3>
           <p style="font-size: 0.8rem;">
-            서비스 이용을 위해 로그인을 진행해주세요 서비스 이용을 위해 로그인을 진행해주세요 서비스 이용을 위해 로그인을 진행해주세요
+            서비스 이용을 위해 로그인을 진행해주세요 서비스 이용을 위해 로그인을 진행해주세요
+            서비스 이용을 위해 로그인을 진행해주세요
           </p>
           <p style="font-size:10px; margin-bottom: -1rem;">계정이 없으신가요?</p>
           <button class="btn transparent" id="sign-up-btn" @click="goSignup">
@@ -55,10 +57,11 @@
         <div class="content">
           <h3>환영합니다!</h3>
           <p>
-            서비스 이용을 위해 회원가입을 진행해주세요 서비스 이용을 위해 회원가입을 진행해주세요 서비스 이용을 위해 회원가입을 진행해주세요
+            서비스 이용을 위해 회원가입을 진행해주세요 서비스 이용을 위해 회원가입을 진행해주세요
+            서비스 이용을 위해 회원가입을 진행해주세요
           </p>
           <p style="font-size:10px; margin-bottom: -1rem;">이미 계정이 있으신가요?</p>
-          <button class="btn transparent" id="sign-in-btn" @click="goSignin">
+          <button class="btn transparent" id="sign-in-btn"  @click="goSignin">
             →SIGN IN
           </button>
         </div>
@@ -115,17 +118,20 @@ export default {
       });
     },
     goSignup() {
-      const container = document.querySelector('.container');
-      container.classList.add('sign-up-mode');
+      const container = document.querySelector(".container");
+      container.classList.add("sign-up-mode");
+   
     },
     goSignin() {
-      const container = document.querySelector('.container');
-      container.classList.remove('sign-up-mode');
-    },
+      const container = document.querySelector(".container");
+      container.classList.remove("sign-up-mode");
+    }
   },
 };
 </script>
 <style scoped>
+
+
 * {
   margin: 0;
   padding: 0;
@@ -133,7 +139,7 @@ export default {
 }
 
 input {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 p {
   font-size: 0.2rem;
@@ -150,7 +156,7 @@ p {
   overflow: hidden;
 }
 
-.forms-container {
+.forms-container { 
   position: absolute;
   width: 100%;
   height: 100%;
@@ -233,6 +239,7 @@ form.sign-in-form {
   font-weight: 500;
 }
 
+
 /* .social-icon:hover {
   color: #4481eb;
   border-color: #4481eb;
@@ -270,7 +277,7 @@ form.sign-in-form {
 }
 
 .container:before {
-  content: '';
+  content: "";
   position: absolute;
   height: 2000px;
   width: 2000px;
@@ -324,6 +331,7 @@ form.sign-in-form {
   font-size: 0.95rem;
   padding: 0.7rem 0;
 }
+
 
 .btn.transparent {
   margin: 0;
@@ -528,4 +536,5 @@ form.sign-in-form {
     left: 50%;
   }
 }
+
 </style>
