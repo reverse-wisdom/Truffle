@@ -1,18 +1,15 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
+import Main from '../views/Main.vue';
 
-import MainNavbar from '../views/layout/MainNavbar.vue';
-import MainFooter from '../views/layout/MainFooter.vue';
+import MainNavbar from '../views/Layout/MainNavbar.vue';
+import MainFooter from '../views/Layout/MainFooter.vue';
 
-import Sign from '../views/Sign.vue';
-import ResisterUser from '../views/ResisterUser.vue';
-import ResisterRetailer from '../views/ResisterRetailer.vue';
+import Sign from '../views/User/Sign.vue';
+import ResisterUser from '../views/User/ResisterUser.vue';
+import ResisterRetailer from '../views/User/ResisterRetailer.vue';
 import Landing from '../views/Landing.vue';
-import Board from '../views/Board.vue';
-import BoardWrite from '../views/components/board/BoardWrite.vue';
-import BoardDetail from '../views/components/board/BoardDetail.vue';
-import BoardUpdate from '../views/components/board/BoardUpdate.vue';
 
 Vue.use(VueRouter);
 
@@ -21,6 +18,11 @@ const routes = [
     path: '/',
     name: 'Home',
     components: { default: Home, header: MainNavbar, footer: MainFooter },
+  },
+  {
+    path: '/main',
+    name: 'Main',
+    component: Main,
   },
   {
     path: '/landing',
@@ -41,27 +43,6 @@ const routes = [
     path: '/resisterretailer',
     name: 'ResisterRetailer',
     component: ResisterRetailer,
-  },
-  {
-    path: '/board',
-    name: 'Board',
-    components: { default: Board, footer: MainFooter, header: MainNavbar },
-  },
-  {
-    path: '/boardWrite',
-    name: 'BoardWrite',
-    component: BoardWrite,
-  },
-  {
-    path: '/boardDetail',
-    name: 'BoardDetail',
-    component: BoardDetail,
-  },
-
-  {
-    path: '/boardUpdate',
-    name: 'BoardUpdate',
-    component: BoardUpdate,
   },
 ];
 
