@@ -2,9 +2,9 @@
   <v-app id="app">
     <!-- navbar 위치 -->
     <router-view name="header" />
-    <div>
-      <router-view />
-    </div>
+
+    <router-view />
+
     <router-view name="footer" />
   </v-app>
 </template>
