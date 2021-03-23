@@ -2,6 +2,9 @@
 # Created by httpswww.toptal.comdevelopersgitignoreapivscode,windows,python
 # Edit at httpswww.toptal.comdevelopersgitignoretemplates=vscode,windows,python
 
+.vscode
+__pycache__
+
 ### Python ###
 # Byte-compiled  optimized  DLL files
 __pycache__
