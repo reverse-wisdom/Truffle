@@ -3,7 +3,7 @@
     <hr />
     <footer class="footer">
       <div class="container">
-        <div class="copyright">&copy; {{ year }}, made with by Team TruffleMaker for a better web.</div>
+        <div class="copyright">&copy;, made with by Team TruffleMaker for a better web.</div>
         <nav>
           <ul>
             <li>
