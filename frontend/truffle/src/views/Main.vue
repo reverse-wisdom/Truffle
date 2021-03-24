@@ -1,144 +1,83 @@
 <template>
-  <div>
-    <div class="mcontainer projects">
-      <h1>TRUFFLE</h1>
-      <div class="detail">쇼핑에 재미와 신뢰를 더하다</div>
-      <div class="overlay"></div>
-      <v-btn @click="goGuide" class="mainbtn" elevation="2" large outlined text color="white">GUIDE</v-btn>
-      <v-btn @click="goHome" class="mainbtn" elevation="2" large outlined text color="white">HOME</v-btn>
+  <div class="hero">
+    <div class="left-col">
+      <!-- <img src="@/assets/img/side.png" class="menu-icon-1" /> -->
+      <div class="logo">
+        <img src="@/assets/img/logo.jpg" alt="" />
+      </div>
+      <div class="bar"></div>
+    </div>
+    <div class="right-col">
+      <div class="navbar">
+        <img src="" alt="" />
+        <ul>
+          <li>CATEGORY</li>
+          <li>공지사항</li>
+          <li>SIGNUP</li>
+          <li>LOGIN</li>
+          <li>이벤트등록</li>
+          <li>마이페이지</li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {
-  methods: {
-    goGuide() {
-      this.$router.push({ name: 'Guide' });
-    },
-  },
-};
+export default {};
 </script>
 
 <style scoped>
 * {
   margin: 0;
   padding: 0;
-  /* box-sizing: border-box; */
+  font-family: 'Open Sans', sans-serif;
 }
-/* .projects {
-  margin: 0 !important;
-} */
-.mcontainer {
-  min-height: 100vh;
-  position: inherit;
-  width: auto;
-  margin: 0;
+.hero {
   display: flex;
-  background-color: #c2f929;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-}
-
-h1 {
-  font-size: 15rem;
-  color: #fff;
-  transform: translateY(-600px);
-  animation: 2s slideIn ease-in-out forwards 2s;
-  z-index: 10;
-  opacity: 0;
-  letter-spacing: 20px;
-  position: relative;
-}
-.detail {
-  margin-top: 0;
-  margin-bottom: 2rem;
-  font-size: 1rem;
-  font-weight: 900;
-  color: #fff;
-  transform: translateY(600px);
-  animation: 3s slideIn ease-in-out forwards 3s;
-  z-index: 10;
-  opacity: 0;
-  letter-spacing: 15px;
-  position: relative;
-}
-.mainbtn {
-  font-size: 1rem;
-  color: #fff;
-  transform: translateY(600px);
-  animation: 3s slideIn ease-in-out forwards 3s;
-  z-index: 10;
-  opacity: 0;
-  letter-spacing: 10px;
-  position: relative;
-}
-/* h1::before {
-  content: '';
-  width: 0%;
-  height: 76px;
-  background-color: #0f21bd;
-  position: absolute;
-  bottom: -10px;
-  animation: 1s underline ease-in-out forwards 1s;
-  mix-blend-mode: screen;
-} */
-
-.overlay {
-  position: absolute;
   width: 100%;
-  top: 0;
-  bottom: 0;
-  opacity: 0;
-  left: 0;
+  height: 100%;
+}
+.left-col {
+  flex-basis: 30%;
+  background: #3f74fe;
+  height: 100%;
+  position: relative;
+}
+
+.menu-icon-1 {
+  margin: 40px;
+}
+.logo {
+  /* margin-left: 120px; */
+  /* margin-top: 120px; */
+}
+.bar {
+  position: absolute;
+  height: 20px;
+  width: 280px;
+  background: #fff;
+  top: 250px;
   right: 0;
-  background-color: #000;
-  transform: scale(0.5);
-  animation: 2s slideIn ease-in-out forwards, 2s skewBg ease-in-out;
 }
-
-.anim-typewriter {
-  animation: typewriter 4s steps(40) 1s 1 normal both, blinkTextCursor 500ms steps(40) infinite normal;
+.right-col {
+  flex-basis: 70%;
+  background: #f3f33b;
+  height: 100%;
+  position: relative;
 }
-
-@keyframes typewriter {
-  from {
-    width: 0;
-  }
-  to {
-    width: 16em;
-  }
+.navbar {
+  position: absolute;
+  right: 45px;
+  top: 85px;
+  display: flex;
 }
-
-@keyframes blinkTextCursor {
-  from {
-    border-right-color: rgba(255, 255, 255, 0.75);
-  }
-  to {
-    border-right-color: transparent;
-  }
-}
-@keyframes skewBg {
-  0% {
-    transform: scale(0.5);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-@keyframes underline {
-  100% {
-    width: 100%;
-  }
-}
-
-@keyframes slideIn {
-  100% {
-    transform: translateY(0px);
-    opacity: 1;
-  }
+.navbar li {
+  list-style: none;
+  margin: 0 40px;
+  display: inline-block;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
 }
 </style>
