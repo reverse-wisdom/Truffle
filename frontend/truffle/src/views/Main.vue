@@ -1,15 +1,23 @@
 <template>
   <div>
-    <div class="container projects">
+    <div class="mcontainer projects">
       <h1>TRUFFLE</h1>
       <div class="detail">쇼핑에 재미와 신뢰를 더하다</div>
       <div class="overlay"></div>
+      <v-btn @click="goGuide" class="mainbtn" elevation="2" large outlined text color="white">GUIDE</v-btn>
+      <v-btn @click="goHome" class="mainbtn" elevation="2" large outlined text color="white">HOME</v-btn>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    goGuide() {
+      this.$router.push({ name: 'Guide' });
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -21,20 +29,21 @@ export default {};
 /* .projects {
   margin: 0 !important;
 } */
-.container {
+.mcontainer {
   min-height: 100vh;
   position: inherit;
   width: auto;
   margin: 0;
   display: flex;
   background-color: #c2f929;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 h1 {
-  font-size: 10rem;
+  font-size: 15rem;
   color: #fff;
   transform: translateY(-600px);
   animation: 2s slideIn ease-in-out forwards 2s;
@@ -44,6 +53,19 @@ h1 {
   position: relative;
 }
 .detail {
+  margin-top: 0;
+  margin-bottom: 2rem;
+  font-size: 1rem;
+  font-weight: 900;
+  color: #fff;
+  transform: translateY(600px);
+  animation: 3s slideIn ease-in-out forwards 3s;
+  z-index: 10;
+  opacity: 0;
+  letter-spacing: 15px;
+  position: relative;
+}
+.mainbtn {
   font-size: 1rem;
   color: #fff;
   transform: translateY(600px);
@@ -53,7 +75,6 @@ h1 {
   letter-spacing: 10px;
   position: relative;
 }
-
 /* h1::before {
   content: '';
   width: 0%;
