@@ -15,7 +15,13 @@ def main():
             "available on your PYTHONPATH environment variable? Did you "
             "forget to activate a virtual environment?"
         ) from exc
-    execute_from_command_line(sys.argv)
+    parser = argparse.ArgumentParser()
+    parser.add_argument('parameters', metavar='N', type=str, nargs='+', help='parameters')
+    args = parser.parse_args()
+    command = args.parameters
+    command.insert(0,'manage.py')
+    execute_from_command_line(command)
+
 
 
 if __name__ == '__main__':
