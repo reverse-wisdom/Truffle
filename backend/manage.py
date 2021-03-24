@@ -23,6 +23,7 @@ def main():
     command = args.parameters
     command.insert(0,'manage.py')
     execute_from_command_line(command)
+    
 
 if __name__ == '__main__':
     main()
