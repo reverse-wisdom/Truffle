@@ -1,11 +1,14 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
-import Full1 from '../views/Full1.vue';
+
 import Guide from '../views/Guide.vue';
 import Test from '../views/Test.vue';
 import MainNavbar from '../views/layout/MainNavbar.vue';
 import MainFooter from '../views/layout/MainFooter.vue';
+
+import Full1 from '../views/Full1.vue';
+import Item from '../views/Item.vue';
 
 import Sign from '../views/User/Sign.vue';
 import ResisterUser from '../views/User/ResisterUser.vue';
@@ -28,6 +31,11 @@ const routes = [
     path: '/test',
     name: 'Test',
     components: { default: Test, header: MainNavbar, footer: MainFooter },
+  },
+  {
+    path: '/item',
+    name: 'Item',
+    components: { default: Item, footer: MainFooter },
   },
   {
     path: '/full1',

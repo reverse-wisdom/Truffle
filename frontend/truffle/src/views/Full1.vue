@@ -3,7 +3,7 @@
     <div class="left-col">
       <!-- <img src="@/assets/img/side.png" class="menu-icon-1" /> -->
       <div class="logo">
-        <img src="@/assets/img/logo.jpg" alt="" />
+        <img src="@/assets/img/logo1.png" alt="" />
       </div>
       <div class="bar"></div>
     </div>
