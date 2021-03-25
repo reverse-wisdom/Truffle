@@ -3,6 +3,8 @@ import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
 import Main from '../views/Main.vue';
 import Item from '../views/Item.vue';
+import Guide from '../views/Guide.vue';
+import Test from '../views/Test.vue';
 
 import MainNavbar from '../views/layout/MainNavbar.vue';
 import MainFooter from '../views/layout/MainFooter.vue';
@@ -30,6 +32,11 @@ const routes = [
     components: { default: Item, header: MainNavbar, footer: MainFooter },
   },
   {
+    path: '/test',
+    name: 'Test',
+    components: { default: Test, header: MainNavbar, footer: MainFooter },
+  },
+  {
     path: '/main',
     name: 'Main',
     component: Main,
@@ -38,6 +45,11 @@ const routes = [
     path: '/landing',
     name: 'Landing',
     component: Landing,
+  },
+  {
+    path: '/guide',
+    name: 'Guide',
+    component: Guide,
   },
   {
     path: '/signin-signup',
