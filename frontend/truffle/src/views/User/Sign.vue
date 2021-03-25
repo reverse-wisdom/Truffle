@@ -18,14 +18,16 @@
           <p class="social-text">Or Sign in with social platforms</p>
         </form>
         <form action="#" class="sign-up-form">
-          <h2 class="title">Sign up</h2>
-          <div class="input-field">
-            <i class="fas fa-user"></i>
-            <button @click="retailer">리태일러</button>
+          <div class="about">
+            <h1 class="title">Sign up</h1>
           </div>
           <div class="input-field">
             <i class="fas fa-user"></i>
-            <button @click="user">일반회원</button>
+            <button @click="retailer" class="branch-sign">리테일러</button>
+          </div>
+          <div class="input-field">
+            <i class="fas fa-user"></i>
+            <button @click="user" class="branch-sign">일반회원</button>
           </div>
         </form>
       </div>
@@ -551,5 +553,19 @@ form.sign-in-form {
     bottom: 28%;
     left: 50%;
   }
+}
+.about {
+  position: absolute;
+  top: 10%;
+  left: 45%;
+  font-size: 3rem;
+}
+
+.about h1 {
+  font-weight: bolder;
+  color: #000;
+  font-family: Poppins;
+
+  text-transform: uppercase;
 }
 </style>
