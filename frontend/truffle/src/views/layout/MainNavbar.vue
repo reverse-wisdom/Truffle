@@ -4,20 +4,20 @@
       <a class="logo" href="/"><img src="@/assets/img/logo1.png" alt="logo" /></a>
       <nav>
         <ul class="nav__links">
-          <li><a href="/">Home</a></li>
-          <li><a href="/main">Main</a></li>
-          <li><a href="/signin-signup">User</a></li>
-          <li><a href="/guide">Guide</a></li>
-          <li><a href="/board">board</a></li>
-          <li><a href="/item">item</a></li>
-          <li><a href="#">Full1</a></li>
+          <li><a class="font" href="/">Home</a></li>
+          <li><a class="font" href="/main">Main</a></li>
+          <li><a class="font" href="/signin-signup">User</a></li>
+          <li><a class="font" href="/guide">Guide</a></li>
+          <li><a class="font" href="/board">board</a></li>
+          <li><a class="font" href="/item">item</a></li>
+          <li><a class="font" href="#">Full1</a></li>
         </ul>
       </nav>
-      <a class="cta" href="#">Contact</a>
-      <p class="menu cta">Menu</p>
+      <a class="cta" href="/signin-signup">Contact</a>
+      <p class="menu cta" @click="menu">Menu</p>
     </header>
     <div id="mobile__menu" class="overlay">
-      <a class="close">&times;</a>
+      <a class="close" @click="close">&times;</a>
       <div class="overlay__content">
         <a href="#">Services</a>
         <a href="#">Projects</a>
@@ -30,6 +30,21 @@
 <script>
 export default {
   components: {},
+  methods: {
+    menu() {
+      const doc = document;
+      const menuOpen = doc.querySelector('.menu');
+      const overlay = doc.querySelector('.overlay');
+
+      overlay.classList.add('overlay--active');
+    },
+    close() {
+      const doc = document;
+      const menuClose = doc.querySelector('.close');
+      const overlay = doc.querySelector('.overlay');
+      overlay.classList.remove('overlay--active');
+    },
+  },
 };
 </script>
 
@@ -74,29 +89,48 @@ header {
 }
 
 .nav__links li {
-  padding: 0px 20px;
+  padding: 9px 15px;
+  transition: all 0.3s ease 0s;
+  color: #24252a;
+  font-size: 0.8rem;
+}
+
+.nav__links li:hover {
+  padding: 9px 15px;
+  color: #fff;
+  background-color: #381dfc;
+  font-size: 1rem;
 }
 
 .nav__links li a {
   transition: all 0.3s ease 0s;
+  padding: 9px 15px;
+  color: #24252a;
+  /* font-size: 0.8rem; */
 }
 
 .nav__links li a:hover {
-  color: #0088a9;
+  color: #fff;
+  padding: 9px 15px;
+  background-color: #381dfc;
+  /* font-size: 1rem; */
 }
 
 .cta {
   margin-left: 20px;
   padding: 9px 25px;
-  background-color: rgba(0, 136, 169, 1);
   border: none;
-  border-radius: 50px;
+  /* border-radius: 50px */
   cursor: pointer;
   transition: all 0.3s ease 0s;
+  color: rgba(0, 0, 0, 1);
+  font-size: 1rem;
 }
 
 .cta:hover {
-  background-color: rgba(0, 136, 169, 0.8);
+  color: #fff;
+  background-color: #381dfc;
+  font-size: 1.5rem;
 }
 
 /* Mobile Nav */
@@ -142,7 +176,7 @@ header {
 }
 .overlay .close {
   position: absolute;
-  top: 20px;
+  top: 50px;
   right: 45px;
   font-size: 60px;
   color: #edf0f1;
