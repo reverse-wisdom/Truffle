@@ -32,6 +32,7 @@
 
       <div class="right-col">
         <div class="upper">
+          `
           <!-- <div class="about">
             <h1>Quick Menu</h1>
 
@@ -60,7 +61,17 @@
             </div>
           </div> -->
         </div>
-        <div class="upper-block"></div>
+        <div class="upper-block">
+          <div class="wrapper">
+            <div class="left">
+              <div class="inner">ggg</div>
+            </div>
+
+            <div class="right">
+              <div class="inner"></div>
+            </div>
+          </div>
+        </div>
         <div class="bottom">
           <div class="data2"></div>
 
@@ -457,7 +468,7 @@ section::after {
 .bottom {
   position: absolute;
   top: 50%;
-  height: 30vh;
+  height: 40vh;
   width: 100%;
   background: url(../assets/img/bottom.jpg) no-repeat 50% 50%;
   background-size: cover;
@@ -601,7 +612,7 @@ section::after {
   left: 0;
   position: absolute;
   width: 0%;
-  height: 100%;
+  height: 90%;
   background: #de1761;
   animation: rev-block 1.5s cubic-bezier(0.19, 1, 0.22, 1) forwards;
   animation-delay: 2s;
@@ -653,7 +664,7 @@ section::after {
 .block-bottom {
   position: absolute;
   top: 50%;
-  height: 20vh;
+  height: 40vh;
   width: 100%;
 }
 
@@ -664,8 +675,55 @@ section::after {
   position: absolute;
   width: 0%;
   height: 100%;
-  background: #000;
+  background: #6b4ee6;
   animation: rev-block 1.5s cubic-bezier(0.19, 1, 0.22, 1) forwards;
   animation-delay: 3.6s;
+}
+
+/* button */
+.wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.left,
+.right {
+  width: 55%;
+  height: 100%;
+  top: 0;
+  transform: skewX(-8deg);
+  overflow: hidden;
+}
+
+.left {
+  position: relative;
+  left: -5%;
+}
+.left:hover {
+  position: relative;
+  left: -5%;
+  background-color: #000;
+}
+.right {
+  position: absolute;
+  right: -5%;
+}
+.left .inner,
+.right .inner {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  transform: skewX(8deg);
+}
+.left .inner {
+  background-color: #000;
+
+  /* background-image: url(../assets/img/model_1.png); */
+  margin-left: 9.2%;
+}
+.right .inner {
+  background-image: url(../assets/img/sunglass.jpg);
+  margin-left: -9%;
 }
 </style>
