@@ -293,6 +293,7 @@ section {
   min-height: 100vh;
   /* background: #232323; */
   overflow: hidden;
+  z-index: 10;
 }
 section::before {
   content: '';
@@ -312,7 +313,7 @@ section::after {
 }
 .container {
   position: relative;
-  z-index: 5;
+  z-index: 0;
   display: flex;
   justify-content: center;
   align-items: center;
