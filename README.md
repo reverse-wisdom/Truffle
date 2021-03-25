@@ -100,7 +100,6 @@ gantt
     dateFormat  YYYY-MM-DD
     title       Truffle
     excludes    weekends
-    %% (`excludes` accepts specific dates in YYYY-MM-DD format, days of the week ("sunday") or "weekends", but not the word "weekdays".)
 
     section 준비/기획(SUB-PRJ-1,2)
     특화프로젝트 팀구성 :done, 2021-03-01,1d
