@@ -11,10 +11,10 @@
         </form>
 
         <div class="btn-right">
-          <v-btn color="rgb(68, 114, 148)" dark type="submit" @click="writeContent">
+          <v-btn color="#000" dark type="submit" @click="writeContent">
             등록
           </v-btn>
-          <v-btn color="rgb(68, 114, 148)" class="ml-1" dark type="button" @click="moveList">
+          <v-btn color="#000" class="ml-1" dark type="button" @click="moveList">
             뒤로가기
           </v-btn>
         </div>

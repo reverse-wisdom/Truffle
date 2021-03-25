@@ -5,7 +5,7 @@
       <div class="detail">쇼핑에 재미와 신뢰를 더하다</div>
       <div class="overlay"></div>
       <v-btn @click="goGuide" class="mainbtn" elevation="2" large outlined text color="white">GUIDE</v-btn>
-      <v-btn @click="goHome" class="mainbtn" elevation="2" large outlined text color="white">MAIN</v-btn>
+      <v-btn @click="goMain" class="mainbtn" elevation="2" large outlined text color="white">MAIN</v-btn>
       <v-btn @click="goTest" class="mainbtn" elevation="2" large outlined text color="white">TEST</v-btn>
     </div>
   </div>
@@ -17,9 +17,9 @@ export default {
     goGuide() {
       this.$router.push({ name: 'Guide' });
     },
-    // goHome() {
-    //   this.$router.push({ name: '' });
-    // },
+    goMain() {
+      this.$router.push({ name: 'Main' });
+    },
     goTest() {
       this.$router.push({ name: 'Test' });
     },
@@ -42,7 +42,7 @@ export default {
   width: auto;
   margin: 0;
   display: flex;
-  background-color: #c2f929;
+  background-color: #6b3ee6;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -75,6 +75,17 @@ h1 {
 .mainbtn {
   font-size: 1rem;
   color: #fff;
+  transform: translateY(600px);
+  animation: 3s slideIn ease-in-out forwards 3s;
+  z-index: 10;
+  opacity: 0;
+  letter-spacing: 10px;
+  position: relative;
+}
+.mainbtn:hover {
+  font-size: 1rem;
+  color: #fff;
+  background-color: #2bbef2;
   transform: translateY(600px);
   animation: 3s slideIn ease-in-out forwards 3s;
   z-index: 10;

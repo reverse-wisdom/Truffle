@@ -5,11 +5,11 @@
       <nav>
         <ul class="nav__links">
           <li><a class="font" href="/">Home</a></li>
-          <li><a class="font" href="/main">Main</a></li>
+
           <li><a class="font" href="/signin-signup">User</a></li>
           <li><a class="font" href="/guide">Guide</a></li>
           <li><a class="font" href="/board">board</a></li>
-          <li><a class="font" href="/item">item</a></li>
+          <!-- <li><a class="font" href="/item">item</a></li> -->
           <li><a class="font" href="#">Full1</a></li>
         </ul>
       </nav>
