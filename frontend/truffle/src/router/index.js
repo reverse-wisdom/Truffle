@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
-import Main from '../views/Main.vue';
+import Full1 from '../views/Full1.vue';
 import Guide from '../views/Guide.vue';
 import Test from '../views/Test.vue';
 import MainNavbar from '../views/layout/MainNavbar.vue';
@@ -22,7 +22,7 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    components: { default: Home, header: MainNavbar, footer: MainFooter },
+    components: { default: Home },
   },
   {
     path: '/test',
@@ -30,9 +30,9 @@ const routes = [
     components: { default: Test, header: MainNavbar, footer: MainFooter },
   },
   {
-    path: '/main',
-    name: 'Main',
-    component: Main,
+    path: '/full1',
+    name: 'Full1',
+    components: { default: Full1 },
   },
   {
     path: '/landing',
