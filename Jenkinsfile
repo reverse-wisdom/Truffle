@@ -42,7 +42,7 @@ pipeline {
                 sh 'docker run -d --name base-pjt-front \
                 -p 80:80 \
                 -p 443:443 \
-                -v /home/ubuntu/keys/:./keys/ \
+                -v /home/ubuntu/keys/:/var/jenkins_home/workspace/truffle_deploy/keys/ \
                 --network truffleProxy \
                 base-pjt-front:latest'
                 // sh 'docker run -d --name <back-image-name> \
