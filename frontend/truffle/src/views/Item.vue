@@ -16,12 +16,12 @@
         </div>
 
         <div class="data">
-          <div class="album-name">
-            <p id="name">Kinda like it</p>
+          <div class="left-name">
+            <p id="name">공정한 기회와 편의를 제공해드리는.</p>
           </div>
 
-          <div class="album-artist">
-            <p id="artist">Freak like me</p>
+          <div class="left-title">
+            <h1>truffle MAKER</h1>
           </div>
         </div>
 
@@ -32,19 +32,20 @@
 
       <div class="right-col">
         <div class="upper">
-          <div class="about">
-            <h1>Song info</h1>
-            <div class="album-name2">
+          <!-- <div class="about">
+            <h1>Quick Menu</h1>
+
+            <div class="left-name2">
               <p>
-                <ion-icon name="radio"></ion-icon>
+                <ion-icon name="add-circle-outline"></ion-icon>
                 &nbsp;
                 <span>Kinda like it</span>
               </p>
             </div>
 
-            <div class="album-artist2">
+            <div class="left-title2">
               <p>
-                <ion-icon name="person"></ion-icon>
+                <ion-icon name="add-circle-outline"></ion-icon>
                 &nbsp;
                 <span>Freak Like Me</span>
               </p>
@@ -52,44 +53,18 @@
 
             <div class="album-genre2">
               <p>
-                <ion-icon name="musical-notes"></ion-icon>
+                <ion-icon name="add-circle-outline"></ion-icon>
                 &nbsp;
                 <span>Alternative</span>
               </p>
             </div>
-
-            <div class="media">
-              <p>Share now :</p>
-
-              <ul>
-                <li><ion-icon name="logo-facebook"></ion-icon></li>
-                <li><ion-icon name="logo-instagram"></ion-icon></li>
-                <li><ion-icon name="logo-twitter"></ion-icon></li>
-                <li><ion-icon name="logo-whatsapp"></ion-icon></li>
-              </ul>
-            </div>
-          </div>
+          </div> -->
         </div>
         <div class="upper-block"></div>
-
         <div class="bottom">
-          <div class="next">
-            <ion-icon name="fastforward"></ion-icon>
-          </div>
+          <div class="data2"></div>
 
-          <div class="data2">
-            <div class="album-name3">
-              <p id="name">Think about it</p>
-            </div>
-
-            <div class="album-artist3">
-              <p id="artist">Vhyce alven</p>
-            </div>
-          </div>
-
-          <div class="more">
-            <p id="more">More like this</p>
-          </div>
+          <div class="more"></div>
         </div>
         <div class="block-bottom"></div>
       </div>
@@ -183,14 +158,14 @@ TweenMax.from('.year', 2, {
   ease: Expo.easeInOut,
 });
 
-TweenMax.from('.album-name', 2, {
+TweenMax.from('.left-name', 2, {
   delay: 2.4,
   y: 20,
   opacity: 0,
   ease: Expo.easeInOut,
 });
 
-TweenMax.from('.album-artist', 2, {
+TweenMax.from('.left-title', 2, {
   delay: 2.6,
   y: 20,
   opacity: 0,
@@ -204,14 +179,14 @@ TweenMax.from('.about h1', 2, {
   ease: Expo.easeInOut,
 });
 
-TweenMax.from('.album-name2', 2, {
+TweenMax.from('.left-name2', 2, {
   delay: 3.2,
   y: 20,
   opacity: 0,
   ease: Expo.easeInOut,
 });
 
-TweenMax.from('.album-artist2', 2, {
+TweenMax.from('.left-title2', 2, {
   delay: 3.4,
   y: 20,
   opacity: 0,
@@ -219,13 +194,6 @@ TweenMax.from('.album-artist2', 2, {
 });
 
 TweenMax.from('.album-genre2', 2, {
-  delay: 3.6,
-  y: 20,
-  opacity: 0,
-  ease: Expo.easeInOut,
-});
-
-TweenMax.from('.media p', 2, {
   delay: 3.6,
   y: 20,
   opacity: 0,
@@ -244,14 +212,14 @@ TweenMax.staggerFrom(
   0.1
 );
 
-TweenMax.from('.album-name3', 2, {
+TweenMax.from('.left-name3', 2, {
   delay: 4,
   y: 20,
   opacity: 0,
   ease: Expo.easeInOut,
 });
 
-TweenMax.from('.album-artist3', 2, {
+TweenMax.from('.left-title3', 2, {
   delay: 4.2,
   y: 20,
   opacity: 0,
@@ -466,30 +434,31 @@ section::after {
   height: 100vh;
 }
 
-.left-col {
+/* .left-col {
   background: #d45b48;
-}
+} */
 
 .right-col {
   left: 50%;
 }
 
-.upper {
+/* .upper {
   position: absolute;
+  top: 8%;
   width: 100%;
   height: 50vh;
-  background: #4f4538;
+  background: #000;
   opacity: 0;
   animation: appear-text 0.0001s linear forwards;
   animation-delay: 3s;
-}
+} */
 
 .bottom {
   position: absolute;
   top: 50%;
-  height: 50vh;
+  height: 30vh;
   width: 100%;
-  background: url(../assets/img/next-cover.jpg) no-repeat 50% 50%;
+  background: url(../assets/img/bottom.jpg) no-repeat 50% 50%;
   background-size: cover;
   opacity: 0;
   animation: appear-text 0.0001s linear forwards;
@@ -540,11 +509,11 @@ section::after {
 .cover {
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: 70%;
   transform: translate(-50%, -50%);
-  width: 45%;
-  height: 50%;
-  background: url(../assets/img/album-art.jpg) no-repeat 50% 50%;
+  width: 60%;
+  height: 70%;
+  background: url(../assets/img/women.jpg) no-repeat 50% 50%;
   background-size: cover;
   opacity: 0;
   animation: appear-text 0.0001s linear forwards;
@@ -554,9 +523,9 @@ section::after {
 .data {
   position: absolute;
   top: 36%;
-  left: 33%;
+  left: 30%;
   transform: translate(-50%, -50%);
-  color: #cdbba5;
+  color: #000;
   font-family: Poppins;
   text-transform: uppercase;
   letter-spacing: 4px;
@@ -592,31 +561,22 @@ section::after {
 
 .about h1 {
   font-weight: bolder;
-  color: #6f6457;
+  color: #e1ea35;
   font-family: Poppins;
   text-transform: uppercase;
 }
 
 .about p {
-  color: #bcac98;
+  color: #fff;
   font-family: Poppins;
   text-transform: uppercase;
   letter-spacing: 4px;
-  font-size: 10px;
+  font-size: 1rem;
   cursor: pointer;
-}
-
-.about span:hover {
-  text-decoration: underline;
 }
 
 .media {
   margin-top: 40px;
-}
-
-.media p {
-  color: #6f6457;
-  margin-bottom: 0;
 }
 
 .media ul {
@@ -625,46 +585,13 @@ section::after {
   left: -24%;
 }
 
-.media ul li {
-  display: inline-block;
-  color: #bcac98;
-  padding-right: 10px;
-}
-
-.next {
-  position: absolute;
-  top: 24%;
-  left: 16%;
-}
-
-.data2 {
-  position: absolute;
-  top: 12%;
-  left: 28%;
-  color: #cdbba5;
-  font-family: Poppins;
-  text-transform: uppercase;
-  letter-spacing: 4px;
-}
-
-.more {
-  position: absolute;
-  top: 80%;
-  left: 10%;
-  font-size: 15px;
-  color: #f4c8ad;
-  text-transform: uppercase;
-  font-family: Poppins;
-  text-decoration: underline;
-}
-
 .block-cover {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 45%;
-  height: 50%;
+  width: 100%;
+  height: 100%;
 }
 
 .block-cover::after {
@@ -674,10 +601,11 @@ section::after {
   position: absolute;
   width: 0%;
   height: 100%;
-  background: #4f4538;
+  background: #de1761;
   animation: rev-block 1.5s cubic-bezier(0.19, 1, 0.22, 1) forwards;
   animation-delay: 2s;
 }
+/* button */
 
 @keyframes rev-block {
   0% {
@@ -716,7 +644,7 @@ section::after {
   position: absolute;
   width: 0%;
   height: 100%;
-  background: #9a8b78;
+  background: #65d5e8;
   animation: rev-block 1.5s cubic-bezier(0.19, 1, 0.22, 1) forwards;
   animation-delay: 2.4s;
 }
@@ -724,7 +652,7 @@ section::after {
 .block-bottom {
   position: absolute;
   top: 50%;
-  height: 50vh;
+  height: 20vh;
   width: 100%;
 }
 

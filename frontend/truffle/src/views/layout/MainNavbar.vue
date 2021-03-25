@@ -10,6 +10,8 @@
     |
     <router-link to="/board">board</router-link>
     |
+    <router-link to="/item">item</router-link>
+    |
     <router-link to="/full1">Full1</router-link>
   </div>
 </template>
