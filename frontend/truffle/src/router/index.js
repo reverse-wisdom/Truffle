@@ -4,7 +4,7 @@ import Home from '../views/Home.vue';
 
 import Guide from '../views/Guide.vue';
 import Test from '../views/Test.vue';
-import Item from '../views/Item.vue';
+import Main from '../views/Main.vue';
 
 import MainNavbar from '../views/layout/MainNavbar.vue';
 import MainFooter from '../views/layout/MainFooter.vue';
@@ -28,20 +28,16 @@ const routes = [
     name: 'Home',
     components: { default: Home },
   },
-  {
-    path: '/item',
-    name: 'Item',
-    components: { default: Item, header: MainNavbar, footer: MainFooter },
-  },
+
   {
     path: '/test',
     name: 'Test',
     components: { default: Test, header: MainNavbar, footer: MainFooter },
   },
   {
-    path: '/item',
-    name: 'Item',
-    components: { default: Item, footer: MainFooter },
+    path: '/main',
+    name: 'Main',
+    components: { default: Main, header: MainNavbar, footer: MainFooter },
   },
   {
     path: '/full1',
@@ -81,12 +77,12 @@ const routes = [
   {
     path: '/boardWrite',
     name: 'BoardWrite',
-    component: BoardWrite,
+    components: { default: BoardWrite, footer: MainFooter, header: MainNavbar },
   },
   {
     path: '/boardDetail',
     name: 'BoardDetail',
-    component: BoardDetail,
+    components: { default: BoardDetail, footer: MainFooter, header: MainNavbar },
   },
 
   {

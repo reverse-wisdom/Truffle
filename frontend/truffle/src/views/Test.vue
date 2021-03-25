@@ -1,8 +1,9 @@
 <template>
   <!-- 현재 Home은 테스트 페이지 입니다. -->
   <div class="test">
-    <img alt="Vue logo" src="../assets/img/face.jpg" />
+    <img alt="Vue logo" src="../assets/img/face.jpg" width="400px" height="500px" />
     <br />
+    <h2 style="font-weight: 900">이곳은 테스트페이지 입니다!</h2>
     <v-btn depressed color="primary" @click="sweetalertTest1">sweetalert test1</v-btn>
     <br />
     <v-btn depressed color="primary" @click="sweetalertTest2">sweetalert test2</v-btn>

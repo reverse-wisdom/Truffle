@@ -10,7 +10,7 @@
         <v-data-table :headers="headers" :items="values" :search="search" @click:row="detailPage" class="elevation-1"></v-data-table>
       </v-card>
       <div class="btn-right">
-        <v-btn class="md-dense md-raised mt-3" style="background-color: rgb(21, 52, 80); color: white;" @click="writePage">글쓰기</v-btn>
+        <v-btn class="md-dense md-raised mt-3" style="background-color: #381dfc; color: white; font-weight: 1200;" @click="writePage">글쓰기</v-btn>
       </div>
     </v-container>
   </div>
