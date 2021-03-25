@@ -4,6 +4,7 @@ import Home from '../views/Home.vue';
 import Full1 from '../views/Full1.vue';
 import Guide from '../views/Guide.vue';
 import Test from '../views/Test.vue';
+import Item from '../views/Item.vue';
 
 import MainNavbar from '../views/layout/MainNavbar.vue';
 import MainFooter from '../views/layout/MainFooter.vue';
