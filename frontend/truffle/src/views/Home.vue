@@ -6,7 +6,7 @@
       <div class="overlay"></div>
       <v-btn @click="goGuide" class="mainbtn" elevation="2" large outlined text color="white">GUIDE</v-btn>
       <v-btn @click="goHome" class="mainbtn" elevation="2" large outlined text color="white">MAIN</v-btn>
-      <v-btn @click="goHome" class="mainbtn" elevation="2" large outlined text color="white">TEST</v-btn>
+      <v-btn @click="goTest" class="mainbtn" elevation="2" large outlined text color="white">TEST</v-btn>
     </div>
   </div>
 </template>
@@ -17,9 +17,9 @@ export default {
     goGuide() {
       this.$router.push({ name: 'Guide' });
     },
-    goHome() {
-      this.$router.push({ name: 'Main' });
-    },
+    // goHome() {
+    //   this.$router.push({ name: '' });
+    // },
     goTest() {
       this.$router.push({ name: 'Test' });
     },
