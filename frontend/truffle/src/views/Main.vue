@@ -38,7 +38,7 @@
                   <img src="1.jpg" alt="" />
                   <div class="post-s">
                     <h2>
-                      Hover Test
+                      HOVER TEST
                     </h2>
                   </div>
                 </div>
@@ -534,19 +534,6 @@ section::after {
   font-size: 10px;
 }
 
-.play,
-.next ion-icon {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: #fff;
-  opacity: 0.6;
-  border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  padding: 2em;
-}
-
 .about {
   position: absolute;
   top: 40%;
@@ -705,18 +692,18 @@ section::after {
 }
 .left .inner {
   transition: 0.5s ease-in-out;
-  background-color: #000;
+  background-color: #2bbef2;
   color: #fff;
   margin-left: 8.5%;
 }
 .left .inner:hover {
-  background-color: rgb(153, 31, 31);
+  background-color: #2bbef2;
   color: #fff;
   margin-left: 8.5%;
 }
 .left .inner p {
   position: relative;
-  top: 70%;
+  top: 55%;
   color: #fff;
 }
 .right .inner {
@@ -726,6 +713,7 @@ section::after {
   height: 100%;
   position: relative;
   cursor: pointer;
+  top: 15%;
 }
 .post:hover .post-s {
   width: 600px;
@@ -737,10 +725,10 @@ section::after {
 }
 .post-s {
   width: 0px;
-  height: 100%;
-  background: rgba(103, 58, 183, 0.71);
+  height: 400px;
+  background: #ea37a3;
   position: absolute;
-  top: 10%;
+  top: 0;
   display: flex;
   /* justify-content: center; */
   align-items: center;
