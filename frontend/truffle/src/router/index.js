@@ -4,6 +4,8 @@ import Home from '../views/Home.vue';
 
 import Guide from '../views/Guide.vue';
 import Test from '../views/Test.vue';
+import Item from '../views/Item.vue';
+
 import MainNavbar from '../views/layout/MainNavbar.vue';
 import MainFooter from '../views/layout/MainFooter.vue';
 
@@ -26,6 +28,11 @@ const routes = [
     path: '/',
     name: 'Home',
     components: { default: Home },
+  },
+  {
+    path: '/item',
+    name: 'Item',
+    components: { default: Item, header: MainNavbar, footer: MainFooter },
   },
   {
     path: '/test',
