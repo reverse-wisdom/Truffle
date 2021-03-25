@@ -41,15 +41,15 @@ export default {
   },
   async mounted() {
     // const { data } = await fetchBoardList();
-    for (let i = 0; i < data.length; i++) {
-      this.values.push({
-        boardId: data[i].boardId,
-        category: data[i].category,
-        name: data[i].name,
-        title: data[i].title,
-        uploadDate: this.$moment(data[i].uploadDate).format('llll'),
-      });
-    }
+    // for (let i = 0; i < data.length; i++) {
+    //   this.values.push({
+    //     boardId: data[i].boardId,
+    //     category: data[i].category,
+    //     name: data[i].name,
+    //     title: data[i].title,
+    //     uploadDate: this.$moment(data[i].uploadDate).format('llll'),
+    //   });
+    // }
   },
   methods: {
     writePage() {

@@ -1,10 +1,15 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
-import Main from '../views/Main.vue';
+
+import Guide from '../views/Guide.vue';
+import Test from '../views/Test.vue';
+import Item from '../views/Item.vue';
 
 import MainNavbar from '../views/layout/MainNavbar.vue';
 import MainFooter from '../views/layout/MainFooter.vue';
+
+import Full1 from '../views/Full1.vue';
 
 import Sign from '../views/User/Sign.vue';
 import ResisterUser from '../views/User/ResisterUser.vue';
@@ -21,17 +26,37 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    components: { default: Home, header: MainNavbar, footer: MainFooter },
+    components: { default: Home },
   },
   {
-    path: '/main',
-    name: 'Main',
-    component: Main,
+    path: '/item',
+    name: 'Item',
+    components: { default: Item, header: MainNavbar, footer: MainFooter },
+  },
+  {
+    path: '/test',
+    name: 'Test',
+    components: { default: Test, header: MainNavbar, footer: MainFooter },
+  },
+  {
+    path: '/item',
+    name: 'Item',
+    components: { default: Item, footer: MainFooter },
+  },
+  {
+    path: '/full1',
+    name: 'Full1',
+    components: { default: Full1 },
   },
   {
     path: '/landing',
     name: 'Landing',
     component: Landing,
+  },
+  {
+    path: '/guide',
+    name: 'Guide',
+    component: Guide,
   },
   {
     path: '/signin-signup',
