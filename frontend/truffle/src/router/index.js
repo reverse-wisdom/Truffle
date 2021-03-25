@@ -10,7 +10,6 @@ import MainNavbar from '../views/layout/MainNavbar.vue';
 import MainFooter from '../views/layout/MainFooter.vue';
 
 import Full1 from '../views/Full1.vue';
-import Item from '../views/Item.vue';
 
 import Sign from '../views/User/Sign.vue';
 import ResisterUser from '../views/User/ResisterUser.vue';
