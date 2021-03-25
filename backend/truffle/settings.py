@@ -25,7 +25,7 @@ SECRET_KEY = '&9subw)5*)6b9$ui*80k@bi!mp0-c+(ejzqcn)$2g!n!&ct)_('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -73,7 +73,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'truffle.wsgi.application'
+# WSGI_APPLICATION = 'truffle.wsgi.application'
 
 
 # Database
