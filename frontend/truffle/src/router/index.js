@@ -62,12 +62,12 @@ const routes = [
   {
     path: '/resisteruser',
     name: 'ResisterUser',
-    component: ResisterUser,
+    components: { default: ResisterUser, header: MainNavbar },
   },
   {
     path: '/resisterretailer',
     name: 'ResisterRetailer',
-    component: ResisterRetailer,
+    components: { default: ResisterRetailer, header: MainNavbar },
   },
   {
     path: '/board',
