@@ -7,8 +7,6 @@
       </v-carousel> -->
     <div class="container1">
       <div class="left-col">
-        <div class="year">EST 1994</div>
-
         <div class="cover">
           <div class="play">
             <ion-icon name="play"></ion-icon>
@@ -40,7 +38,7 @@
                   <img src="1.jpg" alt="" />
                   <div class="post-s">
                     <h2>
-                      Hover
+                      Hover Test
                     </h2>
                   </div>
                 </div>
@@ -718,14 +716,14 @@ section::after {
 }
 .left .inner p {
   position: relative;
-  top: 55%;
+  top: 70%;
   color: #fff;
 }
 .right .inner {
 }
 .post {
   width: 600px;
-  height: 400px;
+  height: 100%;
   position: relative;
   cursor: pointer;
 }
@@ -735,14 +733,14 @@ section::after {
 .post img {
   display: block;
   width: 600px;
-  height: 400px;
+  height: 100%;
 }
 .post-s {
   width: 0px;
-  height: 400px;
+  height: 100%;
   background: rgba(103, 58, 183, 0.71);
   position: absolute;
-  top: 0;
+  top: 10%;
   display: flex;
   /* justify-content: center; */
   align-items: center;
