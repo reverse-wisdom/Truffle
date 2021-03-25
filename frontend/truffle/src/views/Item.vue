@@ -31,42 +31,21 @@
       </div>
 
       <div class="right-col">
-        <div class="upper">
-          `
-          <!-- <div class="about">
-            <h1>Quick Menu</h1>
-
-            <div class="left-name2">
-              <p>
-                <ion-icon name="add-circle-outline"></ion-icon>
-                &nbsp;
-                <span>Kinda like it</span>
-              </p>
-            </div>
-
-            <div class="left-title2">
-              <p>
-                <ion-icon name="add-circle-outline"></ion-icon>
-                &nbsp;
-                <span>Freak Like Me</span>
-              </p>
-            </div>
-
-            <div class="album-genre2">
-              <p>
-                <ion-icon name="add-circle-outline"></ion-icon>
-                &nbsp;
-                <span>Alternative</span>
-              </p>
-            </div>
-          </div> -->
-        </div>
+        <div class="upper"></div>
         <div class="upper-block">
           <div class="wrapper">
             <div class="left">
-              <div class="inner">ggg</div>
+              <div class="inner">
+                <div class="post">
+                  <img src="1.jpg" alt="" />
+                  <div class="post-s">
+                    <h2>
+                      Hover
+                    </h2>
+                  </div>
+                </div>
+              </div>
             </div>
-
             <div class="right">
               <div class="inner"></div>
             </div>
@@ -81,6 +60,7 @@
       </div>
     </div>
     <div class="space"></div>
+
     <v-container class="">
       <section>
         <div class="container">
@@ -293,27 +273,31 @@ section {
   min-height: 100vh;
   /* background: #232323; */
   overflow: hidden;
-  z-index: 10;
+  z-index: 0;
 }
 section::before {
   content: '';
   position: fixed;
-  top: 0;
+  /* top: 0; */
   left: 0;
   width: 100%;
   height: 80%;
+  z-index: 0;
 }
 section::after {
   content: '';
   position: fixed;
-  top: 0;
+  /* top: 0; */
   left: 0;
   width: 100%;
   height: 80%;
+  z-index: 0;
+}
+.container1 {
 }
 .container {
   position: relative;
-  z-index: 0;
+  z-index: 5;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -454,16 +438,17 @@ section::after {
   left: 50%;
 }
 
-/* .upper {
+.upper {
   position: absolute;
   top: 8%;
   width: 100%;
-  height: 50vh;
-  background: #000;
+  height: 42.1vh;
+  background: url(../assets/img/sunglass1.jpg) no-repeat 50% 50%;
+  background-size: cover;
   opacity: 0;
   animation: appear-text 0.0001s linear forwards;
   animation-delay: 3s;
-} */
+}
 
 .bottom {
   position: absolute;
@@ -688,7 +673,7 @@ section::after {
 }
 .left,
 .right {
-  width: 55%;
+  width: 60%;
   height: 100%;
   top: 0;
   transform: skewX(-8deg);
@@ -698,12 +683,14 @@ section::after {
 .left {
   position: relative;
   left: -5%;
+  color: #fff;
+  animation: appear-text 0.0001s linear forwards;
+  animation-delay: 2.6s;
+  opacity: 0;
+  transition: 0.5s ease-in-out;
+  z-index: 3;
 }
-.left:hover {
-  position: relative;
-  left: -5%;
-  background-color: #000;
-}
+
 .right {
   position: absolute;
   right: -5%;
@@ -715,15 +702,59 @@ section::after {
   background-size: cover;
   background-repeat: no-repeat;
   transform: skewX(8deg);
+  color: #fff;
+  font-weight: bolder;
 }
 .left .inner {
+  transition: 0.5s ease-in-out;
   background-color: #000;
-
-  /* background-image: url(../assets/img/model_1.png); */
-  margin-left: 9.2%;
+  color: #fff;
+  margin-left: 8.5%;
+}
+.left .inner:hover {
+  background-color: rgb(153, 31, 31);
+  color: #fff;
+  margin-left: 8.5%;
+}
+.left .inner p {
+  position: relative;
+  top: 55%;
+  color: #fff;
 }
 .right .inner {
-  background-image: url(../assets/img/sunglass.jpg);
-  margin-left: -9%;
+}
+.post {
+  width: 600px;
+  height: 400px;
+  position: relative;
+  cursor: pointer;
+}
+.post:hover .post-s {
+  width: 600px;
+}
+.post img {
+  display: block;
+  width: 600px;
+  height: 400px;
+}
+.post-s {
+  width: 0px;
+  height: 400px;
+  background: rgba(103, 58, 183, 0.71);
+  position: absolute;
+  top: 0;
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  overflow: hidden;
+  transition: 0.7s ease;
+  background-size: cover;
+}
+.post-s h2 {
+  color: white;
+  font-size: auto;
+  border: 6px solid white;
+  padding: 10px 10px;
+  margin-left: 10vw;
 }
 </style>
