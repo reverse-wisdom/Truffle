@@ -26,9 +26,9 @@
       </table>
 
       <div style="text-align:right">
-        <v-btn color="rgb(33,133,89)" class="mr-1" dark @click="updatePage(value)">수정</v-btn>
-        <v-btn color="#e52b50" class="mr-1" dark @click="deletePage()">삭제</v-btn>
-        <v-btn color="rgb(68, 114, 148)" dark @click="moveBoard()">뒤로가기</v-btn>
+        <v-btn color="#2bbef2" class="mr-1" dark @click="updatePage(value)">수정</v-btn>
+        <v-btn color="#ea37a3" class="mr-1" dark @click="deletePage()">삭제</v-btn>
+        <v-btn color="#000" dark @click="moveBoard()">뒤로가기</v-btn>
       </div>
     </v-container>
   </div>
@@ -83,13 +83,13 @@ export default {
 
 .styled-table {
   border-collapse: collapse;
-  margin: 25px 0;
+  margin: 10% 0;
   font-size: 0.9em;
   min-width: 400px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 .styled-table th {
-  background-color: rgb(68, 114, 148);
+  background-color: #000;
   color: #ffffff;
   width: 10rem;
   text-align: center;
