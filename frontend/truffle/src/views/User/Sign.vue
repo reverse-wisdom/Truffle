@@ -17,33 +17,15 @@
           <naverLogin @loginComplete="login"></naverLogin>
           <p class="social-text">Or Sign in with social platforms</p>
         </form>
-        <!-- 회원가입 폼 -->
-        <!-- <form action="#" class="sign-up-form">
-          <h2 class="title">Sign up</h2>
-          <div class="input-field">
-            <i class="fas fa-user"></i>
-            <input type="text" placeholder="Username" />
-          </div>
-          <div class="input-field">
-            <i class="fas fa-envelope"></i>
-            <input type="email" placeholder="Email" />
-          </div>
-          <div class="input-field">
-            <i class="fas fa-lock"></i>
-            <input type="password" placeholder="Password" />
-          </div>
-          <input type="submit" class="btn" value="Sign up" />
-          <p class="social-text">Or Sign up with social platforms</p>
-        </form> -->
         <form action="#" class="sign-up-form">
           <h2 class="title">Sign up</h2>
           <div class="input-field">
             <i class="fas fa-user"></i>
-            <router-link to="/resisterretailer">리테일러</router-link>
+            <button @click="retailer">리태일러</button>
           </div>
           <div class="input-field">
             <i class="fas fa-user"></i>
-            <router-link to="/resisteruser">일반고객</router-link>
+            <button @click="user">일반회원</button>
           </div>
         </form>
       </div>
@@ -116,7 +98,7 @@ export default {
         Id: this.Id,
         password: this.password,
       };
-      const data = await loginUser(userData);
+      // const data = await loginUser(userData);
       console.log(data);
     },
     // 카카오로그인
@@ -157,6 +139,12 @@ export default {
     },
     login() {
       console.log('네이버 성공');
+    },
+    retailer() {
+      this.$router.push({ name: 'ResisterRetailer', query: { name: 'retailer' } });
+    },
+    user() {
+      this.$router.push({ name: 'ResisterUser', query: { name: 'user' } });
     },
   },
 };

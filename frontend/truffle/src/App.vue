@@ -1,3 +1,4 @@
+<!--젠킨스확인용1720 -->
 <template>
   <v-app id="app">
     <!-- navbar 위치 -->
@@ -17,7 +18,7 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
