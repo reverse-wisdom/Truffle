@@ -3,8 +3,8 @@
     <div class="split-screen">
       <div class="left">
         <section class="copy">
-          <h1>Explore your ...</h1>
-          <p>over 1000 courses ....</p>
+          <h1>환영합니다. 리테일러 고객님!</h1>
+          <p>서비스이용을 위해 회원가입을 진행해주세요</p>
         </section>
       </div>
       <div class="right">
@@ -13,45 +13,28 @@
             <h2>Sign Up</h2>
             <div class="login-container">
               <p>
-                Already have an account?
+                이미계정이 있으신가요?
                 <a href="">
-                  <strong>Log In</strong>
+                  <strong>LOGIN</strong>
                 </a>
               </p>
             </div>
           </section>
           <div class="input-container name">
-            <label for="fname">Full name</label>
+            <label for="fname">NICKNAME</label>
             <input id="fname" name="fname" type="text" />
           </div>
           <div class="input-container email">
-            <label for="email">Email</label>
+            <label for="email">E-MAIL</label>
             <input id="email" name="email" type="email" />
           </div>
           <div class="input-container password">
             <label for="password">Password</label>
-            <input id="password" name="password" type="password" placeholder="Must be at least 6 char" />
+            <input id="password" name="password" type="password" placeholder="특수문자를 포함해서 8자이상 작성해주세요" />
             <i class="far fa-eye-slash"></i>
           </div>
-          <div class="input-container cta">
-            <label class="checkbox-container"></label>
-            <input type="checkbox" />
-            <span class="checkmark"></span>
-            Sign up ror email updates.
-          </div>
+          <button class="signup-btn" type="submit">SMS 본인인증</button>
           <button class="signup-btn" type="submit">Sign up</button>
-          <section class="copy legal">
-            <p>
-              <span class="small">
-                by continue, you agree...
-                <br />
-                <a href="#">Privacy Policy</a>
-                &amp;
-                <a href="#">Terms of Service</a>
-                .
-              </span>
-            </p>
-          </section>
         </form>
       </div>
     </div>
@@ -120,7 +103,6 @@ export default {
   font-size: 100%;
   font-size: 16px;
   line-height: 1.5;
-  --primary-blue: #233975;
 }
 .body {
   padding: 0;
@@ -136,9 +118,9 @@ h2 {
   font-size: 1.5rem;
   font-weight: 700;
 }
-a {
+a:link {
   text-decoration: none;
-  color: var(--primary-blue);
+  color: #07b8ac;
 }
 a:hover {
   text-decoration: underline;
@@ -157,6 +139,7 @@ a:hover {
 .left,
 .right {
   display: flex;
+
   justify-content: center;
   align-items: center;
 }
@@ -181,8 +164,8 @@ a:hover {
   margin: 1.5em 0;
   font-size: 0.875rem;
 }
-.rignt form {
-  width: 328px;
+.right form {
+  width: 400px;
 }
 form input[type='text'],
 form input[type='email'],
@@ -258,8 +241,9 @@ label {
 }
 .signup-btn {
   display: block;
+  margin: 10px 0px;
   width: 100%;
-  background: #2c4893;
+  background: #f3118e;
   color: white;
   font-weight: 700;
   border: none;
