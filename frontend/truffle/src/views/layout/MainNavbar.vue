@@ -1,21 +1,168 @@
 <template>
   <div id="nav">
-    <router-link to="/">Home</router-link>
-    |
-    <router-link to="/main">Main</router-link>
-    |
-    <router-link to="/signin-signup">signin-signup</router-link>
-    |
-    <router-link to="/guide">Guide</router-link>
-    |
-    <router-link to="/board">board</router-link>
-    |
-    <router-link to="/full1">Full1</router-link>
+    <header>
+      <a class="logo" href="/"><img src="@/assets/img/logo.jpg" alt="logo" /></a>
+      <nav>
+        <ul class="nav__links">
+          <li><a href="#">Services</a></li>
+          <li><a href="#">Projects</a></li>
+          <li><a href="#">About</a></li>
+        </ul>
+      </nav>
+      <a class="cta" href="#">Contact</a>
+      <p class="menu cta">Menu</p>
+    </header>
+    <div id="mobile__menu" class="overlay">
+      <a class="close">&times;</a>
+      <div class="overlay__content">
+        <a href="#">Services</a>
+        <a href="#">Projects</a>
+        <a href="#">About</a>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  components: {},
+};
 </script>
 
-<style></style>
+<style scoped>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+img {
+  width: 30%;
+}
+
+header {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 10px 5%;
+  background-color: #fff;
+  z-index: 10;
+  position: fixed;
+}
+
+.logo {
+  margin-right: auto;
+  display: flex;
+}
+
+.nav__links {
+  list-style: none;
+  display: flex;
+}
+
+.nav__links a,
+.cta,
+.overlay__content a {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  color: #edf0f1;
+  text-decoration: none;
+}
+
+.nav__links li {
+  padding: 0px 20px;
+}
+
+.nav__links li a {
+  transition: all 0.3s ease 0s;
+}
+
+.nav__links li a:hover {
+  color: #0088a9;
+}
+
+.cta {
+  margin-left: 20px;
+  padding: 9px 25px;
+  background-color: rgba(0, 136, 169, 1);
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+}
+
+.cta:hover {
+  background-color: rgba(0, 136, 169, 0.8);
+}
+
+/* Mobile Nav */
+
+.menu {
+  display: none;
+}
+
+.overlay {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  background-color: #24252a;
+  overflow-x: hidden;
+  transition: all 0.5s ease 0s;
+}
+
+.overlay--active {
+  width: 100%;
+}
+
+.overlay__content {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlay a {
+  padding: 15px;
+  font-size: 36px;
+  display: block;
+  transition: all 0.3s ease 0s;
+}
+
+.overlay a:hover,
+.overlay a:focus {
+  color: #0088a9;
+}
+.overlay .close {
+  position: absolute;
+  top: 20px;
+  right: 45px;
+  font-size: 60px;
+  color: #edf0f1;
+  cursor: pointer;
+}
+
+@media screen and (max-height: 450px) {
+  .overlay a {
+    font-size: 20px;
+  }
+  .overlay .close {
+    font-size: 40px;
+    top: 15px;
+    right: 35px;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .nav__links,
+  .cta {
+    display: none;
+  }
+  .menu {
+    display: initial;
+  }
+}
+</style>
