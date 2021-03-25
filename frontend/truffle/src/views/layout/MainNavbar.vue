@@ -1,25 +1,16 @@
 <template>
   <div id="nav">
-    <router-link to="/">Home</router-link>
-    |
-    <router-link to="/main">Main</router-link>
-    |
-    <router-link to="/signin-signup">signin-signup</router-link>
-    |
-    <router-link to="/guide">Guide</router-link>
-    |
-    <router-link to="/board">board</router-link>
-    |
-    <router-link to="/item">item</router-link>
-    |
-    <router-link to="/full1">Full1</router-link>
     <header>
-      <a class="logo" href="/"><img src="@/assets/img/logo.jpg" alt="logo" /></a>
+      <a class="logo" href="/"><img src="@/assets/img/logo1.png" alt="logo" /></a>
       <nav>
         <ul class="nav__links">
-          <li><a href="#">Services</a></li>
-          <li><a href="#">Projects</a></li>
-          <li><a href="#">About</a></li>
+          <li><a href="/">Home</a></li>
+          <li><a href="/main">Main</a></li>
+          <li><a href="/signin-signup">User</a></li>
+          <li><a href="/guide">Guide</a></li>
+          <li><a href="/board">board</a></li>
+          <li><a href="/item">item</a></li>
+          <li><a href="#">Full1</a></li>
         </ul>
       </nav>
       <a class="cta" href="#">Contact</a>
