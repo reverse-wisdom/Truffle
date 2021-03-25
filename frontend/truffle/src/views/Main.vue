@@ -1,7 +1,24 @@
 <template>
-  <div class="bg">
-    <div class="container">
-      <h1>truffle</h1>
+  <div class="hero">
+    <div class="left-col">
+      <!-- <img src="@/assets/img/side.png" class="menu-icon-1" /> -->
+      <div class="logo">
+        <img src="@/assets/img/logo.jpg" alt="" />
+      </div>
+      <div class="bar"></div>
+    </div>
+    <div class="right-col">
+      <div class="navbar">
+        <img src="" alt="" />
+        <ul>
+          <li>CATEGORY</li>
+          <li>공지사항</li>
+          <li>SIGNUP</li>
+          <li>LOGIN</li>
+          <li>이벤트등록</li>
+          <li>마이페이지</li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -11,32 +28,56 @@ export default {};
 </script>
 
 <style scoped>
-.bg {
-  height: 100%;
-  width: 100%;
-  background-color: #6b6b6b;
-}
-.container {
+* {
   margin: 0;
   padding: 0;
-  font-family: 'Montserrat', sans-serif;
-  /* background-color: #333; */
+  font-family: 'Open Sans', sans-serif;
 }
-h1 {
-  font-size: 200px;
-  text-transform: uppercase;
-  font-weight: 900;
-  letter-spacing: 20px;
+.hero {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+.left-col {
+  flex-basis: 30%;
+  background: #3f74fe;
+  height: 100%;
+  position: relative;
+}
+
+.menu-icon-1 {
+  margin: 40px;
+}
+.logo {
+  /* margin-left: 120px; */
+  /* margin-top: 120px; */
+}
+.bar {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  margin: 0;
-  background-image: url('../assets/img/mainbg.png');
-  background-size: cover;
-  background-color: rgba(255, 255, 255, 0.8);
-  color: rgba(255, 255, 255, 0.5);
-  /* -webkit-text-fill-color: transparent; */
-  background-clip: text;
+  height: 20px;
+  width: 280px;
+  background: #fff;
+  top: 250px;
+  right: 0;
+}
+.right-col {
+  flex-basis: 70%;
+  background: #f3f33b;
+  height: 100%;
+  position: relative;
+}
+.navbar {
+  position: absolute;
+  right: 45px;
+  top: 85px;
+  display: flex;
+}
+.navbar li {
+  list-style: none;
+  margin: 0 40px;
+  display: inline-block;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
 }
 </style>
