@@ -1,6 +1,6 @@
 <template>
   <!-- 현재 Home은 테스트 페이지 입니다. -->
-  <div class="home">
+  <div class="test">
     <img alt="Vue logo" src="../assets/logo.png" />
     <br />
     <v-btn depressed color="primary" @click="sweetalertTest1">sweetalert test1</v-btn>
@@ -14,7 +14,7 @@
 
 <script>
 export default {
-  name: 'Home',
+  name: 'Test',
   components: {},
   methods: {
     sweetalertTest1() {

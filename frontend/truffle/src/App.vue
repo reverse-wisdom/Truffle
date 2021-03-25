@@ -1,3 +1,4 @@
+<!--젠킨스확인용1720 -->
 <template>
   <v-app id="app">
     <!-- navbar 위치 -->
