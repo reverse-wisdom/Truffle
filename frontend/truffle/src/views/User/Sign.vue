@@ -553,6 +553,7 @@ form.sign-in-form {
     left: 50%;
   }
 }
+/* 타이틀 */
 .about {
   position: absolute;
   top: 10%;
