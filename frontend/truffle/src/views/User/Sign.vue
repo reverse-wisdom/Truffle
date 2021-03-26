@@ -15,7 +15,6 @@
           </div>
           <input type="submit" value="로그인" class="btn solid" />
           <naverLogin @loginComplete="login"></naverLogin>
-          <p class="social-text">Or Sign in with social platforms</p>
         </form>
         <form action="#" class="sign-up-form">
           <div class="about">
