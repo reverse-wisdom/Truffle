@@ -20,6 +20,8 @@ import BoardWrite from '../views/board/BoardWrite.vue';
 import BoardDetail from '../views/board/BoardDetail.vue';
 import BoardUpdate from '../views/board/BoardUpdate.vue';
 
+import ProfileUser from '../views/ProfileUser.vue'
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -90,6 +92,28 @@ const routes = [
     name: 'BoardUpdate',
     component: BoardUpdate,
   },
+  {
+    path: '/ProfileUser',
+    name: 'ProfileUser',
+    component: ProfileUser,
+    children: [
+      // {
+      //   path: "/profileuser/raffle",
+      //   name: "Raffle",
+      //   component: () => import("@/components/profileuser/Raffle.vue")
+      // },
+      {
+        path: "/profileuser/order",
+        name: "Order",
+        component: () => import("@/components/profileuser/Order.vue")
+      },
+      {
+        path: "/profileuser",
+        name: "Basic",
+        component: () => import("@/components/profileuser/Basic.vue")
+      }
+    ]
+  }
 ];
 
 const router = new VueRouter({
