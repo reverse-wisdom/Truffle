@@ -108,6 +108,21 @@ const routes = [
         component: () => import("@/components/profileuser/Order.vue")
       },
       {
+        path: "/profileuser/event",
+        name: "Event",
+        component: () => import("@/components/profileuser/Event.vue")
+      },
+      {
+        path: "/profileuser/review",
+        name: "Review",
+        component: () => import("@/components/profileuser/Review.vue")
+      },
+      {
+        path: "/profileuser/register",
+        name: "Register",
+        component: () => import("@/components/profileuser/Register.vue")
+      },
+      {
         path: "/profileuser",
         name: "Basic",
         component: () => import("@/components/profileuser/Basic.vue")
