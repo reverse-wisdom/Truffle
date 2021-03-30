@@ -64,7 +64,7 @@ header {
   justify-content: flex-end;
   align-items: center;
   padding: 10px 5%;
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 1);
   z-index: 10;
   position: fixed;
 }
