@@ -7,12 +7,6 @@
       </v-carousel> -->
     <div class="container1">
       <div class="left-col">
-        <div class="cover">
-          <div class="play">
-            <ion-icon name="play"></ion-icon>
-          </div>
-        </div>
-
         <div class="data">
           <div class="left-name">
             <p id="name">공정한 기회와 편의를 제공해드리는.</p>
@@ -24,8 +18,6 @@
         </div>
 
         <div class="block-cover"></div>
-
-        <div class="buy"></div>
       </div>
 
       <div class="right-col">
@@ -291,8 +283,7 @@ section::after {
   height: 80%;
   z-index: 0;
 }
-.container1 {
-}
+
 .container {
   position: relative;
   z-index: 5;
@@ -488,17 +479,6 @@ section::after {
   font-weight: bolder;
   transform: rotate(-90deg);
   left: 0%;
-}
-
-.buy {
-  color: #f4c8ad;
-  text-transform: uppercase;
-  font-family: Poppins;
-  text-decoration: underline;
-  position: absolute;
-  right: 0%;
-  top: -2.6%;
-  margin: 1.4em;
 }
 
 .cover {
