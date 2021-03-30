@@ -530,9 +530,9 @@ section::after {
   font-weight: bolder;
 }
 
-#artist {
+/* #artist {
   font-size: 10px;
-}
+} */
 
 .about {
   position: absolute;
@@ -555,16 +555,6 @@ section::after {
   letter-spacing: 4px;
   font-size: 1rem;
   cursor: pointer;
-}
-
-.media {
-  margin-top: 40px;
-}
-
-.media ul {
-  position: absolute;
-  list-style: none;
-  left: -24%;
 }
 
 .block-cover {
