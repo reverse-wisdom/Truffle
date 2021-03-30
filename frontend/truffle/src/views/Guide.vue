@@ -1,19 +1,28 @@
 <template>
   <div class="guide">
-    <input type="checkbox" class="checkbox" />
+    <input type="checkbox" class="checkbox" v-model="checked" />
     <!-- <full-page :options="options">
       <div class="section">Section1</div>
       <div class="section">Section2</div>
       <div class="section">Section3</div>
     </full-page> -->
-    <div class="section1">
-      <h1>Welcome To Retailer</h1>
+    <div id="section1" class="section1">
+      <h1 v-if="checked == false">
+        Welcome To Retailer
+      </h1>
+      <h1 v-else>Welcome To custumer</h1>
     </div>
-    <div class="section2">
-      <h1>Welcome To Retailer</h1>
+    <div id="section2" class="section2">
+      <h1 v-if="checked == false">
+        Welcome To Retailer
+      </h1>
+      <h1 v-else>Welcome To custumer</h1>
     </div>
-    <div class="section3">
-      <h1>Welcome To Retailer</h1>
+    <div id="section3" class="section3">
+      <h1 v-if="checked == false">
+        Welcome To Retailer
+      </h1>
+      <h1 v-else>Welcome To custumer</h1>
     </div>
   </div>
 </template>
@@ -27,6 +36,7 @@ export default {
   },
   data() {
     return {
+      checked: false,
       options: {
         paddingTop: '30px',
         navigation: true,
@@ -34,9 +44,27 @@ export default {
       },
     };
   },
-  destroyed() {
-    $.fn.fullpage.destroy('all');
+  watch: {
+    checked() {
+      const elm1 = document.querySelector('#section1');
+      const elm2 = document.querySelector('#section2');
+      const elm3 = document.querySelector('#section3');
+
+      if (this.checked == true) {
+        console.log('true');
+
+        elm1.classList.add('section1-false');
+        elm2.classList.add('section2-false');
+        elm3.classList.add('section3-false');
+      } else {
+        console.log('false');
+        elm1.classList.remove('section1-false');
+        elm2.classList.remove('section2-false');
+        elm3.classList.remove('section3-false');
+      }
+    },
   },
+  methods: {},
 };
 </script>
 <style scoped>
@@ -91,6 +119,10 @@ export default {
   justify-content: center;
   align-content: center;
 }
+.section1-false {
+  background: url(../assets/img/redgirl.jpg) no-repeat fixed;
+  background-size: cover;
+}
 .section2 {
   background: url(../assets/img/bluemen.jpg) no-repeat;
   background-size: cover;
@@ -103,6 +135,10 @@ export default {
   align-content: center;
 }
 
+.section2-false {
+  background: url(../assets/img/vividpainting.jpg) no-repeat fixed;
+  background-size: cover;
+}
 .section3 {
   background: url(../assets/img/yellow_red.jpg) no-repeat;
   background-size: cover;
@@ -113,6 +149,11 @@ export default {
   display: flex;
   justify-content: center;
   align-content: center;
+}
+
+.section3-false {
+  background: url(../assets/img/yellowmodel.jpg) no-repeat fixed;
+  background-size: cover;
 }
 
 h1 {
