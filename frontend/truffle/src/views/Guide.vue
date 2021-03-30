@@ -1,6 +1,6 @@
 <template>
   <div class="guide">
-    <!-- <input type="checkbox" class="checkbox" /> -->
+    <input type="checkbox" class="checkbox" />
     <!-- <full-page :options="options">
       <div class="section">Section1</div>
       <div class="section">Section2</div>
@@ -47,14 +47,14 @@ export default {
   -webkit-appearance: none;
   width: 80px;
   height: 40px;
-  background-color: #e1ea35;
+  background-color: #07b8ac;
   border-radius: 20px;
   cursor: pointer;
   outline: none;
 }
 
 .checkbox:checked {
-  background-color: #3756ff;
+  background-color: #f3118e;
 }
 
 .checkbox::before {
@@ -78,6 +78,7 @@ export default {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  font: #ffff;
 }
 .section1 {
   background: url(../assets/img/vividgirl.jpg) no-repeat;
@@ -85,6 +86,10 @@ export default {
   width: 100%;
   height: 100%;
   overflow: hidden;
+  background-attachment: fixed;
+  display: flex;
+  justify-content: center;
+  align-content: center;
 }
 .section2 {
   background: url(../assets/img/bluemen.jpg) no-repeat;
@@ -92,6 +97,10 @@ export default {
   width: 100%;
   height: 100%;
   overflow: hidden;
+  background-attachment: fixed;
+  display: flex;
+  justify-content: center;
+  align-content: center;
 }
 
 .section3 {
@@ -100,5 +109,17 @@ export default {
   width: 100%;
   height: 100%;
   overflow: hidden;
+  background-attachment: fixed;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+h1 {
+  /* background: white; */
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 40px;
+  text-transform: uppercase;
 }
 </style>
