@@ -15,10 +15,13 @@ import Sign from '../views/User/Sign.vue';
 import ResisterUser from '../views/User/ResisterUser.vue';
 import ResisterRetailer from '../views/User/ResisterRetailer.vue';
 import Landing from '../views/Landing.vue';
+
 import Board from '../views/Board.vue';
 import BoardWrite from '../views/board/BoardWrite.vue';
 import BoardDetail from '../views/board/BoardDetail.vue';
 import BoardUpdate from '../views/board/BoardUpdate.vue';
+
+import EventDetail from '../views/event/EventDetail.vue';
 
 Vue.use(VueRouter);
 
@@ -89,6 +92,11 @@ const routes = [
     path: '/boardUpdate',
     name: 'BoardUpdate',
     component: BoardUpdate,
+  },
+  {
+    path: '/eventDetail',
+    name: 'EventDetail',
+    components: { default: EventDetail, header: MainNavbar },
   },
 ];
 
