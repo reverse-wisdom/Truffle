@@ -3,7 +3,7 @@
     <div class="split-screen">
       <div class="left">
         <section class="copy">
-          <h1>환영합니다. 리테일러 고객님!</h1>
+          <h1>환영합니다. 고객님!</h1>
           <p>서비스이용을 위해 회원가입을 진행해주세요</p>
         </section>
       </div>
@@ -33,6 +33,60 @@
             <input id="password" name="password" type="password" placeholder="특수문자를 포함해서 8자이상 작성해주세요" v-model="password" />
             <input id="password" name="password" type="password" placeholder="비밀번호 확인" v-model="pwdcheck" />
           </div>
+          <div class="input-container gender">
+            <label for="">GENDER</label>
+            <div class="wrapper">
+              <input type="radio" name="select" id="option-1" value="1" v-model="gender_checked" />
+              <input type="radio" name="select" id="option-2" value="2" v-model="gender_checked" />
+              <label for="option-1" class="option option-1">
+                <div class="dot"></div>
+                <span>남성</span>
+              </label>
+              <label for="option-2" class="option option-2">
+                <div class="dot"></div>
+                <span>여성</span>
+              </label>
+            </div>
+          </div>
+          <div class="input-container age">
+            <label for="">AGE</label>
+            <div class="wrapper1">
+              <input type="radio" name="select1" id="gender-option-1" value="10" v-model="age_checked" />
+              <input type="radio" name="select1" id="gender-option-2" value="20" v-model="age_checked" />
+              <input type="radio" name="select1" id="gender-option-3" value="30" v-model="age_checked" />
+
+              <label for="gender-option-1" class="gender-option gender-option-1">
+                <div class="dot"></div>
+                <span>10대</span>
+              </label>
+              <label for="gender-option-2" class="gender-option gender-option-2">
+                <div class="dot"></div>
+                <span>20대</span>
+              </label>
+              <label for="gender-option-3" class="gender-option gender-option-3">
+                <div class="dot"></div>
+                <span>30대</span>
+              </label>
+            </div>
+            <div class="wrapper1">
+              <input type="radio" name="select1" id="gender-option-4" value="40" v-model="age_checked" />
+              <input type="radio" name="select1" id="gender-option-5" value="50" v-model="age_checked" />
+              <input type="radio" name="select1" id="gender-option-6" value="60" v-model="age_checked" />
+              <label for="gender-option-4" class="gender-option gender-option-4">
+                <div class="dot"></div>
+                <span>40대</span>
+              </label>
+              <label for="gender-option-5" class="gender-option gender-option-5">
+                <div class="dot"></div>
+                <span>50대 이상</span>
+              </label>
+              <label for="gender-option-6" class="gender-option gender-option-6">
+                <div class="dot"></div>
+                <span>60대 이상</span>
+              </label>
+            </div>
+          </div>
+
           <div class="input-container password">
             <label for="">ADRESS</label>
             <div class="d-flex">
@@ -64,6 +118,8 @@ export default {
       detail: '',
       postcode: '',
       msg: [],
+      gender_checked: '',
+      age_checked: '',
     };
   },
   created() {},
@@ -98,6 +154,11 @@ export default {
           icon: 'error',
           title: '이메일 형식이 잘못되었습니다.!',
         });
+      } else if (this.nickname == null) {
+        this.$swal({
+          icon: 'error',
+          title: '닉네임을 입력해주세요!',
+        });
       } else if (!this.msg['password']) {
         this.$swal({
           icon: 'error',
@@ -108,7 +169,6 @@ export default {
           icon: 'error',
           title: '주소를 입력해주세요!',
         });
-      } else if (this.pwdcheck == null) {
       } else if (this.password == null) {
         this.$swal({
           icon: 'error',
@@ -119,19 +179,28 @@ export default {
           icon: 'error',
           title: '비밀번호확인을 입력해주세요!',
         });
-      } else if (this.password != this.pwdcheck) {
+      } else if (this.gender_checked == null) {
         this.$swal({
           icon: 'error',
-          title: '비밀번호확인이 일치하지않습니다!',
+          title: '성별을 체크해주세요!',
+        });
+      } else if (this.age_checked == null) {
+        this.$swal({
+          icon: 'error',
+          title: '연령대를 체크해주세요!',
         });
       } else {
         const userData = {
-          address: this.address + ' ' + this.detail,
           email: this.email,
           password: this.password,
+          address: this.address,
+          address_detail: this.detail,
           nickname: this.nickname,
+          type: 1,
+          gender: this.gender_checked,
+          age: this.age_checked,
         };
-        console.log(userData.address);
+        console.log(userData);
 
         // const {data} = await registerRetail(userData)
 
@@ -254,7 +323,7 @@ a:hover {
   margin-top: 10rem;
 }
 .right {
-  margin-top: 10rem;
+  margin-top: 15rem;
 }
 .left,
 .right {
@@ -377,6 +446,11 @@ label {
   backdrop-filter: #2c4893;
   cursor: pointer;
 }
+.gender-age {
+  display: flex;
+  align-items: center;
+}
+
 @media screen and (min-width: 900px) {
   .split-screen {
     flex-direction: row;
@@ -392,5 +466,167 @@ label {
 
 .search {
   margin: 0px 0px 20px 3px;
+}
+.wrapper {
+  display: inline-flex;
+  background: #fff;
+  height: 50px;
+  width: 250px;
+  align-items: center;
+  justify-content: space-evenly;
+  border-radius: 5px;
+  padding: 0 0 10px 0;
+  /* box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.2); */
+}
+.wrapper .option {
+  background: #fff;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin: 0 15px 0 0;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 0 10px;
+  border: 2px solid lightgrey;
+  transition: all 0.3s ease;
+}
+.wrapper .option .dot {
+  height: 20px;
+  width: 20px;
+  background: #d9d9d9;
+  border-radius: 50%;
+  position: relative;
+}
+.wrapper .option .dot::before {
+  position: absolute;
+  content: '';
+  top: 4px;
+  left: 4px;
+  width: 12px;
+  height: 12px;
+  background: #2bbef2;
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(1.5);
+  transition: all 0.3s ease;
+}
+input[type='radio'] {
+  display: none;
+}
+/* 성별 */
+#option-1:checked:checked ~ .option-1,
+#option-2:checked:checked ~ .option-2 {
+  border-color: #2bbef2;
+  background: #2bbef2;
+}
+#option-1:checked:checked ~ .option-1 .dot,
+#option-2:checked:checked ~ .option-2 .dot {
+  background: #fff;
+}
+#option-1:checked:checked ~ .option-1 .dot::before,
+#option-2:checked:checked ~ .option-2 .dot::before {
+  opacity: 1;
+  transform: scale(1);
+}
+.wrapper .option span {
+  font-size: 15px;
+  color: #808080;
+}
+#option-1:checked:checked ~ .option-1 span,
+#option-2:checked:checked ~ .option-2 span {
+  color: #fff;
+}
+
+/* 연령대 */
+
+.wrapper1 {
+  display: flex;
+  background: #fff;
+  height: 50px;
+  width: 400px;
+  align-items: center;
+  justify-content: space-evenly;
+  border-radius: 5px;
+  padding: 0 0 10px 0;
+  /* box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.2); */
+}
+.wrapper1 .gender-option {
+  background: #fff;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin: 0 15px 0 0;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 0 10px;
+  border: 2px solid lightgrey;
+  transition: all 0.3s ease;
+}
+.wrapper1 .gender-option .dot {
+  height: 20px;
+  width: 20px;
+  background: #d9d9d9;
+  border-radius: 50%;
+  position: relative;
+}
+.wrapper1 .gender-option .dot::before {
+  position: absolute;
+  content: '';
+  top: 4px;
+  left: 4px;
+  width: 12px;
+  height: 12px;
+  background: #2bbef2;
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(1.5);
+  transition: all 0.3s ease;
+}
+input[type='radio'] {
+  display: none;
+}
+
+#gender-option-1:checked:checked ~ .gender-option-1,
+#gender-option-2:checked:checked ~ .gender-option-2,
+#gender-option-3:checked:checked ~ .gender-option-3,
+#gender-option-4:checked:checked ~ .gender-option-4,
+#gender-option-5:checked:checked ~ .gender-option-5,
+#gender-option-6:checked:checked ~ .gender-option-6 {
+  border-color: #2bbef2;
+  background: #2bbef2;
+}
+#gender-option-1:checked:checked ~ .gender-option-1 .dot,
+#gender-option-2:checked:checked ~ .gender-option-2 .dot,
+#gender-option-3:checked:checked ~ .gender-option-3 .dot,
+#gender-option-4:checked:checked ~ .gender-option-4 .dot,
+#gender-option-5:checked:checked ~ .gender-option-5 .dot,
+#gender-option-6:checked:checked ~ .gender-option-6 .dot {
+  background: #fff;
+}
+#gender-option-1:checked:checked ~ .gender-option-1 .dot::before,
+#gender-option-2:checked:checked ~ .gender-option-2 .dot::before,
+#gender-option-3:checked:checked ~ .gender-option-3 .dot::before,
+#gender-option-4:checked:checked ~ .gender-option-4 .dot::before,
+#gender-option-5:checked:checked ~ .gender-option-5 .dot::before,
+#gender-option-6:checked:checked ~ .gender-option-6 .dot::before {
+  opacity: 1;
+  transform: scale(1);
+}
+.wrapper1 .option span {
+  font-size: 17px;
+  color: #808080;
+}
+
+#gender-option-1:checked:checked ~ .gender-option-1 span,
+#gender-option-2:checked:checked ~ .gender-option-2 span,
+#gender-option-3:checked:checked ~ .gender-option-3 span,
+#gender-option-4:checked:checked ~ .gender-option-4 span,
+#gender-option-5:checked:checked ~ .gender-option-5 span,
+#gender-option-6:checked:checked ~ .gender-option-6 span {
+  color: #fff;
 }
 </style>
