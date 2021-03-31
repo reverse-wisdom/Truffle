@@ -20,6 +20,42 @@
 		where event_id = #{event_id};
 	</select>
 
+	<select
+		id="selectByGender"
+		parameterType="int"
+		resultType="EventDto">
+		select *
+		from event
+		where gender = #{gender};
+	</select>
+
+	<select
+		id="selectByAge"
+		parameterType="int"
+		resultType="EventDto">
+		select *
+		from event
+		where age = #{age};
+	</select>
+
+	<select
+		id="selectByProduct"
+		parameterType="String"
+		resultType="EventDto">
+		select *
+		from event
+		where product like concat(concat('%', #{product}),'%')
+	</select>
+
+	<select
+		id="selectByCategory"
+		parameterType="String"
+		resultType="EventDto">
+		select *
+		from event
+		where category like concat(concat('%', #{category}),'%')
+	</select>
+
 
 
 

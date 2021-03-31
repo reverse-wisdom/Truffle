@@ -10,4 +10,12 @@ public interface EventDao {
 
 	public List<EventDto> detail(int event_id) throws SQLException;
 
+	public List<EventDto> selectByGender(int gender) throws SQLException;
+
+	public List<EventDto> selectByAge(int age) throws SQLException;
+
+	public List<EventDto> selectByProduct(String product) throws SQLException;
+
+	public List<EventDto> selectByCategory(String category) throws SQLException;
+
 }
