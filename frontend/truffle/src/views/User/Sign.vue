@@ -64,7 +64,6 @@
 </template>
 
 <script>
-import { loginUser } from '@/api/auth';
 import NaverLogin from '@/components/SocialLogin/NaverLogin.vue';
 export default {
   data() {
@@ -95,12 +94,23 @@ export default {
     },
 
     async Login() {
-      const userData = {
-        Id: this.Id,
-        password: this.password,
-      };
-      // const data = await loginUser(userData);
-      console.log(data);
+      if (this.email == null) {
+        this.$swal({
+          icon: 'error',
+          title: '아이디를 입력해 주세요!',
+        });
+      } else if (this.password == null) {
+        this.$swal({
+          icon: 'error',
+          title: '비밀번호를 입력해 주세요!',
+        });
+      } else {
+        const userData = {
+          email: this.email,
+          password: this.password,
+        };
+        this.$store.dispatch('LOGIN', userData);
+      }
     },
     // 카카오로그인
     loginFormWithKakao() {
@@ -142,15 +152,16 @@ export default {
       console.log('네이버 성공');
     },
     retailer() {
-      this.$router.push({ name: 'ResisterRetailer', query: { name: 'retailer' } });
+      this.$router.push({ name: 'ResisterRetailer' });
     },
     user() {
-      this.$router.push({ name: 'ResisterUser', query: { name: 'user' } });
+      this.$router.push({ name: 'ResisterUser' });
     },
   },
 };
 </script>
 <style scoped>
+@import url('http://font.goolgeapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&dispaly=swap');
 * {
   margin: 0;
   padding: 0;
