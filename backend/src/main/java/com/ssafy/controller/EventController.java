@@ -53,4 +53,52 @@ public class EventController {
 			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
 		}
 	}
+
+	@ApiOperation(value = "성별 상세 조회(남성:1, 여성:2)")
+	@GetMapping("/selectByGender")
+	private ResponseEntity<List<EventDto>> selectByGender(@RequestParam(required = true) final int gender) {
+		List<EventDto> list;
+		try {
+			list = eventService.selectByGender(gender);
+			return new ResponseEntity<>(list, HttpStatus.OK);
+		} catch (SQLException e) {
+			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+		}
+	}
+
+	@ApiOperation(value = "나이별 상세 조회(입력값:10,20,30,40,50,60)")
+	@GetMapping("/selectByAge")
+	private ResponseEntity<List<EventDto>> selectByAge(@RequestParam(required = true) final int age) {
+		List<EventDto> list;
+		try {
+			list = eventService.selectByAge(age);
+			return new ResponseEntity<>(list, HttpStatus.OK);
+		} catch (SQLException e) {
+			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+		}
+	}
+
+	@ApiOperation(value = "상품명별 조회")
+	@GetMapping("/selectByProduct")
+	private ResponseEntity<List<EventDto>> selectByProduct(@RequestParam(required = true) final String product) {
+		List<EventDto> list;
+		try {
+			list = eventService.selectByProduct(product);
+			return new ResponseEntity<>(list, HttpStatus.OK);
+		} catch (SQLException e) {
+			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+		}
+	}
+
+	@ApiOperation(value = "카테고리별 조회")
+	@GetMapping("/selectByCategory")
+	private ResponseEntity<List<EventDto>> selectByCategory(@RequestParam(required = true) final String category) {
+		List<EventDto> list;
+		try {
+			list = eventService.selectByCategory(category);
+			return new ResponseEntity<>(list, HttpStatus.OK);
+		} catch (SQLException e) {
+			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+		}
+	}
 }
