@@ -1,5 +1,7 @@
 package com.ssafy.pjt.dto;
 
+import lombok.Data;
+
 public class Member {
 	int uuid;
 	String name;
