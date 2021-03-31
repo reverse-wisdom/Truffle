@@ -1,11 +1,10 @@
 <template>
   <div class="guide">
     <input type="checkbox" class="checkbox" v-model="checked" />
-    <!-- <full-page :options="options">
-      <div class="section">Section1</div>
-      <div class="section">Section2</div>
-      <div class="section">Section3</div>
-    </full-page> -->
+
+    <div id="user" v-if="checked == true">User</div>
+    <div id="retailer" v-else>Retailer</div>
+
     <div id="section1" class="section1">
       <h1 v-if="checked == false">
         Welcome To Retailer
@@ -73,12 +72,13 @@ export default {
   top: 40px;
   right: 40px;
   -webkit-appearance: none;
-  width: 80px;
+  width: 10rem;
   height: 40px;
   background-color: #07b8ac;
   border-radius: 20px;
   cursor: pointer;
   outline: none;
+  z-index: 2;
 }
 
 .checkbox:checked {
@@ -88,17 +88,18 @@ export default {
 .checkbox::before {
   content: '';
   position: absolute;
-  width: 32px;
+  width: 3rem;
   height: 32px;
   background-color: #fff;
   border-radius: 20px;
   top: 4px;
-  left: 4px;
+  left: 0.5rem;
   transition: 0.3s linear;
 }
 
 .checkbox:checked::before {
-  left: 44px;
+  left: 6rem;
+  content: '';
 }
 .guide {
   width: 100%;
@@ -162,5 +163,29 @@ h1 {
   padding: 10px 20px;
   font-size: 40px;
   text-transform: uppercase;
+}
+#retailer {
+  position: fixed;
+  top: 43px;
+  right: 60px;
+  /* transform: translateY(-50%); */
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin-left: px;
+  z-index: 3;
+}
+#user {
+  position: fixed;
+  top: 43px;
+  right: 130px;
+  /* transform: translateY(-50%); */
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin-left: px;
+  z-index: 3;
 }
 </style>
