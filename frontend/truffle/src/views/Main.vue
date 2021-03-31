@@ -3,7 +3,7 @@
   <div class="home">
     <!-- 캐러셀 -->
     <!-- <v-carousel hide-delimiters class="">
-        <v-carousel-item v-for="(item, i) in items" :key="i" :src="item.src"></v-carousel-item>
+        <v-carousel-item ></v-carousel-item>
       </v-carousel> -->
     <div class="container1">
       <div class="left-col">
@@ -62,56 +62,17 @@
     <v-container class="">
       <section>
         <div class="container">
-          <div class="card">
+          <div class="card" v-for="(item, i) in items" :key="i">
             <div class="imgBx">
-              <img src="@/assets/img/상품1.png" alt="" />
-              <h2>구찌</h2>
+              <img :src="item.src" alt="" />
+              <h2>{{ item.brand }}</h2>
             </div>
             <div class="content">
               <div class="size">
-                <h4>구찌 홀스빗 카드지갑</h4>
-                <span>537,000원</span>
+                <h4>{{ item.name }}</h4>
+                <span>{{ item.price }}</span>
               </div>
-              <a href="">Detail</a>
-            </div>
-          </div>
-          <div class="card">
-            <div class="imgBx">
-              <img src="@/assets/img/상품2.png" alt="" />
-              <h2>생로랑</h2>
-            </div>
-            <div class="content">
-              <div class="size">
-                <h4>모노그램 마틀라세 클러치백 뉴미디움 블랙 금장</h4>
-                <span>923,000원</span>
-              </div>
-              <a href="">Detail</a>
-            </div>
-          </div>
-          <div class="card">
-            <div class="imgBx">
-              <img src="@/assets/img/상품3.png" alt="" />
-              <h2>골드구스</h2>
-            </div>
-            <div class="content">
-              <div class="size">
-                <h4>여성 슈퍼스타 로우탑 스니커즈</h4>
-                <span>377,000원</span>
-              </div>
-              <a href="">Detail</a>
-            </div>
-          </div>
-          <div class="card">
-            <div class="imgBx">
-              <img src="@/assets/img/상품1.png" alt="" />
-              <h2>GUCCI</h2>
-            </div>
-            <div class="content">
-              <div class="size">
-                <h4>구찌 홀스빗 카드 지갑</h4>
-                <span>537,000원</span>
-              </div>
-              <a href="">Detail</a>
+              <a @click="detail(item.id)">Detail</a>
             </div>
           </div>
         </div>
@@ -236,19 +197,40 @@ export default {
     return {
       items: [
         {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
+          name: '구찌 홀스빗 카드지갑',
+          brand: '구찌',
+          src: require('@/assets/img/상품1.png'),
+          price: '537,000원',
+          id: 0,
         },
         {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
+          name: '모노그램 마틀라세 클러치백 뉴미디움 블랙 금장',
+          brand: '생로랑',
+          src: require('@/assets/img/상품2.png'),
+          price: '923,000원',
+          id: 1,
         },
         {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
+          name: '여성 슈퍼스타 로우탑 스니커즈',
+          brand: '골드구스',
+          src: require('@/assets/img/상품3.png'),
+          price: '377,000원',
+          id: 2,
         },
         {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
+          name: '구찌 홀스빗 카드지갑',
+          brand: '구찌',
+          src: require('@/assets/img/상품1.png'),
+          price: '537,000원',
+          id: 3,
         },
       ],
     };
+  },
+  methods: {
+    detail(id) {
+      this.$router.push({ name: 'ItemDetail', query: { id: id } });
+    },
   },
 };
 </script>
