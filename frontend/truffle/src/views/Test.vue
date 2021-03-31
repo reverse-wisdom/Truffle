@@ -6,6 +6,9 @@
     <h2 style="font-weight: 900">이곳은 테스트페이지 입니다!</h2>
     <v-btn color="#f3118e" class="btn" style="color:white" @click="goEventdetail">Event-Detail</v-btn>
     <br />
+    <h2 style="font-weight: 900">배포테스트 일자:03-31/10:40</h2>
+    <v-btn depressed color="primary" @click="sweetalertTest1">sweetalert test1</v-btn>
+    <br />
     <v-btn depressed class="btn" color="primary" @click="sweetalertTest1">sweetalert test1</v-btn>
     <br />
     <v-btn depressed class="btn" color="primary" @click="sweetalertTest2">sweetalert test2</v-btn>
