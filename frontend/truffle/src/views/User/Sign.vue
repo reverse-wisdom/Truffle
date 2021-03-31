@@ -152,10 +152,10 @@ export default {
       console.log('네이버 성공');
     },
     retailer() {
-      this.$router.push({ name: 'ResisterRetailer', query: { name: 'retailer' } });
+      this.$router.push({ name: 'ResisterRetailer' });
     },
     user() {
-      this.$router.push({ name: 'ResisterUser', query: { name: 'user' } });
+      this.$router.push({ name: 'ResisterUser' });
     },
   },
 };
