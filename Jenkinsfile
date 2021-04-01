@@ -66,9 +66,9 @@ pipeline {
                     -v /home/ubuntu/keys/:/var/jenkins_home/workspace/truffle_deploy/keys/ \
                     --network truffleProxy \
                     base-pjt-front:latest'
-                    sh 'docker run -d --name base-pjt-back \
-                    --network truffleProxy \
-                    base-pjt-back:latest'
+                    // sh 'docker run -d --name base-pjt-back \
+                    // --network truffleProxy \
+                    // base-pjt-back:latest'
                 }
             
         }
