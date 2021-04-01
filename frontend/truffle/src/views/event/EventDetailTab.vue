@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>이벤트탭</h1>
     <div class="tab-container">
       <div class="tabs">
         <label class="tab tab01" @click="tab01()">
@@ -15,7 +14,7 @@
     </div>
 
     <div v-if="tabcheck == true" class="img-tab1">
-      <EventQnA></EventQnA>
+      <QnA></QnA>
     </div>
     <div v-else>
       <img src="@/assets/img/tombrown3.jpg" alt="" />
@@ -24,7 +23,7 @@
 </template>
 
 <script>
-import EventQnA from '../event/EventQnA';
+import QnA from '../QnA';
 export default {
   name: 'EventDetailTab',
   data() {
@@ -33,14 +32,16 @@ export default {
     };
   },
   components: {
-    EventQnA,
+    QnA,
   },
   methods: {
     tab01() {
+      this.tabcheck = false;
       var border = document.querySelector('.tabs .border');
       var background = document.querySelector('.tabs .background');
       var tabtitle_1 = document.querySelector('#tab1-title');
       var tabtitle_2 = document.querySelector('#tab2-title');
+      var imgtab1 = document.querySelector('.img-tab1');
       border.style.transform = 'translateX(0)';
       background.style.transform = 'translateX(0)';
       tabtitle_1.style.color = '#fff';
@@ -58,7 +59,6 @@ export default {
       tabtitle_1.style.color = '#000';
       tabtitle_2.style.color = '#fff';
       imgtab1.style.display = 'none';
-      // this.$router.push({ name: 'EventQnA' });
     },
   },
 };
@@ -66,7 +66,7 @@ export default {
 
 <style scoped>
 .tab-container {
-  height: 50vh;
+  height: 20vh;
   display: flex;
   justify-content: center;
   align-items: center;
