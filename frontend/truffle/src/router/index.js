@@ -21,6 +21,8 @@ import BoardWrite from '../views/board/BoardWrite.vue';
 import BoardDetail from '../views/board/BoardDetail.vue';
 import BoardUpdate from '../views/board/BoardUpdate.vue';
 
+
+import ProfileUser from '../views/ProfileUser.vue'
 import EventDetail from '../views/event/EventDetail.vue';
 
 Vue.use(VueRouter);
@@ -94,10 +96,49 @@ const routes = [
     component: BoardUpdate,
   },
   {
+
+    path: '/ProfileUser',
+    name: 'ProfileUser',
+    component: ProfileUser,
+    children: [
+      // {
+      //   path: "/profileuser/raffle",
+      //   name: "Raffle",
+      //   component: () => import("@/components/profileuser/Raffle.vue")
+      // },
+      {
+        path: "/profileuser/order",
+        name: "Order",
+        component: () => import("@/components/profileuser/Order.vue")
+      },
+      {
+        path: "/profileuser/event",
+        name: "Event",
+        component: () => import("@/components/profileuser/Event.vue")
+      },
+      {
+        path: "/profileuser/review",
+        name: "Review",
+        component: () => import("@/components/profileuser/Review.vue")
+      },
+      {
+        path: "/profileuser/register",
+        name: "Register",
+        component: () => import("@/components/profileuser/Register.vue")
+      },
+      {
+        path: "/profileuser",
+        name: "Basic",
+        component: () => import("@/components/profileuser/Basic.vue")
+      }
+    ]
+  }
+
     path: '/eventDetail',
     name: 'EventDetail',
     components: { default: EventDetail, header: MainNavbar },
   },
+
 ];
 
 const router = new VueRouter({
