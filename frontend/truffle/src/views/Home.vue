@@ -53,7 +53,7 @@ h1 {
   font-size: 15rem;
   color: #fff;
   transform: translateY(-600px);
-  animation: 2s slideIn ease-in-out forwards 2s;
+  animation: 1s slideIn ease-in-out forwards 1s;
   z-index: 10;
   opacity: 0;
   letter-spacing: 20px;
@@ -66,7 +66,7 @@ h1 {
   font-weight: 900;
   color: #fff;
   transform: translateY(600px);
-  animation: 3s slideIn ease-in-out forwards 3s;
+  animation: 0.5s slideIn ease-in-out forwards 0.5s;
   z-index: 10;
   opacity: 0;
   letter-spacing: 15px;
@@ -76,7 +76,7 @@ h1 {
   font-size: 1rem;
   color: #fff;
   transform: translateY(600px);
-  animation: 3s slideIn ease-in-out forwards 3s;
+  animation: 1s slideIn ease-in-out forwards 1s;
   z-index: 10;
   opacity: 0;
   letter-spacing: 10px;
@@ -87,7 +87,7 @@ h1 {
   color: #fff;
   background-color: #2bbef2;
   transform: translateY(600px);
-  animation: 3s slideIn ease-in-out forwards 3s;
+  animation: 1s slideIn ease-in-out forwards 1s;
   z-index: 10;
   opacity: 0;
   letter-spacing: 10px;
@@ -114,12 +114,12 @@ h1 {
   right: 0;
   background-color: #000;
   transform: scale(0.5);
-  animation: 2s slideIn ease-in-out forwards, 2s skewBg ease-in-out;
+  animation: 1s slideIn ease-in-out forwards, 1s skewBg ease-in-out;
 }
 
-.anim-typewriter {
+/* .anim-typewriter {
   animation: typewriter 4s steps(40) 1s 1 normal both, blinkTextCursor 500ms steps(40) infinite normal;
-}
+} */
 
 @keyframes typewriter {
   from {
