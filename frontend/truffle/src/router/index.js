@@ -23,6 +23,7 @@ import BoardUpdate from '../views/board/BoardUpdate.vue';
 
 import ProfileUser from '../views/ProfileUser.vue';
 import EventDetail from '../views/event/EventDetail.vue';
+import EventQnA from '../views/event/EventQnA.vue';
 
 Vue.use(VueRouter);
 
@@ -95,6 +96,17 @@ const routes = [
     component: BoardUpdate,
   },
   {
+    path: '/eventDetail',
+    name: 'EventDetail',
+    components: { default: EventDetail, header: MainNavbar },
+  },
+  {
+    path: '/eventQnA',
+    name: 'EventQnA',
+    components: { default: EventQnA },
+  },
+
+  {
     path: '/ProfileUser',
     name: 'ProfileUser',
     component: ProfileUser,
@@ -130,9 +142,6 @@ const routes = [
         component: () => import('@/components/profileuser/Basic.vue'),
       },
     ],
-    path: '/eventDetail',
-    name: 'EventDetail',
-    components: { default: EventDetail, header: MainNavbar },
   },
 ];
 
