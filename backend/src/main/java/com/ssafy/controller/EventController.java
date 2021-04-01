@@ -8,6 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -101,4 +104,50 @@ public class EventController {
 			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
 		}
 	}
+
+	@ApiOperation(value = "이벤트 페이지 수정", notes = "event_id필드 고정 / 수정가능한 필드: age category detail end_date gender(남:1,여:2) open_date price product win_num")
+	@PutMapping("/update")
+	private ResponseEntity<String> update(@RequestBody(required = true) final EventDto eventDto) {
+		try {
+			boolean result = eventService.update(eventDto);
+			if (result) {
+				return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+			}
+
+		} catch (SQLException e) {
+			return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+	}
+
+	@ApiOperation(value = "이벤트 페이지 작성", notes = "작성가능한 필드: age category detail end_date gender(남:1,여:2) open_date price product win_num")
+	@PostMapping("/insert")
+	private ResponseEntity<String> insert(@RequestBody(required = true) final EventDto eventDto) {
+		try {
+			boolean result = eventService.insert(eventDto);
+			if (result) {
+				return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+			}
+
+		} catch (SQLException e) {
+			return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+	}
+
+	@ApiOperation(value = "이벤트 참여자수 증가")
+	@PutMapping("/joinEvent")
+	private ResponseEntity<String> joinEvent(@RequestBody(required = true) final int event_id) {
+		try {
+			boolean result = eventService.joinEvent(event_id);
+			if (result) {
+				return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+			}
+
+		} catch (SQLException e) {
+			return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+	}
+
 }
