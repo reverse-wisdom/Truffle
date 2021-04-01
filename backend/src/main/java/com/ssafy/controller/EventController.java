@@ -18,7 +18,7 @@ import com.ssafy.pjt.service.EventServiceImpl;
 import io.swagger.annotations.ApiOperation;
 
 /**
- * http://localhost:8000/swagger-ui.html
+ * http://localhost:8000/truffle/swagger-ui.html
  */
 
 @CrossOrigin(origins = { "*" }, maxAge = 6000)
