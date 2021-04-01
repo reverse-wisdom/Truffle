@@ -6,14 +6,14 @@
         <ul class="nav__links">
           <li><a class="font" href="/">Home</a></li>
 
-          <li><a class="font" href="/signin-signup">User</a></li>
+          <li><a class="font" href="/signin-signup">login</a></li>
           <li><a class="font" href="/guide">Guide</a></li>
           <li><a class="font" href="/board">board</a></li>
           <!-- <li><a class="font" href="/item">item</a></li> -->
           <li><a class="font" href="#">Full1</a></li>
         </ul>
       </nav>
-      <a class="cta" href="/signin-signup">Contact</a>
+      <a class="cta" href="/signin-signup">signup</a>
       <p class="menu cta" @click="menu">Menu</p>
     </header>
     <div id="mobile__menu" class="overlay">
