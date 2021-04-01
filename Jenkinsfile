@@ -9,14 +9,35 @@ pipeline {
     options { skipDefaultCheckout(false) }
     // stage의 모음
     stages {
+        stages {
+        // 실제 작업이 수행되는 블록
+        // 해당 stage 명으로 jenkins 화면에 표시된다
+        stage('Build and Test') {
+        // docker image에 명시된 image를 활용하여 steps 수행
+        agent {
+            docker {
+                image 'maven:3-alpine'
+                args '-v /root/.m2:/root/.m2'
+            }
+        }
+        options { skipDefaultCheckout(false) }
+        // back-end build
+        // -B : 비 대화식(일괄 처리) 모드에서 실행(출력 색상 비활성화)
+        // 대체 pom 파일(또는 pom.xml이 있는 디렉토리)을 사용
+        // -DskipTests : 테스트를 컴파일하지만, 실행을 건너 뜀
+        // clean : maven build 시 생선된 모든 것들을 삭제
+        // package : 컴파일을 수행하고 컴파일한 소스를 packaging 양식(war or jar)에
+        // 맞춰 프로젝트 내 지정한 경로(ex. target) 디렉토리에 생성
+        steps {
+            sh 'mvn -B -DskipTests -f ./backend/pom.xml clean package'
+        }
         stage('Docker build') {
             agent any
-	    //options { skipDefaultCheckout(false) }
             steps {
                 // front-end 및 back-end dockerfile 실행을 통해 image 생성
                 // -t : 이미지 이름과 tag 설정, 만약 이미지 이름만 설정하면 latest로 설정됨
                 sh 'docker build -t base-pjt-front:latest ./frontend/truffle/'
-                // sh 'docker build -t <back-image-name>:latest <back dockerfile path>'
+                sh 'docker build -t base-pjt-back:latest ./backend'
             }
         }
         stage('Docker run') {
@@ -26,14 +47,14 @@ pipeline {
                 sh 'docker ps -f name=base-pjt-front -q \
                 | xargs --no-run-if-empty docker container stop'
                 // 현재 동작중인 컨테이너 중 <back-image-name>의 이름을 가진 컨테이너를 stop
-                // sh 'docker ps -f name=<back-image-name> -q \
-                // | xargs --no-run-if-empty docker container stop'
+                sh 'docker ps -f name=base-pjt-back -q \
+                | xargs --no-run-if-empty docker container stop'
                 // <front-image-name>의 이름을 가진 컨테이너를 삭제
                 sh 'docker container ls -a -f name=base-pjt-front -q \
                 | xargs -r docker container rm'
                 // <back-image-name>의 이름을 가진 컨테이너를 삭제
-                // sh 'docker container ls -a -f name=<back-image-name> -q \
-                // | xargs -r docker container rm'
+                sh 'docker container ls -a -f name=base-pjt-back -q \
+                | xargs -r docker container rm'
                 // docker image build 시 기존에 존재하던 이미지는
                 // dangling 상태가 되기 때문에 이미지를 일괄 삭제
                 sh 'docker images -f dangling=true && \
@@ -46,9 +67,9 @@ pipeline {
                 -v /home/ubuntu/keys/:/var/jenkins_home/workspace/truffle_deploy/keys/ \
                 --network truffleProxy \
                 base-pjt-front:latest'
-                // sh 'docker run -d --name <back-image-name> \
-                // --network <만들어둔 docker network 이름> \
-                // <back-image-name>:latest'
+                sh 'docker run -d --name base-pjt-back \
+                --network truffleProxy \
+                base-pjt-back:latest'
             }
         }
     }
