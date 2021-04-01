@@ -20,6 +20,6 @@
 # overrride 불가
 FROM openjdk:8-jdk-alpine
 VOLUME /tmp
-ADD ./target/base-pjt-back-0.0.1-SNAPSHOP.jar app.jar
+ADD ./target/basePJT-0.0.1-SNAPSHOT.jar app.jar
 ENV JAVA_OPTS=""
 ENTRYPOINT ["java", "-jar", "/app.ja"]
