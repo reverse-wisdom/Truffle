@@ -20,10 +20,6 @@
               </p>
             </div>
           </section>
-          <div class="input-container name">
-            <label for="fname">NICKNAME</label>
-            <input id="fname" name="fname" type="text" v-model="nickname" />
-          </div>
           <div class="input-container email">
             <label for="email">E-MAIL</label>
             <input id="email" name="email" type="email" v-model="email" />
@@ -33,6 +29,24 @@
             <input id="password" name="password" type="password" placeholder="특수문자를 포함해서 8자이상 작성해주세요" v-model="password" />
             <input id="password" name="password" type="password" placeholder="비밀번호 확인" v-model="pwdcheck" />
           </div>
+          <div class="input-container name">
+            <label for="fname">BUSINESS_NUMBER</label>
+            <div class="business-num">
+              <input id="fname" name="fname" maxlength="3" type="text" v-model="business_num1" />
+              <div class="b">-</div>
+              <input id="fname" name="fname" maxlength="2" type="text" v-model="business_num2" />
+              <div class="b">-</div>
+              <input id="fname" name="fname" maxlength="5" type="text" v-model="business_num3" />
+            </div>
+          </div>
+          <!-- <div class="input-container ">
+            <label for="email">생년월일</label>
+            <form name="frm" class="birthday">
+              <input type="text" size="6" maxlength="6" name="ju1" v-model="birthday" />
+              <div class="b">-</div>
+              <input type="text" size="1" maxlength="1" name="ju2" style="width:100px" v-model="gender" />
+            </form>
+          </div> -->
           <div class="input-container password">
             <label for="">ADRESS</label>
             <div class="d-flex">
@@ -40,8 +54,9 @@
               <input class="signup-btn search" type="button" @click="sample4_execDaumPostcode" value="우편번호 찾기" />
             </div>
             <input id="" name="" type="text" v-model="address" />
-            <input id="" name="" type="text" v-model="detail" placeholder="상세주소를 입력해주세요" />
+            <input id="" name="" type="text" v-model="addressdetail" placeholder="상세주소를 입력해주세요" />
           </div>
+
           <button class="signup-btn" type="submit">SMS 본인인증</button>
           <button class="signup-btn" type="submit" @click.prevent="signup">Sign up</button>
         </form>
@@ -56,13 +71,17 @@ import { registerRetail } from '@/api/auth';
 export default {
   data() {
     return {
-      nickname: '',
       email: '',
       password: '',
       pwdcheck: '',
       address: '',
-      detail: '',
+      phone: '',
+      business_num1: '',
+      business_num2: '',
+      business_num3: '',
+      addressdetail: '',
       postcode: '',
+      type: 2,
       msg: [],
     };
   },
@@ -103,12 +122,21 @@ export default {
           icon: 'error',
           title: '비밀번호 입력시 8자리이상, 특수문자를 포함해주세요!',
         });
+      } else if (this.business_num1 == null) {
+        this.$swal({
+          icon: 'error',
+          title: '사업자 등록번호를 입력해주세요!',
+        });
       } else if (this.address == null) {
         this.$swal({
           icon: 'error',
           title: '주소를 입력해주세요!',
         });
-      } else if (this.pwdcheck == null) {
+      } else if (this.addressdetail == null) {
+        this.$swal({
+          icon: 'error',
+          title: '상세주소를 입력해주세요!',
+        });
       } else if (this.password == null) {
         this.$swal({
           icon: 'error',
@@ -117,7 +145,7 @@ export default {
       } else if (this.pwdcheck == null) {
         this.$swal({
           icon: 'error',
-          title: '비밀번호확인을 입력해주세요!',
+          title: '비밀번호를 입력해주세요!',
         });
       } else if (this.password != this.pwdcheck) {
         this.$swal({
@@ -125,13 +153,17 @@ export default {
           title: '비밀번호확인이 일치하지않습니다!',
         });
       } else {
+        var business_number = this.business_num1 + this.business_num2 + this.business_num3;
         const userData = {
-          address: this.address + ' ' + this.detail,
           email: this.email,
           password: this.password,
-          nickname: this.nickname,
+          phone: this.phone,
+          address: this.address,
+          address_detail: this.addressdetail,
+          business_number: business_number,
+          type: 2,
         };
-        console.log(userData.address);
+        console.log(userData);
 
         // const {data} = await registerRetail(userData)
 
@@ -219,6 +251,13 @@ export default {
   font-size: 100%;
   font-size: 16px;
   line-height: 1.5;
+}
+.business-num {
+  display: flex;
+  align-items: center;
+}
+.b {
+  margin-bottom: 20px;
 }
 .body {
   padding: 0;
