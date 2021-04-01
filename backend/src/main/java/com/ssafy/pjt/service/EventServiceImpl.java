@@ -45,4 +45,19 @@ public class EventServiceImpl implements EventService {
 		return eventDao.selectByCategory(category);
 	}
 
+	@Override
+	public boolean update(EventDto eventDto) throws SQLException {
+		return eventDao.update(eventDto) == 1;
+	}
+
+	@Override
+	public boolean insert(EventDto eventDto) throws SQLException {
+		return eventDao.insert(eventDto) == 1;
+	}
+
+	@Override
+	public boolean joinEvent(int event_id) throws SQLException {
+		return eventDao.joinEvent(event_id) == 1;
+	}
+
 }
