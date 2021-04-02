@@ -230,7 +230,7 @@ export default {
 .space {
   margin-top: 35rem;
 }
-@import url('http://font.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&dispaly=swap');
+@import url('http://font.goolgeapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&dispaly=swap');
 * {
   margin: 0;
   padding: 0;
