@@ -22,8 +22,15 @@ import BoardDetail from '../views/board/BoardDetail.vue';
 import BoardUpdate from '../views/board/BoardUpdate.vue';
 
 import ProfileUser from '../views/ProfileUser.vue';
+
 import EventDetail from '../views/event/EventDetail.vue';
-import EventQnA from '../views/event/EventQnA.vue';
+import EventCreate from '../views/event/EventCreate.vue';
+import EventUpdate from '../views/event/EventUpdate.vue';
+
+import QnA from '../views/QnA.vue';
+import QnAupdate from '../views/QnA/QnAupdate.vue';
+import QnAwrite from '../views/QnA/QnAwrite.vue';
+import QnAdetail from '../views/QnA/QnAdetail.vue';
 
 Vue.use(VueRouter);
 
@@ -54,11 +61,14 @@ const routes = [
     name: 'Landing',
     component: Landing,
   },
+
   {
     path: '/guide',
     name: 'Guide',
     component: Guide,
   },
+
+  // 회원관리
   {
     path: '/signin-signup',
     name: 'Sign-In-Up',
@@ -74,6 +84,8 @@ const routes = [
     name: 'ResisterRetailer',
     components: { default: ResisterRetailer, header: MainNavbar },
   },
+
+  //게시판
   {
     path: '/board',
     name: 'Board',
@@ -95,17 +107,47 @@ const routes = [
     name: 'BoardUpdate',
     component: BoardUpdate,
   },
+
+  // 이벤트
   {
     path: '/eventDetail',
     name: 'EventDetail',
     components: { default: EventDetail, header: MainNavbar },
   },
   {
-    path: '/eventQnA',
-    name: 'EventQnA',
-    components: { default: EventQnA },
+    path: '/eventCreate',
+    name: 'EventCreate',
+    components: { default: EventCreate, header: MainNavbar },
+  },
+  {
+    path: '/eventUpdate',
+    name: 'EventUpdate',
+    components: { default: EventUpdate, header: MainNavbar },
   },
 
+  // QnA
+  {
+    path: '/QnA',
+    name: 'QnA',
+    components: { default: QnA },
+  },
+  {
+    path: '/QnAdetail',
+    name: 'QnAdeatil',
+    components: { default: QnAdetail },
+  },
+  {
+    path: '/QnAwrite',
+    name: 'QnAwrite',
+    components: { default: QnAwrite },
+  },
+  {
+    path: '/QnAupdate',
+    name: 'QnAupdate',
+    components: { default: QnAupdate },
+  },
+
+  // 프로필
   {
     path: '/ProfileUser',
     name: 'ProfileUser',
