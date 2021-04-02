@@ -23,8 +23,39 @@
 		from account
 		where email = #{email}
 	</select>
-	
 
+	<insert
+		id="signUp"
+		parameterType="AccountDto">
+		INSERT INTO
+		account(`email`,`password`,`phone`,`address`,`address_detail`,`business_number`,`nickname`,`type`,`gender`,`age`)
+		VALUES
+		(#{email},#{password},#{phone},#{address},#{address_detail},#{business_number},#{nickname},#{type},#{gender},#{age});
+	</insert>
+
+	<delete
+		id="delete"
+		parameterType="String">
+		delete
+		from account
+		where email = #{email};
+	</delete>
+
+	<update
+		id="update"
+		parameterType="AccountDto">
+		update account
+		set
+		password = #{password},
+		phone = #{phone},
+		address = #{address},
+		address_detail = #{address_detail},
+		business_number = #{business_number},
+		nickname = #{nickname},
+		gender = #{gender},
+		age = #{age}
+		where email = #{email};
+	</update>
 
 
 
