@@ -1,23 +1,22 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import createPersistedState from 'vuex-persistedstate';
 import { loginUser } from '@/api/auth';
-
+import router from '../router/index';
 Vue.use(Vuex);
 
 export default new Vuex.Store({
+  plugins: [createPersistedState()],
   state: {
-    SERVER_URL: 'http://j4d110.p.ssafy.io/',
-    LOCAL_URL: 'http://localhost:8080',
     token: '',
     email: '',
-    password: '',
     nickname: '',
     retailuuid: '',
     uuid: '',
   },
   getters: {
     isLogin(state) {
-      return state.name !== '';
+      return state.token !== '';
     },
   },
   mutations: {
@@ -32,12 +31,6 @@ export default new Vuex.Store({
     },
     clearEmail(state) {
       state.email = '';
-    },
-    setPassword(state, password) {
-      state.password = password;
-    },
-    clearPassword(state) {
-      state.password = '';
     },
     setNickname(state, nickname) {
       state.nickname = nickname;
@@ -60,19 +53,14 @@ export default new Vuex.Store({
   },
   actions: {
     async LOGIN({ commit }, userData) {
-      var data;
       try {
-        data = await loginUser(userData);
-        // if (data.data.code == 'LOGIN_SUCCESS') {
-        // commit('setToken', data.data['message']);
-        // commit('setEmail', data.data.member.email);
-        // commit('setPassword', userData.password);
-        // commit('setNickname', data.data.member.name);
-        // commit('setUuid', data.data.member.uuid);
-        // commit('setAdress', data.data.member.phone);
-        // commit('setRetailuuid', data.data.member.lawuuid);
-        //   router.push('/home');
-        // }
+        const data = await loginUser(userData);
+        console.log(data);
+        if (data.message == 'SUCCESS') {
+          commit('setToken', data.data['access-token']);
+          commit('setEmail', userData.email);
+        }
+        router.push('/main');
       } catch (err) {
         Vue.swal({
           icon: 'error',
