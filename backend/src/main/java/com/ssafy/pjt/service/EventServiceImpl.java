@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.ssafy.pjt.dao.EventDao;
 import com.ssafy.pjt.dto.EventDto;
+import com.ssafy.pjt.dto.EventUserRequestDto;
 
 @Service
 public class EventServiceImpl implements EventService {
@@ -58,6 +59,16 @@ public class EventServiceImpl implements EventService {
 	@Override
 	public boolean joinEvent(int event_id) throws SQLException {
 		return eventDao.joinEvent(event_id) == 1;
+	}
+
+	@Override
+	public List<EventUserRequestDto> selectWinListByEventId(int event_id) throws SQLException {
+		return eventDao.selectWinListByEventId(event_id);
+	}
+
+	@Override
+	public List<EventUserRequestDto> selectParticipationListByEventId(int event_id) throws SQLException {
+		return eventDao.selectParticipationListByEventId(event_id);
 	}
 
 }
