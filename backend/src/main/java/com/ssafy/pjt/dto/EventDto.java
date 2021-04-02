@@ -1,8 +1,7 @@
 package com.ssafy.pjt.dto;
 
-import java.util.Date;
+import java.sql.Date;
 
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
