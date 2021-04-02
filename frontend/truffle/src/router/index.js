@@ -23,6 +23,7 @@ import BoardUpdate from '../views/board/BoardUpdate.vue';
 
 import ProfileUser from '../views/ProfileUser.vue';
 
+import EventAll from '../views/event/EventAll.vue';
 import EventDetail from '../views/event/EventDetail.vue';
 import EventCreate from '../views/event/EventCreate.vue';
 import EventUpdate from '../views/event/EventUpdate.vue';
@@ -110,6 +111,11 @@ const routes = [
 
   // 이벤트
   {
+    path: '/eventAll',
+    name: 'EventAll',
+    components: { default: EventAll, header: MainNavbar },
+  },
+  {
     path: '/eventDetail',
     name: 'EventDetail',
     components: { default: EventDetail, header: MainNavbar },
@@ -153,11 +159,6 @@ const routes = [
     name: 'ProfileUser',
     components: { default: ProfileUser, header: MainNavbar },
   },
-  {
-    path: '/eventDetail',
-    name: 'EventDetail',
-    components: { default: EventDetail, header: MainNavbar },
-  },
 ];
 
 const router = new VueRouter({
@@ -166,4 +167,17 @@ const router = new VueRouter({
   routes,
 });
 
+router.beforeEach((to, from, next) => {
+  if (to.meta.auth && !store.getters.isLogin) {
+    Vue.swal({
+      icon: 'error',
+      title: '로그인후 사용가능한 서비스입니다.',
+      showConfirmButton: false,
+      timer: 1500,
+    });
+    next('/signin-signup');
+    return;
+  }
+  next();
+});
 export default router;

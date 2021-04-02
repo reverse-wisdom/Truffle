@@ -6,7 +6,7 @@ function eventAll() {
 }
 //이벤트 상세조회
 function eventDetail(event_id) {
-  return posts.get(`/event/deatail?event_id=${event_id}`);
+  return posts.get(`/event/detail?event_id=${event_id}`);
 }
 //이벤트 페이지 작성
 function eventInsert(event_data) {
@@ -14,7 +14,7 @@ function eventInsert(event_data) {
 }
 //이벤트 수정
 function eventUpdate(event_data) {
-  return posts.post('//event/update', event_data);
+  return posts.post('/event/update', event_data);
 }
 
 //나이별 상세 조회
