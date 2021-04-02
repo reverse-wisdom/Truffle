@@ -19,7 +19,7 @@
             <h1 class="">응모자수:{{ event.join_num }}</h1>
           </div>
           <div class="options-colors">
-            <h1>{{ event.end_date }}</h1>
+            <h1>마감일:{{ event.end_date }}</h1>
           </div>
         </div>
         <a href="#" class="btn" @click="eventDetailGo">응모하러가기</a>
