@@ -55,9 +55,9 @@
 		from event
 		where category like concat(concat('%', #{category}),'%')
 	</select>
-	
-	<update 
-		id="update" 
+
+	<update
+		id="update"
 		parameterType="EventDto">
 		update event
 		set
@@ -72,24 +72,51 @@
 		category = #{category}
 		where event_id = #{event_id}
 	</update>
-	
-	<insert 
-		id="insert" 
+
+	<insert
+		id="insert"
 		parameterType="EventDto">
 		INSERT INTO
 		event(`product`,`detail`,`open_date`,`end_date`,`win_num`,`price`,`gender`,`age`,`category`)
 		VALUES
-		(#{product},#{detail},#{open_date},#{end_date},#{win_num},#{price},#{gender},#{age},#{category});	
+		(#{product},#{detail},#{open_date},#{end_date},#{win_num},#{price},#{gender},#{age},#{category});
 	</insert>
-	
-	<update 
-		id="joinEvent" 
+
+	<update
+		id="joinEvent"
 		parameterType="int">
 		update event
 		set
 		join_num = join_num + 1
 		where event_id = #{event_id}
 	</update>
+
+	<select
+		id="selectWinListByEventId"
+		parameterType="int"
+		resultType="EventUserRequestDto">
+		select a.email ,a.phone
+		from account a
+		left join win w
+		on a.uuid = w.uuid
+		left join event e
+		on e.event_id = w.event_id
+		where
+		e.event_id = #{event_id};
+	</select>
+
+	<select
+		id="selectParticipationListByEventId"
+		parameterType="int"
+		resultType="EventUserRequestDto">
+		select a.email ,a.phone
+		from account a
+		left join participation p
+		on a.uuid = p.uuid
+		left join event e
+		on e.event_id = p.event_id
+		where e.event_id = #{event_id};
+	</select>
 
 
 
