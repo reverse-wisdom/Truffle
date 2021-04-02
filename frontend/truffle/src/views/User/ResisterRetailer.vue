@@ -54,7 +54,7 @@
               <input class="signup-btn search" type="button" @click="sample4_execDaumPostcode" value="우편번호 찾기" />
             </div>
             <input id="" name="" type="text" v-model="address" />
-            <input id="" name="" type="text" v-model="addressdetail" placeholder="상세주소를 입력해주세요" />
+            <input id="" name="" type="text" v-model="address_detail" placeholder="상세주소를 입력해주세요" />
           </div>
 
           <button class="signup-btn" type="submit">SMS 본인인증</button>
@@ -79,7 +79,7 @@ export default {
       business_num1: '',
       business_num2: '',
       business_num3: '',
-      addressdetail: '',
+      address_detail: '',
       postcode: '',
       type: 2,
       msg: [],
@@ -159,7 +159,7 @@ export default {
           password: this.password,
           phone: this.phone,
           address: this.address,
-          address_detail: this.addressdetail,
+          address_detail: this.address_detail,
           business_number: business_number,
           type: 2,
         };
