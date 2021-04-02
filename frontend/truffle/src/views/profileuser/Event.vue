@@ -1,15 +1,13 @@
 <template>
-  <div>
+  <p>
     이벤트
-  </div>
+  </p>
 </template>
 
 <script>
 export default {
-  name: 'Event'
-}
+  name: 'Event',
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

@@ -2,15 +2,12 @@
   <div>
     기본정보
   </div>
-
-  
-
 </template>
 
 <script>
 export default {
   name: 'Basic',
-}
+};
 </script>
 
 <style scoped>
@@ -33,7 +30,7 @@ export default {
 .card-nav {
   display: flex;
   justify-content: center;
-  background-color:linen;
+  background-color: linen;
 }
 
 .card-header {
@@ -61,7 +58,7 @@ export default {
 
 .card-body-title {
   display: flex;
-  align-items: center;  /*글자먼저 정렬하고*/
+  align-items: center; /*글자먼저 정렬하고*/
   justify-content: space-between; /*이렇게 정렬하면 깔끔*/
 }
 
