@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-container>
+    <v-container class="qna">
       <v-card>
         <v-card-title class="board-title">
           질문과 답변
@@ -17,7 +17,15 @@
 </template>
 
 <script>
-export default {};
+export default {
+  writePage() {
+    // this.$router.push('/qnaWrite')
+  },
+};
 </script>
 
-<style></style>
+<style scoped>
+.qna {
+  width: 80%;
+}
+</style>
