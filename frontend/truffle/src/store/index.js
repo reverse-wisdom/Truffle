@@ -7,7 +7,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     SERVER_URL: 'http://j4d110.p.ssafy.io/',
-    LOCAL_URL: 'http://localhost:8081',
+    LOCAL_URL: 'http://localhost:8080',
     token: '',
     email: '',
     password: '',
