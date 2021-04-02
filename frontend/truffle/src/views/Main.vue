@@ -51,7 +51,7 @@
     </div>
     <div class="space"></div>
 
-    <v-container class="">
+    <v-container>
       <section>
         <div class="container">
           <div class="card" v-for="(item, i) in items" :key="i">
@@ -187,6 +187,24 @@ export default {
   components: {},
   data() {
     return {
+      tab: null,
+      category: [
+        { tab: '의류', content: 'Tab 1 Content' },
+        { tab: '뷰티', content: 'Tab 2 Content' },
+        { tab: '잡화', content: 'Tab 3 Content' },
+        { tab: '신발', content: 'Tab 4 Content' },
+        { tab: '식품', content: 'Tab 5 Content' },
+        { tab: '디지털', content: 'Tab 6 Content' },
+        { tab: '취미/문화', content: 'Tab 7 Content' },
+      ],
+      ages: [
+        { tab: '10대', content: 'Tab 1 Content' },
+        { tab: '20대', content: 'Tab 2 Content' },
+        { tab: '30대', content: 'Tab 3 Content' },
+        { tab: '40대', content: 'Tab 4 Content' },
+        { tab: '50대', content: 'Tab 5 Content' },
+        { tab: '60대', content: 'Tab 5 Content' },
+      ],
       items: [
         {
           name: '구찌 홀스빗 카드지갑',
@@ -694,5 +712,8 @@ section::after {
   border: 6px solid white;
   padding: 10px 10px;
   margin-left: 10vw;
+}
+.category-container {
+  top: 20vh;
 }
 </style>
