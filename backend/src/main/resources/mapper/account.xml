@@ -57,6 +57,32 @@
 		where email = #{email};
 	</update>
 
+	<select
+		id="selectEventWinnerByEmail"
+		parameterType="String"
+		resultType="EventDto">
+		select e.*
+		from event e
+		left join win w
+		on e.event_id = w.event_id
+		left join account a
+		on a.uuid = w.uuid
+		where a.email = #{email};
+	</select>
+
+	<select
+		id="selectEventParticipationByEmail"
+		parameterType="String"
+		resultType="EventDto">
+		select e.*
+		from event e
+		left join participation p
+		on e.event_id = p.event_id
+		left join account a
+		on a.uuid = p.uuid
+		where a.email = #{email};
+	</select>
+
 
 
 
