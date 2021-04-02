@@ -153,11 +153,6 @@ const routes = [
     name: 'ProfileUser',
     components: { default: ProfileUser, header: MainNavbar },
   },
-  {
-    path: '/eventDetail',
-    name: 'EventDetail',
-    components: { default: EventDetail, header: MainNavbar },
-  },
 ];
 
 const router = new VueRouter({
