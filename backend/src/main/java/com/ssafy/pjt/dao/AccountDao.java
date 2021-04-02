@@ -3,6 +3,7 @@ package com.ssafy.pjt.dao;
 import java.sql.SQLException;
 
 import com.ssafy.pjt.dto.AccountDto;
+import com.ssafy.pjt.dto.EventDto;
 import com.ssafy.pjt.dto.LoginRequestDto;
 
 public interface AccountDao {
@@ -15,4 +16,8 @@ public interface AccountDao {
 	public int delete(String email) throws SQLException;
 
 	public int update(AccountDto accountDto) throws SQLException;
+
+	public EventDto selectEventWinnerByEmail(String email) throws SQLException;
+
+	public EventDto selectEventParticipationByEmail(String email) throws SQLException;
 }
