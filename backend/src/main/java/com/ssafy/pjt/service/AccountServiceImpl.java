@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.ssafy.pjt.dao.AccountDao;
 import com.ssafy.pjt.dto.AccountDto;
+import com.ssafy.pjt.dto.EventDto;
 import com.ssafy.pjt.dto.LoginRequestDto;
 
 @Service
@@ -39,8 +40,17 @@ public class AccountServiceImpl implements AccountService {
 
 	@Override
 	public boolean update(AccountDto accountDto) throws SQLException {
-		System.out.println(accountDao.update(accountDto));
 		return accountDao.update(accountDto) == 1;
+	}
+
+	@Override
+	public EventDto selectEventWinnerByEmail(String email) throws SQLException {
+		return accountDao.selectEventWinnerByEmail(email);
+	}
+
+	@Override
+	public EventDto selectEventParticipationByEmail(String email) throws SQLException {
+		return accountDao.selectEventParticipationByEmail(email);
 	}
 
 }
