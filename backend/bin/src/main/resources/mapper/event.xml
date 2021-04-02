@@ -55,6 +55,41 @@
 		from event
 		where category like concat(concat('%', #{category}),'%')
 	</select>
+	
+	<update 
+		id="update" 
+		parameterType="EventDto">
+		update event
+		set
+		product = #{product},
+		detail = #{detail},
+		open_date = #{open_date},
+		end_date = #{end_date},
+		win_num = #{win_num},
+		price = #{price},
+		gender = #{gender},
+		age = #{age},
+		category = #{category}
+		where event_id = #{event_id}
+	</update>
+	
+	<insert 
+		id="insert" 
+		parameterType="EventDto">
+		INSERT INTO
+		event(`product`,`detail`,`open_date`,`end_date`,`win_num`,`price`,`gender`,`age`,`category`)
+		VALUES
+		(#{product},#{detail},#{open_date},#{end_date},#{win_num},#{price},#{gender},#{age},#{category});	
+	</insert>
+	
+	<update 
+		id="joinEvent" 
+		parameterType="int">
+		update event
+		set
+		join_num = join_num + 1
+		where event_id = #{event_id}
+	</update>
 
 
 
