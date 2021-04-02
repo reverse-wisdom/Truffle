@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.pjt.dto.EventDto;
+import com.ssafy.pjt.dto.EventUserRequestDto;
 import com.ssafy.pjt.service.EventServiceImpl;
 
 import io.swagger.annotations.ApiOperation;
@@ -148,6 +149,32 @@ public class EventController {
 			return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+	}
+
+	@ApiOperation(value = "당첨자 전체조회")
+	@GetMapping("/selectWinListByEventId")
+	private ResponseEntity<List<EventUserRequestDto>> selectWinListByEventId(
+			@RequestParam(required = true) final int event_id) {
+		List<EventUserRequestDto> list;
+		try {
+			list = eventService.selectWinListByEventId(event_id);
+			return new ResponseEntity<>(list, HttpStatus.OK);
+		} catch (SQLException e) {
+			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+		}
+	}
+
+	@ApiOperation(value = "참여자 전체조회")
+	@GetMapping("/selectParticipationListByEventId")
+	private ResponseEntity<List<EventUserRequestDto>> selectParticipationListByEventId(
+			@RequestParam(required = true) final int event_id) {
+		List<EventUserRequestDto> list;
+		try {
+			list = eventService.selectParticipationListByEventId(event_id);
+			return new ResponseEntity<>(list, HttpStatus.OK);
+		} catch (SQLException e) {
+			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+		}
 	}
 
 }
