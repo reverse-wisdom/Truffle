@@ -5,8 +5,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class RankDto {
-	int rank_id;
+public class SearchDto {
 	int hit;
 	String word;
 }

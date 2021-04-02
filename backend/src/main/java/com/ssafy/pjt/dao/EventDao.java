@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.ssafy.pjt.dto.EventDto;
 import com.ssafy.pjt.dto.EventUserRequestDto;
+import com.ssafy.pjt.dto.SearchDto;
 
 public interface EventDao {
 	public List<EventDto> all() throws SQLException;
@@ -28,5 +29,9 @@ public interface EventDao {
 	public List<EventUserRequestDto> selectWinListByEventId(int event_id) throws SQLException;
 
 	public List<EventUserRequestDto> selectParticipationListByEventId(int event_id) throws SQLException;
+
+	public int upsertSearchHit(String word) throws SQLException;
+
+	public List<SearchDto> selectSearchHit() throws SQLException;
 
 }
