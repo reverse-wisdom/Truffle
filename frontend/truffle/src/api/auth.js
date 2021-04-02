@@ -1,7 +1,7 @@
 import { instance, posts } from './index';
 
 function loginUser(userData) {
-  return instance.post('/api/member/login', userData);
+  return instance.post('account/login', userData);
 }
 
 function registerRetail(userData) {
