@@ -18,4 +18,10 @@ public interface EventDao {
 
 	public List<EventDto> selectByCategory(String category) throws SQLException;
 
+	public int update(EventDto eventDto) throws SQLException;
+
+	public int insert(EventDto eventDto) throws SQLException;
+
+	public int joinEvent(int event_id) throws SQLException;
+
 }
