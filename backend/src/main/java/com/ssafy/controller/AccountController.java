@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.pjt.dto.AccountDto;
+import com.ssafy.pjt.dto.EventDto;
 import com.ssafy.pjt.dto.LoginRequestDto;
 import com.ssafy.pjt.service.AccountServiceImpl;
 import com.ssafy.pjt.service.TokenProvider;
@@ -116,7 +117,6 @@ public class AccountController {
 	@PutMapping("/update")
 	private ResponseEntity<String> update(@RequestBody final AccountDto accountDto, HttpServletRequest request) {
 		if (tokenProvider.validateToken(request.getHeader("x-auth-token"))) {
-			System.out.println("1");
 			try {
 				boolean result = accountService.update(accountDto);
 				System.out.println(result);
@@ -131,6 +131,29 @@ public class AccountController {
 			return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+	}
+
+	@ApiOperation(value = "회원이메일로 당첨기록 조회", notes = "email 값 필수")
+	@GetMapping("/selectEventWinnerByEmail")
+	private ResponseEntity<EventDto> selectEventWinnerByEmail(@RequestParam(required = true) final String email) {
+		try {
+			EventDto eventdto = accountService.selectEventWinnerByEmail(email);
+			return new ResponseEntity<>(eventdto, HttpStatus.OK);
+		} catch (SQLException e) {
+			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+		}
+	}
+
+	@ApiOperation(value = "회원이메일로 진행중인 참여조회", notes = "email 값 필수")
+	@GetMapping("/selectEventParticipationByEmail")
+	private ResponseEntity<EventDto> selectEventParticipationByEmail(
+			@RequestParam(required = true) final String email) {
+		try {
+			EventDto eventdto = accountService.selectEventParticipationByEmail(email);
+			return new ResponseEntity<>(eventdto, HttpStatus.OK);
+		} catch (SQLException e) {
+			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+		}
 	}
 
 }
