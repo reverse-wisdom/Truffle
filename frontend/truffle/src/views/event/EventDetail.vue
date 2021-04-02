@@ -7,56 +7,51 @@
           <div class="img-display">
             <div class="img-showcase">
               <img src="@/assets/img/tombrown.jpg" alt="shoe image" />
-              <img src="@/assets/img/tombrown.jpg" alt="shoe image" />
-              <img src="@/assets/img/tombrown.jpg" alt="shoe image" />
-              <img src="@/assets/img/tombrown.jpg" alt="shoe image" />
             </div>
           </div>
         </div>
         <!-- card right -->
         <div class="product-content">
-          <h2 class="product-title">Tom Brown Edition 갤럭시</h2>
+          <h2 class="product-title">{{ event.product }}</h2>
 
           <div class="product-price">
             <p class="price">
               가격:
-              <span>1,000,000원</span>
+              <span>{{ event.price }}</span>
             </p>
           </div>
           <div class="tag">
             <p class="product-tag">
-              남성
+              {{ gender }}
             </p>
             <br />
-            <p class="product-tag">
-              20대
-            </p>
+            <p class="product-tag">{{ event.age }}대</p>
           </div>
           <div class="product-detail">
             <h2>about this item:</h2>
             <ul>
               <li>
                 Category:
-                <span>Shoes</span>
+                <span>{{ event.category }}</span>
               </li>
               <li>
                 응모자수:
-                <span>10명</span>
+                <span>{{ event.join_num }}명</span>
               </li>
 
               <li>
                 당첨자수:
-                <span>1명</span>
+                <span>{{ event.win_num }}명</span>
               </li>
               <li>
                 마감일:
-                <span>2020/4/30</span>
+                <span>{{ event.end_date }}</span>
               </li>
             </ul>
           </div>
 
           <div class="join-info">
-            <button type="button" class="btn">
+            <button type="button" class="btn" @click="joinAdd">
               응모하기
             </button>
           </div>
@@ -69,16 +64,35 @@
 
 <script>
 import EventDetailTab from '../event/EventDetailTab';
-
+import { eventDetail, eventJoin } from '@/api/event';
 export default {
   name: 'EventDetail',
   components: { EventDetailTab },
   data() {
     return {
+      event: '',
       tabcheck: false,
+      gender: '',
     };
   },
-  watch: {},
+  async created() {
+    const event_id = this.$route.query.event_id;
+    console.log(event_id);
+    const { data } = await eventDetail(event_id);
+    this.event = data[0];
+    if (this.event.gender == 1) {
+      this.gender = '남자';
+    } else {
+      this.gender = '여자';
+    }
+    console.log('상세이벤트', this.event);
+  },
+  methods: {
+    async joinAdd() {
+      const { data } = await eventJoin();
+      console.log(data);
+    },
+  },
 };
 </script>
 

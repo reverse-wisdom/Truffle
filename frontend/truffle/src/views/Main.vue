@@ -3,10 +3,12 @@
   <div class="home">
     <!-- 캐러셀 -->
     <!-- <v-carousel hide-delimiters class="">
-        <v-carousel-item ></v-carousel-item>
+        <v-carousel-item v-for="(item, i) in items" :key="i" :src="item.src"></v-carousel-item>
       </v-carousel> -->
     <div class="container1">
       <div class="left-col">
+        <div class="cover"></div>
+
         <div class="data">
           <div class="left-name">
             <p id="name">공정한 기회와 편의를 제공해드리는.</p>
@@ -16,7 +18,6 @@
             <h1>truffle MAKER</h1>
           </div>
         </div>
-
         <div class="block-cover"></div>
       </div>
 
@@ -51,29 +52,15 @@
     </div>
     <div class="space"></div>
 
-    <v-container>
-      <section>
-        <div class="container">
-          <div class="card" v-for="(item, i) in items" :key="i">
-            <div class="imgBx">
-              <img :src="item.src" alt="" />
-              <h2>{{ item.brand }}</h2>
-            </div>
-            <div class="content">
-              <div class="size">
-                <h4>{{ item.name }}</h4>
-                <span>{{ item.price }}</span>
-              </div>
-              <a @click="detail(item.id)">Detail</a>
-            </div>
-          </div>
-        </div>
-      </section>
+    <v-container class="mid-content">
+      <EventAll v-for="(event, idx) in eventlist" :key="idx" :event="event"></EventAll>
     </v-container>
   </div>
 </template>
 
 <script>
+import EventAll from '@/views/event/EventAll.vue';
+import { eventAll } from '@/api/event';
 TweenMax.from('.left-col', 2, {
   width: '0%',
   ease: Expo.easeInOut,
@@ -183,72 +170,40 @@ TweenMax.from('.more', 2, {
 });
 
 export default {
-  name: 'Home',
-  components: {},
+  name: 'Main',
+  components: { EventAll },
   data() {
     return {
-      tab: null,
-      category: [
-        { tab: '의류', content: 'Tab 1 Content' },
-        { tab: '뷰티', content: 'Tab 2 Content' },
-        { tab: '잡화', content: 'Tab 3 Content' },
-        { tab: '신발', content: 'Tab 4 Content' },
-        { tab: '식품', content: 'Tab 5 Content' },
-        { tab: '디지털', content: 'Tab 6 Content' },
-        { tab: '취미/문화', content: 'Tab 7 Content' },
-      ],
-      ages: [
-        { tab: '10대', content: 'Tab 1 Content' },
-        { tab: '20대', content: 'Tab 2 Content' },
-        { tab: '30대', content: 'Tab 3 Content' },
-        { tab: '40대', content: 'Tab 4 Content' },
-        { tab: '50대', content: 'Tab 5 Content' },
-        { tab: '60대', content: 'Tab 5 Content' },
-      ],
-      items: [
-        {
-          name: '구찌 홀스빗 카드지갑',
-          brand: '구찌',
-          src: require('@/assets/img/상품1.png'),
-          price: '537,000원',
-          id: 0,
-        },
-        {
-          name: '모노그램 마틀라세 클러치백 뉴미디움 블랙 금장',
-          brand: '생로랑',
-          src: require('@/assets/img/상품2.png'),
-          price: '923,000원',
-          id: 1,
-        },
-        {
-          name: '여성 슈퍼스타 로우탑 스니커즈',
-          brand: '골드구스',
-          src: require('@/assets/img/상품3.png'),
-          price: '377,000원',
-          id: 2,
-        },
-        {
-          name: '구찌 홀스빗 카드지갑',
-          brand: '구찌',
-          src: require('@/assets/img/상품1.png'),
-          price: '537,000원',
-          id: 3,
-        },
-      ],
+      eventlist: [],
     };
   },
-  methods: {
-    detail(id) {
-      this.$router.push({ name: 'ItemDetail', query: { id: id } });
-    },
+  async created() {
+    const { data } = await eventAll();
+    console.log(data);
+    for (let i = 0; i < data.length; i++) {
+      this.eventlist.push({
+        event_id: data[i].event_id,
+        age: data[i].age,
+        category: data[i].category,
+        gender: data[i].gender,
+        join_num: data[i].join_num,
+        price: data[i].price,
+        product: data[i].product,
+        win_num: data[i].win_num,
+        end_date: data[i].end_date,
+        open_date: data[i].open_date,
+      });
+    }
+    console.log('이벤트리스트', this.eventlist);
   },
+  methods: {},
 };
 </script>
 <style scoped>
 .space {
   margin-top: 35rem;
 }
-@import url('http://font.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&dispaly=swap');
+@import url('http://font.goolgeapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&dispaly=swap');
 * {
   margin: 0;
   padding: 0;
@@ -283,7 +238,8 @@ section::after {
   height: 80%;
   z-index: 0;
 }
-
+.container1 {
+}
 .container {
   position: relative;
   z-index: 5;
@@ -471,16 +427,6 @@ section::after {
   z-index: 1;
 }
 
-.year {
-  position: absolute;
-  color: #000;
-  font-family: Poppins;
-  bottom: 8%;
-  font-weight: bolder;
-  transform: rotate(-90deg);
-  left: 0%;
-}
-
 .cover {
   position: absolute;
   top: 50%;
@@ -510,9 +456,9 @@ section::after {
   font-weight: bolder;
 }
 
-/* #artist {
+#artist {
   font-size: 10px;
-} */
+}
 
 .about {
   position: absolute;
@@ -676,8 +622,7 @@ section::after {
   top: 55%;
   color: #fff;
 }
-.right .inner {
-}
+
 .post {
   width: 600px;
   height: 100%;
@@ -713,7 +658,7 @@ section::after {
   padding: 10px 10px;
   margin-left: 10vw;
 }
-.category-container {
-  top: 20vh;
+.mid-content {
+  margin-top: 30%;
 }
 </style>

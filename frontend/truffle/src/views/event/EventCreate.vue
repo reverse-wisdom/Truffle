@@ -73,7 +73,7 @@
         </form>
 
         <div class="btn-right">
-          <v-btn color="#000" dark type="submit" @click="writeContent">
+          <v-btn color="#000" dark type="submit" @click="eventInsert">
             등록
           </v-btn>
           <v-btn color="#000" class="ml-1" dark type="button" @click="moveList">
@@ -86,27 +86,21 @@
 </template>
 
 <script>
-// import { createBoard } from '@/api/board';
+import { eventInsert } from '@/api/event';
 
 export default {
   data() {
     return {
-      dates: ['2019-09-10', '2019-09-20'],
+      age: '',
       category: ['의류', '뷰티', '잡화', '신발', '식품', '디지털', '취미/문화', '기타'],
-      //제품명
-      product: 'string',
-      category: 'string',
-      gender_checked: '',
-      age_checked: '',
-      detail: 'string',
-      //가격
-      price: 0,
-      open_date: '2021-04-01',
-      end_date: '',
-      //응모자수
-      join_num: 0,
-      //당첨자수
-      win_num: 0,
+      detail: $('#summernote').summernote('code'),
+      end_date: '2021-04-02',
+      gender: '',
+      join_num: '',
+      open_date: '2021-04-02',
+      price: '',
+      product: '갤럭시',
+      win_num: '',
     };
   },
   mounted() {
@@ -134,24 +128,30 @@ export default {
   },
 
   methods: {
-    async writeContent() {
+    async eventInsert() {
       const data = {
-        title: this.title,
-        content: $('#summernote').summernote('code'),
-        category: this.category,
+        age: 2,
+        category: '의류',
+        detail: $('#summernote').summernote('code'),
+        end_date: '2021-04-02',
+        gender: 1,
+        join_num: 3,
+        open_date: '2021-04-02',
+        price: 1000,
+        product: '갤럭시',
+        win_num: 0,
       };
       console.log(data);
       try {
-        // const response = await createBoard(data);
-        // console.log(response);
-
+        const response = await eventInsert;
         this.$swal({
           icon: 'success',
           title: '글 작성 완료!!',
           showConfirmButton: false,
           timer: 1500,
         });
-        this.moveList();
+        console.log(response);
+        // this.moveList();
       } catch (err) {
         console.log(err);
       }
