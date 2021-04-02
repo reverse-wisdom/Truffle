@@ -3,15 +3,14 @@
     <v-container>
       <div style="padding:80px">
         <h2 class="title text-center kor" style="font-weight:bold;">이벤트등록</h2>
-        <hr class="div-hr" />
         <form v-on:submit.prevent="writeContent">
           <v-text-field label="제품명" v-model="title"></v-text-field>
-          <v-select :items="items" label="카테고리" v-model="category"></v-select>
+          <v-select :items="items" label="카테고리" dense solo></v-select>
           <div class="input-container gender">
             <label for="">GENDER</label>
             <div class="wrapper">
-              <input type="radio" name="select" id="option-1" value="1" v-model="gender_checked" />
-              <input type="radio" name="select" id="option-2" value="2" v-model="gender_checked" />
+              <input type="radio" name="select" id="option-1" value="1" v-model="gender" />
+              <input type="radio" name="select" id="option-2" value="2" v-model="gender" />
               <label for="option-1" class="option option-1">
                 <div class="dot"></div>
                 <span>남성</span>
@@ -25,9 +24,9 @@
           <div class="input-container age">
             <label for="">AGE</label>
             <div class="wrapper1">
-              <input type="radio" name="select1" id="gender-option-1" value="10" v-model="age_checked" />
-              <input type="radio" name="select1" id="gender-option-2" value="20" v-model="age_checked" />
-              <input type="radio" name="select1" id="gender-option-3" value="30" v-model="age_checked" />
+              <input type="radio" name="select1" id="gender-option-1" value="10" v-model="age" />
+              <input type="radio" name="select1" id="gender-option-2" value="20" v-model="age" />
+              <input type="radio" name="select1" id="gender-option-3" value="30" v-model="age" />
 
               <label for="gender-option-1" class="gender-option gender-option-1">
                 <div class="dot"></div>
@@ -43,9 +42,9 @@
               </label>
             </div>
             <div class="wrapper1">
-              <input type="radio" name="select1" id="gender-option-4" value="40" v-model="age_checked" />
-              <input type="radio" name="select1" id="gender-option-5" value="50" v-model="age_checked" />
-              <input type="radio" name="select1" id="gender-option-6" value="60" v-model="age_checked" />
+              <input type="radio" name="select1" id="gender-option-4" value="40" v-model="age" />
+              <input type="radio" name="select1" id="gender-option-5" value="50" v-model="age" />
+              <input type="radio" name="select1" id="gender-option-6" value="60" v-model="age" />
               <label for="gender-option-4" class="gender-option gender-option-4">
                 <div class="dot"></div>
                 <span>40대</span>
@@ -60,15 +59,53 @@
               </label>
             </div>
           </div>
-          <v-row>
-            <v-col cols="12" sm="6">
-              <v-date-picker v-model="dates" range></v-date-picker>
-            </v-col>
-            <v-col cols="12" sm="6">
-              <v-text-field v-model="dateRangeText" label="Date range" prepend-icon="mdi-calendar" readonly></v-text-field>
-              model: {{ dates }}
-            </v-col>
-          </v-row>
+          <v-container>
+            <v-row>
+              <v-col cols="12" lg="6">
+                <v-menu ref="menu1" v-model="menu1" :close-on-content-click="false" transition="scale-transition" offset-y max-width="290px" min-width="auto">
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-text-field
+                      v-model="dateFormatted"
+                      label="Date"
+                      hint="MM/DD/YYYY format"
+                      persistent-hint
+                      prepend-icon="mdi-calendar"
+                      v-bind="attrs"
+                      @blur="date = parseDate(dateFormatted)"
+                      v-on="on"
+                    ></v-text-field>
+                  </template>
+                  <v-date-picker v-model="date" no-title @input="menu1 = false"></v-date-picker>
+                </v-menu>
+                <p>
+                  Date in ISO format:
+                  <strong>{{ date }}</strong>
+                </p>
+              </v-col>
+
+              <v-col cols="12" lg="6">
+                <v-menu v-model="menu2" :close-on-content-click="false" transition="scale-transition" offset-y max-width="290px" min-width="auto">
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-text-field
+                      v-model="computedDateFormatted"
+                      label="Date (read only text field)"
+                      hint="MM/DD/YYYY format"
+                      persistent-hint
+                      prepend-icon="mdi-calendar"
+                      readonly
+                      v-bind="attrs"
+                      v-on="on"
+                    ></v-text-field>
+                  </template>
+                  <v-date-picker v-model="date" no-title @input="menu2 = false"></v-date-picker>
+                </v-menu>
+                <p>
+                  Date in ISO format:
+                  <strong>{{ date }}</strong>
+                </p>
+              </v-col>
+            </v-row>
+          </v-container>
           <div id="summernote"></div>
         </form>
 
@@ -89,20 +126,23 @@
 import { eventInsert } from '@/api/event';
 
 export default {
-  data() {
-    return {
-      age: '',
-      category: ['의류', '뷰티', '잡화', '신발', '식품', '디지털', '취미/문화', '기타'],
-      detail: $('#summernote').summernote('code'),
-      end_date: '2021-04-02',
-      gender: '',
-      join_num: '',
-      open_date: '2021-04-02',
-      price: '',
-      product: '갤럭시',
-      win_num: '',
-    };
-  },
+  data: (vm) => ({
+    date: new Date().toISOString().substr(0, 10),
+    dateFormatted: vm.formatDate(new Date().toISOString().substr(0, 10)),
+    menu1: false,
+    menu2: false,
+
+    age: '',
+    items: ['의류', '뷰티', '잡화', '신발', '식품', '디지털', '취미/문화', '기타'],
+    detail: $('#summernote').summernote('code'),
+    end_date: '2021-04-02',
+    gender: '',
+    join_num: '',
+    open_date: '2021-04-02',
+    price: '',
+    product: '갤럭시',
+    win_num: '',
+  }),
   mounted() {
     $('#summernote').summernote({
       height: 300,
@@ -122,12 +162,29 @@ export default {
     });
   },
   computed: {
-    dateRangeText() {
-      return this.dates.join(' ~ ');
+    computedDateFormatted() {
+      return this.formatDate(this.date);
+    },
+  },
+  watch: {
+    date(val) {
+      this.dateFormatted = this.formatDate(this.date);
     },
   },
 
   methods: {
+    formatDate(date) {
+      if (!date) return null;
+
+      const [year, month, day] = date.split('-');
+      return `${month}/${day}/${year}`;
+    },
+    parseDate(date) {
+      if (!date) return null;
+
+      const [month, day, year] = date.split('/');
+      return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+    },
     async eventInsert() {
       const data = {
         age: 2,

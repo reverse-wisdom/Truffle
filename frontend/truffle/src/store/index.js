@@ -54,10 +54,9 @@ export default new Vuex.Store({
   actions: {
     async LOGIN({ commit }, userData) {
       try {
-        const data = await loginUser(userData);
-        console.log(data);
+        const { data } = await loginUser(userData);
         if (data.message == 'SUCCESS') {
-          commit('setToken', data.data['access-token']);
+          commit('setToken', data['access-token']);
           commit('setEmail', userData.email);
         }
         router.push('/main');
