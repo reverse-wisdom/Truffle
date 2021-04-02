@@ -7,14 +7,14 @@
           <h2 class="title">LOGIN</h2>
           <div class="input-field">
             <i class="fas fa-user"></i>
-            <input type="text" placeholder="Username" v-model="email" />
+            <input type="text" placeholder="Username" />
           </div>
           <div class="input-field">
             <i class="fas fa-lock"></i>
-            <input type="password" placeholder="Password" v-model="password" />
+            <input type="password" placeholder="Password" />
           </div>
-          <input type="submit" value="로그인" class="btn solid" @click="Login" />
-          <naverLogin @loginComplete="loginFormWithKakao"></naverLogin>
+          <input type="submit" value="로그인" class="btn solid" />
+          <naverLogin @loginComplete="login"></naverLogin>
         </form>
         <form action="#" class="sign-up-form">
           <div class="about">
@@ -68,7 +68,7 @@ import NaverLogin from '@/components/SocialLogin/NaverLogin.vue';
 export default {
   data() {
     return {
-      email: '',
+      Id: '',
       password: '',
     };
   },
@@ -161,6 +161,7 @@ export default {
 };
 </script>
 <style scoped>
+@import url('http://apis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&dispaly=swap');
 * {
   margin: 0;
   padding: 0;

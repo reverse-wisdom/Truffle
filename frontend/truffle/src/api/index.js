@@ -3,16 +3,17 @@ import { setInterceptors } from './common/interceptors';
 
 function createInstance() {
   return axios.create({
-    baseURL: 'https://j4d110.p.ssafy.io/truffle/',
+    // baseURL: process.env.VUE_APP_API_URL,
   });
 }
 
 function createInstanceWithAuth(url) {
   const instance = axios.create({
-    baseURL: 'https://j4d110.p.ssafy.io/truffle/',
+    // baseURL: `${process.env.VUE_APP_API_URL}${url}`,
   });
   return setInterceptors(instance);
 }
+
 
 export const instance = createInstance();
 export const posts = createInstanceWithAuth();
