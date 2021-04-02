@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.pjt.dao.AccountDao">
+
+	<select
+		id="login"
+		parameterType="loginRequestDto"
+		resultType="AccountDto">
+		select *
+		from account
+		where email = #{email} and password = #{password};
+	</select>
+
+	<select
+		id="accountInfo"
+		parameterType="String"
+		resultType="AccountDto">
+		select email, phone, address, address_detail, business_number, nickname, type, gender,
+		age
+		from account
+		where email = #{email}
+	</select>
+
+
+
+
+</mapper>
