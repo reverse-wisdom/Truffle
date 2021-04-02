@@ -3,7 +3,7 @@
     <div class="forms-container">
       <div class="signin-signup">
         <!-- 로그인 폼 -->
-        <form action="#" class="sign-in-form">
+        <form class="sign-in-form">
           <h2 class="title">LOGIN</h2>
           <div class="input-field">
             <i class="fas fa-user"></i>
@@ -13,7 +13,7 @@
             <i class="fas fa-lock"></i>
             <input type="password" placeholder="Password" v-model="password" />
           </div>
-          <input type="submit" value="로그인" class="btn solid" @click="Login" />
+          <input type="button" value="로그인" class="btn solid" @click="Login" />
           <naverLogin @loginComplete="loginFormWithKakao"></naverLogin>
         </form>
         <form action="#" class="sign-up-form">
