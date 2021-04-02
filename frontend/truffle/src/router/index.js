@@ -95,11 +95,41 @@ const routes = [
     component: BoardUpdate,
   },
   {
-    path: '/profileUser',
+    path: '/ProfileUser',
     name: 'ProfileUser',
-    components: { default: ProfileUser, header: MainNavbar },
-  },
-  {
+    component: ProfileUser,
+    children: [
+      // {
+      //   path: "/profileuser/raffle",
+      //   name: "Raffle",
+      //   component: () => import("@/components/profileuser/Raffle.vue")
+      // },
+      {
+        path: '/profileuser/order',
+        name: 'Order',
+        component: () => import('@/components/profileuser/Order.vue'),
+      },
+      {
+        path: '/profileuser/event',
+        name: 'Event',
+        component: () => import('@/components/profileuser/Event.vue'),
+      },
+      {
+        path: '/profileuser/review',
+        name: 'Review',
+        component: () => import('@/components/profileuser/Review.vue'),
+      },
+      {
+        path: '/profileuser/register',
+        name: 'Register',
+        component: () => import('@/components/profileuser/Register.vue'),
+      },
+      {
+        path: '/profileuser',
+        name: 'Basic',
+        component: () => import('@/components/profileuser/Basic.vue'),
+      },
+    ],
     path: '/eventDetail',
     name: 'EventDetail',
     components: { default: EventDetail, header: MainNavbar },

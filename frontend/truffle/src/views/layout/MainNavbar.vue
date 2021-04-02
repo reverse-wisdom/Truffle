@@ -8,7 +8,7 @@
 
           <li><a class="font" href="/signin-signup">login</a></li>
           <li><a class="font" href="/guide">Guide</a></li>
-          <li><a class="font" href="/ProfileUser">profileuser</a></li>
+          <li><a class="font" href="/board">board</a></li>
           <!-- <li><a class="font" href="/item">item</a></li> -->
           <li><a class="font" href="#">Full1</a></li>
         </ul>
