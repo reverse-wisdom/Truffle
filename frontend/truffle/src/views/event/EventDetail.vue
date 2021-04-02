@@ -1,71 +1,85 @@
 <template>
-  <div class="card-wrapper">
-    <div class="card">
-      <!-- card left -->
-      <div class="product-imgs">
-        <div class="img-display">
-          <div class="img-showcase">
-            <img src="@/assets/img/tombrown.jpg" alt="shoe image" />
-            <img src="@/assets/img/tombrown.jpg" alt="shoe image" />
-            <img src="@/assets/img/tombrown.jpg" alt="shoe image" />
-            <img src="@/assets/img/tombrown.jpg" alt="shoe image" />
+  <div class="eventdetail">
+    <div class="card-wrapper">
+      <div class="card">
+        <!-- card left -->
+        <div class="product-imgs">
+          <div class="img-display">
+            <div class="img-showcase">
+              <img src="@/assets/img/tombrown.jpg" alt="shoe image" />
+              <img src="@/assets/img/tombrown.jpg" alt="shoe image" />
+              <img src="@/assets/img/tombrown.jpg" alt="shoe image" />
+              <img src="@/assets/img/tombrown.jpg" alt="shoe image" />
+            </div>
+          </div>
+        </div>
+        <!-- card right -->
+        <div class="product-content">
+          <h2 class="product-title">Tom Brown Edition 갤럭시</h2>
+
+          <div class="product-price">
+            <p class="price">
+              가격:
+              <span>1,000,000원</span>
+            </p>
+          </div>
+          <div class="tag">
+            <p class="product-tag">
+              남성
+            </p>
+            <br />
+            <p class="product-tag">
+              20대
+            </p>
+          </div>
+          <div class="product-detail">
+            <h2>about this item:</h2>
+            <ul>
+              <li>
+                Category:
+                <span>Shoes</span>
+              </li>
+              <li>
+                응모자수:
+                <span>10명</span>
+              </li>
+
+              <li>
+                당첨자수:
+                <span>1명</span>
+              </li>
+              <li>
+                마감일:
+                <span>2020/4/30</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="join-info">
+            <button type="button" class="btn">
+              응모하기
+            </button>
           </div>
         </div>
       </div>
-      <!-- card right -->
-      <div class="product-content">
-        <h2 class="product-title">Tom Brown Edition 갤럭시</h2>
-
-        <div class="product-price">
-          <p class="price">
-            가격:
-            <span>1,000,000원</span>
-          </p>
-        </div>
-        <div class="tag">
-          <p class="product-tag">
-            남성
-          </p>
-          <br />
-          <p class="product-tag">
-            20대
-          </p>
-        </div>
-        <div class="product-detail">
-          <h2>about this item:</h2>
-          <ul>
-            <li>
-              Category:
-              <span>Shoes</span>
-            </li>
-            <li>
-              응모자수:
-              <span>10명</span>
-            </li>
-
-            <li>
-              당첨자수:
-              <span>1명</span>
-            </li>
-            <li>
-              마감일:
-              <span>2020/4/30</span>
-            </li>
-          </ul>
-        </div>
-
-        <div class="join-info">
-          <button type="button" class="btn">
-            응모하기
-          </button>
-        </div>
-      </div>
     </div>
+    <EventDetailTab></EventDetailTab>
   </div>
 </template>
 
 <script>
-export default {};
+import EventDetailTab from '../event/EventDetailTab';
+
+export default {
+  name: 'EventDetail',
+  components: { EventDetailTab },
+  data() {
+    return {
+      tabcheck: false,
+    };
+  },
+  watch: {},
+};
 </script>
 
 <style scoped>
@@ -74,12 +88,13 @@ export default {};
 * {
   box-sizing: border-box;
   padding: 0;
+
   margin: 0;
   font-family: 'Open Sans', sans-serif;
 }
-body {
+/* body {
   line-height: 1.5;
-}
+} */
 .card {
   margin-top: 25%;
 }

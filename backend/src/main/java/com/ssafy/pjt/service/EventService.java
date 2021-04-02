@@ -16,4 +16,10 @@ public interface EventService {
 	public List<EventDto> selectByProduct(String product) throws Exception;
 
 	public List<EventDto> selectByCategory(String category) throws Exception;
+
+	public boolean update(EventDto eventDto) throws Exception;
+
+	public boolean insert(EventDto eventDto) throws Exception;
+
+	public boolean joinEvent(int event_id) throws Exception;
 }
