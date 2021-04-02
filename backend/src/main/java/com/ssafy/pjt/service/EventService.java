@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ssafy.pjt.dto.EventDto;
 import com.ssafy.pjt.dto.EventUserRequestDto;
+import com.ssafy.pjt.dto.SearchDto;
 
 public interface EventService {
 	public List<EventDto> all() throws Exception;
@@ -27,4 +28,6 @@ public interface EventService {
 	public List<EventUserRequestDto> selectWinListByEventId(int event_id) throws Exception;
 
 	public List<EventUserRequestDto> selectParticipationListByEventId(int event_id) throws Exception;
+
+	public List<SearchDto> selectSearchHit() throws Exception;
 }

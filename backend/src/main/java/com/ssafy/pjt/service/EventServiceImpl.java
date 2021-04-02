@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.ssafy.pjt.dao.EventDao;
 import com.ssafy.pjt.dto.EventDto;
 import com.ssafy.pjt.dto.EventUserRequestDto;
+import com.ssafy.pjt.dto.SearchDto;
 
 @Service
 public class EventServiceImpl implements EventService {
@@ -38,6 +39,7 @@ public class EventServiceImpl implements EventService {
 
 	@Override
 	public List<EventDto> selectByProduct(String product) throws SQLException {
+		eventDao.upsertSearchHit(product);
 		return eventDao.selectByProduct(product);
 	}
 
@@ -69,6 +71,11 @@ public class EventServiceImpl implements EventService {
 	@Override
 	public List<EventUserRequestDto> selectParticipationListByEventId(int event_id) throws SQLException {
 		return eventDao.selectParticipationListByEventId(event_id);
+	}
+
+	@Override
+	public List<SearchDto> selectSearchHit() throws SQLException {
+		return eventDao.selectSearchHit();
 	}
 
 }
