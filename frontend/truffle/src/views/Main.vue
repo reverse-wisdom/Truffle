@@ -242,7 +242,7 @@ section::after {
 }
 .container {
   position: relative;
-  z-index: 5;
+  z-index: 3;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -637,6 +637,7 @@ section::after {
   display: block;
   width: 600px;
   height: 100%;
+  z-index: 0;
 }
 .post-s {
   width: 0px;
@@ -660,5 +661,6 @@ section::after {
 }
 .mid-content {
   margin-top: 30%;
+  z-index: 0;
 }
 </style>

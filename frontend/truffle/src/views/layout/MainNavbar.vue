@@ -3,25 +3,35 @@
     <header>
       <a class="logo" href="/"><img src="@/assets/img/logo1.png" alt="logo" /></a>
       <nav>
-        <ul class="nav__links">
+        <ul class="nav__links" v-if="this.$store.state.token">
           <li><a class="font" href="/">Home</a></li>
-
-          <li><a class="font" href="/signin-signup">login</a></li>
           <li><a class="font" href="/guide">Guide</a></li>
           <li><a class="font" href="/ProfileUser">profileuser</a></li>
-          <!-- <li><a class="font" href="/item">item</a></li> -->
-          <li><a class="font" href="#">Full1</a></li>
+          <li>{{ this.$store.state.email }}님 안녕하세요</li>
+          <li><a class="font" @click="logout">logout</a></li>
+        </ul>
+        <ul class="nav__links" v-else>
+          <li><a class="font" href="/">Home</a></li>
+          <li><a class="font" href="/guide">Guide</a></li>
+          <li><a class="font" href="/signin-signup">Login</a></li>
         </ul>
       </nav>
-      <a class="cta" href="/signin-signup">signup</a>
       <p class="menu cta" @click="menu">Menu</p>
     </header>
     <div id="mobile__menu" class="overlay">
       <a class="close" @click="close">&times;</a>
       <div class="overlay__content">
-        <a href="#">Services</a>
-        <a href="#">Projects</a>
-        <a href="#">About</a>
+        <div v-if="this.$store.state.token">
+          <a class="font" href="/">Home</a>
+          <a class="font" href="/guide">Guide</a>
+          <a class="font" href="/ProfileUser">profileuser</a>
+          <a class="font" @click="logout">logout</a>
+        </div>
+        <div class="nav__links" v-else>
+          <a class="font" href="/">Home</a>
+          <a class="font" href="/guide">Guide</a>
+          <a class="font" href="/signin-signup">Login</a>
+        </div>
       </div>
     </div>
   </div>
@@ -43,6 +53,16 @@ export default {
       const menuClose = doc.querySelector('.close');
       const overlay = doc.querySelector('.overlay');
       overlay.classList.remove('overlay--active');
+    },
+    logout() {
+      this.$store.commit('clearEmail');
+      this.$store.commit('clearToken');
+      this.$store.commit('clearUuid');
+      this.$store.commit('clearLawuuid');
+      localStorage.clear();
+      sessionStorage.clear();
+      $cookies.keys().forEach((cookie) => $cookies.remove(cookie));
+      this.$router.push({ name: 'login' });
     },
   },
 };
