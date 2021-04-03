@@ -1,6 +1,7 @@
 package com.ssafy.pjt.service;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,13 +45,18 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public EventDto selectEventWinnerByEmail(String email) throws SQLException {
+	public List<EventDto> selectEventWinnerByEmail(String email) throws SQLException {
 		return accountDao.selectEventWinnerByEmail(email);
 	}
 
 	@Override
-	public EventDto selectEventParticipationByEmail(String email) throws SQLException {
+	public List<EventDto> selectEventParticipationByEmail(String email) throws SQLException {
 		return accountDao.selectEventParticipationByEmail(email);
+	}
+
+	@Override
+	public List<EventDto> selectCreateEventListByID(int uuid) throws SQLException {
+		return accountDao.selectCreateEventListByID(uuid);
 	}
 
 }

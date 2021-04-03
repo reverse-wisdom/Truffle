@@ -1,5 +1,7 @@
 package com.ssafy.pjt.service;
 
+import java.util.List;
+
 import com.ssafy.pjt.dto.AccountDto;
 import com.ssafy.pjt.dto.EventDto;
 import com.ssafy.pjt.dto.LoginRequestDto;
@@ -15,7 +17,9 @@ public interface AccountService {
 
 	public boolean update(AccountDto accountDto) throws Exception;
 
-	public EventDto selectEventWinnerByEmail(String email) throws Exception;
+	public List<EventDto> selectEventWinnerByEmail(String email) throws Exception;
 
-	public EventDto selectEventParticipationByEmail(String email) throws Exception;
+	public List<EventDto> selectEventParticipationByEmail(String email) throws Exception;
+	
+	public List<EventDto> selectCreateEventListByID(int uuid) throws Exception; 
 }

@@ -72,7 +72,7 @@
 </template>
 
 <script>
-import EventDetailTab from '../event/EventDetailTab';
+import EventDetailTab from '@/views/event/EventDetailTab';
 import { eventDetail, eventJoin } from '@/api/event';
 import { userJoinEvent } from '@/api/auth';
 export default {

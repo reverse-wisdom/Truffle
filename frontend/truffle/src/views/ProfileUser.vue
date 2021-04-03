@@ -28,8 +28,7 @@
 
       <div class="vtab-content">
         <div id="content1">
-          <h2>공사중1</h2>
-          <p>공사중 내용1</p>
+          <Basic></Basic>
         </div>
         <div id="content2">
           <h2>공사중2</h2>
@@ -53,12 +52,14 @@
 </template>
 
 <script>
-import Order from '../views/profileuser/Order';
+import Order from '../views/profile/Order';
+import Basic from '../views/profile/Basic';
 
 export default {
   name: 'ProfileUser',
   components: {
     Order,
+    Basic,
   },
   methods: {},
 };

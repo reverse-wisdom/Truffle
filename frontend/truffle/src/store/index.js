@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import createPersistedState from 'vuex-persistedstate';
-import { loginUser } from '@/api/auth';
+import { loginUser, fetchUser } from '@/api/auth';
 import router from '../router/index';
 Vue.use(Vuex);
 
@@ -13,6 +13,7 @@ export default new Vuex.Store({
     nickname: '',
     retailuuid: '',
     uuid: '',
+    type: '',
   },
   getters: {
     isLogin(state) {
@@ -34,14 +35,6 @@ export default new Vuex.Store({
     clearEmail(state) {
       state.email = '';
     },
-    //닉네임
-    setNickname(state, nickname) {
-      state.nickname = nickname;
-    },
-    clearNickname(state) {
-      state.nickname = '';
-    },
-    //리테일러
     setRetailuuid(state, retailuuid) {
       state.retailuuid = retailuuid;
     },
@@ -55,20 +48,32 @@ export default new Vuex.Store({
     clearUuid(state) {
       state.uuid = '';
     },
+    setType(state, type) {
+      state.type = type;
+    },
+    clearType(state) {
+      state.type = '';
+    },
   },
 
   actions: {
     async LOGIN({ commit }, userData) {
-      try {
-        const data = await loginUser(userData);
-        if (data.data.message == 'SUCCESS') {
-          commit('setToken', data.data['access-token']);
-          commit('setEmail', userData.email);
-          commit('setUuid', userData.email);
-          commit('setRetailuuid', userData.email);
-          router.push('/main');
+      const data = await loginUser(userData);
+      // console.log(data);
+      if (data.data.message == 'SUCCESS') {
+        commit('setToken', data.data['access-token']);
+        commit('setEmail', userData.email);
+        const response = await fetchUser(userData.email);
+        console.log(response);
+        if (response.data.type == 1) {
+          commit('setUuid', data.data.uuid);
+          commit('setType', response.data.type);
+        } else {
+          commit('setRetailuuid', data.data.uuid);
+          commit('setType', response.data.type);
         }
-      } catch (err) {
+        router.push('/main');
+      } else {
         Vue.swal({
           icon: 'error',
           title: '로그인 실패! 이메일 및 비밀번호를 확인해 주세요!',
