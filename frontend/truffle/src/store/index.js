@@ -21,12 +21,14 @@ export default new Vuex.Store({
     },
   },
   mutations: {
+    //토큰
     setToken(state, token) {
       state.token = token;
     },
     clearToken(state) {
       state.token = '';
     },
+    //이메일
     setEmail(state, email) {
       state.email = email;
     },
@@ -39,6 +41,7 @@ export default new Vuex.Store({
     clearRetailuuid(state) {
       state.retailuuid = '';
     },
+    //일반유저
     setUuid(state, uuid) {
       state.uuid = uuid;
     },
@@ -52,6 +55,7 @@ export default new Vuex.Store({
       state.type = '';
     },
   },
+
   actions: {
     async LOGIN({ commit }, userData) {
       const data = await loginUser(userData);

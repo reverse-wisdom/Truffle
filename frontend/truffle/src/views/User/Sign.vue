@@ -14,7 +14,6 @@
             <input type="password" placeholder="Password" v-model="password" />
           </div>
           <input type="button" value="로그인" class="btn solid" @click="Login" />
-          <naverLogin @loginComplete="loginFormWithKakao"></naverLogin>
         </form>
         <form action="#" class="sign-up-form">
           <div class="about">
@@ -64,7 +63,6 @@
 </template>
 
 <script>
-import NaverLogin from '@/components/SocialLogin/NaverLogin.vue';
 export default {
   data() {
     return {
@@ -72,27 +70,7 @@ export default {
       password: '',
     };
   },
-  components: {
-    NaverLogin,
-  },
   methods: {
-    naver() {
-      naverLogin.getLoginStatus(function(status) {
-        console.log(status);
-        if (status) {
-          var email = naverLogin.user.getEmail();
-          if (email == undefined || email == null) {
-            alert('이메일은 필수정보입니다. 정보제공을 동의해주세요.');
-            naverLogin.reprompt();
-          }
-          alert(email); // 로그인 한 이메일 ***@naver.com 이 출력된다.
-          //window.location.replace("http://127.0.0.1/test2.html");
-        } else {
-          console.log('callback 처리에 실패하였습니다.');
-        }
-      });
-    },
-
     async Login() {
       if (this.email == null) {
         this.$swal({
