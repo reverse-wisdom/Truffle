@@ -27,6 +27,4 @@ function retailerAllEvent(uuid) {
   return posts.get(`/account/selectCreateEventListByID?uuid=${uuid}`);
 }
 
-
 export { loginUser, fetchUser, register, userJoinEvent, userWinEvent, editUser, retailerAllEvent };
->>>>>>> frontend/truffle/src/api/auth.js
