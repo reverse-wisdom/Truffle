@@ -50,7 +50,7 @@
             </ul>
           </div>
 
-          <div class="join-info">
+          <div v-show="$store.state.type == '1'" class="join-info">
             <button type="button" class="btn" @click="joinAdd">
               응모하기
             </button>
@@ -59,6 +59,15 @@
       </div>
     </div>
     <EventDetailTab></EventDetailTab>
+    <div v-if="$store.state.retailuuid == event.uuid" style="text-align:right">
+      <v-btn color="rgb(33,133,89)" class="mr-1" dark @click="updateEvent(event)">수정</v-btn>
+      <v-btn color="rgb(68, 114, 148)" dark @click="$router.go(-1)">뒤로가기</v-btn>
+    </div>
+    <!-- else -->
+    <div v-else style="text-align:right">
+      <v-btn color="rgb(68, 114, 148)" dark @click="$router.go(-1)">뒤로가기</v-btn>
+      <!-- 모달 -->
+    </div>
   </div>
 </template>
 
@@ -90,21 +99,31 @@ export default {
   methods: {
     async joinAdd() {
       const email = this.$store.state.email;
+      let check = false;
       const event_id = this.$route.query.event_id;
       console.log(event_id, email);
       const { data } = await userJoinEvent(email);
       for (let i = 0; i < data.length; i++) {
         if (data[i].event_id == event_id) {
-          console.log('존재함');
-          {
-            const event_id = { event_id: this.$route.query.event_id };
-            console.log('이벤트아이디', event_id);
-            const response = await eventJoin(event_id);
-            console.log('참여자조회', response);
-          }
+          check = true;
+          break;
         } else {
+          continue;
         }
       }
+      if (check == false) {
+        const { data } = await eventJoin(event_id);
+        if (data == 'success') {
+          this.event.join_num += 1;
+          console.log('1증가');
+        }
+      } else {
+        console.log('이미참여한이벤트');
+      }
+    },
+    updateGo(value) {
+      var event_id = this.event.event_id;
+      this.$router.push({ name: 'EventUpdate', query: { event_id: event_id } });
     },
   },
 };

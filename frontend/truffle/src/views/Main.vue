@@ -51,16 +51,25 @@
       </div>
     </div>
     <div class="space"></div>
-
-    <v-container class="mid-content">
-      <EventAll v-for="(event, idx) in eventlist" :key="idx" :event="event"></EventAll>
-    </v-container>
+    <v-row>
+      <v-container class="mid-content">
+        <EventAll v-for="(event, idx) in eventlist" :key="idx" :event="event"></EventAll>
+        <SelectAge></SelectAge>
+      </v-container>
+    </v-row>
+    <v-row>
+      <v-container class="mid-content">
+        <SelectAge></SelectAge>
+      </v-container>
+    </v-row>
   </div>
 </template>
 
 <script>
 import EventAll from '@/views/event/EventAll.vue';
+import SelectAge from '@/views/select/SelectAge.vue';
 import { eventAll } from '@/api/event';
+
 TweenMax.from('.left-col', 2, {
   width: '0%',
   ease: Expo.easeInOut,
@@ -171,7 +180,7 @@ TweenMax.from('.more', 2, {
 
 export default {
   name: 'Main',
-  components: { EventAll },
+  components: { EventAll, SelectAge },
   data() {
     return {
       eventlist: [],
@@ -203,7 +212,7 @@ export default {
 .space {
   margin-top: 35rem;
 }
-/* @import url('http://font.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&dispaly=swap'); */
+
 * {
   margin: 0;
   padding: 0;

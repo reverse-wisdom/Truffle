@@ -20,30 +20,35 @@ export default new Vuex.Store({
     },
   },
   mutations: {
+    //토큰
     setToken(state, token) {
       state.token = token;
     },
     clearToken(state) {
       state.token = '';
     },
+    //이메일
     setEmail(state, email) {
       state.email = email;
     },
     clearEmail(state) {
       state.email = '';
     },
+    //닉네임
     setNickname(state, nickname) {
       state.nickname = nickname;
     },
     clearNickname(state) {
       state.nickname = '';
     },
-    setRetailuuid(state, Retailuuid) {
+    //리테일러
+    setRetailuuid(state, retailuuid) {
       state.retailuuid = retailuuid;
     },
-    clearLawuuid(state) {
+    clearRetailuuid(state) {
       state.retailuuid = '';
     },
+    //일반유저
     setUuid(state, uuid) {
       state.uuid = uuid;
     },
@@ -51,15 +56,18 @@ export default new Vuex.Store({
       state.uuid = '';
     },
   },
+
   actions: {
     async LOGIN({ commit }, userData) {
       try {
-        const { data } = await loginUser(userData);
-        if (data.message == 'SUCCESS') {
-          commit('setToken', data['access-token']);
+        const data = await loginUser(userData);
+        if (data.data.message == 'SUCCESS') {
+          commit('setToken', data.data['access-token']);
           commit('setEmail', userData.email);
+          commit('setUuid', userData.email);
+          commit('setRetailuuid', userData.email);
+          router.push('/main');
         }
-        router.push('/main');
       } catch (err) {
         Vue.swal({
           icon: 'error',
