@@ -24,7 +24,12 @@
 </template>
 
 <script>
-export default {};
+import Component1 from '@/views/select/Component1.vue';
+export default {
+  components: {
+    Component1,
+  },
+};
 </script>
 
 <style></style>
