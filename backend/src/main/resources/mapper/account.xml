@@ -83,5 +83,16 @@
 		where a.email = #{email};
 	</select>
 	
+	<select
+		id="selectCreateEventListByID"
+		parameterType="int"
+		resultType="EventDto"
+	>
+		select * 
+		from event
+		where uuid = #{uuid}
+	</select>
+	
+	
 
 </mapper>

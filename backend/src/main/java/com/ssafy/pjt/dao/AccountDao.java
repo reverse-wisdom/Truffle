@@ -21,4 +21,6 @@ public interface AccountDao {
 	public List<EventDto> selectEventWinnerByEmail(String email) throws SQLException;
 
 	public List<EventDto> selectEventParticipationByEmail(String email) throws SQLException;
+
+	public List<EventDto> selectCreateEventListByID(int uuid) throws SQLException;
 }
