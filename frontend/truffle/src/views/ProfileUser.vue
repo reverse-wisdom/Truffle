@@ -10,7 +10,7 @@
     <br />
     <h2>나의 활동</h2>
 
-    <div class="vtabs">
+    <div class="vtabs" v-if="this.$store.state.type == '1'">
       <input type="radio" name="vtab" id="tab1" checked="checked" />
       <label for="tab1">기본정보</label>
 
@@ -35,6 +35,28 @@
         </div>
         <div id="content4">
           <Order></Order>
+        </div>
+      </div>
+    </div>
+    <div class="vtabs" v-else>
+      <input type="radio" name="vtab" id="tab1" checked="checked" />
+      <label for="tab1">기본정보</label>
+
+      <input type="radio" name="vtab" id="tab2" />
+      <label for="tab2">등록한 상품</label>
+
+      <input type="radio" name="vtab" id="tab3" />
+      <label for="tab3">당첨된 사람 현황</label>
+
+      <div class="vtab-content">
+        <div id="content1">
+          <Basic></Basic>
+        </div>
+        <div id="content2">
+          <Event></Event>
+        </div>
+        <div id="content3">
+          <Win></Win>
         </div>
       </div>
     </div>

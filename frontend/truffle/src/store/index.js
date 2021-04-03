@@ -64,13 +64,12 @@ export default new Vuex.Store({
         commit('setToken', data.data['access-token']);
         commit('setEmail', userData.email);
         const response = await fetchUser(userData.email);
-        console.log(response);
+        console.log(response.data);
+        commit('setType', response.data.type);
         if (response.data.type == 1) {
           commit('setUuid', response.data.uuid);
-          commit('setType', response.data.type);
         } else {
           commit('setRetailuuid', response.data.uuid);
-          commit('setType', response.data.type);
         }
         router.push('/main');
       } else {
