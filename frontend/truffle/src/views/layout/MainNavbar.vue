@@ -7,7 +7,8 @@
           <li><a class="font" href="/main">Home</a></li>
           <li><a class="font" href="/test">Test</a></li>
           <li><a class="font" href="/guide">Guide</a></li>
-          <li><a class="font" href="/eventCreate">event</a></li>
+
+          <li v-show="$store.state.type == '2'"><a class="font" href="/eventCreate">event</a></li>
           <li>
             <a class="font" href="/profileUser">{{ this.$store.state.email }}님 안녕하세요</a>
           </li>

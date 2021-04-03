@@ -12,6 +12,7 @@
     <br />
     <v-btn color="#f3118e" class="btn" style="color:white" @click="goEventAll">Event-Update</v-btn>
     <br />
+    <SelectAge></SelectAge>
     <h2 style="font-weight: 900">배포테스트 일자:04-01/20:05</h2>
 
     <v-btn depressed color="primary" @click="sweetalertTest1">sweetalert test1</v-btn>
@@ -26,9 +27,12 @@
 </template>
 
 <script>
+import SelectAge from '@/views/select/SelectAge.vue';
 export default {
   name: 'Test',
-  components: {},
+  components: {
+    SelectAge,
+  },
   methods: {
     sweetalertTest1() {
       this.$swal({

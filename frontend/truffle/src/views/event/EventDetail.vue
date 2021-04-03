@@ -75,8 +75,7 @@
 
 <script>
 import EventDetailTab from '@/views/event/EventDetailTab';
-import { eventDetail, eventJoin, checkPartipants, eventUpdate } from '@/api/event';
-import { userJoinEvent } from '@/api/auth';
+import { eventDetail, eventJoin, checkPartipants, createPartipants } from '@/api/event';
 export default {
   name: 'EventDetail',
   components: { EventDetailTab },
@@ -119,6 +118,11 @@ export default {
         console.log('check=true', data);
         if (data == 'SUCCESS') {
           console.log('1증가');
+          const partData = {
+            event_id: this.$route.query.event_id,
+            uuid: this.$store.state.uuid,
+          };
+          const part_data = await createPartipants(partData);
           const { data } = await eventDetail(event_id);
           this.event.join_num = data[0].join_num;
         }
