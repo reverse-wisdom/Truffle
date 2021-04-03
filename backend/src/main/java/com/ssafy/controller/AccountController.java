@@ -157,5 +157,19 @@ public class AccountController {
 			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
 		}
 	}
+	
+	@ApiOperation(value = "리테일러UUID로 리테일러가 등록한 이벤트 리스트 조회", notes = "uuid 값 필수")
+	@GetMapping("/selectCreateEventListByID")
+	private ResponseEntity<List<EventDto>> selectCreateEventListByID(
+			@RequestParam(required = true) final int uuid) {
+		try {
+			List<EventDto> list = accountService.selectCreateEventListByID(uuid);
+			return new ResponseEntity<>(list, HttpStatus.OK);
+		} catch (SQLException e) {
+			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+		}
+	}
+	
+	
 
 }
