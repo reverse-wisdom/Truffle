@@ -30,14 +30,14 @@
           </div>
           <div class="input-container password">
             <label for="password">Password</label>
-            <input id="password" name="password" type="password" placeholder="특수문자를 포함해서 8자이상 작성해주세요" v-model="password" />
-            <input id="password" name="password" type="password" placeholder="비밀번호 확인" v-model="pwdcheck" />
+            <input type="password" placeholder="특수문자를 포함해서 8자이상 작성해주세요" v-model="password" />
+            <input type="password" placeholder="비밀번호 확인" v-model="pwdcheck" />
           </div>
           <div class="input-container gender">
             <label for="">GENDER</label>
             <div class="wrapper">
-              <input type="radio" name="select" id="option-1" value="1" v-model="gender_checked" />
-              <input type="radio" name="select" id="option-2" value="2" v-model="gender_checked" />
+              <input type="radio" name="" id="option-1" value="1" v-model="gender" />
+              <input type="radio" name="" id="option-2" value="2" v-model="gender" />
               <label for="option-1" class="option option-1">
                 <div class="dot"></div>
                 <span>남성</span>
@@ -51,9 +51,9 @@
           <div class="input-container age">
             <label for="">AGE</label>
             <div class="wrapper1">
-              <input type="radio" name="select1" id="gender-option-1" value="10" v-model="age_checked" />
-              <input type="radio" name="select1" id="gender-option-2" value="20" v-model="age_checked" />
-              <input type="radio" name="select1" id="gender-option-3" value="30" v-model="age_checked" />
+              <input type="radio" name="select1" id="gender-option-1" value="10" v-model="age" />
+              <input type="radio" name="select1" id="gender-option-2" value="20" v-model="age" />
+              <input type="radio" name="select1" id="gender-option-3" value="30" v-model="age" />
 
               <label for="gender-option-1" class="gender-option gender-option-1">
                 <div class="dot"></div>
@@ -69,16 +69,16 @@
               </label>
             </div>
             <div class="wrapper1">
-              <input type="radio" name="select1" id="gender-option-4" value="40" v-model="age_checked" />
-              <input type="radio" name="select1" id="gender-option-5" value="50" v-model="age_checked" />
-              <input type="radio" name="select1" id="gender-option-6" value="60" v-model="age_checked" />
+              <input type="radio" name="select1" id="gender-option-4" value="40" v-model="age" />
+              <input type="radio" name="select1" id="gender-option-5" value="50" v-model="age" />
+              <input type="radio" name="select1" id="gender-option-6" value="60" v-model="age" />
               <label for="gender-option-4" class="gender-option gender-option-4">
                 <div class="dot"></div>
                 <span>40대</span>
               </label>
               <label for="gender-option-5" class="gender-option gender-option-5">
                 <div class="dot"></div>
-                <span>50대 이상</span>
+                <span>50대</span>
               </label>
               <label for="gender-option-6" class="gender-option gender-option-6">
                 <div class="dot"></div>
@@ -90,11 +90,11 @@
           <div class="input-container password">
             <label for="">ADRESS</label>
             <div class="d-flex">
-              <input id="" name="" type="text" v-model="postcode" />
+              <input type="text" v-model="postcode" disabled />
               <input class="signup-btn search" type="button" @click="sample4_execDaumPostcode" value="우편번호 찾기" />
             </div>
-            <input id="" name="" type="text" v-model="address" />
-            <input id="" name="" type="text" v-model="detail" placeholder="상세주소를 입력해주세요" />
+            <input name="" type="text" v-model="address" disabled />
+            <input name="" type="text" v-model="address_detail" placeholder="상세주소를 입력해주세요" />
           </div>
           <button class="signup-btn" type="submit">SMS 본인인증</button>
           <button class="signup-btn" type="submit" @click.prevent="signup">Sign up</button>
@@ -105,7 +105,7 @@
 </template>
 
 <script>
-import { registerRetail } from '@/api/auth';
+import { register } from '@/api/auth';
 
 export default {
   data() {
@@ -115,11 +115,12 @@ export default {
       password: '',
       pwdcheck: '',
       address: '',
-      detail: '',
+      address_detail: '',
       postcode: '',
+      phone: '',
       msg: [],
-      gender_checked: '',
-      age_checked: '',
+      gender: '',
+      age: '',
     };
   },
   created() {},
@@ -169,6 +170,11 @@ export default {
           icon: 'error',
           title: '주소를 입력해주세요!',
         });
+      } else if (this.address_detail == null) {
+        this.$swal({
+          icon: 'error',
+          title: '상세주소를 입력해주세요!',
+        });
       } else if (this.password == null) {
         this.$swal({
           icon: 'error',
@@ -179,12 +185,12 @@ export default {
           icon: 'error',
           title: '비밀번호확인을 입력해주세요!',
         });
-      } else if (this.gender_checked == null) {
+      } else if (this.gender == null) {
         this.$swal({
           icon: 'error',
           title: '성별을 체크해주세요!',
         });
-      } else if (this.age_checked == null) {
+      } else if (this.age == null) {
         this.$swal({
           icon: 'error',
           title: '연령대를 체크해주세요!',
@@ -193,32 +199,34 @@ export default {
         const userData = {
           email: this.email,
           password: this.password,
+          phone: this.phone,
           address: this.address,
-          address_detail: this.detail,
-          nickname: this.nickname,
+          address_detail: this.address_detail,
           type: 1,
-          gender: this.gender_checked,
-          age: this.age_checked,
+          nickname: this.nickname,
+          age: this.age,
+          gender: this.gender,
         };
+
         console.log(userData);
 
-        // const {data} = await registerRetail(userData)
+        const { data } = await register(userData);
 
-        // if (data == 'SUCCESS') {
-        //   this.$swal({
-        //     position: 'top-end',
-        //     icon: 'success',
-        //     title: '회원가입성공!!',
-        //     showConfirmButton: false,
-        //     timer: 1500,
-        //   });
-        //   this.$router.push('/');
-        // } else {
-        //   this.$swal({
-        //     icon: 'error',
-        //     title: '회원가입 실패 관리자에게 문의해주세요',
-        //   });
-        // }
+        if (data == 'SUCCESS') {
+          this.$swal({
+            position: 'top-end',
+            icon: 'success',
+            title: '회원가입성공!!',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          this.$router.push('/main');
+        } else {
+          this.$swal({
+            icon: 'error',
+            title: '회원가입 실패 관리자에게 문의해주세요',
+          });
+        }
       }
     },
     sample4_execDaumPostcode() {
