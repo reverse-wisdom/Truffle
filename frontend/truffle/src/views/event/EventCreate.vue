@@ -181,7 +181,7 @@ export default {
         product: this.product,
         win_num: this.win_num,
       };
-
+      console.log(eventData);
       try {
         const response = await eventInsert(eventData);
         this.$swal({

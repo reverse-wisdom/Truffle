@@ -37,4 +37,9 @@ function eventSelectProduct(product) {
 function eventJoin(event_id) {
   return posts.put('/event/joinEvent', event_id, { headers: { 'Content-Type': 'application/json' } });
 }
-export { eventAll, eventDetail, eventInsert, eventUpdate, eventSelectAge, eventSelectCategory, eventSelectGender, eventSelectProduct, eventJoin };
+
+//특정이벤트 참여자 조회
+function checkPartipants(event_id) {
+  return posts.get(`/event/selectParticipationListByEventId?event_id=${event_id}`);
+}
+export { checkPartipants, eventAll, eventDetail, eventInsert, eventUpdate, eventSelectAge, eventSelectCategory, eventSelectGender, eventSelectProduct, eventJoin };
