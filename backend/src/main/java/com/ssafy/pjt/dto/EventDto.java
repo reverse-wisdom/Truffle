@@ -19,5 +19,6 @@ public class EventDto {
 	int price;
 	int gender;
 	int age;
+	int uuid;
 
 }

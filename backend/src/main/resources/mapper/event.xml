@@ -77,9 +77,9 @@
 		id="insert"
 		parameterType="EventDto">
 		INSERT INTO
-		event(`product`,`detail`,`open_date`,`end_date`,`win_num`,`price`,`gender`,`age`,`category`)
+		event(`product`,`detail`,`open_date`,`end_date`,`win_num`,`price`,`gender`,`age`,`category`,`uuid`)
 		VALUES
-		(#{product},#{detail},#{open_date},#{end_date},#{win_num},#{price},#{gender},#{age},#{category});
+		(#{product},#{detail},#{open_date},#{end_date},#{win_num},#{price},#{gender},#{age},#{category},#{uuid});
 	</insert>
 
 	<update
