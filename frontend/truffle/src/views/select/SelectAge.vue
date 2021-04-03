@@ -4,9 +4,7 @@
       <v-tab href="#search">
         10대
       </v-tab>
-      <v-tab-item key="search">
-        <Component1></Component1>
-      </v-tab-item>
+      <v-tab-item key="search"></v-tab-item>
       <v-tab href="#rare">
         20대
       </v-tab>

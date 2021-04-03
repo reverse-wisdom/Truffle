@@ -1,8 +1,58 @@
 <template>
   <span class="order">
-    <h4>Our Process</h4>
-    <br />
-    <div class="process-wrapper">
+    <div class="process-wrapper" v-if="(this.$store.state.type = '1')">
+      <div id="progress-bar-container">
+        <ul>
+          <li class="step step01 active" @click="step01"><div class="step-inner">배송 준비중</div></li>
+          <li class="step step02" @click="step02"><div class="step-inner">배송시작</div></li>
+          <li class="step step03" @click="step03"><div class="step-inner">배송중</div></li>
+          <li class="step step04" @click="step04"><div class="step-inner">배송완료</div></li>
+          <li class="step step05" @click="step05"><div class="step-inner">전달완료</div></li>
+        </ul>
+
+        <div id="line">
+          <div id="line-progress"></div>
+        </div>
+      </div>
+
+      <div id="progress-content-section">
+        <div class="section-content discovery active">
+          <h2>배송준비중</h2>
+          <p>
+            준비중인 물품들
+          </p>
+        </div>
+
+        <div class="section-content strategy">
+          <h2>배송시작</h2>
+          <p>
+            배송 시작한 물품
+          </p>
+        </div>
+
+        <div class="section-content creative">
+          <h2>배송중</h2>
+          <p>
+            배송중인 물품
+          </p>
+        </div>
+
+        <div class="section-content production">
+          <h2>배송완료</h2>
+          <p>
+            배송완료된 물품
+          </p>
+        </div>
+
+        <div class="section-content analysis">
+          <h2>전달완료</h2>
+          <p>
+            전달완료된 물품
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="process-wrapper" v-else>
       <div id="progress-bar-container">
         <ul>
           <li class="step step01 active" @click="step01"><div class="step-inner">배송 준비중</div></li>
@@ -165,12 +215,12 @@ h4 {
 .process-wrapper {
   margin: auto;
   max-width: 1080px;
-  width: 80vw;
+  width: 60vw;
 }
 
 #progress-bar-container {
   position: relative;
-  width: 90%;
+  width: 80%;
   margin: auto;
   height: 100px;
   margin-top: 65px;

@@ -9,7 +9,7 @@
           <li><a class="font" href="/guide">Guide</a></li>
           <li><a class="font" href="/eventCreate">event</a></li>
           <li>
-            <a class="font" href="/ProfileUser">{{ this.$store.state.email }}님 안녕하세요</a>
+            <a class="font" href="/profileUser">{{ this.$store.state.email }}님 안녕하세요</a>
           </li>
           <li><a class="font" @click="logout">logout</a></li>
         </ul>
@@ -60,8 +60,12 @@ export default {
     logout() {
       this.$store.commit('clearEmail');
       this.$store.commit('clearToken');
-      this.$store.commit('clearUuid');
-      this.$store.commit('clearLawuuid');
+      this.$store.commit('clearType');
+      if (this.$store.state.type == '1') {
+        this.$store.commit('clearUuid');
+      } else {
+        this.$store.commit('clearRetailuuid');
+      }
       localStorage.clear();
       sessionStorage.clear();
 
