@@ -59,7 +59,7 @@ export default {
   },
   async created() {
     const { data } = await fetchUser(this.$store.state.email);
-    console.log('회원정보', data);
+    // console.log('회원정보', data);
     this.value = data;
     this.fulladdress = data.address + ' ' + data.address_detail;
   },
