@@ -65,7 +65,7 @@ export default {
       localStorage.clear();
       sessionStorage.clear();
 
-      this.$router.push({ name: 'login' });
+      this.$router.push({ name: 'Sign-In-Up' });
     },
   },
 };

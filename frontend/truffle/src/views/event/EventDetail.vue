@@ -62,7 +62,7 @@
       <EventDetailTab></EventDetailTab>
     </v-container>
     <div v-if="$store.state.retailuuid == event.uuid" style="text-align:right">
-      <v-btn color="rgb(33,133,89)" class="mr-1" dark @click="updateEvent(event)">수정</v-btn>
+      <v-btn color="" class="mr-1" dark @click="updateGo(event)">수정</v-btn>
       <v-btn dark @click="$router.go(-1)">뒤로가기</v-btn>
     </div>
     <!-- else -->
