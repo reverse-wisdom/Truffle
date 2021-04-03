@@ -180,6 +180,7 @@ export default {
         price: this.price,
         product: this.product,
         win_num: this.win_num,
+        uuid: this.$store.state.retailuuid,
       };
       console.log(eventData);
       try {

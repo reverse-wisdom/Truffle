@@ -54,12 +54,6 @@
     <v-row>
       <v-container class="mid-content">
         <EventAll v-for="(event, idx) in eventlist" :key="idx" :event="event"></EventAll>
-        <SelectAge></SelectAge>
-      </v-container>
-    </v-row>
-    <v-row>
-      <v-container class="mid-content">
-        <SelectAge></SelectAge>
       </v-container>
     </v-row>
   </div>
