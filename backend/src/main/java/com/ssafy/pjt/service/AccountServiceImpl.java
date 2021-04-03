@@ -54,4 +54,9 @@ public class AccountServiceImpl implements AccountService {
 		return accountDao.selectEventParticipationByEmail(email);
 	}
 
+	@Override
+	public List<EventDto> selectCreateEventListByID(int uuid) throws SQLException {
+		return accountDao.selectCreateEventListByID(uuid);
+	}
+
 }
