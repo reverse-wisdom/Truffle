@@ -26,17 +26,17 @@
           </div>
           <div class="input-container password">
             <label for="password">Password</label>
-            <input id="password" name="password" type="password" placeholder="특수문자를 포함해서 8자이상 작성해주세요" v-model="password" />
-            <input id="password" name="password" type="password" placeholder="비밀번호 확인" v-model="pwdcheck" />
+            <input type="password" placeholder="특수문자를 포함해서 8자이상 작성해주세요" v-model="password" />
+            <input type="password" placeholder="비밀번호 확인" v-model="pwdcheck" />
           </div>
           <div class="input-container name">
             <label for="fname">BUSINESS_NUMBER</label>
             <div class="business-num">
-              <input id="fname" name="fname" maxlength="3" type="text" v-model="business_num1" />
+              <input maxlength="3" type="text" v-model="business_num1" />
               <div class="b">-</div>
-              <input id="fname" name="fname" maxlength="2" type="text" v-model="business_num2" />
+              <input maxlength="2" type="text" v-model="business_num2" />
               <div class="b">-</div>
-              <input id="fname" name="fname" maxlength="5" type="text" v-model="business_num3" />
+              <input maxlength="5" type="text" v-model="business_num3" />
             </div>
           </div>
           <!-- <div class="input-container ">
@@ -50,11 +50,11 @@
           <div class="input-container password">
             <label for="">ADRESS</label>
             <div class="d-flex">
-              <input id="" name="" type="text" v-model="postcode" />
+              <input type="text" v-model="postcode" disabled />
               <input class="signup-btn search" type="button" @click="sample4_execDaumPostcode" value="우편번호 찾기" />
             </div>
-            <input id="" name="" type="text" v-model="address" />
-            <input id="" name="" type="text" v-model="address_detail" placeholder="상세주소를 입력해주세요" />
+            <input type="text" v-model="address" disabled />
+            <input type="text" v-model="address_detail" placeholder="상세주소를 입력해주세요" />
           </div>
 
           <button class="signup-btn" type="submit">SMS 본인인증</button>
@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import { registerRetail } from '@/api/auth';
+import { register } from '@/api/auth';
 
 export default {
   data() {
@@ -75,11 +75,11 @@ export default {
       password: '',
       pwdcheck: '',
       address: '',
+      address_detail: '',
       phone: '',
       business_num1: '',
       business_num2: '',
       business_num3: '',
-      address_detail: '',
       postcode: '',
       type: 2,
       msg: [],
@@ -132,7 +132,7 @@ export default {
           icon: 'error',
           title: '주소를 입력해주세요!',
         });
-      } else if (this.addressdetail == null) {
+      } else if (this.address_detail == null) {
         this.$swal({
           icon: 'error',
           title: '상세주소를 입력해주세요!',
@@ -153,7 +153,7 @@ export default {
           title: '비밀번호확인이 일치하지않습니다!',
         });
       } else {
-        var business_number = this.business_num1 + this.business_num2 + this.business_num3;
+        var business_number = this.business_num1 + '-' + this.business_num2 + '-' + this.business_num3;
         const userData = {
           email: this.email,
           password: this.password,
@@ -165,23 +165,23 @@ export default {
         };
         console.log(userData);
 
-        // const {data} = await registerRetail(userData)
+        const { data } = await register(userData);
 
-        // if (data == 'SUCCESS') {
-        //   this.$swal({
-        //     position: 'top-end',
-        //     icon: 'success',
-        //     title: '회원가입성공!!',
-        //     showConfirmButton: false,
-        //     timer: 1500,
-        //   });
-        //   this.$router.push('/');
-        // } else {
-        //   this.$swal({
-        //     icon: 'error',
-        //     title: '회원가입 실패 관리자에게 문의해주세요',
-        //   });
-        // }
+        if (data == 'SUCCESS') {
+          this.$swal({
+            position: 'top-end',
+            icon: 'success',
+            title: '회원가입성공!!',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          this.$router.push('/main');
+        } else {
+          this.$swal({
+            icon: 'error',
+            title: '회원가입 실패 관리자에게 문의해주세요',
+          });
+        }
       }
     },
     sample4_execDaumPostcode() {
