@@ -23,5 +23,10 @@ function userJoinEvent(email) {
 function userWinEvent(email) {
   return posts.get(`account/selectEventWinnerByEmail?email=${email}`);
 }
+function retailerAllEvent(uuid) {
+  return posts.get(`/account/selectCreateEventListByID?uuid=${uuid}`);
+}
 
-export { loginUser, fetchUser, register, userJoinEvent, userWinEvent, editUser };
+
+export { loginUser, fetchUser, register, userJoinEvent, userWinEvent, editUser, retailerAllEvent };
+>>>>>>> frontend/truffle/src/api/auth.js
