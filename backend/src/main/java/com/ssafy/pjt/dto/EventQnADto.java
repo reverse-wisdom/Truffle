@@ -1,13 +1,13 @@
 package com.ssafy.pjt.dto;
 
-import java.util.Date;
+import java.sql.Date;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class SearchQnADto {
+public class EventQnADto {
 	int qna_id;
 	String writter;
 	String detail;

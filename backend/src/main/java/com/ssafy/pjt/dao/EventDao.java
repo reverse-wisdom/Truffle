@@ -5,7 +5,9 @@ import java.util.List;
 
 import com.ssafy.pjt.dto.EventDto;
 import com.ssafy.pjt.dto.EventUserRequestDto;
+import com.ssafy.pjt.dto.ParticipationDto;
 import com.ssafy.pjt.dto.SearchDto;
+import com.ssafy.pjt.dto.WinDto;
 
 public interface EventDao {
 	public List<EventDto> all() throws SQLException;
@@ -33,5 +35,9 @@ public interface EventDao {
 	public int upsertSearchHit(String word) throws SQLException;
 
 	public List<SearchDto> selectSearchHit() throws SQLException;
+
+	public int insertUserIdToParticipation(ParticipationDto participationDto) throws SQLException;
+
+	public int insertUserIdWinParticipation(WinDto winDto) throws SQLException;
 
 }
