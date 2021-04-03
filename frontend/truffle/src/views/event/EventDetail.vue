@@ -58,14 +58,16 @@
         </div>
       </div>
     </div>
-    <EventDetailTab></EventDetailTab>
+    <v-container>
+      <EventDetailTab></EventDetailTab>
+    </v-container>
     <div v-if="$store.state.retailuuid == event.uuid" style="text-align:right">
       <v-btn color="rgb(33,133,89)" class="mr-1" dark @click="updateEvent(event)">수정</v-btn>
-      <v-btn color="rgb(68, 114, 148)" dark @click="$router.go(-1)">뒤로가기</v-btn>
+      <v-btn dark @click="$router.go(-1)">뒤로가기</v-btn>
     </div>
     <!-- else -->
     <div v-else style="text-align:right">
-      <v-btn color="rgb(68, 114, 148)" dark @click="$router.go(-1)">뒤로가기</v-btn>
+      <v-btn dark @click="$router.go(-1)">뒤로가기</v-btn>
       <!-- 모달 -->
     </div>
   </div>
@@ -73,7 +75,7 @@
 
 <script>
 import EventDetailTab from '@/views/event/EventDetailTab';
-import { eventDetail, eventJoin } from '@/api/event';
+import { eventDetail, eventJoin, checkPartipants, eventUpdate } from '@/api/event';
 import { userJoinEvent } from '@/api/auth';
 export default {
   name: 'EventDetail',
@@ -102,9 +104,10 @@ export default {
       let check = false;
       const event_id = this.$route.query.event_id;
       console.log(event_id, email);
-      const { data } = await userJoinEvent(email);
+      const { data } = await checkPartipants(event_id);
+      console.log(data);
       for (let i = 0; i < data.length; i++) {
-        if (data[i].event_id == event_id) {
+        if (data[i].email == email) {
           check = true;
           break;
         } else {
@@ -113,9 +116,11 @@ export default {
       }
       if (check == false) {
         const { data } = await eventJoin(event_id);
-        if (data == 'success') {
-          this.event.join_num += 1;
+        console.log('check=true', data);
+        if (data == 'SUCCESS') {
           console.log('1증가');
+          const { data } = await eventDetail(event_id);
+          this.event.join_num = data[0].join_num;
         }
       } else {
         console.log('이미참여한이벤트');
