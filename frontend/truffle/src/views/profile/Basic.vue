@@ -5,17 +5,17 @@
         <div class="profile">
           <h3>기본정보</h3>
           <h4>NICKNAME</h4>
-          <input type="text" class="input disabled" disabled />
+          <input type="text" class="input disabled" v-model="value.nickname" disabled />
           <h4>EMAIL</h4>
-          <input type="text" class="input" disabled />
+          <input type="text" class="input" v-model="value.email" disabled />
           <h4>GENDER</h4>
-          <input type="text" class="input disabled" disabled />
+          <input type="text" class="input disabled" v-model="value.gender" disabled />
           <h4>AGE</h4>
-          <input type="text" class="input disabled" disabled />
+          <input type="text" class="input disabled" v-model="value.age" disabled />
           <h4>ADDRESS</h4>
-          <input type="text" class="input" disabled />
+          <input type="text" class="input" v-model="fulladdress" disabled />
           <h4>PHONE</h4>
-          <input type="text" class="input disabled" disabled />
+          <input type="text" class="input disabled" v-model="value.phone" disabled />
         </div>
         <button class="btn" id="update_btn" @click="update">수정하기</button>
         <button class="btn">탈퇴하기</button>
@@ -25,15 +25,25 @@
 </template>
 
 <script>
+import { fetchUser, editUser } from '@/api/auth';
+
 export default {
   name: 'Basic',
   data() {
     return {
       updatechk: true,
+      value: '',
+      fulladdress: '',
     };
   },
+  async created() {
+    const { data } = await fetchUser(this.$store.state.email);
+    console.log('회원정보', data);
+    this.value = data;
+    this.fulladdress = data.address + ' ' + data.address_detail;
+  },
   methods: {
-    update() {
+    async update() {
       if (this.updatechk) {
         $('.disabled')
           .attr('disabled', false)
@@ -46,6 +56,20 @@ export default {
           .removeClass('border');
         $('#update_btn').text('수정하기');
         this.updatechk = true;
+        // email값 필수, 수정가능한값: address,address_detail,age,business_number,gender,nickname,password,phone
+        const editdata = {
+          email: this.value.email,
+          age: this.value.age,
+          gender: this.value.gender,
+          nickname: this.value.nickname,
+          phone: this.value.phone,
+          address: this.value.address,
+          address_detail: this.value.address_detail,
+          type: this.value.type,
+        };
+        console.log(editdata);
+        const { data } = await editUser(editdata);
+        console.log(data);
       }
     },
   },

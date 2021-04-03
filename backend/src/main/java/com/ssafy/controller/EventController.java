@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.pjt.dto.EventDto;
 import com.ssafy.pjt.dto.EventUserRequestDto;
+import com.ssafy.pjt.dto.ParticipationDto;
 import com.ssafy.pjt.dto.SearchDto;
+import com.ssafy.pjt.dto.WinDto;
 import com.ssafy.pjt.service.EventServiceImpl;
 
 import io.swagger.annotations.ApiOperation;
@@ -122,7 +124,7 @@ public class EventController {
 		return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
 	}
 
-	@ApiOperation(value = "이벤트 페이지 작성", notes = "작성가능한 필드: age category detail end_date gender(남:1,여:2) open_date price product win_num")
+	@ApiOperation(value = "이벤트 페이지 작성", notes = "작성가능한 필드: age category detail end_date gender(남:1,여:2) open_date price product win_num, uuid")
 	@PostMapping("/insert")
 	private ResponseEntity<String> insert(@RequestBody(required = true) final EventDto eventDto) {
 		try {
@@ -188,6 +190,37 @@ public class EventController {
 		} catch (SQLException e) {
 			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
 		}
+	}
+
+	@ApiOperation(value = "참여자 참여자테이블 등록", notes = "필수작성필드: uuid, event_id")
+	@PostMapping("/insertUserIdToParticipation")
+	private ResponseEntity<String> insertUserIdToParticipation(
+			@RequestBody(required = true) final ParticipationDto participationDto) {
+		try {
+			boolean result = eventService.insertUserIdToParticipation(participationDto);
+			if (result) {
+				return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+			}
+
+		} catch (SQLException e) {
+			return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+	}
+
+	@ApiOperation(value = "당첨자 당첨테이블 등록", notes = "필수작성필드: uuid, event_id")
+	@PostMapping("/insertUserIdWinParticipation")
+	private ResponseEntity<String> insertUserIdWinParticipation(@RequestBody(required = true) final WinDto winDto) {
+		try {
+			boolean result = eventService.insertUserIdWinParticipation(winDto);
+			if (result) {
+				return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+			}
+
+		} catch (SQLException e) {
+			return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
 	}
 
 }

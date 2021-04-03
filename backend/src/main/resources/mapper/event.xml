@@ -137,5 +137,23 @@
 		where word != "" or word != null
 		ORDER BY hit DESC;
 	</select>
+	
+	<insert
+		id="insertUserIdToParticipation"
+		parameterType="ParticipationDto">
+		INSERT INTO
+		participation(`event_id`,`uuid`)
+		VALUES
+		(#{event_id},#{uuid});
+	</insert>
+	
+	<insert
+		id="insertUserIdWinParticipation"
+		parameterType="WinDto">
+		INSERT INTO
+		win(`event_id`,`uuid`)
+		VALUES
+		(#{event_id},#{uuid});
+	</insert>
 
 </mapper>

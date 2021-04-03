@@ -18,32 +18,22 @@
       <label for="tab2">래플 응모내역</label>
 
       <input type="radio" name="vtab" id="tab3" />
-      <label for="tab3">찜한이벤트</label>
+      <label for="tab3">당첨된 이벤트</label>
 
       <input type="radio" name="vtab" id="tab4" />
-      <label for="tab4">구매후기</label>
-
-      <input type="radio" name="vtab" id="tab5" />
-      <label for="tab5">주문내역조회</label>
+      <label for="tab4">주문내역조회</label>
 
       <div class="vtab-content">
         <div id="content1">
           <Basic></Basic>
         </div>
         <div id="content2">
-          <h2>공사중2</h2>
-          <img src="" alt="" />
-          <p>공사중 내용2</p>
+          <Event></Event>
         </div>
         <div id="content3">
-          <h2>공사중3</h2>
-          <p>공사중 내용3</p>
+          <Win></Win>
         </div>
         <div id="content4">
-          <h2>공사중4</h2>
-          <p>공사중 내용4</p>
-        </div>
-        <div id="content5">
           <Order></Order>
         </div>
       </div>
@@ -54,12 +44,16 @@
 <script>
 import Order from '../views/profile/Order';
 import Basic from '../views/profile/Basic';
+import Event from '../views/profile/Event';
+import Win from '../views/profile/Win';
 
 export default {
   name: 'ProfileUser',
   components: {
     Order,
     Basic,
+    Event,
+    Win,
   },
   methods: {},
 };

@@ -123,7 +123,6 @@ public class AccountController {
 				boolean result = accountService.update(accountDto);
 				System.out.println(result);
 				if (result) {
-					System.out.println("2");
 					return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
 				}
 			} catch (SQLException e) {
