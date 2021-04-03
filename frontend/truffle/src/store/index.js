@@ -13,6 +13,7 @@ export default new Vuex.Store({
     nickname: '',
     retailuuid: '',
     uuid: '',
+    type: '',
   },
   getters: {
     isLogin(state) {
@@ -35,7 +36,7 @@ export default new Vuex.Store({
     setRetailuuid(state, retailuuid) {
       state.retailuuid = retailuuid;
     },
-    clearLawuuid(state) {
+    clearRetailuuid(state) {
       state.retailuuid = '';
     },
     setUuid(state, uuid) {
@@ -44,19 +45,28 @@ export default new Vuex.Store({
     clearUuid(state) {
       state.uuid = '';
     },
+    setType(state, type) {
+      state.type = type;
+    },
+    clearType(state) {
+      state.type = '';
+    },
   },
   actions: {
     async LOGIN({ commit }, userData) {
       const data = await loginUser(userData);
-      console.log(data);
+      // console.log(data);
       if (data.data.message == 'SUCCESS') {
         commit('setToken', data.data['access-token']);
         commit('setEmail', userData.email);
         const response = await fetchUser(userData.email);
+        console.log(response);
         if (response.data.type == 1) {
-          commit('setUuid', response.data.uuid);
+          commit('setUuid', data.data.uuid);
+          commit('setType', response.data.type);
         } else {
-          commit('setRetailuuid', response.data.uuid);
+          commit('setRetailuuid', data.data.uuid);
+          commit('setType', response.data.type);
         }
         router.push('/main');
       } else {
