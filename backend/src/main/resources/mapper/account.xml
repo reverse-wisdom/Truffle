@@ -17,7 +17,7 @@
 		id="accountInfo"
 		parameterType="String"
 		resultType="AccountDto">
-		select `email`, `phone`, `address`, `address_detail`, `business_number`, `nickname`,
+		select `uuid`, `email`, `phone`, `address`, `address_detail`, `business_number`, `nickname`,
 		`type`, `gender`,
 		`age`
 		from account
@@ -82,8 +82,6 @@
 		on a.uuid = p.uuid
 		where a.email = #{email};
 	</select>
-
-
-
+	
 
 </mapper>
