@@ -1,26 +1,47 @@
 <template>
-  <span class="">
-    <div class="container">
-      <div class="box ">
-        <div class="profile">
-          <h3>기본정보</h3>
-          <h4>NICKNAME</h4>
-          <input type="text" class="input disabled" v-model="value.nickname" disabled />
-          <h4>EMAIL</h4>
-          <input type="text" class="input" v-model="value.email" disabled />
-          <h4>GENDER</h4>
-          <input type="text" class="input disabled" v-model="value.gender" disabled />
-          <h4>AGE</h4>
-          <input type="text" class="input disabled" v-model="value.age" disabled />
-          <h4>ADDRESS</h4>
-          <input type="text" class="input" v-model="fulladdress" disabled />
-          <h4>PHONE</h4>
-          <input type="text" class="input disabled" v-model="value.phone" disabled />
+  <span>
+    <span class="" v-if="this.$store.state.type == '1'">
+      <div class="container-user">
+        <div class="box">
+          <div class="profile">
+            <h3>기본정보</h3>
+            <h4>NICKNAME</h4>
+            <input type="text" class="input disabled" v-model="value.nickname" disabled />
+            <h4>EMAIL</h4>
+            <input type="text" class="input" v-model="value.email" disabled />
+            <h4>GENDER</h4>
+            <input type="text" class="input disabled" v-model="value.gender" disabled />
+            <h4>AGE</h4>
+            <input type="text" class="input disabled" v-model="value.age" disabled />
+            <h4>ADDRESS</h4>
+            <input type="text" class="input" v-model="fulladdress" disabled />
+            <h4>PHONE</h4>
+            <input type="text" class="input disabled" v-model="value.phone" disabled />
+          </div>
+          <button class="btn" id="update_btn" @click="update">수정하기</button>
+          <button class="btn">탈퇴하기</button>
         </div>
-        <button class="btn" id="update_btn" @click="update">수정하기</button>
-        <button class="btn">탈퇴하기</button>
       </div>
-    </div>
+    </span>
+    <span class="" v-else>
+      <div class="container-retail">
+        <div class="box ">
+          <div class="profile">
+            <h3>기본정보</h3>
+            <h4>EMAIL</h4>
+            <input type="text" class="input" v-model="value.email" disabled />
+            <h4>ADDRESS</h4>
+            <input type="text" class="input" v-model="fulladdress" disabled />
+            <h4>PHONE</h4>
+            <input type="text" class="input disabled" v-model="value.phone" disabled />
+            <h4>BUSINESS_NUMBER</h4>
+            <input type="text" class="input disabled" v-model="value.business_number" disabled />
+          </div>
+          <button class="btn" id="update_btn" @click="update">수정하기</button>
+          <button class="btn">탈퇴하기</button>
+        </div>
+      </div>
+    </span>
   </span>
 </template>
 
@@ -65,6 +86,7 @@ export default {
           phone: this.value.phone,
           address: this.value.address,
           address_detail: this.value.address_detail,
+          business_number: this.value.business_number,
           type: this.value.type,
         };
         console.log(editdata);
@@ -77,7 +99,7 @@ export default {
 </script>
 
 <style scoped>
-.container {
+.container-user {
   background: #fff;
   width: 60vw;
   height: 600px;
@@ -85,6 +107,17 @@ export default {
   position: relative;
   box-shadow: 2px 5px 20px rgba(119, 119, 119, 0.5);
   margin-bottom: 50px;
+  padding-top: 20px;
+}
+.container-retail {
+  background: #fff;
+  width: 60vw;
+  height: 500px;
+  margin: 0 auto;
+  position: relative;
+  box-shadow: 2px 5px 20px rgba(119, 119, 119, 0.5);
+  margin-bottom: 50px;
+  padding-top: 20px;
 }
 .box {
   width: 80%;
