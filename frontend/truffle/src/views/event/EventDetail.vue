@@ -65,6 +65,7 @@
 <script>
 import EventDetailTab from '../event/EventDetailTab';
 import { eventDetail, eventJoin } from '@/api/event';
+import { userJoinEvent } from '@/api/auth';
 export default {
   name: 'EventDetail',
   components: { EventDetailTab },
@@ -77,7 +78,6 @@ export default {
   },
   async created() {
     const event_id = this.$route.query.event_id;
-    console.log(event_id);
     const { data } = await eventDetail(event_id);
     this.event = data[0];
     if (this.event.gender == 1) {
@@ -89,8 +89,22 @@ export default {
   },
   methods: {
     async joinAdd() {
-      const { data } = await eventJoin();
-      console.log(data);
+      const email = this.$store.state.email;
+      const event_id = this.$route.query.event_id;
+      console.log(event_id, email);
+      const { data } = await userJoinEvent(email);
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].event_id == event_id) {
+          console.log('존재함');
+          {
+            const event_id = { event_id: this.$route.query.event_id };
+            console.log('이벤트아이디', event_id);
+            const response = await eventJoin(event_id);
+            console.log('참여자조회', response);
+          }
+        } else {
+        }
+      }
     },
   },
 };

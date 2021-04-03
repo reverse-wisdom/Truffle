@@ -11,5 +11,8 @@ function registerRetail(userData) {
 function registerUser(userData) {
   return instance.post('');
 }
+function userJoinEvent(email) {
+  return posts.get(`/account/selectEventParticipationByEmail?email=${email}`);
+}
 
-export { loginUser, registerRetail, registerUser };
+export { loginUser, registerRetail, registerUser, userJoinEvent };
