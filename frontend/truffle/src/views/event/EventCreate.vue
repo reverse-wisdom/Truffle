@@ -2,10 +2,10 @@
   <div>
     <v-container>
       <div style="padding:80px">
-        <h2 class="title text-center kor" style="font-weight:bold;">이벤트등록</h2>
+        <h2 class="title text-center kor" style="font-weight:bold; margin-top: 100px;">이벤트등록</h2>
         <form v-on:submit.prevent="writeContent">
-          <v-text-field label="제품명" v-model="title"></v-text-field>
-          <v-select :items="items" label="카테고리" dense solo></v-select>
+          <v-text-field label="제품명" v-model="product"></v-text-field>
+          <v-select :items="items" v-model="category" label="카테고리" dense solo></v-select>
           <div class="input-container gender">
             <label for="">GENDER</label>
             <div class="wrapper">
@@ -59,50 +59,33 @@
               </label>
             </div>
           </div>
+          <!-- 가격 -->
+          <div class="input-container gender">
+            <label for="">가격</label>
+            <input type="text" v-model="price" />
+          </div>
+          <div class="input-container gender">
+            <label for="">당첨자수</label>
+            <input type="text" v-model="win_num" />
+          </div>
           <v-container>
             <v-row>
               <v-col cols="12" lg="6">
                 <v-menu ref="menu1" v-model="menu1" :close-on-content-click="false" transition="scale-transition" offset-y max-width="290px" min-width="auto">
                   <template v-slot:activator="{ on, attrs }">
-                    <v-text-field
-                      v-model="dateFormatted"
-                      label="Date"
-                      hint="MM/DD/YYYY format"
-                      persistent-hint
-                      prepend-icon="mdi-calendar"
-                      v-bind="attrs"
-                      @blur="date = parseDate(dateFormatted)"
-                      v-on="on"
-                    ></v-text-field>
+                    <v-text-field v-model="open_date" label="시작일" persistent-hint prepend-icon="mdi-calendar" v-bind="attrs" @blur="date = parseDate(open_date)" v-on="on"></v-text-field>
                   </template>
-                  <v-date-picker v-model="date" no-title @input="menu1 = false"></v-date-picker>
+                  <v-date-picker v-model="open_date" @input="menu1 = false"></v-date-picker>
                 </v-menu>
-                <p>
-                  Date in ISO format:
-                  <strong>{{ date }}</strong>
-                </p>
               </v-col>
 
               <v-col cols="12" lg="6">
                 <v-menu v-model="menu2" :close-on-content-click="false" transition="scale-transition" offset-y max-width="290px" min-width="auto">
                   <template v-slot:activator="{ on, attrs }">
-                    <v-text-field
-                      v-model="computedDateFormatted"
-                      label="Date (read only text field)"
-                      hint="MM/DD/YYYY format"
-                      persistent-hint
-                      prepend-icon="mdi-calendar"
-                      readonly
-                      v-bind="attrs"
-                      v-on="on"
-                    ></v-text-field>
+                    <v-text-field v-model="end_date" label="마감일" persistent-hint prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"></v-text-field>
                   </template>
-                  <v-date-picker v-model="date" no-title @input="menu2 = false"></v-date-picker>
+                  <v-date-picker v-model="end_date" @input="menu2 = false"></v-date-picker>
                 </v-menu>
-                <p>
-                  Date in ISO format:
-                  <strong>{{ date }}</strong>
-                </p>
               </v-col>
             </v-row>
           </v-container>
@@ -113,7 +96,7 @@
           <v-btn color="#000" dark type="submit" @click="eventInsert">
             등록
           </v-btn>
-          <v-btn color="#000" class="ml-1" dark type="button" @click="moveList">
+          <v-btn color="#000" class="ml-1" dark type="button" @click="$router.go(-1)">
             뒤로가기
           </v-btn>
         </div>
@@ -134,13 +117,14 @@ export default {
 
     age: '',
     items: ['의류', '뷰티', '잡화', '신발', '식품', '디지털', '취미/문화', '기타'],
+    category: '',
     detail: $('#summernote').summernote('code'),
-    end_date: '2021-04-02',
+    end_date: '',
     gender: '',
     join_num: '',
-    open_date: '2021-04-02',
+    open_date: '',
     price: '',
-    product: '갤럭시',
+    product: '',
     win_num: '',
   }),
   mounted() {
@@ -177,7 +161,7 @@ export default {
       if (!date) return null;
 
       const [year, month, day] = date.split('-');
-      return `${month}/${day}/${year}`;
+      return `${year}-${month}-${day}`;
     },
     parseDate(date) {
       if (!date) return null;
@@ -186,21 +170,20 @@ export default {
       return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
     },
     async eventInsert() {
-      const data = {
-        age: 2,
-        category: '의류',
+      const eventData = {
+        age: this.age,
+        category: this.category,
         detail: $('#summernote').summernote('code'),
-        end_date: '2021-04-02',
-        gender: 1,
-        join_num: 3,
-        open_date: '2021-04-02',
-        price: 1000,
-        product: '갤럭시',
-        win_num: 0,
+        open_date: this.open_date,
+        end_date: this.end_date,
+        gender: this.gender,
+        price: this.price,
+        product: this.product,
+        win_num: this.win_num,
       };
-      console.log(data);
+
       try {
-        const response = await eventInsert;
+        const response = await eventInsert(eventData);
         this.$swal({
           icon: 'success',
           title: '글 작성 완료!!',
@@ -208,13 +191,13 @@ export default {
           timer: 1500,
         });
         console.log(response);
-        // this.moveList();
+        this.detailGo();
       } catch (err) {
         console.log(err);
       }
     },
-    moveList() {
-      this.$router.push('/board');
+    detailGo() {
+      this.$router.push({ name: 'Test' });
     },
   },
 };

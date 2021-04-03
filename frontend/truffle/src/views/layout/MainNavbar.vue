@@ -4,13 +4,13 @@
       <a class="logo" href="/"><img src="@/assets/img/logo1.png" alt="logo" /></a>
       <nav>
         <ul class="nav__links">
-          <li><a class="font" href="/">Home</a></li>
+          <li><a class="font" href="/main">Home</a></li>
 
           <li><a class="font" href="/signin-signup">login</a></li>
           <li><a class="font" href="/guide">Guide</a></li>
           <li><a class="font" href="/ProfileUser">profileuser</a></li>
           <!-- <li><a class="font" href="/item">item</a></li> -->
-          <li><a class="font" href="#">Full1</a></li>
+          <li><a class="font" href="/test">Test</a></li>
         </ul>
       </nav>
       <a class="cta" href="/signin-signup">signup</a>

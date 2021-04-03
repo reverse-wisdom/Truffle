@@ -10,6 +10,8 @@
     <br />
     <v-btn color="#f3118e" class="btn" style="color:white" @click="goEventAll">Event-All</v-btn>
     <br />
+    <v-btn color="#f3118e" class="btn" style="color:white" @click="goEventAll">Event-Update</v-btn>
+    <br />
     <h2 style="font-weight: 900">배포테스트 일자:04-01/20:05</h2>
 
     <v-btn depressed color="primary" @click="sweetalertTest1">sweetalert test1</v-btn>
@@ -64,6 +66,9 @@ export default {
     },
     goEventAll() {
       this.$router.push({ name: 'EventAll' });
+    },
+    goEventAll() {
+      this.$router.push({ name: 'EventUpdate' });
     },
   },
 };
