@@ -15,5 +15,8 @@ function register(userData) {
 function userJoinEvent(email) {
   return posts.get(`/account/selectEventParticipationByEmail?email=${email}`);
 }
+function retailerAllEvent(uuid) {
+  return posts.get(`/account/selectCreateEventListByID?uuid=${uuid}`);
+}
 
-export { loginUser, fetchUser, register, userJoinEvent };
+export { loginUser, fetchUser, register, userJoinEvent, retailerAllEvent };
