@@ -2,15 +2,15 @@
   <div>
     <v-container>
       <div style="padding:80px">
-        <h2 class="title text-center kor" style="font-weight:bold; margin-top: 100px;">이벤트등록</h2>
+        <h2 class="title text-center kor" style="font-weight:bold; margin-top: 100px;">이벤트수정</h2>
         <form v-on:submit.prevent="writeContent">
           <v-text-field label="제품명" v-model="event.product"></v-text-field>
-          <v-select :items="items" v-model="category" label="카테고리" dense solo></v-select>
+          <v-select :items="items" v-model="event.category" label="카테고리" dense solo></v-select>
           <div class="input-container gender">
             <label for="">GENDER</label>
             <div class="wrapper">
-              <input type="radio" name="select" id="option-1" value="1" v-model="gender" />
-              <input type="radio" name="select" id="option-2" value="2" v-model="gender" />
+              <input type="radio" name="select" id="option-1" value="1" v-model="event.gender" />
+              <input type="radio" name="select" id="option-2" value="2" v-model="event.gender" />
               <label for="option-1" class="option option-1">
                 <div class="dot"></div>
                 <span>남성</span>
@@ -24,9 +24,9 @@
           <div class="input-container age">
             <label for="">AGE</label>
             <div class="wrapper1">
-              <input type="radio" name="select1" id="gender-option-1" value="10" v-model="age" />
-              <input type="radio" name="select1" id="gender-option-2" value="20" v-model="age" />
-              <input type="radio" name="select1" id="gender-option-3" value="30" v-model="age" />
+              <input type="radio" name="select1" id="gender-option-1" value="10" v-model="event.age" />
+              <input type="radio" name="select1" id="gender-option-2" value="20" v-model="event.age" />
+              <input type="radio" name="select1" id="gender-option-3" value="30" v-model="event.age" />
 
               <label for="gender-option-1" class="gender-option gender-option-1">
                 <div class="dot"></div>
@@ -42,9 +42,9 @@
               </label>
             </div>
             <div class="wrapper1">
-              <input type="radio" name="select1" id="gender-option-4" value="40" v-model="age" />
-              <input type="radio" name="select1" id="gender-option-5" value="50" v-model="age" />
-              <input type="radio" name="select1" id="gender-option-6" value="60" v-model="age" />
+              <input type="radio" name="select1" id="gender-option-4" value="40" v-model="event.age" />
+              <input type="radio" name="select1" id="gender-option-5" value="50" v-model="event.age" />
+              <input type="radio" name="select1" id="gender-option-6" value="60" v-model="event.age" />
               <label for="gender-option-4" class="gender-option gender-option-4">
                 <div class="dot"></div>
                 <span>40대</span>
@@ -93,7 +93,7 @@
         </form>
 
         <div class="btn-right">
-          <v-btn color="#000" dark type="submit" @click="eventUpdate">
+          <v-btn color="#000" dark type="submit" @click="Update">
             수정
           </v-btn>
           <v-btn color="#000" class="ml-1" dark type="button" @click="$router.go(-1)">
@@ -106,7 +106,7 @@
 </template>
 
 <script>
-import { eventInsert } from '@/api/event';
+import { eventDetail, eventUpdate } from '@/api/event';
 
 export default {
   data: (vm) => ({
@@ -132,8 +132,9 @@ export default {
   async created() {
     const event_id = this.$route.query.event_id;
     console.log(event_id);
-    // const { data } = await detailBoard(postData);
-    // this.value = data;
+    const { data } = await eventDetail(event_id);
+    console.log('수정', data);
+    this.event = data[0];
     var $vm = this;
     $(function() {
       $('#summernote').summernote({
@@ -153,7 +154,7 @@ export default {
         ],
       });
       // $('#summernote').summernote('pasteHTML', data.content);
-      $('#summernote').summernote('pasteHTML', $vm.event.detail);
+      $('#summernote').summernote('pasteHTML', data[0].detail);
     });
   },
   computed: {
@@ -180,7 +181,7 @@ export default {
       const [month, day, year] = date.split('/');
       return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
     },
-    async updateEvent() {
+    async Update() {
       const eventData = {
         age: this.age,
         category: this.category,
@@ -194,7 +195,7 @@ export default {
       };
       console.log(eventData);
 
-      const { data } = await editBoard(editData);
+      const { data } = await eventUpdate(eventData);
       console.log(data);
 
       this.$swal({
@@ -202,7 +203,7 @@ export default {
         title: '글 수정 완료',
       });
       var event_id = this.event.event_id;
-      this.$router.push({ name: 'BoardDetail', query: { boardId: event_id } });
+      this.$router.push({ name: 'EventDetail', query: { event_id: event_id } });
     },
   },
 };
