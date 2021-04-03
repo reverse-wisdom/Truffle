@@ -20,4 +20,6 @@ public interface AccountService {
 	public List<EventDto> selectEventWinnerByEmail(String email) throws Exception;
 
 	public List<EventDto> selectEventParticipationByEmail(String email) throws Exception;
+	
+	public List<EventDto> selectCreateEventListByID(int uuid) throws Exception; 
 }

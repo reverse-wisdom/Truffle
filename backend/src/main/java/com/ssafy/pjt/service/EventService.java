@@ -30,4 +30,5 @@ public interface EventService {
 	public List<EventUserRequestDto> selectParticipationListByEventId(int event_id) throws Exception;
 
 	public List<SearchDto> selectSearchHit() throws Exception;
+
 }
