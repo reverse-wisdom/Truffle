@@ -107,6 +107,7 @@
 
 <script>
 import { eventInsert } from '@/api/event';
+import { retailerAllEvent } from '@/api/auth';
 
 export default {
   data: (vm) => ({
@@ -170,6 +171,7 @@ export default {
       return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
     },
     async eventInsert() {
+      const uuid = this.$store.state.retailuuid;
       const eventData = {
         age: this.age,
         category: this.category,
@@ -180,24 +182,16 @@ export default {
         price: this.price,
         product: this.product,
         win_num: this.win_num,
+        uuid: this.$store.state.retailuuid,
       };
-      console.log(eventData);
-      try {
-        const response = await eventInsert(eventData);
-        this.$swal({
-          icon: 'success',
-          title: '글 작성 완료!!',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        console.log(response);
-        this.detailGo();
-      } catch (err) {
-        console.log(err);
-      }
-    },
-    detailGo() {
-      this.$router.push({ name: 'Test' });
+      const response = await eventInsert(eventData);
+      // console.log(response);
+      const { data } = await retailerAllEvent(uuid);
+      console.log(data[data.length - 1]);
+      // var event_id = data[-1].event_id;
+      // console.log(data[data.length - 1].event_id);
+      var event_id = data[data.length - 1].event_id;
+      this.$router.push({ name: 'EventDetail', query: { event_id: event_id } });
     },
   },
 };

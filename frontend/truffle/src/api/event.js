@@ -14,7 +14,7 @@ function eventInsert(event_data) {
 }
 //이벤트 수정
 function eventUpdate(event_data) {
-  return posts.post('/event/update', event_data);
+  return posts.put('/event/update', event_data);
 }
 
 //나이별 상세 조회
