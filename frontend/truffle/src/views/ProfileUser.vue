@@ -28,10 +28,10 @@
           <Basic></Basic>
         </div>
         <div id="content2">
-          <Event></Event>
+          <Event v-for="(event, idx) in events" :key="idx" :event="event"></Event>
         </div>
         <div id="content3">
-          <Win></Win>
+          <Win v-for="(win, idx) in wins" :key="idx" :win="win"></Win>
         </div>
         <div id="content4">
           <Order></Order>
@@ -43,20 +43,20 @@
       <label for="tab1">기본정보</label>
 
       <input type="radio" name="vtab" id="tab2" />
-      <label for="tab2">등록한 상품</label>
+      <label for="tab2">등록 상품</label>
 
       <input type="radio" name="vtab" id="tab3" />
-      <label for="tab3">당첨된 사람 현황</label>
+      <label for="tab3">응모마감 상품</label>
 
       <div class="vtab-content">
         <div id="content1">
           <Basic></Basic>
         </div>
         <div id="content2">
-          <Event></Event>
+          <Event v-for="(event, idx) in events" :key="idx" :event="event"></Event>
         </div>
         <div id="content3">
-          <Win></Win>
+          <Win v-for="(win, idx) in wins" :key="idx" :win="win"></Win>
         </div>
       </div>
     </div>
@@ -68,9 +68,17 @@ import Order from '../views/profile/Order';
 import Basic from '../views/profile/Basic';
 import Event from '../views/profile/Event';
 import Win from '../views/profile/Win';
+import { retailerAllEvent, userJoinEvent, userWinEvent } from '@/api/auth';
+import { eventWin } from '@/api/event';
 
 export default {
   name: 'ProfileUser',
+  data() {
+    return {
+      events: [],
+      wins: [],
+    };
+  },
   components: {
     Order,
     Basic,
@@ -78,6 +86,29 @@ export default {
     Win,
   },
   methods: {},
+  async created() {
+    if (this.$store.state.type == '2') {
+      const { data } = await retailerAllEvent(this.$store.state.retailuuid);
+      console.log('등록한 래플', data);
+      this.events = data;
+      for (let i = 0; i < data.length; i++) {
+        if (new Date(data[i].end_date) < Date.now()) {
+          this.wins.push(data[i]);
+        }
+      }
+      console.log(this.wins);
+    } else {
+      const { data } = await userJoinEvent(this.$store.state.email);
+      // console.log('응모', data);
+      this.events = data;
+
+      {
+        const { data } = await userWinEvent(this.$store.state.email);
+        // console.log('당첨상품', data);
+        this.wins = data;
+      }
+    }
+  },
 };
 </script>
 
@@ -86,7 +117,7 @@ export default {
   text-align: center;
 }
 .container {
-  margin-top: 62px;
+  margin-top: 8rem;
   font-family: 'Open Sans', sans-serif;
   color: #404040;
 }
@@ -133,12 +164,19 @@ p {
   max-width: 100%;
   left: 20%;
 }
-.vtabs .vtab-content div {
+.vtabs .vtab-content #content1,
+.vtabs .vtab-content #content2,
+.vtabs .vtab-content #content3,
+.vtabs .vtab-content #content4,
+.vtabs .vtab-content #content5 {
   display: none;
 }
 .vtabs img {
   max-width: 550px;
   width: 100%;
   border-radius: 15px;
+}
+#content2 {
+  display: flex;
 }
 </style>
