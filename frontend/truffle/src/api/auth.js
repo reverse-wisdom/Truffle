@@ -12,8 +12,16 @@ function register(userData) {
   return instance.post('account/signUp', userData);
 }
 
-function userJoinEvent(email) {
-  return posts.get(`/account/selectEventParticipationByEmail?email=${email}`);
+function editUser(userData) {
+  return posts.put(`account/update`, userData);
 }
 
-export { loginUser, fetchUser, register, userJoinEvent };
+function userJoinEvent(email) {
+  return posts.get(`account/selectEventParticipationByEmail?email=${email}`);
+}
+
+function userWinEvent(email) {
+  return posts.get(`account/selectEventWinnerByEmail?email=${email}`);
+}
+
+export { loginUser, fetchUser, register, userJoinEvent, userWinEvent, editUser };
