@@ -35,6 +35,6 @@ function eventSelectProduct(product) {
 }
 //이벤트 참여자수 증가
 function eventJoin(event_id) {
-  return posts.put('/event/joinEvent', event_id);
+  return posts.put('/event/joinEvent', event_id, { headers: { 'Content-Type': 'application/json' } });
 }
 export { eventAll, eventDetail, eventInsert, eventUpdate, eventSelectAge, eventSelectCategory, eventSelectGender, eventSelectProduct, eventJoin };
