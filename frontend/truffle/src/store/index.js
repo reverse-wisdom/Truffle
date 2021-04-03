@@ -32,13 +32,7 @@ export default new Vuex.Store({
     clearEmail(state) {
       state.email = '';
     },
-    setNickname(state, nickname) {
-      state.nickname = nickname;
-    },
-    clearNickname(state) {
-      state.nickname = '';
-    },
-    setRetailuuid(state, Retailuuid) {
+    setRetailuuid(state, retailuuid) {
       state.retailuuid = retailuuid;
     },
     clearLawuuid(state) {
@@ -54,12 +48,13 @@ export default new Vuex.Store({
   actions: {
     async LOGIN({ commit }, userData) {
       try {
-        const { data } = await loginUser(userData);
-        if (data.message == 'SUCCESS') {
-          commit('setToken', data['access-token']);
+        const data = await loginUser(userData);
+        if (data.data.message == 'SUCCESS') {
+          console.log(data);
+          commit('setToken', data.data['access-token']);
           commit('setEmail', userData.email);
+          router.push('/main');
         }
-        router.push('/main');
       } catch (err) {
         Vue.swal({
           icon: 'error',

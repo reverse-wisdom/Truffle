@@ -148,9 +148,7 @@ export default {
       const container = document.querySelector('.container');
       container.classList.remove('sign-up-mode');
     },
-    login() {
-      console.log('네이버 성공');
-    },
+
     retailer() {
       this.$router.push({ name: 'ResisterRetailer' });
     },
