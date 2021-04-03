@@ -54,6 +54,7 @@ public class AccountController {
 				System.out.println(token);
 				resultMap.put("access-token", token);
 				resultMap.put("message", "SUCCESS");
+				resultMap.put("uuid", loginUser.getUuid());
 			} else {
 				resultMap.put("message", "FAIL");
 			}
