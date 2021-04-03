@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.pjt.dto.EventDto;
+import com.ssafy.pjt.dto.EventUserRequestDto;
+import com.ssafy.pjt.dto.SearchDto;
 import com.ssafy.pjt.service.EventServiceImpl;
 
 import io.swagger.annotations.ApiOperation;
@@ -81,7 +83,7 @@ public class EventController {
 		}
 	}
 
-	@ApiOperation(value = "상품명별 조회")
+	@ApiOperation(value = "상품명별 조회(검색어 상승(hit)포함)", notes = "response body에 아무것도 없을경우 검색어 상승만함")
 	@GetMapping("/selectByProduct")
 	private ResponseEntity<List<EventDto>> selectByProduct(@RequestParam(required = true) final String product) {
 		List<EventDto> list;
@@ -148,6 +150,44 @@ public class EventController {
 			return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+	}
+
+	@ApiOperation(value = "당첨자 전체조회")
+	@GetMapping("/selectWinListByEventId")
+	private ResponseEntity<List<EventUserRequestDto>> selectWinListByEventId(
+			@RequestParam(required = true) final int event_id) {
+		List<EventUserRequestDto> list;
+		try {
+			list = eventService.selectWinListByEventId(event_id);
+			return new ResponseEntity<>(list, HttpStatus.OK);
+		} catch (SQLException e) {
+			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+		}
+	}
+
+	@ApiOperation(value = "참여자 전체조회")
+	@GetMapping("/selectParticipationListByEventId")
+	private ResponseEntity<List<EventUserRequestDto>> selectParticipationListByEventId(
+			@RequestParam(required = true) final int event_id) {
+		List<EventUserRequestDto> list;
+		try {
+			list = eventService.selectParticipationListByEventId(event_id);
+			return new ResponseEntity<>(list, HttpStatus.OK);
+		} catch (SQLException e) {
+			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+		}
+	}
+
+	@ApiOperation(value = "검색어랭킹조회(검색어,조회수 내림차순")
+	@GetMapping("/selectSearchHit")
+	private ResponseEntity<List<SearchDto>> selectSearchHit() {
+		List<SearchDto> list;
+		try {
+			list = eventService.selectSearchHit();
+			return new ResponseEntity<>(list, HttpStatus.OK);
+		} catch (SQLException e) {
+			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+		}
 	}
 
 }

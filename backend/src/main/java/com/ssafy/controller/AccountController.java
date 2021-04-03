@@ -2,6 +2,7 @@ package com.ssafy.controller;
 
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -53,6 +54,7 @@ public class AccountController {
 				System.out.println(token);
 				resultMap.put("access-token", token);
 				resultMap.put("message", "SUCCESS");
+				resultMap.put("uuid", loginUser.getUuid());
 			} else {
 				resultMap.put("message", "FAIL");
 			}
@@ -135,10 +137,10 @@ public class AccountController {
 
 	@ApiOperation(value = "회원이메일로 당첨기록 조회", notes = "email 값 필수")
 	@GetMapping("/selectEventWinnerByEmail")
-	private ResponseEntity<EventDto> selectEventWinnerByEmail(@RequestParam(required = true) final String email) {
+	private ResponseEntity<List<EventDto>> selectEventWinnerByEmail(@RequestParam(required = true) final String email) {
 		try {
-			EventDto eventdto = accountService.selectEventWinnerByEmail(email);
-			return new ResponseEntity<>(eventdto, HttpStatus.OK);
+			List<EventDto> list = accountService.selectEventWinnerByEmail(email);
+			return new ResponseEntity<>(list, HttpStatus.OK);
 		} catch (SQLException e) {
 			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
 		}
@@ -146,14 +148,28 @@ public class AccountController {
 
 	@ApiOperation(value = "회원이메일로 진행중인 참여조회", notes = "email 값 필수")
 	@GetMapping("/selectEventParticipationByEmail")
-	private ResponseEntity<EventDto> selectEventParticipationByEmail(
+	private ResponseEntity<List<EventDto>> selectEventParticipationByEmail(
 			@RequestParam(required = true) final String email) {
 		try {
-			EventDto eventdto = accountService.selectEventParticipationByEmail(email);
-			return new ResponseEntity<>(eventdto, HttpStatus.OK);
+			List<EventDto> list = accountService.selectEventParticipationByEmail(email);
+			return new ResponseEntity<>(list, HttpStatus.OK);
 		} catch (SQLException e) {
 			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
 		}
 	}
+	
+	@ApiOperation(value = "리테일러UUID로 리테일러가 등록한 이벤트 리스트 조회", notes = "uuid 값 필수")
+	@GetMapping("/selectCreateEventListByID")
+	private ResponseEntity<List<EventDto>> selectCreateEventListByID(
+			@RequestParam(required = true) final int uuid) {
+		try {
+			List<EventDto> list = accountService.selectCreateEventListByID(uuid);
+			return new ResponseEntity<>(list, HttpStatus.OK);
+		} catch (SQLException e) {
+			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+		}
+	}
+	
+	
 
 }
