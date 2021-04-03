@@ -59,7 +59,7 @@
       </div>
     </div>
     <v-container>
-      <EventDetailTab></EventDetailTab>
+      <EventDetailTab :event_id="event_id"></EventDetailTab>
     </v-container>
     <div v-if="$store.state.retailuuid == event.uuid" style="text-align:right">
       <v-btn color="" class="mr-1" dark @click="updateGo(event)">수정</v-btn>
@@ -84,6 +84,7 @@ export default {
       event: '',
       tabcheck: false,
       gender: '',
+      event_id: this.$route.query.event_id,
     };
   },
   async created() {
@@ -96,6 +97,7 @@ export default {
       this.gender = '여자';
     }
     console.log('상세이벤트', this.event);
+    // console.log(typeof this.event);
   },
   methods: {
     async joinAdd() {
