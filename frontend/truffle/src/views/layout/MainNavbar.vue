@@ -4,10 +4,13 @@
       <a class="logo" href="/"><img src="@/assets/img/logo1.png" alt="logo" /></a>
       <nav>
         <ul class="nav__links" v-if="this.$store.state.token">
-          <li><a class="font" href="/">Home</a></li>
+          <li><a class="font" href="/main">Home</a></li>
+          <li><a class="font" href="/test">Test</a></li>
           <li><a class="font" href="/guide">Guide</a></li>
-          <li><a class="font" href="/ProfileUser">profileuser</a></li>
-          <li>{{ this.$store.state.email }}님 안녕하세요</li>
+          <li><a class="font" href="/eventCreate">event</a></li>
+          <li>
+            <a class="font" href="/ProfileUser">{{ this.$store.state.email }}님 안녕하세요</a>
+          </li>
           <li><a class="font" @click="logout">logout</a></li>
         </ul>
         <ul class="nav__links" v-else>
@@ -61,7 +64,7 @@ export default {
       this.$store.commit('clearLawuuid');
       localStorage.clear();
       sessionStorage.clear();
-      $cookies.keys().forEach((cookie) => $cookies.remove(cookie));
+
       this.$router.push({ name: 'login' });
     },
   },
