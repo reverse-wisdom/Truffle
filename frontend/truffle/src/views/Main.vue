@@ -51,6 +51,9 @@
       </div>
     </div>
     <div class="space"></div>
+    <div>
+      <h1>곧마감 상품</h1>
+    </div>
     <v-row>
       <v-container class="mid-content">
         <SelectAge></SelectAge>
@@ -208,7 +211,7 @@ export default {
 </script>
 <style scoped>
 .space {
-  margin-top: 35rem;
+  margin-top: 45rem;
 }
 
 * {
@@ -667,7 +670,7 @@ section::after {
   margin-left: 10vw;
 }
 .mid-content {
-  margin-top: 30%;
+  margin-top: 10%;
   z-index: 0;
 }
 </style>
