@@ -95,7 +95,7 @@
 		id="selectWinListByEventId"
 		parameterType="int"
 		resultType="EventUserRequestDto">
-		select a.email ,a.phone
+		select a.email,a.phone, a.uuid
 		from account a
 		left join win w
 		on a.uuid = w.uuid
@@ -109,7 +109,7 @@
 		id="selectParticipationListByEventId"
 		parameterType="int"
 		resultType="EventUserRequestDto">
-		select a.email ,a.phone
+		select a.email, a.phone, a.uuid
 		from account a
 		left join participation p
 		on a.uuid = p.uuid
