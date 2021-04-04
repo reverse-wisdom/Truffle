@@ -6,5 +6,6 @@ import lombok.Data;
 public class EventUserRequestDto {
 	String email;
 	String phone;
+	int uuid;
 
 }
