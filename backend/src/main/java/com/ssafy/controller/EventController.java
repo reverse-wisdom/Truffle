@@ -1,8 +1,10 @@
 package com.ssafy.controller;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Base64;
 import java.util.List;
 import java.util.UUID;
 
@@ -270,14 +272,29 @@ public class EventController {
 		return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
 	}
 
-	@ApiOperation(value = "이벤트 아이디를 통해 이미지 파일명 조회")
+	@ApiOperation(value = "이벤트 아이디를 통해 이미지 파일 썸네일 출력(base64)")
 	@GetMapping("/selectEventFileNameByEventID")
-	private ResponseEntity<EventImgFileDto> selectEventFileNameByEventID(
+	private ResponseEntity<String> selectEventFileNameByEventID(
 			@RequestParam(required = true) final int event_id) {
 		EventImgFileDto img;
+		
+		String os = System.getProperty("os.name").toLowerCase();
+		String FILE_PATH;
+		String base64Img = null;
+		
+
+		if (os.contains("win"))
+			FILE_PATH = "C:\\SSAFY\\upload\\img\\"; // 환경에맞게 파일경로 수정
+		else
+			FILE_PATH = "/volumes/data/"; // 환경에맞게 파일경로 수정
+		
 		try {
 			img = eventService.selectEventFileNameByEventID(event_id);
-			return new ResponseEntity<>(img, HttpStatus.OK);
+			File file = new File(FILE_PATH + img.getUuid_file());
+			
+//			base64Img = Base64.getEncoder().encodeToString(file);
+			
+			return new ResponseEntity<>(base64Img, HttpStatus.OK);
 		} catch (SQLException e) {
 			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
 		}
