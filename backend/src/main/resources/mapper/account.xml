@@ -10,7 +10,7 @@
 		resultType="AccountDto">
 		select *
 		from account
-		where email = #{email} and password = #{password};
+		where email = #{email};
 	</select>
 
 	<select

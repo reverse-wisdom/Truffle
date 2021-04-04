@@ -43,6 +43,7 @@ public class AccountController {
 	@Autowired
 	private AccountServiceImpl accountService;
 
+
 	@ApiOperation(value = "로그인")
 	@PostMapping("/login")
 	private ResponseEntity<Map<String, Object>> login(@RequestBody final LoginRequestDto loginRequestDto) {
@@ -55,13 +56,14 @@ public class AccountController {
 				resultMap.put("access-token", token);
 				resultMap.put("message", "SUCCESS");
 				resultMap.put("uuid", loginUser.getUuid());
+				return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
 			} else {
 				resultMap.put("message", "FAIL");
 			}
 		} catch (SQLException e) {
 			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
+		return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
 	}
 
 	@ApiOperation(value = "회원정보조회", notes = "x-auth-token, email 값 필수")
@@ -85,6 +87,7 @@ public class AccountController {
 	@ApiOperation(value = "회원가입", notes = "uuid값 제외한값으로 입력")
 	@PostMapping("/signUp")
 	private ResponseEntity<String> signUp(@RequestBody final AccountDto accountDto) {
+		
 		try {
 			boolean result = accountService.signUp(accountDto);
 			if (result) {
@@ -156,11 +159,10 @@ public class AccountController {
 			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
 		}
 	}
-	
+
 	@ApiOperation(value = "리테일러UUID로 리테일러가 등록한 이벤트 리스트 조회", notes = "uuid 값 필수")
 	@GetMapping("/selectCreateEventListByID")
-	private ResponseEntity<List<EventDto>> selectCreateEventListByID(
-			@RequestParam(required = true) final int uuid) {
+	private ResponseEntity<List<EventDto>> selectCreateEventListByID(@RequestParam(required = true) final int uuid) {
 		try {
 			List<EventDto> list = accountService.selectCreateEventListByID(uuid);
 			return new ResponseEntity<>(list, HttpStatus.OK);
@@ -168,7 +170,5 @@ public class AccountController {
 			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
 		}
 	}
-	
-	
 
 }
