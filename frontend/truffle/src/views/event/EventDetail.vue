@@ -55,6 +55,11 @@
               응모하기
             </button>
           </div>
+          <div v-show="event.end_date == Date.now()" class="join-info">
+            <button type="button" class="btn" @click="winnerShow">
+              당첨자보기
+            </button>
+          </div>
         </div>
       </div>
     </div>

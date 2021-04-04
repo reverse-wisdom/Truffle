@@ -33,6 +33,8 @@ import QnAupdate from '../views/QnA/QnAupdate.vue';
 import QnAwrite from '../views/QnA/QnAwrite.vue';
 import QnAdetail from '../views/QnA/QnAdetail.vue';
 
+import FormDataTest from '../views/event/FormDataTest.vue';
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -130,7 +132,12 @@ const routes = [
     name: 'EventUpdate',
     components: { default: EventUpdate, header: MainNavbar },
   },
-
+  //임시테스트
+  {
+    path: '/formdataTest',
+    name: 'FormDataTest',
+    components: { default: FormDataTest, header: MainNavbar },
+  },
   // QnA
   {
     path: '/QnA',

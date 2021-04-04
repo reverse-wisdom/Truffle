@@ -9,8 +9,14 @@ function eventDetail(event_id) {
   return posts.get(`/event/detail?event_id=${event_id}`);
 }
 //이벤트 페이지 작성
-function eventInsert(event_data) {
-  return posts.post('/event/insert', event_data);
+function eventInsert(age, category, detail, end_date, gender, open_date, price, product, uuid, win_num, frm) {
+  // return posts.post('/event/insert', event_data, { headers: { 'Content-Type': 'multipart/form-data' } });
+  return posts.post(
+    `/event/insert?age=${age}&category=${category}&detail=${detail}&end_date=
+  ${end_date}&gender=${gender}&open_date=${open_date}&price=${price}&product=${product}&uuid=${uuid}&win_num=${win_num}`,
+    frm,
+    { headers: { 'Content-Type': 'multipart/form-data' } }
+  );
 }
 //이벤트 수정
 function eventUpdate(event_data) {
