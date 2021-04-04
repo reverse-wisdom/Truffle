@@ -60,7 +60,7 @@ export default {
   },
   async created() {
     const { data } = await fetchUser(this.$store.state.email);
-    // console.log('회원정보', data);
+    console.log('회원정보', data);
     this.value = data;
     if (data.gender == '1') {
       this.gender = '남성';
@@ -93,6 +93,7 @@ export default {
           const editdata = {
             email: this.value.email,
             age: this.value.age,
+            password: this.value.password,
             gender: editgender,
             nickname: this.value.nickname,
             phone: this.value.phone,
@@ -106,6 +107,7 @@ export default {
         } else {
           const editdata = {
             email: this.value.email,
+            password: this.value.password,
             phone: this.value.phone,
             address: this.value.address,
             address_detail: this.value.address_detail,
