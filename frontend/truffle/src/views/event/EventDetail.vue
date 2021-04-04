@@ -55,16 +55,36 @@
               응모하기
             </button>
           </div>
-          <div v-show="$store.state.type == '2' && new Date(this.event.end_date) < Date.now()" class="join-info">
+          <div class="join-info">
             <button type="button" class="btn" id="winnerbtn" @click="raffleGo">
               추첨하기
             </button>
           </div>
-          <div v-show="new Date(this.event.end_date) < Date.now()" class="join-info" @click="winnerListGo">
+          <!-- <div v-show="new Date(this.event.end_date) < Date.now()" class="join-info" @click="winnerListGo">
             <button type="button" class="btn">
               당첨자보기
             </button>
-          </div>
+          </div> -->
+          <v-col cols="auto">
+            <v-dialog transition="dialog-top-transition" max-width="600">
+              <template v-slot:activator="{ on, attrs }" v-show="$store.state.type == '2' && new Date(this.event.end_date) < Date.now()">
+                <v-btn color="primary" v-bind="attrs" @click="winnerListGo" v-on="on">당첨자보기</v-btn>
+              </template>
+              <template v-slot:default="dialog">
+                <v-card>
+                  <v-toolbar color="primary" dark>Opening from the top</v-toolbar>
+                  <v-card-text>
+                    <div class="text-h2 pa-12" v-for="(win, index) in modal" :key="index">
+                      <p id="win_email">{{ win }}</p>
+                    </div>
+                  </v-card-text>
+                  <v-card-actions class="justify-end">
+                    <v-btn text @click="dialog.value = false">Close</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </template>
+            </v-dialog>
+          </v-col>
         </div>
       </div>
     </div>
@@ -99,7 +119,17 @@ export default {
       event_id: this.$route.query.event_id,
       showWinner: false,
       winnerList: [],
+      modal: [],
+      MaskingEmail: '',
+      emailLen: '',
+      dialog: true,
     };
+  },
+  computed: {
+    // maskingEmail: function(win) {
+    //   var len = win.email.split('@')[0].length - 3; // ******@gmail.com
+    //   return win.email.replace(new RegExp('.(?=.{0,' + len + '}@)', 'g'), '*');
+    // },
   },
   async created() {
     const event_id = this.$route.query.event_id;
@@ -116,6 +146,7 @@ export default {
       const target = document.getElementById('winnerbtn');
       target.disabled = true;
       target.innerText = '추첨완료';
+      console.log('당첨여부', response.data);
     }
   },
   methods: {
@@ -157,8 +188,18 @@ export default {
       this.winnerListShow();
     },
     async winnerListShow() {
+      //modal에 데이타 있으면
+      if (this.modal) {
+        this.modal = [];
+      }
       const { data } = await selectedWinner(this.event.event_id);
-      console.log(data);
+      console.log('winnerListShow', data);
+      // this.modal = data;
+      for (let i = 0; i < data.length; i++) {
+        var len = data[i].email.split('@')[0].length - 6; // ******@gmail.com
+        this.modal.push(data[i].email.replace(new RegExp('.(?=.{0,' + len + '}@)', 'g'), '*'));
+      }
+      console.log('타입', this.modal);
     },
     async joinAdd() {
       const email = this.$store.state.email;
