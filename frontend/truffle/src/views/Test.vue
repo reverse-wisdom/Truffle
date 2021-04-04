@@ -23,17 +23,41 @@
     <br />
     <v-btn depressed class="btn" color="error" @click="sweetalertTest3">sweetalert test3</v-btn>
     <br />
+
+    <div>
+      <h2>로컬 파일 테스트</h2>
+      <img id="img_test" />
+    </div>
   </div>
 </template>
 
 <script>
 import SelectAge from '@/views/select/SelectAge.vue';
+
 export default {
   name: 'Test',
   components: {
     SelectAge,
   },
+  created() {
+    var filePath = 'file:///volumes/data/df48f6e7-eda0-490f-8aa4-8e8f2c94bb0c.png';
+    var output = document.getElementById('img_test');
+    output.src = this.readTextFile(filePath);
+  },
   methods: {
+    readTextFile(file) {
+      var rawFile = new XMLHttpRequest();
+      rawFile.open('GET', file, false);
+      rawFile.onreadystatechange = function() {
+        if (rawFile.readyState === 4) {
+          if (rawFile.status === 200 || rawFile.status == 0) {
+            var allText = rawFile.responseText;
+            alert(allText);
+          }
+        }
+      };
+      rawFile.send(null);
+    },
     sweetalertTest1() {
       this.$swal({
         icon: 'success',
