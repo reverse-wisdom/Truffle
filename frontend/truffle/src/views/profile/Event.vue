@@ -74,7 +74,9 @@ export default {
     },
   },
   methods: {
-    eventDetailGo() {},
+    eventDetailGo() {
+      this.$router.push({ name: 'EventDetail', query: { event_id: this.event.event_id } });
+    },
   },
   created() {},
 };

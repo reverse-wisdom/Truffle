@@ -572,9 +572,7 @@ input[type='radio'] {
 #gender-option-6:checked:checked ~ .gender-option-6 span {
   color: #fff;
 }
-.formdata {
-  /* margin-top: 20%; */
-}
+
 #preview {
   max-height: 200px;
   max-width: 200px;

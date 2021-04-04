@@ -5,6 +5,19 @@
         <h2 class="title text-center kor" style="font-weight:bold; margin-top: 100px;">이벤트수정</h2>
         <form v-on:submit.prevent="writeContent">
           <v-text-field label="제품명" v-model="event.product"></v-text-field>
+          <!-- 썸네일 -->
+          <div class="formdata">
+            <v-file-input
+              id="thumbnail"
+              name="thumbnail"
+              v-model="image"
+              show-size
+              label="썸네일 이미지 (입력창을 클릭해주세요)"
+              @change="Preview_image($event)"
+              style="display:inline-block; cursor : pointer;"
+            ></v-file-input>
+            <v-img :src="event.imgFile" id="preview"></v-img>
+          </div>
           <v-select :items="items" v-model="event.category" label="카테고리" dense solo></v-select>
           <div class="input-container gender">
             <label for="">GENDER</label>
@@ -128,6 +141,9 @@ export default {
     win_num: '',
 
     event: '',
+
+    url: null,
+    image: null,
   }),
   async created() {
     const event_id = this.$route.query.event_id;
@@ -169,6 +185,9 @@ export default {
   },
 
   methods: {
+    Preview_image() {
+      this.url = URL.createObjectURL(this.image);
+    },
     formatDate(date) {
       if (!date) return null;
 
@@ -562,5 +581,14 @@ input[type='radio'] {
 #gender-option-5:checked:checked ~ .gender-option-5 span,
 #gender-option-6:checked:checked ~ .gender-option-6 span {
   color: #fff;
+}
+#preview {
+  max-height: 200px;
+  max-width: 200px;
+  display: inline-block;
+  margin-left: 5%;
+}
+.v-file-input {
+  width: 300px;
 }
 </style>

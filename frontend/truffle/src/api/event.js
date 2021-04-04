@@ -12,8 +12,7 @@ function eventDetail(event_id) {
 function eventInsert(age, category, detail, end_date, gender, open_date, price, product, uuid, win_num, frm) {
   // return posts.post('/event/insert', event_data, { headers: { 'Content-Type': 'multipart/form-data' } });
   return posts.post(
-    `/event/insert?age=${age}&category=${category}&detail=${detail}&end_date=
-  ${end_date}&gender=${gender}&open_date=${open_date}&price=${price}&product=${product}&uuid=${uuid}&win_num=${win_num}`,
+    `/event/insert?age=${age}&category=${category}&detail=${detail}&end_date=${end_date}&gender=${gender}&open_date=${open_date}&price=${price}&product=${product}&uuid=${uuid}&win_num=${win_num}`,
     frm,
     { headers: { 'Content-Type': 'multipart/form-data' } }
   );
@@ -48,8 +47,32 @@ function eventJoin(event_id) {
 function checkPartipants(event_id) {
   return posts.get(`/event/selectParticipationListByEventId?event_id=${event_id}`);
 }
-//특정이벤트 참여자 조회
+//특정이벤트 참여자응모시 추가
 function createPartipants(partData) {
   return posts.post('/event/insertUserIdToParticipation', partData);
 }
-export { createPartipants, checkPartipants, eventAll, eventDetail, eventInsert, eventUpdate, eventSelectAge, eventSelectCategory, eventSelectGender, eventSelectProduct, eventJoin };
+
+//특정이벤트 당첨자조회
+function selectedWinner(event_id) {
+  return posts.get(`/event/selectWinListByEventId?event_id=${event_id}`);
+}
+
+//특정이벤트 당첨자만들기
+function createWinner(winData) {
+  return posts.post('/event/insertUserIdWinParticipation', winData);
+}
+export {
+  createWinner,
+  selectedWinner,
+  createPartipants,
+  checkPartipants,
+  eventAll,
+  eventDetail,
+  eventInsert,
+  eventUpdate,
+  eventSelectAge,
+  eventSelectCategory,
+  eventSelectGender,
+  eventSelectProduct,
+  eventJoin,
+};
