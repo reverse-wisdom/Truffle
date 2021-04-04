@@ -3,7 +3,7 @@
     <div class="process-wrapper" v-if="(this.$store.state.type = '1')">
       <div id="progress-bar-container">
         <ul>
-          <li class="step step01 active" @click="step01"><div class="step-inner">배송 준비중</div></li>
+          <li class="step step01 active" @click="step01"><div class="step-inner">결제완료</div></li>
           <li class="step step02" @click="step02"><div class="step-inner">배송시작</div></li>
           <li class="step step03" @click="step03"><div class="step-inner">배송중</div></li>
           <li class="step step04" @click="step04"><div class="step-inner">배송완료</div></li>
@@ -69,7 +69,7 @@
 
       <div id="progress-content-section">
         <div class="section-content discovery active">
-          <h2>배송준비중</h2>
+          <h2>결제완료</h2>
           <p>
             준비중인 물품들
           </p>
@@ -203,7 +203,7 @@ export default {
 h4 {
   color: #333;
   font-weight: 700;
-  /* margin-top: 125px; */
+  margin-top: -20px;
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 4px;
