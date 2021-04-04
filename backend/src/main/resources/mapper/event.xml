@@ -171,5 +171,15 @@
 		(#{event_id}, 0,
 		#{uuid_file}, #{orignal_file});
 	</insert>
+	
+	
+	<select
+		id="selectEventFileNameByEventID"
+		resultType="EventImgFileDto"
+		parameterType="int">
+		select *
+		from event_img_file  
+		where event_id = #{event_id};
+	</select>
 
 </mapper>
