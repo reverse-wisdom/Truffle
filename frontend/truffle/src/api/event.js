@@ -42,9 +42,8 @@ function eventJoin(event_id) {
 function checkPartipants(event_id) {
   return posts.get(`/event/selectParticipationListByEventId?event_id=${event_id}`);
 }
-//특정이벤트 당첨자 조회
-function eventWin(event_id) {
-  return posts.get(`/event/selectWinListByEventId?event_id=${event_id}`);
+//특정이벤트 참여자 조회
+function createPartipants(partData) {
+  return posts.post('/event/insertUserIdToParticipation', partData);
 }
-
-export { checkPartipants, eventAll, eventDetail, eventInsert, eventUpdate, eventSelectAge, eventSelectCategory, eventSelectGender, eventSelectProduct, eventJoin, eventWin };
+export { createPartipants, checkPartipants, eventAll, eventDetail, eventInsert, eventUpdate, eventSelectAge, eventSelectCategory, eventSelectGender, eventSelectProduct, eventJoin };

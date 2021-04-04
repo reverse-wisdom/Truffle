@@ -59,7 +59,7 @@
       </div>
     </div>
     <v-container>
-      <EventDetailTab></EventDetailTab>
+      <EventDetailTab :event_id="event_id"></EventDetailTab>
     </v-container>
     <div v-if="$store.state.retailuuid == event.uuid" style="text-align:right">
       <v-btn color="" class="mr-1" dark @click="updateGo(event)">수정</v-btn>
@@ -75,8 +75,7 @@
 
 <script>
 import EventDetailTab from '@/views/event/EventDetailTab';
-import { eventDetail, eventJoin, checkPartipants, eventUpdate } from '@/api/event';
-import { userJoinEvent } from '@/api/auth';
+import { eventDetail, eventJoin, checkPartipants, createPartipants } from '@/api/event';
 export default {
   name: 'EventDetail',
   components: { EventDetailTab },
@@ -85,6 +84,7 @@ export default {
       event: '',
       tabcheck: false,
       gender: '',
+      event_id: this.$route.query.event_id,
     };
   },
   async created() {
@@ -97,6 +97,7 @@ export default {
       this.gender = '여자';
     }
     console.log('상세이벤트', this.event);
+    // console.log(typeof this.event);
   },
   methods: {
     async joinAdd() {
@@ -119,6 +120,11 @@ export default {
         console.log('check=true', data);
         if (data == 'SUCCESS') {
           console.log('1증가');
+          const partData = {
+            event_id: this.$route.query.event_id,
+            uuid: this.$store.state.uuid,
+          };
+          const part_data = await createPartipants(partData);
           const { data } = await eventDetail(event_id);
           this.event.join_num = data[0].join_num;
         }

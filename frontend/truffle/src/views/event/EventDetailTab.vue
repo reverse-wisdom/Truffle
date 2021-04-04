@@ -17,23 +17,36 @@
       <QnA></QnA>
     </div>
     <div v-else>
-      <img src="@/assets/img/tombrown3.jpg" alt="" />
+      <!-- <img src="@/assets/img/tombrown3.jpg" alt="" /> -->
+      <div v-html="event.detail">
+        {{ event.detail }}
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import QnA from '../QnA';
+import { eventDetail } from '@/api/event';
 export default {
   name: 'EventDetailTab',
   data() {
     return {
       tabcheck: false,
+      event: '',
     };
   },
   components: {
     QnA,
   },
+  props: {
+    event_id: String,
+  },
+  async created() {
+    const { data } = await eventDetail(this.event_id);
+    this.event = data[0];
+  },
+
   methods: {
     tab01() {
       this.tabcheck = false;
