@@ -1,8 +1,14 @@
 package com.ssafy.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.UUID;
 
+import javax.validation.Valid;
+
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,9 +19,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ssafy.pjt.dto.EventDto;
+import com.ssafy.pjt.dto.EventImgFileDto;
 import com.ssafy.pjt.dto.EventUserRequestDto;
 import com.ssafy.pjt.dto.ParticipationDto;
 import com.ssafy.pjt.dto.SearchDto;
@@ -126,17 +135,55 @@ public class EventController {
 
 	@ApiOperation(value = "이벤트 페이지 작성", notes = "작성가능한 필드: age category detail end_date gender(남:1,여:2) open_date price product win_num, uuid")
 	@PostMapping("/insert")
-	private ResponseEntity<String> insert(@RequestBody(required = true) final EventDto eventDto) {
-		try {
-			boolean result = eventService.insert(eventDto);
-			if (result) {
-				return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+	private ResponseEntity<String> insert(@Valid final EventDto eventDto,
+			@RequestPart(required = true) final MultipartFile imgFile) {
+
+		String os = System.getProperty("os.name").toLowerCase();
+		String FILE_PATH;
+
+		if (os.contains("win"))
+			FILE_PATH = "C:\\SSAFY\\upload\\img\\"; // 환경에맞게 파일경로 수정
+		else
+			FILE_PATH = "/volumes/data/"; // 환경에맞게 파일경로 수정
+
+		String fileName = null;
+		EventImgFileDto eventImgFileDto = null;
+
+		if (imgFile.isEmpty()) {
+			return new ResponseEntity<>("썸네일파일을 업로드해주세요.", HttpStatus.NO_CONTENT);
+		} else {
+			String originalFileName = imgFile.getOriginalFilename();
+			System.out.println(originalFileName);
+
+			String ext = FilenameUtils.getExtension(originalFileName); // 파일 확장자 구하기
+			UUID uuid = UUID.randomUUID(); // UUID 구하기
+			fileName = uuid + "." + ext;
+			try {
+				imgFile.transferTo(new File(FILE_PATH + fileName)); // 실제 업로드부분
+				eventImgFileDto = new EventImgFileDto();
+				eventImgFileDto.setOrignal_file(originalFileName);
+				eventImgFileDto.setUuid_file(fileName);
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+				return new ResponseEntity<String>("FAIL", HttpStatus.NO_CONTENT);
+			} catch (IOException e) {
+				e.printStackTrace();
+				return new ResponseEntity<String>("FAIL", HttpStatus.NO_CONTENT);
 			}
 
-		} catch (SQLException e) {
+			try {
+				boolean result = eventService.insert(eventDto, eventImgFileDto);
+
+				if (result) {
+					return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+				}
+
+			} catch (SQLException e) {
+				return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+			}
 			return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+
 	}
 
 	@ApiOperation(value = "이벤트 참여자수 증가")
@@ -221,6 +268,19 @@ public class EventController {
 			return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+	}
+
+	@ApiOperation(value = "이벤트 아이디를 통해 이미지 파일명 조회")
+	@GetMapping("/selectEventFileNameByEventID")
+	private ResponseEntity<EventImgFileDto> selectEventFileNameByEventID(
+			@RequestParam(required = true) final int event_id) {
+		EventImgFileDto img;
+		try {
+			img = eventService.selectEventFileNameByEventID(event_id);
+			return new ResponseEntity<>(img, HttpStatus.OK);
+		} catch (SQLException e) {
+			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+		}
 	}
 
 }

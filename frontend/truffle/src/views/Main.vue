@@ -53,7 +53,9 @@
     <div class="space"></div>
     <v-row>
       <v-container class="mid-content">
-        <EventAll v-for="(event, idx) in eventlist" :key="idx" :event="event"></EventAll>
+        <SelectAge></SelectAge>
+        <SelectCategory></SelectCategory>
+        <SelectGender></SelectGender>
       </v-container>
     </v-row>
   </div>
@@ -62,6 +64,8 @@
 <script>
 import EventAll from '@/views/event/EventAll.vue';
 import SelectAge from '@/views/select/SelectAge.vue';
+import SelectCategory from '@/views/select/SelectCategory.vue';
+import SelectGender from '@/views/select/SelectGender.vue';
 import { eventAll } from '@/api/event';
 
 TweenMax.from('.left-col', 2, {
@@ -174,7 +178,7 @@ TweenMax.from('.more', 2, {
 
 export default {
   name: 'Main',
-  components: { EventAll, SelectAge },
+  components: { EventAll, SelectAge, SelectCategory, SelectGender },
   data() {
     return {
       eventlist: [],

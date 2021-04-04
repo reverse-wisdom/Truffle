@@ -1,27 +1,30 @@
 <template>
   <div class="guide">
     <input type="checkbox" class="checkbox" v-model="checked" />
-
     <div id="user" v-if="checked == true">User</div>
     <div id="retailer" v-else>Retailer</div>
-
     <div id="section1" class="section1">
-      <h1 v-if="checked == false">
-        Welcome To Retailer
-      </h1>
-      <h1 v-else>Welcome To custumer</h1>
+      <div v-show="checked == false">
+        <div class="guide-title">Welcome To Retailer</div>
+        <p class="retailer-detail_1">한정판 상품을</p>
+        <div class="retailer-detail_1">어떻게 판매할지</div>
+        <div class="retailer-detail_1">고민하고 계시나요?</div>
+      </div>
+      <div v-show="checked == true" class="guide-title">Welcome To custumer</div>
     </div>
-    <div id="section2" class="section2">
-      <h1 v-if="checked == false">
+
+    <div v-show="checked == false" id="section2" class="section2">
+      <div class="guide-title" v-show="checked == false">
         Welcome To Retailer
-      </h1>
-      <h1 v-else>Welcome To custumer</h1>
+      </div>
+      <div v-show="checked == true" class="guide-title">Welcome To custumer</div>
     </div>
+
     <div id="section3" class="section3">
-      <h1 v-if="checked == false">
+      <div class="guide-title" v-show="checked == false">
         Welcome To Retailer
-      </h1>
-      <h1 v-else>Welcome To custumer</h1>
+      </div>
+      <div v-show="checked == true" class="guide-title">Welcome To custumer</div>
     </div>
   </div>
 </template>
@@ -67,6 +70,12 @@ export default {
 };
 </script>
 <style scoped>
+@font-face {
+  font-family: 'Recipekorea';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/Recipekorea.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
 .checkbox {
   position: fixed;
   top: 40px;
@@ -116,9 +125,9 @@ export default {
   height: 100%;
   overflow: hidden;
   background-attachment: fixed;
-  display: flex;
+  /* display: flex;
   justify-content: center;
-  align-content: center;
+  align-content: center; */
 }
 .section1-false {
   background: url(../assets/img/redgirl.jpg) no-repeat fixed;
@@ -157,13 +166,6 @@ export default {
   background-size: cover;
 }
 
-h1 {
-  /* background: white; */
-  color: #fff;
-  padding: 10px 20px;
-  font-size: 40px;
-  text-transform: uppercase;
-}
 #retailer {
   position: fixed;
   top: 43px;
@@ -187,5 +189,30 @@ h1 {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin-left: px;
   z-index: 3;
+}
+
+.section1 .guide-title {
+  /* background: white; */
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 40px;
+  text-transform: uppercase;
+  text-align: center;
+}
+.retailer-detail_1 {
+  color: #fff;
+  font-family: 'Recipekorea';
+  font-size: 3rem;
+  margin-top: 2%;
+  margin-left: 2%;
+  font-weight: 2000;
+}
+.retailer-detail_2 {
+  color: #fff;
+  font-family: 'Recipekorea';
+  font-size: 3rem;
+  margin-top: 5%;
+  margin-left: 2%;
+  font-weight: 2000;
 }
 </style>
