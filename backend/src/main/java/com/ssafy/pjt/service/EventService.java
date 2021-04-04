@@ -3,6 +3,7 @@ package com.ssafy.pjt.service;
 import java.util.List;
 
 import com.ssafy.pjt.dto.EventDto;
+import com.ssafy.pjt.dto.EventImgFileDto;
 import com.ssafy.pjt.dto.EventUserRequestDto;
 import com.ssafy.pjt.dto.ParticipationDto;
 import com.ssafy.pjt.dto.SearchDto;
@@ -23,7 +24,7 @@ public interface EventService {
 
 	public boolean update(EventDto eventDto) throws Exception;
 
-	public boolean insert(EventDto eventDto) throws Exception;
+	public boolean insert(EventDto eventDto, EventImgFileDto eventImgFileDto) throws Exception;
 
 	public boolean joinEvent(int event_id) throws Exception;
 
