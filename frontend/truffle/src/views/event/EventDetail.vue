@@ -50,13 +50,18 @@
             </ul>
           </div>
 
-          <div v-show="$store.state.type == '1'" class="join-info">
+          <div v-show="$store.state.type == '1' && new Date(this.event.end_date) > Date.now()" class="join-info">
             <button type="button" class="btn" @click="joinAdd">
               응모하기
             </button>
           </div>
-          <div v-show="event.end_date == Date.now()" class="join-info">
-            <button type="button" class="btn" @click="winnerShow">
+          <div v-show="$store.state.type == '2' && new Date(this.event.end_date) < Date.now()" class="join-info">
+            <button type="button" class="btn" id="winnerbtn" @click="raffleGo">
+              추첨하기
+            </button>
+          </div>
+          <div v-show="new Date(this.event.end_date) < Date.now()" class="join-info" @click="winnerListGo">
+            <button type="button" class="btn">
               당첨자보기
             </button>
           </div>
@@ -80,7 +85,8 @@
 
 <script>
 import EventDetailTab from '@/views/event/EventDetailTab';
-import { eventDetail, eventJoin, checkPartipants, createPartipants } from '@/api/event';
+import { eventDetail, eventJoin, checkPartipants, createPartipants, selectedWinner, createWinner } from '@/api/event';
+import { fetchUser } from '@/api/auth';
 export default {
   name: 'EventDetail',
   components: { EventDetailTab },
@@ -89,22 +95,71 @@ export default {
       event: '',
       tabcheck: false,
       gender: '',
+      joincheck: false,
       event_id: this.$route.query.event_id,
+      showWinner: false,
+      winnerList: [],
     };
   },
   async created() {
     const event_id = this.$route.query.event_id;
     const { data } = await eventDetail(event_id);
+    console.log(data, '생성 디테일');
     this.event = data[0];
     if (this.event.gender == 1) {
       this.gender = '남자';
     } else {
       this.gender = '여자';
     }
-    console.log('상세이벤트', this.event);
-    // console.log(typeof this.event);
+    const response = await selectedWinner(this.event.event_id);
+    if (response.data.length != 0) {
+      const target = document.getElementById('winnerbtn');
+      target.disabled = true;
+      target.innerText = '추첨완료';
+    }
   },
   methods: {
+    async raffleGo() {
+      if (this.showWinner == false) {
+        const { data } = await checkPartipants(this.event.event_id);
+        let randomIndexArray = [];
+        for (var i = 0; i < this.event.win_num; i++) {
+          var randomNum = Math.floor(Math.random() * data.length);
+          if (randomIndexArray.indexOf(randomNum) === -1) {
+            randomIndexArray.push(randomNum);
+          } else {
+            i--;
+          }
+        }
+        this.showWinner = true;
+        for (let i = 0; i < randomIndexArray.length; i++) {
+          this.winnerList.push(data[randomIndexArray[i]]);
+        }
+        const target = document.getElementById('winnerbtn');
+        target.disabled = true;
+        target.innerText = '추첨완료';
+        // console.log(this.winnerList);
+        console.log(this.winnerList);
+      } else {
+        this.winnerListGo();
+      }
+    },
+    async winnerListGo() {
+      console.log(this.winnerList);
+      for (let i = 0; i < this.winnerList.length; i++) {
+        const winData = {
+          uuid: this.winnerList[i].uuid,
+          event_id: this.event.event_id,
+        };
+        const { data } = await createWinner(winData);
+        console.log(data, '당첨자확인');
+      }
+      this.winnerListShow();
+    },
+    async winnerListShow() {
+      const { data } = await selectedWinner(this.event.event_id);
+      console.log(data);
+    },
     async joinAdd() {
       const email = this.$store.state.email;
       let check = false;
@@ -286,6 +341,11 @@ img {
   cursor: pointer;
   color: #fff;
   background: #f3118e;
+}
+.join-info .btn:disabled {
+  cursor: pointer;
+  color: #fff;
+  background: #000;
 }
 .purchase-info .btn:hover {
   opacity: 0.9;
