@@ -64,9 +64,11 @@ pipeline {
                     -p 80:80 \
                     -p 443:443 \
                     -v /home/ubuntu/keys/:/var/jenkins_home/workspace/truffle_deploy/keys/ \
+                    -v /volumes/data:/volumes/data \
                     --network truffleProxy \
                     base-pjt-front:latest'
                     sh 'docker run -d --name base-pjt-back \
+                    -v /volumes/data:/volumes/data \
                     --network truffleProxy \
                     base-pjt-back:latest'
                 }
