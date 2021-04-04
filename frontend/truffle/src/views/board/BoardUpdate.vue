@@ -6,6 +6,19 @@
         <hr class="div-hr" />
         <form v-on:submit.prevent="writeContent">
           <v-text-field label="제목" v-model="value.title"></v-text-field>
+          <!-- 썸네일 -->
+          <div class="formdata">
+            <v-file-input
+              id="thumbnail"
+              name="thumbnail"
+              v-model="image"
+              show-size
+              label="썸네일 이미지 (입력창을 클릭해주세요)"
+              @change="Preview_image($event)"
+              style="display:inline-block; cursor : pointer;"
+            ></v-file-input>
+            <v-img :src="url" id="preview"></v-img>
+          </div>
           <v-select :items="items" label="글 종류" v-model="value.category"></v-select>
           <div id="summernote"></div>
         </form>
