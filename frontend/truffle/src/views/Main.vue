@@ -51,16 +51,19 @@
       </div>
     </div>
     <div class="space"></div>
+    <div class="linestyle"></div>
     <div>
-      <h1>곧마감 상품</h1>
+      <h1 id="deadline"># 응모 마감이 얼마 남지 않은 상품</h1>
+      <EndEventList></EndEventList>
     </div>
-    <v-row>
-      <v-container class="mid-content">
-        <SelectAge></SelectAge>
-        <SelectCategory></SelectCategory>
-        <SelectGender></SelectGender>
-      </v-container>
-    </v-row>
+    <div class="mid-content">
+      <h1 id="deadline"># 연령대별 인기 상품</h1>
+      <SelectAge></SelectAge>
+      <h1 id="deadline"># 카테고리별 인기상품</h1>
+      <SelectCategory></SelectCategory>
+      <h1 id="deadline"># 성별 인기상품</h1>
+      <SelectGender></SelectGender>
+    </div>
   </div>
 </template>
 
@@ -69,6 +72,7 @@ import EventAll from '@/views/event/EventAll.vue';
 import SelectAge from '@/views/select/SelectAge.vue';
 import SelectCategory from '@/views/select/SelectCategory.vue';
 import SelectGender from '@/views/select/SelectGender.vue';
+import EndEventList from '@/views/select/EndEventList.vue';
 import { eventAll } from '@/api/event';
 
 TweenMax.from('.left-col', 2, {
@@ -181,7 +185,7 @@ TweenMax.from('.more', 2, {
 
 export default {
   name: 'Main',
-  components: { EventAll, SelectAge, SelectCategory, SelectGender },
+  components: { EventAll, SelectAge, SelectCategory, SelectGender, EndEventList },
   data() {
     return {
       eventlist: [],
@@ -189,7 +193,7 @@ export default {
   },
   async created() {
     const { data } = await eventAll();
-    console.log(data);
+    // console.log(data);
     for (let i = 0; i < data.length; i++) {
       this.eventlist.push({
         event_id: data[i].event_id,
@@ -204,7 +208,7 @@ export default {
         open_date: data[i].open_date,
       });
     }
-    console.log('이벤트리스트', this.eventlist);
+    // console.log('이벤트리스트', this.eventlist);
   },
   methods: {},
 };
@@ -672,5 +676,21 @@ section::after {
 .mid-content {
   margin-top: 10%;
   z-index: 0;
+}
+
+#deadline {
+  margin: 40px 0 20px 50px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #111;
+  justify-content: center;
+  /* position: absolute; */
+}
+
+.linestyle {
+  width: 100vw;
+  height: 10px;
+  margin-top: 30px;
+  background-color: #f9f9f9;
 }
 </style>
