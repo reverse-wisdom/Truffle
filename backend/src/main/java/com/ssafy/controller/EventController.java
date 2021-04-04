@@ -144,7 +144,7 @@ public class EventController {
 		if(os.contains("win"))
 			FILE_PATH = "C:\\SSAFY\\upload\\img\\"; // 환경에맞게 파일경로 수정
 		else
-			FILE_PATH = "/var/lib/docker/volumes/img-vol/_data"; // 환경에맞게 파일경로 수정
+			FILE_PATH = "/volumes/data"; // 환경에맞게 파일경로 수정
 		
 		String fileName = null;
 		EventImgFileDto eventImgFileDto = null;
