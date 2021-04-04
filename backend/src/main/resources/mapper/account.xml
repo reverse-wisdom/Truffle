@@ -17,9 +17,7 @@
 		id="accountInfo"
 		parameterType="String"
 		resultType="AccountDto">
-		select `uuid`, `email`, `phone`, `address`, `address_detail`, `business_number`, `nickname`,
-		`type`, `gender`,
-		`age`
+		select *
 		from account
 		where email = #{email}
 	</select>

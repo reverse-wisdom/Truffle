@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.Base64;
 import java.util.List;
@@ -12,8 +13,12 @@ import java.util.UUID;
 import javax.validation.Valid;
 
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.CacheControl;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -299,6 +304,42 @@ public class EventController {
 		} catch (SQLException e) {
 			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
 		}
+	}
+
+	@ApiOperation(value = "테스트")
+	@GetMapping(value = "/test", produces = MediaType.IMAGE_JPEG_VALUE)
+	private ResponseEntity<?> test(@RequestParam(required = true) final int event_id) {
+
+//		InputStream in = getClass()
+//				.getResourceAsStream("C:/SSAFY/upload/img/4c46a39b-b9f2-4fe1-80e0-d77318ef1229.png");
+
+		String os = System.getProperty("os.name").toLowerCase();
+		String FILE_PATH;
+		if (os.contains("win"))
+			FILE_PATH = "C:\\SSAFY\\upload\\img\\"; // 환경에맞게 파일경로 수정
+		else
+			FILE_PATH = "/volumes/data/"; // 환경에맞게 파일경로 수정
+		EventImgFileDto img;
+		byte[] media;
+		HttpHeaders headers = new HttpHeaders();
+		InputStream in;
+
+		try {
+			img = eventService.selectEventFileNameByEventID(event_id);
+			File file = new File(FILE_PATH + img.getUuid_file());
+			in = new FileInputStream(file);
+			media = IOUtils.toByteArray(in);
+			headers.setCacheControl(CacheControl.noCache().getHeaderValue());
+
+			return new ResponseEntity<>(media, headers, HttpStatus.OK);
+		} catch (SQLException e) {
+			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+		} catch (FileNotFoundException e) {
+			return new ResponseEntity<>("지정된 파일을 찾을수 없습니다.", HttpStatus.NO_CONTENT);
+		} catch (IOException e) {
+			return new ResponseEntity<>("지정된 파일을 찾을수 없습니다.", HttpStatus.NO_CONTENT);
+		}
+
 	}
 
 	private static byte[] getFileBinary(String filepath) {
