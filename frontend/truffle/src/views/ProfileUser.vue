@@ -69,7 +69,6 @@ import Basic from '../views/profile/Basic';
 import Event from '../views/profile/Event';
 import Win from '../views/profile/Win';
 import { retailerAllEvent, userJoinEvent, userWinEvent } from '@/api/auth';
-import { eventWin } from '@/api/event';
 
 export default {
   name: 'ProfileUser',
