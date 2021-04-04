@@ -137,15 +137,15 @@ public class EventController {
 	@PostMapping("/insert")
 	private ResponseEntity<String> insert(@Valid final EventDto eventDto,
 			@RequestPart(required = true) final MultipartFile imgFile) {
-		
+
 		String os = System.getProperty("os.name").toLowerCase();
 		String FILE_PATH;
-		
-		if(os.contains("win"))
+
+		if (os.contains("win"))
 			FILE_PATH = "C:\\SSAFY\\upload\\img\\"; // 환경에맞게 파일경로 수정
 		else
 			FILE_PATH = "/volumes/data"; // 환경에맞게 파일경로 수정
-		
+
 		String fileName = null;
 		EventImgFileDto eventImgFileDto = null;
 
@@ -184,14 +184,6 @@ public class EventController {
 			return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
 		}
 
-	}
-
-	@ApiOperation(value = "test")
-	@PostMapping("/test")
-	private ResponseEntity<String> test(@RequestPart(required = true) final int event_id,
-			@RequestPart(required = true) final MultipartFile imgFile) {
-
-		return new ResponseEntity<>("SUCCESS", HttpStatus.NO_CONTENT);
 	}
 
 	@ApiOperation(value = "이벤트 참여자수 증가")
@@ -276,6 +268,19 @@ public class EventController {
 			return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+	}
+
+	@ApiOperation(value = "이벤트 아이디를 통해 이미지 파일명 조회")
+	@GetMapping("/selectEventFileNameByEventID")
+	private ResponseEntity<EventImgFileDto> selectEventFileNameByEventID(
+			@RequestParam(required = true) final int event_id) {
+		EventImgFileDto img;
+		try {
+			img = eventService.selectEventFileNameByEventID(event_id);
+			return new ResponseEntity<>(img, HttpStatus.OK);
+		} catch (SQLException e) {
+			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+		}
 	}
 
 }

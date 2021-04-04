@@ -38,4 +38,6 @@ public interface EventService {
 
 	public boolean insertUserIdWinParticipation(WinDto winDto) throws Exception;
 
+	public EventImgFileDto selectEventFileNameByEventID(int event_id) throws Exception;
+
 }
