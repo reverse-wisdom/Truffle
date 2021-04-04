@@ -215,6 +215,7 @@ export default {
           // console.log(data);
           // 도로명
           // document.getElementById('sample4_roadAddress').value = roadAddr;
+          $vm.address = data.roadAddr;
           // 지번
           // document.getElementById('sample4_jibunAddress').value = data.jibunAddress;
           $vm.address = data.jibunAddress;
