@@ -5,6 +5,19 @@
         <h2 class="title text-center kor" style="font-weight:bold; margin-top: 100px;">이벤트등록</h2>
         <form v-on:submit.prevent="writeContent">
           <v-text-field label="제품명" v-model="product"></v-text-field>
+          <!-- 썸네일 -->
+          <div class="formdata">
+            <v-file-input
+              id="thumbnail"
+              name="thumbnail"
+              v-model="image"
+              show-size
+              label="썸네일 이미지 (입력창을 클릭해주세요)"
+              @change="Preview_image($event)"
+              style="display:inline-block; cursor : pointer;"
+            ></v-file-input>
+            <v-img :src="url" id="preview"></v-img>
+          </div>
           <v-select :items="items" v-model="category" label="카테고리" dense solo></v-select>
           <div class="input-container gender">
             <label for="">GENDER</label>
@@ -127,6 +140,9 @@ export default {
     price: '',
     product: '',
     win_num: '',
+
+    url: null,
+    image: null,
   }),
   mounted() {
     $('#summernote').summernote({
@@ -158,6 +174,9 @@ export default {
   },
 
   methods: {
+    Preview_image() {
+      this.url = URL.createObjectURL(this.image);
+    },
     formatDate(date) {
       if (!date) return null;
 
@@ -172,20 +191,22 @@ export default {
     },
     async eventInsert() {
       const uuid = this.$store.state.retailuuid;
-      const eventData = {
-        age: this.age,
-        category: this.category,
-        detail: $('#summernote').summernote('code'),
-        open_date: this.open_date,
-        end_date: this.end_date,
-        gender: this.gender,
-        price: this.price,
-        product: this.product,
-        win_num: this.win_num,
-        uuid: this.$store.state.retailuuid,
-      };
-      const response = await eventInsert(eventData);
-      // console.log(response);
+      // const imgFile = document.getElementById('#thumbnail');
+      const frm = new FormData();
+      frm.append('imgFile', this.image);
+      console.log(frm);
+      const age = this.age;
+      const category = this.category;
+      const detail = $('#summernote').summernote('code');
+      const open_date = this.open_date;
+      const end_date = this.end_date;
+      const gender = this.gender;
+      const price = this.price;
+      const product = this.product;
+      const win_num = this.win_num;
+
+      const response = await eventInsert(age, category, detail, end_date, gender, open_date, price, product, uuid, win_num, frm);
+      console.log(response);
       const { data } = await retailerAllEvent(uuid);
       console.log(data[data.length - 1]);
       // var event_id = data[-1].event_id;
@@ -550,5 +571,17 @@ input[type='radio'] {
 #gender-option-5:checked:checked ~ .gender-option-5 span,
 #gender-option-6:checked:checked ~ .gender-option-6 span {
   color: #fff;
+}
+.formdata {
+  /* margin-top: 20%; */
+}
+#preview {
+  max-height: 200px;
+  max-width: 200px;
+  display: inline-block;
+  margin-left: 5%;
+}
+.v-file-input {
+  width: 300px;
 }
 </style>

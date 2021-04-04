@@ -10,7 +10,7 @@
     <br />
     <v-btn color="#f3118e" class="btn" style="color:white" @click="goEventAll">Event-All</v-btn>
     <br />
-    <v-btn color="#f3118e" class="btn" style="color:white" @click="goEventAll">Event-Update</v-btn>
+    <v-btn color="#f3118e" class="btn" style="color:white" @click="goFormDataTest">썸네일테스트</v-btn>
     <br />
     <SelectAge></SelectAge>
     <h2 style="font-weight: 900">배포테스트 일자:04-01/20:05</h2>
@@ -95,8 +95,8 @@ export default {
     goEventAll() {
       this.$router.push({ name: 'EventAll' });
     },
-    goEventAll() {
-      this.$router.push({ name: 'EventUpdate' });
+    goFormDataTest() {
+      this.$router.push({ name: 'FormDataTest' });
     },
   },
 };
