@@ -279,8 +279,8 @@ public class EventController {
 	}
 
 	@ApiOperation(value = "이벤트 아이디를 통해 이미지 파일 썸네일 출력(base64)")
-	@GetMapping("/selectEventFileNameByEventID")
-	private ResponseEntity<String> selectEventFileNameByEventID(@RequestParam(required = true) final int event_id) {
+	@GetMapping("/selectEventFileBase64ByEventID")
+	private ResponseEntity<String> selectEventFileBase64ByEventID(@RequestParam(required = true) final int event_id) {
 		EventImgFileDto img;
 
 		String os = System.getProperty("os.name").toLowerCase();
@@ -306,12 +306,10 @@ public class EventController {
 		}
 	}
 
-	@ApiOperation(value = "테스트")
-	@GetMapping(value = "/test", produces = MediaType.IMAGE_JPEG_VALUE)
-	private ResponseEntity<?> test(@RequestParam(required = true) final int event_id) {
+	@ApiOperation(value = "이벤트아이디를 통해 이미지 파일 요청, 이미지파일 자체로 반환")
+	@GetMapping(value = "/selectEventImgFileEventID", produces = MediaType.IMAGE_JPEG_VALUE)
+	private ResponseEntity<?> selectEventImgFileEventID(@RequestParam(required = true) final int event_id) {
 
-//		InputStream in = getClass()
-//				.getResourceAsStream("C:/SSAFY/upload/img/4c46a39b-b9f2-4fe1-80e0-d77318ef1229.png");
 
 		String os = System.getProperty("os.name").toLowerCase();
 		String FILE_PATH;
@@ -326,6 +324,8 @@ public class EventController {
 
 		try {
 			img = eventService.selectEventFileNameByEventID(event_id);
+			if (img == null)
+				return new ResponseEntity<>("지정된 파일을 찾을수 없습니다.", HttpStatus.NO_CONTENT);
 			File file = new File(FILE_PATH + img.getUuid_file());
 			in = new FileInputStream(file);
 			media = IOUtils.toByteArray(in);
