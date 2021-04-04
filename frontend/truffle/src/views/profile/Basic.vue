@@ -10,7 +10,7 @@
             <h4>EMAIL</h4>
             <input type="text" class="input" v-model="value.email" disabled />
             <h4>GENDER</h4>
-            <input type="text" class="input disabled" v-model="value.gender" disabled />
+            <input type="text" class="input disabled" v-model="gender" disabled />
             <h4>AGE</h4>
             <input type="text" class="input disabled" v-model="value.age" disabled />
             <h4>ADDRESS</h4>
@@ -54,6 +54,7 @@ export default {
     return {
       updatechk: true,
       value: '',
+      gender: '',
       fulladdress: '',
     };
   },
@@ -61,6 +62,11 @@ export default {
     const { data } = await fetchUser(this.$store.state.email);
     // console.log('회원정보', data);
     this.value = data;
+    if (data.gender == '1') {
+      this.gender = '남성';
+    } else {
+      this.gender = '여성';
+    }
     this.fulladdress = data.address + ' ' + data.address_detail;
   },
   methods: {
@@ -78,20 +84,38 @@ export default {
         $('#update_btn').text('수정하기');
         this.updatechk = true;
         // email값 필수, 수정가능한값: address,address_detail,age,business_number,gender,nickname,password,phone
-        const editdata = {
-          email: this.value.email,
-          age: this.value.age,
-          gender: this.value.gender,
-          nickname: this.value.nickname,
-          phone: this.value.phone,
-          address: this.value.address,
-          address_detail: this.value.address_detail,
-          business_number: this.value.business_number,
-          type: this.value.type,
-        };
-        console.log(editdata);
-        const { data } = await editUser(editdata);
-        console.log(data);
+        if (this.gender == '남성' || this.gender == '남자') {
+          var editgender = 1;
+        } else {
+          var editgender = 2;
+        }
+        if (this.value.type == '1') {
+          const editdata = {
+            email: this.value.email,
+            age: this.value.age,
+            gender: editgender,
+            nickname: this.value.nickname,
+            phone: this.value.phone,
+            address: this.value.address,
+            address_detail: this.value.address_detail,
+            type: this.value.type,
+          };
+          console.log(editdata);
+          const { data } = await editUser(editdata);
+          console.log(data);
+        } else {
+          const editdata = {
+            email: this.value.email,
+            phone: this.value.phone,
+            address: this.value.address,
+            address_detail: this.value.address_detail,
+            business_number: this.value.business_number,
+            type: this.value.type,
+          };
+          console.log(editdata);
+          const { data } = await editUser(editdata);
+          console.log(data);
+        }
       }
     },
   },
