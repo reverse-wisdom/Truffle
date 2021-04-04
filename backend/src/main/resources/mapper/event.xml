@@ -118,7 +118,7 @@
 		on e.event_id = p.event_id
 		where e.event_id = #{event_id};
 	</select>
-	
+
 	<insert
 		id="upsertSearchHit"
 		parameterType="String">
@@ -137,7 +137,7 @@
 		where word != "" or word != null
 		ORDER BY hit DESC;
 	</select>
-	
+
 	<insert
 		id="insertUserIdToParticipation"
 		parameterType="ParticipationDto">
@@ -146,7 +146,7 @@
 		VALUES
 		(#{event_id},#{uuid});
 	</insert>
-	
+
 	<insert
 		id="insertUserIdWinParticipation"
 		parameterType="WinDto">
@@ -154,6 +154,22 @@
 		win(`event_id`,`uuid`)
 		VALUES
 		(#{event_id},#{uuid});
+	</insert>
+
+	<insert
+		id="insertEventImg"
+		parameterType="EventImgFileDto">
+		<selectKey
+			resultType="int"
+			keyProperty="event_id"
+			order="BEFORE">
+			SELECT MAX(event_id) FROM event
+		</selectKey>
+		INSERT INTO
+		event_img_file(`event_id`,`type`,`uuid_file`,`orignal_file`)
+		VALUES
+		(#{event_id}, 0,
+		#{uuid_file}, #{orignal_file});
 	</insert>
 
 </mapper>

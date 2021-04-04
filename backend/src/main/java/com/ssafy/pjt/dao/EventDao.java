@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.ssafy.pjt.dto.EventDto;
+import com.ssafy.pjt.dto.EventImgFileDto;
 import com.ssafy.pjt.dto.EventUserRequestDto;
 import com.ssafy.pjt.dto.ParticipationDto;
 import com.ssafy.pjt.dto.SearchDto;
@@ -39,5 +40,7 @@ public interface EventDao {
 	public int insertUserIdToParticipation(ParticipationDto participationDto) throws SQLException;
 
 	public int insertUserIdWinParticipation(WinDto winDto) throws SQLException;
+	
+	public int insertEventImg(EventImgFileDto eventImgFileDto) throws SQLException;
 
 }

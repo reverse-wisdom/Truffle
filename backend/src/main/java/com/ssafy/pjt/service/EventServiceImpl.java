@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.ssafy.pjt.dao.EventDao;
 import com.ssafy.pjt.dto.EventDto;
+import com.ssafy.pjt.dto.EventImgFileDto;
 import com.ssafy.pjt.dto.EventUserRequestDto;
 import com.ssafy.pjt.dto.ParticipationDto;
 import com.ssafy.pjt.dto.SearchDto;
@@ -56,8 +57,11 @@ public class EventServiceImpl implements EventService {
 	}
 
 	@Override
-	public boolean insert(EventDto eventDto) throws SQLException {
-		return eventDao.insert(eventDto) == 1;
+	public boolean insert(EventDto eventDto, EventImgFileDto eventImgFileDto) throws SQLException {
+		if (eventDao.insert(eventDto) == 1) {
+			return eventDao.insertEventImg(eventImgFileDto) == 1;
+		}
+		return false;
 	}
 
 	@Override
