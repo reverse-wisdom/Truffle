@@ -1,7 +1,8 @@
 package com.ssafy.controller;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Base64;
@@ -274,30 +275,45 @@ public class EventController {
 
 	@ApiOperation(value = "이벤트 아이디를 통해 이미지 파일 썸네일 출력(base64)")
 	@GetMapping("/selectEventFileNameByEventID")
-	private ResponseEntity<String> selectEventFileNameByEventID(
-			@RequestParam(required = true) final int event_id) {
+	private ResponseEntity<String> selectEventFileNameByEventID(@RequestParam(required = true) final int event_id) {
 		EventImgFileDto img;
-		
+
 		String os = System.getProperty("os.name").toLowerCase();
 		String FILE_PATH;
-		String base64Img = null;
-		
 
 		if (os.contains("win"))
 			FILE_PATH = "C:\\SSAFY\\upload\\img\\"; // 환경에맞게 파일경로 수정
 		else
 			FILE_PATH = "/volumes/data/"; // 환경에맞게 파일경로 수정
-		
+
 		try {
 			img = eventService.selectEventFileNameByEventID(event_id);
-			File file = new File(FILE_PATH + img.getUuid_file());
-			
-//			base64Img = Base64.getEncoder().encodeToString(file);
-			
+			byte[] file = getFileBinary(FILE_PATH + img.getUuid_file());
+			if (file == null)
+				return new ResponseEntity<>("지정된 파일을 찾을수 없습니다.", HttpStatus.NO_CONTENT);
+
+			String base64Img = Base64.getEncoder().encodeToString(file);
+
+			System.out.println(base64Img);
 			return new ResponseEntity<>(base64Img, HttpStatus.OK);
 		} catch (SQLException e) {
 			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
 		}
+	}
+
+	private static byte[] getFileBinary(String filepath) {
+		File file = new File(filepath);
+		byte[] data = new byte[(int) file.length()];
+		try (FileInputStream stream = new FileInputStream(file)) {
+			stream.read(data, 0, data.length);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		} catch (IOException e1) {
+			e1.printStackTrace();
+			return null;
+		}
+		return data;
 	}
 
 }
