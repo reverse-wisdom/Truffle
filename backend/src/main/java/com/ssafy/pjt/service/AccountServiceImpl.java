@@ -10,6 +10,7 @@ import com.ssafy.pjt.dao.AccountDao;
 import com.ssafy.pjt.dto.AccountDto;
 import com.ssafy.pjt.dto.EventDto;
 import com.ssafy.pjt.dto.LoginRequestDto;
+import com.ssafy.security.PasswordEncoding;
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -17,11 +18,17 @@ public class AccountServiceImpl implements AccountService {
 	@Autowired
 	private AccountDao accountDao;
 
+	PasswordEncoding passwordEncoding = new PasswordEncoding();
+
 	@Override
 	public AccountDto login(LoginRequestDto loginRequestDto) throws SQLException {
 		if (loginRequestDto.getEmail() == null || loginRequestDto.getPassword() == null)
 			return null;
-		return accountDao.login(loginRequestDto);
+		String password = accountDao.accountInfo(loginRequestDto.getEmail()).getPassword();
+		if (passwordEncoding.matches(loginRequestDto.getPassword(), password))
+			return accountDao.login(loginRequestDto);
+		else
+			return null;
 	}
 
 	@Override
@@ -31,6 +38,7 @@ public class AccountServiceImpl implements AccountService {
 
 	@Override
 	public boolean signUp(AccountDto accountDto) throws SQLException {
+		accountDto.setPassword(passwordEncoding.encode(accountDto.getPassword()));
 		return accountDao.signUp(accountDto) == 1;
 	}
 
@@ -41,6 +49,7 @@ public class AccountServiceImpl implements AccountService {
 
 	@Override
 	public boolean update(AccountDto accountDto) throws SQLException {
+		accountDto.setPassword(passwordEncoding.encode(accountDto.getPassword()));
 		return accountDao.update(accountDto) == 1;
 	}
 
