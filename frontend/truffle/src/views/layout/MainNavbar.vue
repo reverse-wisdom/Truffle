@@ -7,6 +7,7 @@
           <li><a class="font" href="/main">Home</a></li>
           <li><a class="font" href="/test">Test</a></li>
           <li><a class="font" href="/guide">Guide</a></li>
+          <li><a class="font" href="/guide">둘러보기</a></li>
 
           <li v-show="$store.state.type == '2'"><a class="font" href="/eventCreate">event</a></li>
           <li>
@@ -110,7 +111,7 @@ header {
 .nav__links a,
 .cta,
 .overlay__content a {
-  font-family: 'Montserrat', sans-serif;
+  /* font-family: 'Montserrat', sans-serif; */
   font-weight: 500;
   color: #edf0f1;
   text-decoration: none;

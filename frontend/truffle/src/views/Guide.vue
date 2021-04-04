@@ -1,35 +1,86 @@
 <template>
   <div class="guide">
     <input type="checkbox" class="checkbox" v-model="checked" />
+    <a class="a2" @click="gohome" v-show="checked == true">HOME</a>
+    <a class="a1" @click="gohome" v-show="checked == false">HOME</a>
     <div id="user" v-if="checked == true">User</div>
     <div id="retailer" v-else>Retailer</div>
+
     <div id="section1" class="section1">
       <div v-show="checked == false">
-        <div class="guide-title">Welcome To Retailer</div>
-        <p class="retailer-detail_1">한정판 상품을</p>
-        <div class="retailer-detail_1">어떻게 판매할지</div>
-        <div class="retailer-detail_1">고민하고 계시나요?</div>
+        <div class="guide-title"></div>
+        <div class="left1">
+          <div class="retailer-detail_1">한정판 상품을</div>
+          <div class="retailer-detail_1">어떻게 판매할지</div>
+          <div class="retailer-detail_1">고민하고 계시나요?</div>
+        </div>
+        <div class="right1">
+          <div class="retailer-detail_1">고객의</div>
+          <div class="retailer-detail_1">흥미와 이목을</div>
+          <div class="retailer-detail_1">끌고 싶은데</div>
+        </div>
       </div>
-      <div v-show="checked == true" class="guide-title">Welcome To custumer</div>
+      <div v-show="checked == true" class="guide-title">
+        <div class="left1-user">
+          <div class="retailer-detail_2">한정판 물건을 살려고</div>
+          <div class="retailer-detail_2">이른 아침에</div>
+          <div class="retailer-detail_2">줄서서 기다리거나,</div>
+        </div>
+        <div class="right1-user">
+          <div class="retailer-detail_3">줄서기 아르바이트</div>
+          <div class="retailer-detail_3">구한 적이 있으신가요?</div>
+        </div>
+      </div>
     </div>
 
-    <div v-show="checked == false" id="section2" class="section2">
+    <div id="section2" class="section2">
       <div class="guide-title" v-show="checked == false">
-        Welcome To Retailer
+        <div class="right2">
+          <div class="retailer-detail_1">마땅한 마케팅 방안이나,</div>
+          <div class="retailer-detail_1">판매방안이</div>
+          <div class="retailer-detail_1">떠오르지 않으시다구요?</div>
+        </div>
       </div>
-      <div v-show="checked == true" class="guide-title">Welcome To custumer</div>
+      <div v-show="checked == true" class="guide-title">
+        <div class="left2-user">
+          <div class="retailer-detail_1">한정판이 가지는</div>
+          <div class="retailer-detail_1">희소성의 가치로</div>
+          <div class="retailer-detail_1"></div>
+        </div>
+        <div class="right2-user">
+          <div class="retailer-detail_1">톡톡한 이익을</div>
+          <div class="retailer-detail_1">보고 싶으신가요?</div>
+        </div>
+      </div>
     </div>
 
     <div id="section3" class="section3">
       <div class="guide-title" v-show="checked == false">
-        Welcome To Retailer
+        <div class="right3">
+          <div class="retailer-detail_1">트러플이 여러분과</div>
+          <div class="retailer-detail_1">고객간의 니즈를</div>
+          <div class="retailer-detail_1">이어드리겠습니다.</div>
+        </div>
       </div>
-      <div v-show="checked == true" class="guide-title">Welcome To custumer</div>
+
+      <div v-show="checked == true" class="guide-title">
+        <div class="left3-user">
+          <div class="retailer-detail_4">모든 래플이벤트만</div>
+          <div class="retailer-detail_4">모아서 볼 수 있고,응모할수 있도록</div>
+          <div class="retailer-detail_4">트러플이 도와드리겠습니다.</div>
+        </div>
+        <div class="right3-user">
+          <div class="retailer-detail_4">적시 적소한 기회,</div>
+          <div class="retailer-detail_4">이젠 맘껏 누리세요!</div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+const buttons = document.querySelectorAll('a');
+
 import FullPage from 'vue-fullpage.js';
 export default {
   name: 'guide',
@@ -66,7 +117,11 @@ export default {
       }
     },
   },
-  methods: {},
+  methods: {
+    gohome() {
+      this.$router.push('/main');
+    },
+  },
 };
 </script>
 <style scoped>
@@ -200,19 +255,154 @@ export default {
   text-align: center;
 }
 .retailer-detail_1 {
-  color: #fff;
-  font-family: 'Recipekorea';
-  font-size: 3rem;
-  margin-top: 2%;
-  margin-left: 2%;
-  font-weight: 2000;
-}
-.retailer-detail_2 {
+  width: auto;
   color: #fff;
   font-family: 'Recipekorea';
   font-size: 3rem;
   margin-top: 5%;
   margin-left: 2%;
   font-weight: 2000;
+}
+.retailer-detail_4 {
+  width: auto;
+  color: #fff;
+  font-family: 'Recipekorea';
+  font-size: 2.5rem;
+  margin-top: 5%;
+  margin-left: 2%;
+  font-weight: 2000;
+}
+.retailer-detail_2 {
+  color: #060606;
+  font-family: 'Recipekorea';
+  font-size: 2.5rem;
+  margin-top: 5%;
+  margin-left: 2%;
+  font-weight: 2000;
+}
+.retailer-detail_3 {
+  color: #060606;
+  font-family: 'Recipekorea';
+  font-size: 2.5rem;
+  margin-top: 5%;
+  margin-left: 2%;
+  font-weight: 2000;
+}
+
+.left1 {
+  position: absolute;
+  top: 10%;
+  width: 500px;
+  text-align: center;
+  line-height: 50px;
+}
+.right1 {
+  position: absolute;
+  top: 60%;
+  width: 600px;
+  text-align: center;
+  line-height: 50px;
+  right: 0%;
+}
+.right2 {
+  position: absolute;
+  width: 700px;
+  text-align: center;
+  right: 0%;
+  line-height: 50px;
+  top: 135%;
+}
+.right3 {
+  position: absolute;
+  width: 700px;
+  text-align: center;
+  right: -5%;
+  line-height: 50px;
+  top: 240%;
+}
+.left1-user {
+  position: absolute;
+  top: 10%;
+  width: 500px;
+  text-align: center;
+  line-height: 30px;
+}
+.right1-user {
+  position: absolute;
+  top: 65%;
+  width: 600px;
+  text-align: center;
+  line-height: 50px;
+  right: 0%;
+}
+
+.left2-user {
+  position: absolute;
+  width: 500px;
+  text-align: center;
+  line-height: 50px;
+  top: 140%;
+  left: 0%;
+}
+
+.right2-user {
+  position: absolute;
+  width: 500px;
+  text-align: center;
+  right: 0%;
+  line-height: 50px;
+  top: 140%;
+}
+.left3-user {
+  position: absolute;
+  width: 800px;
+  text-align: center;
+  line-height: 20px;
+  top: 210%;
+  left: 0%;
+  font-size: 1rem;
+  /* font-weight: 1000; */
+}
+
+.right3-user {
+  position: absolute;
+  width: 600px;
+  text-align: center;
+  right: 0%;
+  line-height: 20px;
+  top: 270%;
+}
+
+.a1 {
+  position: fixed;
+  bottom: 2%;
+  display: inline-block;
+  padding: 12px 36px;
+  margin: 10px 0;
+  color: #fff;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 18px;
+  letter-spacing: 2px;
+  border-radius: 40px;
+  background-color: #07b8ac;
+  /* top: 285%; */
+  right: 3%;
+}
+.a2 {
+  position: fixed;
+  bottom: 2%;
+  display: inline-block;
+  padding: 12px 36px;
+  margin: 10px 0;
+  color: #fff;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 18px;
+  letter-spacing: 2px;
+  border-radius: 40px;
+  background: linear-gradient(90deg, #f3118e, #f3118e);
+  /* top: 285%; */
+  right: 3%;
 }
 </style>
