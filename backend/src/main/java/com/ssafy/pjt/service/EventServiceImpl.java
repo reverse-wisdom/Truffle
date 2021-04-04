@@ -94,4 +94,9 @@ public class EventServiceImpl implements EventService {
 		return eventDao.insertUserIdWinParticipation(winDto) == 1;
 	}
 
+	@Override
+	public EventImgFileDto selectEventFileNameByEventID(int event_id) throws SQLException {
+		return eventDao.selectEventFileNameByEventID(event_id);
+	}
+
 }

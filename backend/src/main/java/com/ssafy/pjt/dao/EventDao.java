@@ -40,7 +40,9 @@ public interface EventDao {
 	public int insertUserIdToParticipation(ParticipationDto participationDto) throws SQLException;
 
 	public int insertUserIdWinParticipation(WinDto winDto) throws SQLException;
-	
+
 	public int insertEventImg(EventImgFileDto eventImgFileDto) throws SQLException;
+
+	public EventImgFileDto selectEventFileNameByEventID(int event_id) throws SQLException;
 
 }
