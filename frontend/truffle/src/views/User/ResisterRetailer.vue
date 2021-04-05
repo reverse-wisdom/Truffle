@@ -56,8 +56,14 @@
             <input type="text" v-model="address" disabled />
             <input type="text" v-model="address_detail" placeholder="상세주소를 입력해주세요" />
           </div>
-
-          <button class="signup-btn" type="submit">SMS 본인인증</button>
+          <div class="input-container">
+            <input maxlength="3" type="text" v-model="phone_num1" />
+            <div class="b">-</div>
+            <input maxlength="4" type="text" v-model="phone_num2" />
+            <div class="b">-</div>
+            <input maxlength="4" type="text" v-model="phone_num3" />
+          </div>
+          <button class="signup-btn" type="submit" @click.prevent="verifyphone">본인인증</button>
           <button class="signup-btn" type="submit" @click.prevent="signup">Sign up</button>
         </form>
       </div>
@@ -66,7 +72,7 @@
 </template>
 
 <script>
-import { register } from '@/api/auth';
+import { register, verifyPhone } from '@/api/auth';
 
 export default {
   data() {
@@ -80,6 +86,10 @@ export default {
       business_num1: '',
       business_num2: '',
       business_num3: '',
+      phone_num1: '',
+      phone_num2: '',
+      phone_num3: '',
+      phonechk: false,
       postcode: '',
       type: 2,
       msg: [],
@@ -97,6 +107,11 @@ export default {
     },
   },
   methods: {
+    async verifyphone() {
+      const phone_num = this.phone_num1 + this.phone_num2 + this.phone_num3;
+      console.log(phone_num);
+      // const { data } = await verifyPhone(phone_num);
+    },
     validateEmail(value) {
       if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)) {
         this.msg['email'] = true;

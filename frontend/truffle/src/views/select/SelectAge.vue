@@ -1,199 +1,200 @@
 <template>
   <div class="age">
     <div class="tabs">
-      <input id="tab1" type="radio" name="tabs" value="10" v-model="age" @change="selectAge" checked />
-      <!--디폴트 메뉴-->
-      <label for="tab1">10대</label>
+      <input id="age1" type="radio" name="tabs" value="10" v-model="age" @change="selectAge" checked="checked" />
+      <label for="age1">10대</label>
 
-      <input id="tab2" v-model="age" type="radio" @change="selectAge" value="20" name="tabs" />
-      <label for="tab2">20대</label>
+      <input id="age2" v-model="age" type="radio" @change="selectAge" value="20" name="tabs" />
+      <label for="age2">20대</label>
 
-      <input id="tab3" v-model="age" type="radio" @change="selectAge" value="30" name="tabs" />
-      <label for="tab3">30대</label>
+      <input id="age3" v-model="age" type="radio" @change="selectAge" value="30" name="tabs" />
+      <label for="age3">30대</label>
 
-      <input id="tab4" v-model="age" type="radio" value="40" @change="selectAge" name="tabs" />
-      <label for="tab4">40대</label>
+      <input id="age4" v-model="age" type="radio" value="40" @change="selectAge" name="tabs" />
+      <label for="age4">40대</label>
 
-      <input id="tab5" v-model="age" type="radio" value="50" @change="selectAge" name="tabs" />
-      <label for="tab5">50대</label>
+      <input id="age5" v-model="age" type="radio" value="50" @change="selectAge" name="tabs" />
+      <label for="age5">50대</label>
 
-      <input id="tab6" v-model="age" type="radio" value="60" @change="selectAge" name="tabs" />
-      <label for="tab6">60대이상</label>
+      <input id="age6" v-model="age" type="radio" value="60" @change="selectAge" name="tabs" />
+      <label for="age6">60대이상</label>
 
-      <div id="content1" class="section">
-        <div class="event-index" v-for="(event, idx) in AgeArray" :key="idx">
-          <div class="card">
-            <figure>
-              <img src="@/assets/img/women.jpg" alt="" />
-            </figure>
-            <section class="details">
-              <div class="min-details">
-                <h1>
-                  {{ event.product }}
-                  <span>카테고리:{{ event.category }}</span>
-                  <span>성별:{{ event.gender }}</span>
-                  <span>연령대:{{ event.age }}</span>
-                </h1>
-                <h1 class="price">{{ event.price }}</h1>
-              </div>
-              <div class="options">
-                <div class="options-size">
-                  <h1 class="">응모자수:{{ event.join_num }}</h1>
+      <div class="tab-content">
+        <div id="agecontent1" class="section">
+          <div class="event-index" v-for="(event, idx) in AgeArray" :key="idx">
+            <div class="card">
+              <figure>
+                <img src="@/assets/img/women.jpg" alt="" />
+              </figure>
+              <section class="details">
+                <div class="min-details">
+                  <h1>
+                    {{ event.product }}
+                    <span>카테고리:{{ event.category }}</span>
+                    <span>성별:{{ event.gender }}</span>
+                    <span>연령대:{{ event.age }}</span>
+                  </h1>
+                  <h1 class="price">{{ event.price }}</h1>
                 </div>
-                <div class="options-colors">
-                  <h1>마감일:{{ event.end_date }}</h1>
+                <div class="options">
+                  <div class="options-size">
+                    <h1 class="">응모자수:{{ event.join_num }}</h1>
+                  </div>
+                  <div class="options-colors">
+                    <h1>마감일:{{ event.end_date }}</h1>
+                  </div>
                 </div>
-              </div>
-              <a href="#" class="btn" @click="eventDetailGo">응모현황</a>
-            </section>
+                <a href="#" class="btn" @click="eventDetailGo">응모현황</a>
+              </section>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div id="content2" class="section">
-        <div class="event-index" v-for="(event, idx) in AgeArray" :key="idx">
-          <div class="card">
-            <figure>
-              <img src="@/assets/img/women.jpg" alt="" />
-            </figure>
-            <section class="details">
-              <div class="min-details">
-                <h1>
-                  {{ event.product }}
-                  <span>카테고리:{{ event.category }}</span>
-                  <span>성별:{{ event.gender }}</span>
-                  <span>연령대:{{ event.age }}</span>
-                </h1>
-                <h1 class="price">{{ event.price }}</h1>
-              </div>
-              <div class="options">
-                <div class="options-size">
-                  <h1 class="">응모자수:{{ event.join_num }}</h1>
+        <div id="agecontent2" class="section">
+          <div class="event-index" v-for="(event, idx) in AgeArray" :key="idx">
+            <div class="card">
+              <figure>
+                <img src="@/assets/img/women.jpg" alt="" />
+              </figure>
+              <section class="details">
+                <div class="min-details">
+                  <h1>
+                    {{ event.product }}
+                    <span>카테고리:{{ event.category }}</span>
+                    <span>성별:{{ event.gender }}</span>
+                    <span>연령대:{{ event.age }}</span>
+                  </h1>
+                  <h1 class="price">{{ event.price }}</h1>
                 </div>
-                <div class="options-colors">
-                  <h1>마감일:{{ event.end_date }}</h1>
+                <div class="options">
+                  <div class="options-size">
+                    <h1 class="">응모자수:{{ event.join_num }}</h1>
+                  </div>
+                  <div class="options-colors">
+                    <h1>마감일:{{ event.end_date }}</h1>
+                  </div>
                 </div>
-              </div>
-              <a href="#" class="btn" @click="eventDetailGo">응모현황</a>
-            </section>
+                <a href="#" class="btn" @click="eventDetailGo">응모현황</a>
+              </section>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div id="content3" class="section">
-        <div class="event-index" v-for="(event, idx) in AgeArray" :key="idx">
-          <div class="card">
-            <figure>
-              <img src="@/assets/img/women.jpg" alt="" />
-            </figure>
-            <section class="details">
-              <div class="min-details">
-                <h1>
-                  {{ event.product }}
-                  <span>카테고리:{{ event.category }}</span>
-                  <span>성별:{{ event.gender }}</span>
-                  <span>연령대:{{ event.age }}</span>
-                </h1>
-                <h1 class="price">{{ event.price }}</h1>
-              </div>
-              <div class="options">
-                <div class="options-size">
-                  <h1 class="">응모자수:{{ event.join_num }}</h1>
+        <div id="agecontent3" class="section">
+          <div class="event-index" v-for="(event, idx) in AgeArray" :key="idx">
+            <div class="card">
+              <figure>
+                <img src="@/assets/img/women.jpg" alt="" />
+              </figure>
+              <section class="details">
+                <div class="min-details">
+                  <h1>
+                    {{ event.product }}
+                    <span>카테고리:{{ event.category }}</span>
+                    <span>성별:{{ event.gender }}</span>
+                    <span>연령대:{{ event.age }}</span>
+                  </h1>
+                  <h1 class="price">{{ event.price }}</h1>
                 </div>
-                <div class="options-colors">
-                  <h1>마감일:{{ event.end_date }}</h1>
+                <div class="options">
+                  <div class="options-size">
+                    <h1 class="">응모자수:{{ event.join_num }}</h1>
+                  </div>
+                  <div class="options-colors">
+                    <h1>마감일:{{ event.end_date }}</h1>
+                  </div>
                 </div>
-              </div>
-              <a href="#" class="btn" @click="eventDetailGo">응모현황</a>
-            </section>
+                <a href="#" class="btn" @click="eventDetailGo">응모현황</a>
+              </section>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div id="content4" class="section">
-        <div class="event-index" v-for="(event, idx) in AgeArray" :key="idx">
-          <div class="card">
-            <figure>
-              <img src="@/assets/img/women.jpg" alt="" />
-            </figure>
-            <section class="details">
-              <div class="min-details">
-                <h1>
-                  {{ event.product }}
-                  <span>카테고리:{{ event.category }}</span>
-                  <span>성별:{{ event.gender }}</span>
-                  <span>연령대:{{ event.age }}</span>
-                </h1>
-                <h1 class="price">{{ event.price }}</h1>
-              </div>
-              <div class="options">
-                <div class="options-size">
-                  <h1 class="">응모자수:{{ event.join_num }}</h1>
+        <div id="agecontent4" class="section">
+          <div class="event-index" v-for="(event, idx) in AgeArray" :key="idx">
+            <div class="card">
+              <figure>
+                <img src="@/assets/img/women.jpg" alt="" />
+              </figure>
+              <section class="details">
+                <div class="min-details">
+                  <h1>
+                    {{ event.product }}
+                    <span>카테고리:{{ event.category }}</span>
+                    <span>성별:{{ event.gender }}</span>
+                    <span>연령대:{{ event.age }}</span>
+                  </h1>
+                  <h1 class="price">{{ event.price }}</h1>
                 </div>
-                <div class="options-colors">
-                  <h1>마감일:{{ event.end_date }}</h1>
+                <div class="options">
+                  <div class="options-size">
+                    <h1 class="">응모자수:{{ event.join_num }}</h1>
+                  </div>
+                  <div class="options-colors">
+                    <h1>마감일:{{ event.end_date }}</h1>
+                  </div>
                 </div>
-              </div>
-              <a href="#" class="btn" @click="eventDetailGo">응모현황</a>
-            </section>
+                <a href="#" class="btn" @click="eventDetailGo">응모현황</a>
+              </section>
+            </div>
           </div>
         </div>
-      </div>
-      <div id="content5" class="section">
-        <div class="event-index" v-for="(event, idx) in AgeArray" :key="idx">
-          <div class="card">
-            <figure>
-              <img src="@/assets/img/women.jpg" alt="" />
-            </figure>
-            <section class="details">
-              <div class="min-details">
-                <h1>
-                  {{ event.product }}
-                  <span>카테고리:{{ event.category }}</span>
-                  <span>성별:{{ event.gender }}</span>
-                  <span>연령대:{{ event.age }}</span>
-                </h1>
-                <h1 class="price">{{ event.price }}</h1>
-              </div>
-              <div class="options">
-                <div class="options-size">
-                  <h1 class="">응모자수:{{ event.join_num }}</h1>
+        <div id="agecontent5" class="section">
+          <div class="event-index" v-for="(event, idx) in AgeArray" :key="idx">
+            <div class="card">
+              <figure>
+                <img src="@/assets/img/women.jpg" alt="" />
+              </figure>
+              <section class="details">
+                <div class="min-details">
+                  <h1>
+                    {{ event.product }}
+                    <span>카테고리:{{ event.category }}</span>
+                    <span>성별:{{ event.gender }}</span>
+                    <span>연령대:{{ event.age }}</span>
+                  </h1>
+                  <h1 class="price">{{ event.price }}</h1>
                 </div>
-                <div class="options-colors">
-                  <h1>마감일:{{ event.end_date }}</h1>
+                <div class="options">
+                  <div class="options-size">
+                    <h1 class="">응모자수:{{ event.join_num }}</h1>
+                  </div>
+                  <div class="options-colors">
+                    <h1>마감일:{{ event.end_date }}</h1>
+                  </div>
                 </div>
-              </div>
-              <a href="#" class="btn" @click="eventDetailGo">응모현황</a>
-            </section>
+                <a href="#" class="btn" @click="eventDetailGo">응모현황</a>
+              </section>
+            </div>
           </div>
         </div>
-      </div>
-      <div id="content6" class="section">
-        <div class="event-index" v-for="(event, idx) in AgeArray" :key="idx">
-          <div class="card">
-            <figure>
-              <img src="@/assets/img/women.jpg" alt="" />
-            </figure>
-            <section class="details">
-              <div class="min-details">
-                <h1>
-                  {{ event.product }}
-                  <span>카테고리:{{ event.category }}</span>
-                  <span>성별:{{ event.gender }}</span>
-                  <span>연령대:{{ event.age }}</span>
-                </h1>
-                <h1 class="price">{{ event.price }}</h1>
-              </div>
-              <div class="options">
-                <div class="options-size">
-                  <h1 class="">응모자수:{{ event.join_num }}</h1>
+        <div id="agecontent6" class="section">
+          <div class="event-index" v-for="(event, idx) in AgeArray" :key="idx">
+            <div class="card">
+              <figure>
+                <img src="@/assets/img/women.jpg" alt="" />
+              </figure>
+              <section class="details">
+                <div class="min-details">
+                  <h1>
+                    {{ event.product }}
+                    <span>카테고리:{{ event.category }}</span>
+                    <span>성별:{{ event.gender }}</span>
+                    <span>연령대:{{ event.age }}</span>
+                  </h1>
+                  <h1 class="price">{{ event.price }}</h1>
                 </div>
-                <div class="options-colors">
-                  <h1>마감일:{{ event.end_date }}</h1>
+                <div class="options">
+                  <div class="options-size">
+                    <h1 class="">응모자수:{{ event.join_num }}</h1>
+                  </div>
+                  <div class="options-colors">
+                    <h1>마감일:{{ event.end_date }}</h1>
+                  </div>
                 </div>
-              </div>
-              <a href="#" class="btn" @click="eventDetailGo">응모현황</a>
-            </section>
+                <a href="#" class="btn" @click="eventDetailGo">응모현황</a>
+              </section>
+            </div>
           </div>
         </div>
       </div>
@@ -210,8 +211,29 @@ export default {
       AgeArray: [],
     };
   },
+  async created() {
+    const age = 10;
+    // console.log('나이확인', age, '대');
+    const { data } = await eventSelectAge(age);
+    // console.log('응답데이터', data);
+    var AgeArray = data;
+    AgeArray.sort(function(a, b) {
+      if (a.join_num > b.join_num) {
+        return 1;
+      }
+      if (a.join_num < b.join_num) {
+        return -1;
+      }
+      return 0;
+    });
+    AgeArray.reverse();
+    this.AgeArray = AgeArray.slice(0, 4);
+    console.log('나이', this.AgeArray);
+    $('#agecontent1').addClass('display');
+  },
   methods: {
     async selectAge() {
+      $('#agecontent1').removeClass('display');
       const age = this.age;
       // console.log('나이확인', age, '대');
       const { data } = await eventSelectAge(age);
@@ -288,16 +310,30 @@ input:checked + label {
   border-bottom: 1px solid #ffffff;
 }
 
-#tab1:checked ~ #content1,
-#tab2:checked ~ #content2,
-#tab3:checked ~ #content3,
-#tab4:checked ~ #content4,
-#tab5:checked ~ #content5,
-#tab6:checked ~ #content6 {
+.tabs #age1:checked ~ .tab-content #agecontent1,
+.tabs #age2:checked ~ .tab-content #agecontent2,
+.tabs #age3:checked ~ .tab-content #agecontent3,
+.tabs #age4:checked ~ .tab-content #agecontent4,
+.tabs #age5:checked ~ .tab-content #agecontent5,
+.tabs #age6:checked ~ .tab-content #agecontent6 {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+}
+.tabs .tab-content #agecontent1,
+.tabs .tab-content #agecontent2,
+.tabs .tab-content #agecontent3,
+.tabs .tab-content #agecontent4,
+.tabs .tab-content #agecontent5,
+.tabs .tab-content #agecontent6 {
+  display: none;
+}
+.display {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
 }
 
 .event {
