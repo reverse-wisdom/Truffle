@@ -21,7 +21,6 @@
 
 <script>
 import QnA from '../QnA';
-import EventBus from '@/views/event/EventBus';
 import { eventDetail } from '@/api/event';
 export default {
   name: 'EventDetailTab',
