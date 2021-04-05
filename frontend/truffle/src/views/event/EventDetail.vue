@@ -7,7 +7,7 @@
           <div class="img-display">
             <div class="img-showcase">
               <!-- 이미지 -->
-              <img :src="'data:image/jpeg;base64,' + detailImg" alt="" />
+              <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" alt="" />
             </div>
           </div>
         </div>
@@ -101,10 +101,28 @@
       </div>
     </div>
     <v-container>
-      <EventDetailTab :event_id="event_id"></EventDetailTab>
+      <!-- <EventDetailTab :event_id="event_id"></EventDetailTab> -->
+      <div>
+        <div class="tab-container">
+          <div class="tabs">
+            <label class="tab tab01" @click="tab01()">
+              <p id="tab1-title">DETAIL</p>
+            </label>
+            <span class="border"></span>
+            <span class="background"></span>
+          </div>
+        </div>
+
+        <div>
+          <!-- <img src="@/assets/img/tombrown3.jpg" alt="" /> -->
+          <div v-html="event.detail">
+            {{ event.detail }}
+          </div>
+        </div>
+      </div>
     </v-container>
     <div v-if="$store.state.retailuuid == event.uuid" style="text-align:right">
-      <v-btn color="" class="mr-1" dark @click="updateGo(event)">수정</v-btn>
+      <v-btn color="" class="mr-1" dark @click="updateGo">수정</v-btn>
       <v-btn dark @click="$router.go(-1)">뒤로가기</v-btn>
     </div>
     <!-- else -->
@@ -480,7 +498,64 @@ img {
 .purchase-info .btn:hover {
   opacity: 0.9;
 }
-
+.detail-image {
+  margin-right: 40vh;
+  /* right: 700px; */
+}
+.tab-container {
+  height: 20vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+}
+.tabs {
+  display: flex;
+  position: relative;
+  text-align: center;
+  width: 80%;
+  height: 4rem;
+  background-color: #fff;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+.tabs .tab {
+  width: 50%;
+  height: 100%;
+  margin-top: 0.5rem;
+  text-align: center;
+  color: #fff;
+  cursor: pointer;
+  z-index: 2;
+}
+.tabs .border {
+  position: absolute;
+  width: 100%;
+  height: 1rem;
+  background: #256eff;
+  bottom: 0;
+  z-index: 2;
+  transition: 0.4s;
+}
+.tabs .background {
+  z-index: 1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #f3118e;
+  bottom: 0;
+  transition: 0.4s;
+}
+#tab1-title {
+  color: #fff;
+  font-size: 1.2rem;
+  padding-left: 90%;
+  letter-spacing: 1rem;
+}
+#tab2-title {
+  color: #000;
+  font-size: 1.2rem;
+}
 @media screen and (min-width: 992px) {
   .card {
     display: grid;

@@ -169,8 +169,6 @@ DjangoServer ->> MyPage: 결제내역 안내
 gantt
     dateFormat  YYYY-MM-DD
     title       Truffle
-    excludes    weekends
-
 
     section 준비/기획(SUB-PRJ-1,2)
     특화프로젝트 팀구성 :done, 2021-03-01,1d
