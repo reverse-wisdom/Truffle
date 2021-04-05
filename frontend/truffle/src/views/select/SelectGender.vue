@@ -8,7 +8,7 @@
       <input id="gd2" v-model="gender" type="radio" @change="selectGender" value="2" />
       <label for="gd2">여성에게 인기많은</label>
 
-      <div id="content1" class="section">
+      <div id="gendercontent1" class="section">
         <div class="event-index" v-for="(event, idx) in GenderArray" :key="idx">
           <div class="card">
             <figure>
@@ -38,7 +38,7 @@
         </div>
       </div>
 
-      <div id="content2" class="section">
+      <div id="gendercontent2" class="section">
         <div class="event-index" v-for="(event, idx) in GenderArray" :key="idx">
           <div class="card">
             <figure>
@@ -80,8 +80,29 @@ export default {
       GenderArray: [],
     };
   },
+  async created() {
+    const gender = '1';
+    // console.log('성별확인', gender);
+    const { data } = await eventSelectGender(gender);
+    console.log('응답데이터', data);
+    var GenderArray = data;
+    GenderArray.sort(function(a, b) {
+      if (a.join_num > b.join_num) {
+        return 1;
+      }
+      if (a.join_num < b.join_num) {
+        return -1;
+      }
+      return 0;
+    });
+    GenderArray.reverse();
+    this.GenderArray = GenderArray.slice(0, 4);
+    console.log('성별', this.GenderArray);
+    $('#gendercontent1').addClass('display');
+  },
   methods: {
     async selectGender() {
+      $('#gendercontent1').removeClass('display');
       const gender = this.gender;
       // console.log('성별확인', gender);
       const { data } = await eventSelectGender(gender);
@@ -129,6 +150,12 @@ p {
   padding: 20px 0 0;
   border-top: 1px solid #ddd;
 }
+.display {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+}
 
 /*라디오버튼 숨김*/
 input {
@@ -158,8 +185,8 @@ input:checked + label {
   border-bottom: 1px solid #ffffff;
 }
 
-#gd1:checked ~ #content1,
-#gd2:checked ~ #content2 {
+#gd1:checked ~ #gendercontent1,
+#gd2:checked ~ #gendercontent2 {
   display: flex;
   justify-content: center;
   align-items: center;
