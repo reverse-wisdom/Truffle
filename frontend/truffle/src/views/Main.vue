@@ -53,15 +53,37 @@
     <div class="space"></div>
     <div class="linestyle"></div>
     <div>
-      <h1 id="deadline"># 응모 마감이 얼마 남지 않은 상품</h1>
+      <div class="box">
+        <h1 style="text-align:center;">관심있는 상픔을 검색해보세요</h1>
+        <div>
+          <input type="text" placeholder="검색" id="searchWord" v-model="word" />
+          <input type="button" name="" value="Search" @click="detailSearch" />
+        </div>
+      </div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <div>
+      <h1 id="deadline"># 응모 마감이 얼마 남지 않은 이벤트</h1>
       <EndEventList></EndEventList>
     </div>
     <div class="mid-content">
-      <h1 id="deadline"># 연령대별 인기 상품</h1>
+      <h1 id="deadline"># 연령대별 인기 이벤트</h1>
       <SelectAge></SelectAge>
-      <h1 id="deadline"># 카테고리별 인기상품</h1>
+      <h1 id="deadline"># 카테고리별 인기 이벤트</h1>
       <SelectCategory></SelectCategory>
-      <h1 id="deadline"># 성별 인기상품</h1>
+      <h1 id="deadline"># 성별 인기이벤트</h1>
       <SelectGender></SelectGender>
     </div>
   </div>
@@ -73,7 +95,7 @@ import SelectAge from '@/views/select/SelectAge.vue';
 import SelectCategory from '@/views/select/SelectCategory.vue';
 import SelectGender from '@/views/select/SelectGender.vue';
 import EndEventList from '@/views/select/EndEventList.vue';
-import { eventAll } from '@/api/event';
+import { eventAll, searchProduct } from '@/api/event';
 
 TweenMax.from('.left-col', 2, {
   width: '0%',
@@ -188,6 +210,7 @@ export default {
   components: { EventAll, SelectAge, SelectCategory, SelectGender, EndEventList },
   data() {
     return {
+      word: '',
       eventlist: [],
     };
   },
@@ -210,7 +233,12 @@ export default {
     }
     // console.log('이벤트리스트', this.eventlist);
   },
-  methods: {},
+  methods: {
+    async detailSearch() {
+      var product = document.getElementById('searchWord').value;
+      this.$router.push({ name: 'Search', query: { product: product } });
+    },
+  },
 };
 </script>
 <style scoped>
@@ -692,5 +720,54 @@ section::after {
   height: 10px;
   margin-top: 30px;
   background-color: #f9f9f9;
+}
+
+/* 검색창 */
+h1 {
+  margin: 0 0 10px;
+  padding: 0;
+  color: #000;
+  font-size: 24px;
+}
+.box {
+  margin-bottom: 200px;
+  position: absolute;
+  top: 37%;
+  left: 53%;
+  margin: 0 auto;
+  transform: translate(-50%, -50%);
+}
+input {
+  position: relative;
+  display: inline-block;
+  font-size: 20px;
+  box-sizing: border-box;
+  transition: 0.5s;
+}
+input[type='text'] {
+  /* border: #000; */
+  background: #eaeaea;
+  width: 340px;
+  height: 50px;
+  border: none;
+  border-radius: 25px 0 0 25px;
+  padding: 0 25px;
+  outline: none;
+  color: #fff;
+}
+input[type='button'] {
+  position: relative;
+  left: -5px;
+  border-radius: 0 25px 25px 0;
+  height: 50px;
+  width: 150px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background: #381dfc;
+  color: #fff;
+}
+input[type='button'] :hover {
+  background: #ff5722;
 }
 </style>

@@ -70,7 +70,12 @@ function returnImage(event_id) {
 function returnImage64(event_id) {
   return posts.get(`/event/selectEventFileBase64ByEventID?event_id=${event_id}`);
 }
+//상품조회
+function searchProduct(product) {
+  return posts.get(`/event/selectByProduct?product=${product}`);
+}
 export {
+  searchProduct,
   returnImage64,
   returnImage,
   createWinner,

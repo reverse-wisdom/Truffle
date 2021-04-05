@@ -35,6 +35,7 @@ import QnAdetail from '../views/QnA/QnAdetail.vue';
 
 import FormDataTest from '../views/event/FormDataTest.vue';
 
+import Search from '../views/Search.vue';
 Vue.use(VueRouter);
 
 const routes = [
@@ -60,9 +61,9 @@ const routes = [
     components: { default: Full1 },
   },
   {
-    path: '/landing',
-    name: 'Landing',
-    component: Landing,
+    path: '/search',
+    name: 'Search',
+    components: { default: Search, header: MainNavbar },
   },
 
   {

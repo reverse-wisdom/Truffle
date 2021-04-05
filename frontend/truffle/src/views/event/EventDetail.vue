@@ -6,12 +6,12 @@
         <div class="product-imgs">
           <div class="img-display">
             <div class="img-showcase">
-              <img src="@/assets/img/tombrown.jpg" alt="shoe image" />
+              <!-- 이미지 -->
+              <img :src="'data:image/jpeg;base64,' + detailImg" alt="" />
             </div>
           </div>
         </div>
-        <!-- 이미지 -->
-        <img :src="detailImg" alt="" />
+
         <!-- card right -->
         <div class="product-content">
           <h2 class="product-title">{{ event.product }}</h2>
@@ -145,8 +145,8 @@ export default {
     }
     //이미지불러오기
     const resImage = await returnImage64(this.event.event_id);
-    console.log('이미지', resImage);
-    this.detailImg = 'data:image/jpg;base64,'.concat(this.detailImg.concat(resImage));
+    console.log('이미지', resImage.data);
+    this.detailImg = resImage.data;
 
     //당첨자 불러오기
     const response = await selectedWinner(this.event.event_id);
