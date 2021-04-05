@@ -172,10 +172,8 @@ public class EventController {
 				eventImgFileDto.setOrignal_file(originalFileName);
 				eventImgFileDto.setUuid_file(fileName);
 			} catch (IllegalStateException e) {
-				e.printStackTrace();
 				return new ResponseEntity<String>("FAIL", HttpStatus.NO_CONTENT);
 			} catch (IOException e) {
-				e.printStackTrace();
 				return new ResponseEntity<String>("FAIL", HttpStatus.NO_CONTENT);
 			}
 
@@ -310,7 +308,6 @@ public class EventController {
 	@GetMapping(value = "/selectEventImgFileEventID", produces = MediaType.IMAGE_JPEG_VALUE)
 	private ResponseEntity<?> selectEventImgFileEventID(@RequestParam(required = true) final int event_id) {
 
-
 		String os = System.getProperty("os.name").toLowerCase();
 		String FILE_PATH;
 		if (os.contains("win"))
@@ -348,10 +345,8 @@ public class EventController {
 		try (FileInputStream stream = new FileInputStream(file)) {
 			stream.read(data, 0, data.length);
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 			return null;
 		} catch (IOException e1) {
-			e1.printStackTrace();
 			return null;
 		}
 		return data;
