@@ -50,9 +50,8 @@ public class OrderController {
 		try {
 			return api.paymentByImpUid(imp_uid);
 		} catch (IamportResponseException | IOException e) {
-			e.printStackTrace();
+			return null;
 		}
-		return null;
 	}
 
 	@ApiOperation(value = "결제 완료", notes = "uuid, event_id, imp_uid 값 필수")
@@ -88,9 +87,8 @@ public class OrderController {
 		try {
 			return api.cancelPaymentByImpUid(cancelData);
 		} catch (IamportResponseException | IOException e) {
-			e.printStackTrace();
+			return null;
 		}
-		return null;
 	}
 
 	@ApiOperation(value = "event_id를 통해 주문기록테이블 삭제")
