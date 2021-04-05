@@ -155,7 +155,10 @@ p {
 .vtabs #tab3:checked ~ .vtab-content #content3,
 .vtabs #tab4:checked ~ .vtab-content #content4,
 .vtabs #tab5:checked ~ .vtab-content #content5 {
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
 }
 .vtabs .vtab-content {
   position: absolute;
@@ -174,8 +177,5 @@ p {
   max-width: 550px;
   width: 100%;
   border-radius: 15px;
-}
-#content2 {
-  display: flex;
 }
 </style>
