@@ -9,8 +9,6 @@ import Main from '../views/Main.vue';
 import MainNavbar from '../views/layout/MainNavbar.vue';
 import MainFooter from '../views/layout/MainFooter.vue';
 
-import Full1 from '../views/Full1.vue';
-
 import Sign from '../views/User/Sign.vue';
 import ResisterUser from '../views/User/ResisterUser.vue';
 import ResisterRetailer from '../views/User/ResisterRetailer.vue';
@@ -48,11 +46,6 @@ const routes = [
     path: '/main',
     name: 'Main',
     components: { default: Main, header: MainNavbar, footer: MainFooter },
-  },
-  {
-    path: '/full1',
-    name: 'Full1',
-    components: { default: Full1 },
   },
   {
     path: '/search',
@@ -93,7 +86,9 @@ const routes = [
     path: '/eventDetail',
     name: 'EventDetail',
     components: { default: EventDetail, header: MainNavbar },
+    meta: { auth: true },
   },
+
   {
     path: '/eventCreate',
     name: 'EventCreate',
