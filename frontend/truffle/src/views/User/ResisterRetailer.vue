@@ -8,7 +8,7 @@
         </section>
       </div>
       <div class="right">
-        <form action="">
+        <div class="form">
           <section class="copy">
             <h2>Sign Up</h2>
             <div class="login-container">
@@ -57,36 +57,40 @@
             <input type="text" v-model="address_detail" placeholder="상세주소를 입력해주세요" />
           </div>
           <div class="input-container">
-            <input maxlength="3" type="text" v-model="phone_num1" />
-            <div class="b">-</div>
-            <input maxlength="4" type="text" v-model="phone_num2" />
-            <div class="b">-</div>
-            <input maxlength="4" type="text" v-model="phone_num3" />
+            <label for="fname">PHONE</label>
+            <div class="phone-num">
+              <input maxlength="3" type="text" v-model="phone_num1" />
+              <div class="b">-</div>
+              <input maxlength="4" type="text" v-model="phone_num2" />
+              <div class="b">-</div>
+              <input maxlength="4" type="text" v-model="phone_num3" />
+            </div>
           </div>
-          <!-- <button class="signup-btn" type="submit" @click.prevent="verifyphone">본인인증</button>
-           -->
           <v-col cols="auto">
             <v-dialog transition="dialog-top-transition" max-width="600">
-              <template v-slot:activator="{ on, attrs }" v-show="$store.state.type == '2' && new Date(this.event.end_date) < Date.now()">
-                <button class="signup-btn" v-bind="attrs" @click.prevent="verifyphone" v-on="on">인증번호</button>
+              <template v-slot:activator="{ on, attrs }">
+                <button class="signup-btn" v-bind="attrs" v-on="on" @click="verifyphone">휴대폰 본인인증</button>
               </template>
+
               <template v-slot:default="dialog">
                 <v-card>
-                  <v-toolbar color="dark" dark>Opening from the top</v-toolbar>
+                  <v-toolbar color="dark" dark>휴대폰 인증하기</v-toolbar>
                   <v-card-text>
-                    <div class="text-h2 pa-12" v-for="(win, index) in modal" :key="index">
-                      <p id="win_email">{{ win }}</p>
+                    <div class="text-h3 pa-12">
+                      <label for="" class="text-h5">인증번호 4자리를 입력해주세요</label>
+                      <input type="text" id="verifyphone" v-model="verifynum1" />
                     </div>
                   </v-card-text>
                   <v-card-actions class="justify-end">
-                    <v-btn text @click="dialog.value = false">Close</v-btn>
+                    <v-btn text @click="verifychk">인증하기</v-btn>
+                    <v-btn text @click="dialog.value = false">닫기</v-btn>
                   </v-card-actions>
                 </v-card>
               </template>
             </v-dialog>
           </v-col>
-          <button class="signup-btn" type="submit" @click.prevent="signup">Sign up</button>
-        </form>
+          <button class="signup-btn" type="button" @click.prevent="signup">Sign up</button>
+        </div>
       </div>
     </div>
   </div>
@@ -115,6 +119,8 @@ export default {
       postcode: '',
       type: 2,
       msg: [],
+      verifynum1: '',
+      verifynum2: '',
     };
   },
   created() {},
@@ -131,8 +137,24 @@ export default {
   methods: {
     async verifyphone() {
       const phone_num = this.phone_num1 + this.phone_num2 + this.phone_num3;
-      console.log(phone_num);
+      this.phone = phone_num;
       // const { data } = await verifyPhone(phone_num);
+      this.verifynum2 = data;
+    },
+    verifychk() {
+      if (this.verifynum1 == this.verifynum2) {
+        this.$swal({
+          icon: 'success',
+          title: '인증성공',
+        });
+        this.phonechk = true;
+        this.dialog = false;
+      } else {
+        this.$swal({
+          icon: 'error',
+          title: '인증실패',
+        });
+      }
     },
     validateEmail(value) {
       if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)) {
@@ -285,12 +307,24 @@ export default {
 };
 </script>
 <style scoped>
+#verifyphone {
+  max-width: 450px;
+  border: 1px solid;
+}
+.col-auto {
+  padding: 0;
+  height: 100%;
+}
 :root {
   font-size: 100%;
   font-size: 16px;
   line-height: 1.5;
 }
 .business-num {
+  display: flex;
+  align-items: center;
+}
+.phone-num {
   display: flex;
   align-items: center;
 }
@@ -331,7 +365,7 @@ a:hover {
   margin-top: 10rem;
 }
 .right {
-  margin-top: 10rem;
+  margin-top: 13rem;
 }
 .left,
 .right {
@@ -361,12 +395,12 @@ a:hover {
   margin: 1.5em 0;
   font-size: 0.875rem;
 }
-.right form {
+.right .form {
   width: 400px;
 }
-form input[type='text'],
-form input[type='email'],
-form input[type='password'] {
+.form input[type='text'],
+.form input[type='email'],
+.form input[type='password'] {
   display: block;
   width: 100%;
   box-sizing: border-box;
@@ -412,7 +446,7 @@ label {
 .checkmark {
   position: absolute;
   width: 24px;
-  height: 24xp;
+  height: 24px;
   background: white;
   border: 1px solid #c4c4c4;
   border-radius: 2px;

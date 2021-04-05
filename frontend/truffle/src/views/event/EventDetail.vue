@@ -62,6 +62,16 @@
               추첨하기
             </button>
           </div>
+          <div class="join-info">
+            <button type="button" class="btn" id="winnerbtn" @click="iamport">
+              결제하기
+            </button>
+          </div>
+          <div class="join-info">
+            <button type="button" class="btn" id="winnerbtn" @click="cancleiamport">
+              결제취소
+            </button>
+          </div>
           <!-- <div v-show="new Date(this.event.end_date) < Date.now()" class="join-info" @click="winnerListGo">
             <button type="button" class="btn">
               당첨자보기
@@ -104,10 +114,11 @@
     </div>
   </div>
 </template>
-
 <script>
 import EventDetailTab from '@/views/event/EventDetailTab';
 import { returnImage64, eventDetail, eventJoin, checkPartipants, createPartipants, selectedWinner, createWinner, returnImage } from '@/api/event';
+import { fetchUser } from '@/api/auth';
+import { verifyIamport, completePayment, fetchOrder, cancleOrder } from '@/api/order';
 
 export default {
   name: 'EventDetail',
@@ -145,7 +156,7 @@ export default {
     }
     //이미지불러오기
     const resImage = await returnImage64(this.event.event_id);
-    console.log('이미지', resImage.data);
+    // console.log('이미지', resImage.data);
     this.detailImg = resImage.data;
 
     //당첨자 불러오기
@@ -241,9 +252,79 @@ export default {
         console.log('이미참여한이벤트');
       }
     },
-    updateGo(value) {
+    updateGo() {
       var event_id = this.event.event_id;
       this.$router.push({ name: 'EventUpdate', query: { event_id: event_id } });
+    },
+    async iamport() {
+      var event_id = this.event.event_id;
+      const { data } = await eventDetail(event_id);
+      var event = data[0];
+      console.log(event.price);
+
+      // 현재이벤트 상태가 결제됬는지 안됬는지 판단하는 API 추후 구현 예정
+      // 해당 API로 0 반환시(미결제이벤트) 결제진행, else: 결제진행 X
+
+      //가맹점 식별코드
+      const response = await fetchUser(this.$store.state.email);
+      console.log(response);
+      Vue.IMP().request_pay(
+        {
+          pg: 'inicis',
+          pay_method: 'card',
+          merchant_uid: event.event_id + new Date().getTime(), // 이벤트 아이디 매핑, 결제완료시 재결제 불가능하므로 시간난수 추가(테스트용)
+          name: event.product, // 이벤트 제품이름 매핑
+          amount: event.price, // 이벤트 가격 매핑
+          buyer_email: response.data.email, // 로그인한유저의 이메일 넣기
+          buyer_name: response.data.nickname, // 로그인한 유저의 닉네임 넣기
+          buyer_tel: response.data.phone, // 로그인한 유저의 전화번호 넣기
+          buyer_addr: response.data.address + ' ' + response.data.address_detail, // 로그인한 유저 주소 넣기
+        },
+        (result_success) => {
+          //성공할 때 실행 될 콜백 함수
+          var msg = '결제가 완료되었습니다.';
+          msg += '고유ID : ' + result_success.imp_uid; // imp_uid order테이블에 추가예정
+          msg += '상점 거래ID : ' + result_success.merchant_uid;
+          msg += '결제 금액 : ' + result_success.paid_amount;
+          msg += '카드 승인번호 : ' + result_success.apply_num;
+          // alert(msg);
+          this.verifyIam(result_success);
+        },
+        (result_failure) => {
+          //실패시 실행 될 콜백 함수
+          var msg = '결제에 실패하였습니다.';
+          msg += '에러내용 : ' + result_failure.error_msg;
+          alert(msg);
+        }
+      );
+    },
+    async verifyIam(result_success) {
+      console.log('result_success', result_success);
+      const { data } = await verifyIamport(result_success.imp_uid);
+      console.log(data.response.status);
+      if (data.response.status == 'paid') {
+        const data = {
+          uuid: this.$store.state.uuid,
+          event_id: this.event.event_id,
+          imp_uid: result_success.imp_uid,
+          ship_status: 1,
+          pay_status: 1,
+        };
+        const responsedata = completePayment(data);
+        // console.log(responsedata);
+      }
+    },
+    async cancleiamport() {
+      const { data } = await fetchOrder(this.event.event_id);
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].uuid == this.$store.state.uuid) {
+          const response = await cancleOrder(data[i].imp_uid);
+          console.log(response);
+          break;
+        } else {
+          continue;
+        }
+      }
     },
   },
 };
