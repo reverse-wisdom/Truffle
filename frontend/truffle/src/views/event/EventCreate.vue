@@ -75,7 +75,7 @@
           <!-- 가격 -->
           <div class="input-container gender">
             <label for="">가격</label>
-            <input type="text" v-model="price" />
+            <input type="text" v-model="price" @keyup="priceComma" id="price" />
           </div>
           <div class="input-container gender">
             <label for="">당첨자수</label>
@@ -171,9 +171,26 @@ export default {
     date(val) {
       this.dateFormatted = this.formatDate(this.date);
     },
+    price() {
+      const price = this.price;
+      // console.log(typeof price);
+      this.price = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      // this.price = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    },
   },
 
   methods: {
+    priceComma() {
+      var selection = window.getSelection().toString();
+      if (selection !== '') {
+        return;
+      } else {
+        var input = this.price;
+        var input = input.replace(/[\D\s\._\-]+/g, '');
+        input = Number(input);
+        this.price = input.toLocaleString('en-US');
+      }
+    },
     Preview_image() {
       this.url = URL.createObjectURL(this.image);
     },
@@ -194,16 +211,17 @@ export default {
       // const imgFile = document.getElementById('#thumbnail');
       const frm = new FormData();
       frm.append('imgFile', this.image);
-      console.log(frm);
+      // console.log(frm);
       const age = this.age;
       const category = this.category;
       const detail = $('#summernote').summernote('code');
       const open_date = this.open_date;
       const end_date = this.end_date;
       const gender = this.gender;
-      const price = this.price;
+      const price = this.price.replace(/[\D\s\._\-]+/g, '');
       const product = this.product;
       const win_num = this.win_num;
+      console.log(price);
 
       const response = await eventInsert(age, category, detail, end_date, gender, open_date, price, product, uuid, win_num, frm);
       console.log(response);
@@ -345,7 +363,7 @@ label {
 .checkmark {
   position: absolute;
   width: 24px;
-  height: 24xp;
+  height: 24px;
   background: white;
   border: 1px solid #c4c4c4;
   border-radius: 2px;
