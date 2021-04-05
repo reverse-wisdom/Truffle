@@ -1,5 +1,7 @@
 package com.ssafy.controller;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
@@ -180,12 +182,16 @@ public class AccountController {
 	@ApiOperation(value = "휴대폰 번호 인증 테스트", notes = "반환되는 숫자와 입력한 휴대폰번호로 수신된 문자에서 숫자값과 비교하여 인증 진행")
 	@GetMapping("/verifyPhoneNumber")
 	private String verifyPhoneNumber(@RequestParam(required = true) final String phone) {
-
-		Random rand = new Random();
+		Random rand;
 		String numStr = "";
-		for (int i = 0; i < 4; i++) {
-			String ran = Integer.toString(rand.nextInt(10));
-			numStr += ran;
+		try {
+			rand = SecureRandom.getInstanceStrong();
+			for (int i = 0; i < 4; i++) {
+				String ran = Integer.toString(rand.nextInt(10));
+				numStr += ran;
+			}
+		} catch (NoSuchAlgorithmException e) {
+			return null;
 		}
 
 		String api_key = "NCSIVOZHLC9Z7CJW";
