@@ -8,7 +8,7 @@
       <input id="gd2" v-model="gender" type="radio" @change="selectGender" value="2" />
       <label for="gd2">여성에게 인기많은</label>
 
-      <div id="gendercontent1" class="section">
+      <div id="content1" class="section">
         <div class="event-index" v-for="(event, idx) in GenderArray" :key="idx">
           <div class="card">
             <figure>
@@ -38,7 +38,7 @@
         </div>
       </div>
 
-      <div id="gendercontent2" class="section">
+      <div id="content2" class="section">
         <div class="event-index" v-for="(event, idx) in GenderArray" :key="idx">
           <div class="card">
             <figure>
@@ -98,11 +98,11 @@ export default {
     GenderArray.reverse();
     this.GenderArray = GenderArray.slice(0, 4);
     console.log('성별', this.GenderArray);
-    $('#gendercontent1').addClass('display');
+    $('#content1').addClass('display');
   },
   methods: {
     async selectGender() {
-      $('#gendercontent1').removeClass('display');
+      $('#content1').removeClass('display');
       const gender = this.gender;
       // console.log('성별확인', gender);
       const { data } = await eventSelectGender(gender);
@@ -185,8 +185,8 @@ input:checked + label {
   border-bottom: 1px solid #ffffff;
 }
 
-#gd1:checked ~ #gendercontent1,
-#gd2:checked ~ #gendercontent2 {
+#gd1:checked ~ #content1,
+#gd2:checked ~ #content2 {
   display: flex;
   justify-content: center;
   align-items: center;
