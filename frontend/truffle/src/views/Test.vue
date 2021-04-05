@@ -33,6 +33,10 @@
       <h2>아임포트결제테스트</h2>
       <v-btn depressed color="primary" @click="iamport">결제호출</v-btn>
     </div>
+    <div>
+      <h2>암호화적용랜덤함수</h2>
+      <v-btn depressed color="primary" @click="getRandomIntInclusive(1, 50)">호출</v-btn>
+    </div>
   </div>
 </template>
 
@@ -50,6 +54,16 @@ export default {
     // output.src = this.readTextFile(filePath);
   },
   methods: {
+    getRandomIntInclusive(min, max) {
+      const randomBuffer = new Uint32Array(1);
+      window.crypto.getRandomValues(randomBuffer);
+      let randomNumber = randomBuffer[0] / (0xffffffff + 1);
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      // return Math.floor(randomNumber * (max - min + 1)) + min;
+      console.log(Math.floor(randomNumber * (max - min + 1) + min));
+    },
+
     async iamport() {
       var event_id = 25;
       const { data } = await eventDetail(event_id);
