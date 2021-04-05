@@ -63,6 +63,8 @@ export default {
       this.$store.commit('clearEmail');
       this.$store.commit('clearToken');
       this.$store.commit('clearType');
+      this.$store.commit('clearPassword');
+
       if (this.$store.state.type == '1') {
         this.$store.commit('clearUuid');
       } else {

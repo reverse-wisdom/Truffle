@@ -26,7 +26,7 @@
       <input id="ct7" v-model="category" type="radio" value="기타" @change="selectCategory" />
       <label for="ct7">기타</label>
 
-      <div id="content1" class="section">
+      <div id="categorycontent1" class="section">
         <div class="event-index" v-for="(event, idx) in CategoryArray" :key="idx">
           <div class="card">
             <figure>
@@ -56,7 +56,7 @@
         </div>
       </div>
 
-      <div id="content2" class="section">
+      <div id="categorycontent2" class="section">
         <div class="event-index" v-for="(event, idx) in CategoryArray" :key="idx">
           <div class="card">
             <figure>
@@ -86,7 +86,7 @@
         </div>
       </div>
 
-      <div id="content3" class="section">
+      <div id="categorycontent3" class="section">
         <div class="event-index" v-for="(event, idx) in CategoryArray" :key="idx">
           <div class="card">
             <figure>
@@ -116,7 +116,7 @@
         </div>
       </div>
 
-      <div id="content4" class="section">
+      <div id="categorycontent4" class="section">
         <div class="event-index" v-for="(event, idx) in CategoryArray" :key="idx">
           <div class="card">
             <figure>
@@ -145,7 +145,7 @@
           </div>
         </div>
       </div>
-      <div id="content5" class="section">
+      <div id="categorycontent5" class="section">
         <div class="event-index" v-for="(event, idx) in CategoryArray" :key="idx">
           <div class="card">
             <figure>
@@ -174,7 +174,7 @@
           </div>
         </div>
       </div>
-      <div id="content6" class="section">
+      <div id="categorycontent6" class="section">
         <div class="event-index" v-for="(event, idx) in CategoryArray" :key="idx">
           <div class="card">
             <figure>
@@ -203,7 +203,7 @@
           </div>
         </div>
       </div>
-      <div id="content7" class="section">
+      <div id="categorycontent7" class="section">
         <div class="event-index" v-for="(event, idx) in CategoryArray" :key="idx">
           <div class="card">
             <figure>
@@ -245,8 +245,29 @@ export default {
       CategoryArray: [],
     };
   },
+  async created() {
+    const category = '의류';
+    // console.log('카테고리확인', category, '대');
+    const { data } = await eventSelectCategory(category);
+    // console.log('응답데이터', data);
+    var CategoryArray = data;
+    CategoryArray.sort(function(a, b) {
+      if (a.join_num > b.join_num) {
+        return 1;
+      }
+      if (a.join_num < b.join_num) {
+        return -1;
+      }
+      return 0;
+    });
+    CategoryArray.reverse();
+    this.CategoryArray = CategoryArray.slice(0, 4);
+    console.log('카테고리', this.CategoryArray);
+    $('#categorycontent1').addClass('display');
+  },
   methods: {
     async selectCategory() {
+      $('#categorycontent1').removeClass('display');
       const category = this.category;
       // console.log('카테고리확인', category, '대');
       const { data } = await eventSelectCategory(category);
@@ -291,6 +312,12 @@ p {
   margin: 0 auto;
   background: #ffffff;
 }
+.display {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+}
 
 .section {
   display: none;
@@ -326,13 +353,13 @@ input:checked + label {
   border-bottom: 1px solid #ffffff;
 }
 
-#ct1:checked ~ #content1,
-#ct2:checked ~ #content2,
-#ct3:checked ~ #content3,
-#ct4:checked ~ #content4,
-#ct5:checked ~ #content5,
-#ct6:checked ~ #content6,
-#ct7:checked ~ #content7 {
+#ct1:checked ~ #categorycontent1,
+#ct2:checked ~ #categorycontent2,
+#ct3:checked ~ #categorycontent3,
+#ct4:checked ~ #categorycontent4,
+#ct5:checked ~ #categorycontent5,
+#ct6:checked ~ #categorycontent6,
+#ct7:checked ~ #categorycontent7 {
   display: flex;
   justify-content: center;
   align-items: center;

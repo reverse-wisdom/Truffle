@@ -10,6 +10,7 @@ export default new Vuex.Store({
   state: {
     token: '',
     email: '',
+    password: '',
     nickname: '',
     retailuuid: '',
     uuid: '',
@@ -34,6 +35,12 @@ export default new Vuex.Store({
     },
     clearEmail(state) {
       state.email = '';
+    },
+    setPassword(state, password) {
+      state.password = password;
+    },
+    clearPassword(state) {
+      state.password = '';
     },
     setRetailuuid(state, retailuuid) {
       state.retailuuid = retailuuid;
@@ -63,6 +70,7 @@ export default new Vuex.Store({
       if (data.data.message == 'SUCCESS') {
         commit('setToken', data.data['access-token']);
         commit('setEmail', userData.email);
+        commit('setPassword', userData.password);
         const response = await fetchUser(userData.email);
         console.log(response.data);
         commit('setType', response.data.type);

@@ -28,5 +28,9 @@ function userWinEvent(email) {
 function retailerAllEvent(uuid) {
   return posts.get(`/account/selectCreateEventListByID?uuid=${uuid}`);
 }
+// 폰인증
+function verifyPhone(phone) {
+  return posts.get(`/account/verifyPhoneNumber?phone=${phone}`);
+}
 
-export { loginUser, fetchUser, register, userJoinEvent, userWinEvent, editUser, retailerAllEvent };
+export { loginUser, fetchUser, register, userJoinEvent, userWinEvent, editUser, retailerAllEvent, verifyPhone };

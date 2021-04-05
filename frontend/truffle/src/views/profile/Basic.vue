@@ -93,7 +93,7 @@ export default {
           const editdata = {
             email: this.value.email,
             age: this.value.age,
-            password: this.value.password,
+            password: this.$store.state.password,
             gender: editgender,
             nickname: this.value.nickname,
             phone: this.value.phone,
@@ -107,7 +107,7 @@ export default {
         } else {
           const editdata = {
             email: this.value.email,
-            password: this.value.password,
+            password: this.$store.state.password,
             phone: this.value.phone,
             address: this.value.address,
             address_detail: this.value.address_detail,
