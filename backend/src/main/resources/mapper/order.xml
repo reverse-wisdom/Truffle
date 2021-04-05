@@ -14,6 +14,23 @@
 		(#{uuid},#{event_id},1,#{imp_uid},1);
 	</insert>
 	
+	<select
+		id="selectOrderByEventId"
+		parameterType="int"
+		resultType="OrderDto">
+		select *
+		from `order`
+		where event_id = #{event_id};
+	</select>
+	
+	<delete
+		id="deleteOrderByEventId"
+		parameterType="int">
+		delete
+		from `order`
+		where event_id = #{event_id};
+	</delete>
+	
 	
 	
 </mapper>
