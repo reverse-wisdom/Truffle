@@ -52,9 +52,17 @@
     </div>
     <div class="space"></div>
     <div class="linestyle"></div>
+
     <div>
       <div class="box">
-        <h1 style="text-align:center;">관심있는 상픔을 검색해보세요</h1>
+        <h1 class="title-search" style="">관심있는 상품을 검색해보세요!</h1>
+        <v-row class="text-center" style="height: 10px">
+          <div class="text-center searchRank">
+            <v-card color="dark" max-height="100px">
+              <Ranking></Ranking>
+            </v-card>
+          </div>
+        </v-row>
         <div>
           <input type="text" placeholder="검색" id="searchWord" v-model="word" />
           <input type="button" name="" value="Search" @click="detailSearch" />
@@ -96,6 +104,7 @@ import SelectCategory from '@/views/select/SelectCategory.vue';
 import SelectGender from '@/views/select/SelectGender.vue';
 import EndEventList from '@/views/select/EndEventList.vue';
 import { eventAll, searchProduct } from '@/api/event';
+import Ranking from './Ranking.vue';
 
 TweenMax.from('.left-col', 2, {
   width: '0%',
@@ -207,7 +216,7 @@ TweenMax.from('.more', 2, {
 
 export default {
   name: 'Main',
-  components: { EventAll, SelectAge, SelectCategory, SelectGender, EndEventList },
+  components: { EventAll, SelectAge, SelectCategory, SelectGender, EndEventList, Ranking },
   data() {
     return {
       word: '',
@@ -280,8 +289,7 @@ section::after {
   height: 80%;
   z-index: 0;
 }
-.container1 {
-}
+
 .container {
   position: relative;
   z-index: 3;
@@ -416,7 +424,13 @@ section::after {
   width: 50%;
   height: 100vh;
 }
-
+.title-search {
+  text-align: center;
+  margin-bottom: 2rem;
+  letter-spacing: 0.2rem;
+  font-size: 1.2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 /* .left-col {
   background: #d45b48;
 } */
@@ -722,6 +736,12 @@ section::after {
   background-color: #f9f9f9;
 }
 
+.searchRank {
+  margin-top: 7%;
+  width: 300%;
+  height: 50%;
+}
+
 /* 검색창 */
 h1 {
   margin: 0 0 10px;
@@ -732,17 +752,15 @@ h1 {
 .box {
   margin-bottom: 200px;
   position: absolute;
-  top: 37%;
-  left: 53%;
+  top: 25%;
+  left: 35%;
   margin: 0 auto;
-  transform: translate(-50%, -50%);
 }
 input {
   position: relative;
   display: inline-block;
   font-size: 20px;
   box-sizing: border-box;
-  transition: 0.5s;
 }
 input[type='text'] {
   /* border: #000; */

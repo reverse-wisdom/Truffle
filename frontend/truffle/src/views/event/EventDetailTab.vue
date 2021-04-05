@@ -3,20 +3,14 @@
     <div class="tab-container">
       <div class="tabs">
         <label class="tab tab01" @click="tab01()">
-          <p id="tab1-title">Detail</p>
-        </label>
-        <label class="tab tab02" @click="tab02()">
-          <p id="tab2-title">Q&amp;A</p>
+          <p id="tab1-title">DETAIL</p>
         </label>
         <span class="border"></span>
         <span class="background"></span>
       </div>
     </div>
 
-    <div v-if="tabcheck == true" class="img-tab1">
-      <QnA></QnA>
-    </div>
-    <div v-else>
+    <div>
       <!-- <img src="@/assets/img/tombrown3.jpg" alt="" /> -->
       <div v-html="event.detail">
         {{ event.detail }}
@@ -45,34 +39,36 @@ export default {
   async created() {
     const { data } = await eventDetail(this.event_id);
     this.event = data[0];
+    const detail = this.event.detail;
+    EventBus.$emit('detail', detail);
   },
 
   methods: {
-    tab01() {
-      this.tabcheck = false;
-      var border = document.querySelector('.tabs .border');
-      var background = document.querySelector('.tabs .background');
-      var tabtitle_1 = document.querySelector('#tab1-title');
-      var tabtitle_2 = document.querySelector('#tab2-title');
-      var imgtab1 = document.querySelector('.img-tab1');
-      border.style.transform = 'translateX(0)';
-      background.style.transform = 'translateX(0)';
-      tabtitle_1.style.color = '#fff';
-      tabtitle_2.style.color = '#000';
-    },
-    tab02() {
-      this.tabcheck = true;
-      var border = document.querySelector('.tabs .border');
-      var background = document.querySelector('.tabs .background');
-      var tabtitle_1 = document.querySelector('#tab1-title');
-      var tabtitle_2 = document.querySelector('#tab2-title');
-      var imgtab1 = document.querySelector('.img-tab1');
-      border.style.transform = 'translateX(100%)';
-      background.style.transform = 'translateX(100%)';
-      tabtitle_1.style.color = '#000';
-      tabtitle_2.style.color = '#fff';
-      imgtab1.style.display = 'none';
-    },
+    // tab01() {
+    //   this.tabcheck = false;
+    //   var border = document.querySelector('.tabs .border');
+    //   var background = document.querySelector('.tabs .background');
+    //   var tabtitle_1 = document.querySelector('#tab1-title');
+    //   var tabtitle_2 = document.querySelector('#tab2-title');
+    //   var imgtab1 = document.querySelector('.img-tab1');
+    //   border.style.transform = 'translateX(0)';
+    //   background.style.transform = 'translateX(0)';
+    //   tabtitle_1.style.color = '#fff';
+    //   tabtitle_2.style.color = '#000';
+    // },
+    // tab02() {
+    //   this.tabcheck = true;
+    //   var border = document.querySelector('.tabs .border');
+    //   var background = document.querySelector('.tabs .background');
+    //   var tabtitle_1 = document.querySelector('#tab1-title');
+    //   var tabtitle_2 = document.querySelector('#tab2-title');
+    //   var imgtab1 = document.querySelector('.img-tab1');
+    //   border.style.transform = 'translateX(100%)';
+    //   background.style.transform = 'translateX(100%)';
+    //   tabtitle_1.style.color = '#000';
+    //   tabtitle_2.style.color = '#fff';
+    //   imgtab1.style.display = 'none';
+    // },
   },
 };
 </script>
@@ -106,7 +102,7 @@ export default {
 }
 .tabs .border {
   position: absolute;
-  width: 50%;
+  width: 100%;
   height: 1rem;
   background: #256eff;
   bottom: 0;
@@ -116,7 +112,7 @@ export default {
 .tabs .background {
   z-index: 1;
   position: absolute;
-  width: 50%;
+  width: 100%;
   height: 100%;
   background: #f3118e;
   bottom: 0;
@@ -125,6 +121,8 @@ export default {
 #tab1-title {
   color: #fff;
   font-size: 1.2rem;
+  padding-left: 90%;
+  letter-spacing: 1rem;
 }
 #tab2-title {
   color: #000;
