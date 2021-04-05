@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="event-ct">
     <div class="event-index" v-for="(event, idx) in events" :key="idx">
       <div class="card">
         <figure>
@@ -68,8 +68,13 @@ h1 {
   font-size: 1.2rem;
   text-transform: capitalize;
 }
-
+.event-ct {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
 .card {
+  margin-bottom: 2rem;
   margin-right: 20px;
   position: relative;
   border-radius: 5px;
