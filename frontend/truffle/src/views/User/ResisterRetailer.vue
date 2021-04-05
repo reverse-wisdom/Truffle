@@ -63,7 +63,28 @@
             <div class="b">-</div>
             <input maxlength="4" type="text" v-model="phone_num3" />
           </div>
-          <button class="signup-btn" type="submit" @click.prevent="verifyphone">본인인증</button>
+          <!-- <button class="signup-btn" type="submit" @click.prevent="verifyphone">본인인증</button>
+           -->
+          <v-col cols="auto">
+            <v-dialog transition="dialog-top-transition" max-width="600">
+              <template v-slot:activator="{ on, attrs }" v-show="$store.state.type == '2' && new Date(this.event.end_date) < Date.now()">
+                <button class="signup-btn" v-bind="attrs" @click.prevent="verifyphone" v-on="on">인증번호</button>
+              </template>
+              <template v-slot:default="dialog">
+                <v-card>
+                  <v-toolbar color="dark" dark>Opening from the top</v-toolbar>
+                  <v-card-text>
+                    <div class="text-h2 pa-12" v-for="(win, index) in modal" :key="index">
+                      <p id="win_email">{{ win }}</p>
+                    </div>
+                  </v-card-text>
+                  <v-card-actions class="justify-end">
+                    <v-btn text @click="dialog.value = false">Close</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </template>
+            </v-dialog>
+          </v-col>
           <button class="signup-btn" type="submit" @click.prevent="signup">Sign up</button>
         </form>
       </div>
@@ -78,6 +99,7 @@ export default {
   data() {
     return {
       email: '',
+      dialog: true,
       password: '',
       pwdcheck: '',
       address: '',
