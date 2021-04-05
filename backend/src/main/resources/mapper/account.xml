@@ -5,15 +5,6 @@
 <mapper namespace="com.ssafy.pjt.dao.AccountDao">
 
 	<select
-		id="login"
-		parameterType="loginRequestDto"
-		resultType="AccountDto">
-		select *
-		from account
-		where email = #{email};
-	</select>
-
-	<select
 		id="accountInfo"
 		parameterType="String"
 		resultType="AccountDto">

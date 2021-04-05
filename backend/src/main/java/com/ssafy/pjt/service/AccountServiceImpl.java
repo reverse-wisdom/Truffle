@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.ssafy.pjt.dao.AccountDao;
 import com.ssafy.pjt.dto.AccountDto;
 import com.ssafy.pjt.dto.EventDto;
-import com.ssafy.pjt.dto.LoginRequestDto;
 import com.ssafy.security.PasswordEncoding;
 
 @Service
@@ -21,12 +20,12 @@ public class AccountServiceImpl implements AccountService {
 	PasswordEncoding passwordEncoding = new PasswordEncoding();
 
 	@Override
-	public AccountDto login(LoginRequestDto loginRequestDto) throws SQLException {
-		if (loginRequestDto.getEmail() == null || loginRequestDto.getPassword() == null)
+	public AccountDto login(AccountDto accountDto) throws SQLException {
+		if (accountDto.getEmail() == null || accountDto.getPassword() == null)
 			return null;
-		String password = accountDao.accountInfo(loginRequestDto.getEmail()).getPassword();
-		if (passwordEncoding.matches(loginRequestDto.getPassword(), password))
-			return accountDao.login(loginRequestDto);
+		String password = accountDao.accountInfo(accountDto.getEmail()).getPassword();
+		if (passwordEncoding.matches(accountDto.getPassword(), password))
+			return accountDao.accountInfo(accountDto.getEmail());
 		else
 			return null;
 	}
