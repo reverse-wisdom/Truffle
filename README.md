@@ -2,51 +2,121 @@
 
 ---
 
-> Truth + Raffle 의 합성어로 한정판에 대한 블록체인 정품 보증 및 구매권 응모(래플) 중개서비스
+> Truth + Raffle 의 합성어로 한정판에 대한 구매권 응모(래플) 중개서비스
 
-![](https://img.shields.io/badge/ubuntu-16.04-orange)![](https://img.shields.io/badge/vue.js-2.6.11-green)![](https://img.shields.io/badge/django-3.1.2-yellow)![](https://img.shields.io/badge/HyperledgerFabric-red)![](https://img.shields.io/badge/sqlite3-green)![](https://img.shields.io/badge/uswgi-blue)![](https://img.shields.io/badge/AWS-EC2-red)
+![](https://img.shields.io/badge/vue.js-2.6.11-green)![](https://img.shields.io/badge/SpringBoot-2.4.2-yellow)![](https://img.shields.io/badge/SpringBootSecurity-pink)![](https://img.shields.io/badge/iamport-0.2.14-blue)![](https://img.shields.io/badge/Swagger2-2.6.1-green)![](https://img.shields.io/badge/MySQL-8.0.23-green)![](https://img.shields.io/badge/AWS-EC2-red)![](https://img.shields.io/badge/ubuntu-16.04-orange)![](https://img.shields.io/badge/Docker-blue)![](https://img.shields.io/badge/Jenkins-red)![](https://img.shields.io/badge/JIRA-blue)![](https://img.shields.io/badge/SonarQube-yellow)
+
+
+
+----
+
+개발환경 실행
+
+​	프론트엔드(vue-js)
+
+```
+npm install
+npm run serve
+```
+
+​	백엔드 (SpringBoot)
+
+```
+STS
+ File - Import Projects from File System or Archieve
+ Import source : /s04p23d110/backend
+Run: 프로젝트 우폴더 클릭후 Run As - SpringBootApp
+```
+
+배포환경 
+
+​	AWS웹서비스 주소 : http://j4d110.p.ssafy.io/
+
+​	젠킨스 자동배포 주소 : http://j4d110.p.ssafy.io:9090/
+
+​    Swagger-ui 주소 : https://j4d110.p.ssafy.io/truffle/swagger-ui.html
+
+---
 
 
 
 ### 기술스택
 
-![image-20210325175501235](README.assets/image-20210325175501235.png)
+ 작성중
 
 ---
 
 ### 업무분담
 
-#### 기획 및 설계
+1. 기획
 
-- 기획서 : 이혜지, 윤예준
-- ERD : 이창근
-- 시퀀스다이어그램 : 이은지
-- 기능정의서(JIRA이슈생성) : 윤예준
-- 화면정의서 및 와이어프레임 : 이원회, 윤예준
-- 1차 발표 PPT : 이혜지
-- 멘토링 발표 PPT : 이혜지
+   기획서 및 기획안 PPT : 이혜지
 
-#### 구현
+   산출물작성
 
-- 백엔드(django) : 이은지 / 이창근
-  - 회원가입,로그인등 REST API 구축
-  - 데이터베이스 구축(SQLite)
-- 블록체인 네트워크 구성(Truffle / 하이퍼레저 패브릭) : 이창근 / 이은지
-- 프론트엔드(Vue.js) : 이혜지 / 윤예준, 이원회
-- 배포(AWS, 젠킨스, Docker) : 윤예준, 이혜지
-  - 배포환경에서의 프론트,백엔드,블록체인(Geth) 구축
-- 지라 관리(마스터) : 윤예준
-  - 스프린트 관리, 이슈생성및 관리
-- 깃랩관리(깃마스터) : 윤예준
-  - 머지 관리
-- 최종발표기획, 작성 : 이원회, 이혜지
-  - PPT, UCC
+   ​	ERD: 윤예준
+
+   ​	와이어프레임 : 이원회
+
+   ​	기능정의서(JIRA이슈) : 윤예준
+
+   ​	시퀀스다이어그램 : 이혜지
+
+   
+
+2. 개발
+
+   테크리더 : 윤예준
+
+   ​	팀 내 기술적인 방향을 정하는 역할
+
+   ​	Git관리 : master,develop에 대한 관리 
+
+   개발자
+
+   ​	프론트엔드(Vue.js) : 이원회, 이혜지
+
+   ​	DataBase설계 (MySQL) : 윤예준
+
+   ​	백엔드(SpringBoot): 윤예준
+
+   ​	배포환경구축 및 자동화(AWS, Docker, Jenkins) : 윤예준
+
+   
+
+3. QA
+
+   기획 산출물을 기반으로 테스트 케이스를 작성 및 수행 : 이원회
+
+   ​	수행결과 버그 발생시 JIRA에 BUG아이템으로 생성 및 관리
+
+   JIRA관리 : 윤예준
+
+   ​	이슈,스프린트생성
+
+   산출물 : 이원회, 이혜지
+
+   ​	테스트 케이스 및 수행 결과
+
+   sonarQube 관리 : 윤예준
+
+   ​	발생한 이슈에 대한 대응(코드 수정 및 알림)
+
+
+
+---
+
+### ERD 다이어그램
+
+![image-20210405212952344](README.assets/image-20210405212952344.png)
 
 ---
 
 
 
 ### 주요 Sequence Diagram
+
+수정중
 
 #### 각 한정판 제품에 대한 검색기능 & 검색 결과 페이지
 
