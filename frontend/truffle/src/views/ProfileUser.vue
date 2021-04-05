@@ -3,8 +3,8 @@
     <v-row>
       <v-col cols="2"></v-col>
       <v-col cols="10">
-        <h1 class="profile">프로필</h1>
-        <hr />
+        <!-- <h1 class="profile">프로필</h1> -->
+        <!-- <hr /> -->
       </v-col>
     </v-row>
     <br />
@@ -148,7 +148,7 @@ p {
 }
 .vtabs input:checked + label {
   color: #404040;
-  border-left: 5px solid #00c4ff;
+  border-left: 5px solid #381dfc;
 }
 .vtabs #tab1:checked ~ .vtab-content #content1,
 .vtabs #tab2:checked ~ .vtab-content #content2,
