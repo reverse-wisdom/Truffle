@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.pjt.dao.OrderDao">
+
+	
+	<insert
+		id="completePayment"
+		parameterType="OrderDto">
+		INSERT INTO
+		`order`(`uuid`,`event_id`,`pay_status`,`imp_uid`,`ship_status`)
+		VALUES
+		(#{uuid},#{event_id},1,#{imp_uid},1);
+	</insert>
+	
+	
+	
+</mapper>
