@@ -56,12 +56,15 @@ export default {
       var event = data[0];
       console.log(event.price);
 
+      // 현재이벤트 상태가 결제됬는지 안됬는지 판단하는 API 추후 구현 예정
+      // 해당 API로 0 반환시(미결제이벤트) 결제진행, else: 결제진행 X
+
       //가맹점 식별코드
       Vue.IMP().request_pay(
         {
           pg: 'inicis',
           pay_method: 'card',
-          merchant_uid: event.event_id, // 이벤트 아이디 매핑
+          merchant_uid: event.event_id + new Date().getTime(), // 이벤트 아이디 매핑, 결제완료시 재결제 불가능하므로 시간난수 추가(테스트용)
           name: event.product, // 이벤트 제품이름 매핑
           amount: event.price, // 이벤트 가격 매핑
           buyer_email: 'iamport@siot.do', // 로그인한유저의 이메일 넣기
@@ -73,7 +76,7 @@ export default {
           //성공할 때 실행 될 콜백 함수
           var msg = '결제가 완료되었습니다.';
           console.log(result_success);
-          msg += '고유ID : ' + result_success.imp_uid;
+          msg += '고유ID : ' + result_success.imp_uid; // imp_uid order테이블에 추가예정
           msg += '상점 거래ID : ' + result_success.merchant_uid;
           msg += '결제 금액 : ' + result_success.paid_amount;
           msg += '카드 승인번호 : ' + result_success.apply_num;
