@@ -1,34 +1,7 @@
 <template>
   <div style="height: 0.0rem">
-    <!-- v-dialog -->
-    <!-- <v-dialog transition="dialog-bottom-transition" max-width="400">
-      <template v-slot:activator="{ on, attrs }">
-        <br />
-        <span class="rank-title" v-bind="attrs" v-on="on">
-          검색어 순위
-        </span>
-      </template>
-      <template v-slot:default="dialog">
-        <v-card color="#D3D3D3">
-          <v-toolbar color="gray" dark>검색어 랭킹</v-toolbar>
-          <v-card-text>
-            <div class="list-type2">
-              <ol id="olid" style="list-style: none;">
-                <div class="mt-7" v-for="item in items" :key="item.rank">
-                  <li><a @click="moveSearch(item.word)" v-text="item.word"></a></li>
-                </div>
-              </ol>
-            </div>
-          </v-card-text>
-          <v-card-actions class="justify-end">
-            <v-btn text @click="dialog.value = false">닫기</v-btn>
-          </v-card-actions>
-        </v-card>
-      </template>
-    </v-dialog> -->
-
     <div class="text-center" style=" display:inline-flex;">
-      <v-carousel style="display:inline-block;" hide-delimiters cycle interval="3000" class="rank_outter" vertical height="300px" :prev-icon="false" :next-icon="false">
+      <v-carousel style="display:inline-block;" hide-delimiters cycle interval="3000" class="rank_outter" vertical height="100px" :prev-icon="false" :next-icon="false">
         <v-carousel-item class="rank" v-for="item in items" :key="item.hit">
           <v-card class="text-center" color="rgba(255, 255, 255, 0.1)" style="padding: 10px 0" width="200px">
             <a @click="moveSearch(item.word)" class="rank">
@@ -87,6 +60,12 @@ export default {
 </script>
 
 <style scoped>
+@font-face {
+  font-family: 'KOTRA_BOLD-Bold';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.1/KOTRA_BOLD-Bold.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
 .rank {
   text-decoration: none;
   transition: all 0.2s ease-in-out;
@@ -106,12 +85,13 @@ export default {
   margin-bottom: 20px;
 }
 .rank_outter {
-  padding-bottom: 100px !important;
+  padding-bottom: 100px;
 }
 a {
-  font-size: 1rem !important;
+  font-size: 0.2rem;
 }
 .rank-word {
-  font-weight: 1500 !important;
+  font-weight: 1000;
+  font-family: 'KOTRA_BOLD-Bold';
 }
 </style>
