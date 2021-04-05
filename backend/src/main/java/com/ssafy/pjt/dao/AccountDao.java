@@ -5,10 +5,9 @@ import java.util.List;
 
 import com.ssafy.pjt.dto.AccountDto;
 import com.ssafy.pjt.dto.EventDto;
-import com.ssafy.pjt.dto.LoginRequestDto;
 
 public interface AccountDao {
-	public AccountDto login(LoginRequestDto loginRequestDto) throws SQLException;
+	public AccountDto login(AccountDto accountDto) throws SQLException;
 
 	public AccountDto accountInfo(String email) throws SQLException;
 

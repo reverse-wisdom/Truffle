@@ -4,10 +4,9 @@ import java.util.List;
 
 import com.ssafy.pjt.dto.AccountDto;
 import com.ssafy.pjt.dto.EventDto;
-import com.ssafy.pjt.dto.LoginRequestDto;
 
 public interface AccountService {
-	public AccountDto login(LoginRequestDto loginRequestDto) throws Exception;
+	public AccountDto login(AccountDto accountDto) throws Exception;
 
 	public AccountDto accountInfo(String email) throws Exception;
 
