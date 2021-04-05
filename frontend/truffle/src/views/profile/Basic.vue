@@ -131,8 +131,8 @@ export default {
   height: 600px;
   margin: 0 auto;
   position: relative;
-  box-shadow: 2px 5px 20px rgba(119, 119, 119, 0.5);
-  margin-bottom: 50px;
+  /* box-shadow: 2px 5px 20px rgba(119, 119, 119, 0.5); */
+  /* margin-bottom: 50px; */
   padding-top: 20px;
 }
 .container-retail {
@@ -141,8 +141,10 @@ export default {
   height: 500px;
   margin: 0 auto;
   position: relative;
+  border-radius: 20px;
   box-shadow: 2px 5px 20px rgba(119, 119, 119, 0.5);
-  margin-bottom: 50px;
+  /* margin-bottom: 50px; */
+  left: 10%;
   padding-top: 20px;
 }
 .box {
@@ -151,23 +153,24 @@ export default {
 }
 h3 {
   font-family: 'Montserrat', sans-serif;
-  color: #7ed386;
+  color: #000;
   font-size: 1.5rem;
-  margin-top: 40px;
+  margin-top: 20px;
   margin-bottom: 35px;
 }
 h4 {
   color: #777;
   font-family: 'Roboto', sans-serif;
   text-transform: uppercase;
-  font-size: 0.9rem;
+  font-size: 1rem;
   letter-spacing: 1px;
   margin-left: 2px;
   margin-top: 10px;
 }
 .input {
   border: 0;
-  border-bottom: 1px solid #3fb6a8;
+  margin: 5px 0;
+  border-bottom: 1px solid #000;
   width: 90%;
   font-family: 'montserrat', sans-serif;
   font-size: 0.8rem;
@@ -184,7 +187,7 @@ h4 {
   font-size: 15px;
   border: 0;
   color: #fff;
-  background: #7ed386;
+  background: #000;
   padding: 7px 15px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
   cursor: pointer;
