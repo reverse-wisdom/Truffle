@@ -68,6 +68,11 @@ export default {
       this.gender = '여성';
     }
     this.fulladdress = data.address + ' ' + data.address_detail;
+    if (this.value.phone.length == 11) {
+      this.value.phone = data.phone.slice(0, 3) + '-' + data.phone.slice(3, 7) + '-' + data.phone.slice(7, 11);
+    } else {
+      this.value.phone = data.phone;
+    }
   },
   methods: {
     async update() {
@@ -90,33 +95,74 @@ export default {
           var editgender = 2;
         }
         if (this.value.type == '1') {
-          const editdata = {
-            email: this.value.email,
-            age: this.value.age,
-            password: this.$store.state.password,
-            gender: editgender,
-            nickname: this.value.nickname,
-            phone: this.value.phone,
-            address: this.value.address,
-            address_detail: this.value.address_detail,
-            type: this.value.type,
-          };
-          console.log(editdata);
-          const { data } = await editUser(editdata);
-          console.log(data);
+          console.log(this.value.phone.length);
+          if (this.value.phone.length == 11) {
+            const phone = this.value.phone;
+            const editdata = {
+              email: this.value.email,
+              password: this.$store.state.password,
+              nickname: this.value.nickname,
+              age: this.value.age,
+              phone: this.value.phone.slice(0, 3) + '-' + this.value.phone.slice(3, 7) + '-' + this.value.phone.slice(7, 11),
+              address: this.value.address,
+              address_detail: this.value.address_detail,
+              business_number: this.value.business_number,
+              type: this.value.type,
+            };
+            console.log(editdata);
+            const { data } = await editUser(editdata);
+          } else if (this.value.phone.length == 13) {
+            const editdata = {
+              email: this.value.email,
+              password: this.$store.state.password,
+              nickname: this.value.nickname,
+              age: this.value.age,
+              phone: this.value.phone,
+              address: this.value.address,
+              address_detail: this.value.address_detail,
+              business_number: this.value.business_number,
+              type: this.value.type,
+            };
+            console.log(editdata);
+            const { data } = await editUser(editdata);
+          } else {
+            this.$swal({
+              icon: 'error',
+              title: '수정실패, 휴대폰을 확인하세요',
+            });
+          }
         } else {
-          const editdata = {
-            email: this.value.email,
-            password: this.$store.state.password,
-            phone: this.value.phone,
-            address: this.value.address,
-            address_detail: this.value.address_detail,
-            business_number: this.value.business_number,
-            type: this.value.type,
-          };
-          console.log(editdata);
-          const { data } = await editUser(editdata);
-          console.log(data);
+          if (this.value.phone.length == 11) {
+            const phone = this.value.phone;
+            const editdata = {
+              email: this.value.email,
+              password: this.$store.state.password,
+              phone: this.value.phone.slice(0, 3) + '-' + this.value.phone.slice(3, 7) + '-' + this.value.phone.slice(7, 11),
+              address: this.value.address,
+              address_detail: this.value.address_detail,
+              business_number: this.value.business_number,
+              type: this.value.type,
+            };
+            console.log(editdata);
+            const { data } = await editUser(editdata);
+          } else if (this.value.phone.length == 13) {
+            const editdata = {
+              email: this.value.email,
+              password: this.$store.state.password,
+              phone: this.value.phone,
+              address: this.value.address,
+              address_detail: this.value.address_detail,
+              business_number: this.value.business_number,
+              type: this.value.type,
+            };
+            console.log(editdata);
+            const { data } = await editUser(editdata);
+          } else {
+            this.$swal({
+              icon: 'error',
+              title: '수정실패, 휴대폰을 확인하세요',
+            });
+          }
         }
       }
     },

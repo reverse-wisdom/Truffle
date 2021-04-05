@@ -357,7 +357,7 @@ label {
 .checkmark {
   position: absolute;
   width: 24px;
-  height: 24xp;
+  height: 24px;
   background: white;
   border: 1px solid #c4c4c4;
   border-radius: 2px;
