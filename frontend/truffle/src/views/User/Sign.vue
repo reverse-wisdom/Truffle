@@ -1,5 +1,5 @@
 <template>
-  <div class="container2">
+  <div class="container">
     <div class="forms-container">
       <div class="signin-signup">
         <!-- 로그인 폼 -->
@@ -119,11 +119,11 @@ export default {
     },
 
     goSignup() {
-      const container = document.querySelector('.container2');
+      const container = document.querySelector('.container');
       container.classList.add('sign-up-mode');
     },
     goSignin() {
-      const container = document.querySelector('.container2');
+      const container = document.querySelector('.container');
       container.classList.remove('sign-up-mode');
     },
 
@@ -150,7 +150,7 @@ p {
   font-size: 0.2rem;
 }
 
-.container2 {
+.container {
   /* margin: 0; */
   padding: 0;
   box-sizing: border-box;
@@ -280,7 +280,7 @@ form.sign-in-form {
   grid-template-columns: repeat(2, 1fr);
 }
 
-.container2:before {
+.container:before {
   content: '';
   position: absolute;
   height: 2000px;
@@ -373,45 +373,45 @@ form.sign-in-form {
 
 /* ANIMATION */
 
-.container2.sign-up-mode:before {
+.container.sign-up-mode:before {
   transform: translate(100%, -50%);
   right: 52%;
 }
 
-.container2.sign-up-mode .left-panel .image,
-.container2.sign-up-mode .left-panel .content {
+.container.sign-up-mode .left-panel .image,
+.container.sign-up-mode .left-panel .content {
   transform: translateX(-800px);
 }
 
-.container2.sign-up-mode .signin-signup {
+.container.sign-up-mode .signin-signup {
   left: 25%;
 }
 
-.container2.sign-up-mode form.sign-up-form {
+.container.sign-up-mode form.sign-up-form {
   opacity: 1;
   z-index: 2;
 }
 
-.container2.sign-up-mode form.sign-in-form {
+.container.sign-up-mode form.sign-in-form {
   opacity: 0;
   z-index: 1;
 }
 
-.container2.sign-up-mode .right-panel .image,
-.container2.sign-up-mode .right-panel .content {
+.container.sign-up-mode .right-panel .image,
+.container.sign-up-mode .right-panel .content {
   transform: translateX(0%);
 }
 
-.container2.sign-up-mode .left-panel {
+.container.sign-up-mode .left-panel {
   pointer-events: none;
 }
 
-.container2.sign-up-mode .right-panel {
+.container.sign-up-mode .right-panel {
   pointer-events: all;
 }
 
 @media (max-width: 870px) {
-  .container2 {
+  .container {
     min-height: 800px;
     height: 100vh;
   }
@@ -423,7 +423,7 @@ form.sign-in-form {
   }
 
   .signin-signup,
-  .container2.sign-up-mode .signin-signup {
+  .container.sign-up-mode .signin-signup {
     left: 50%;
   }
 
@@ -476,7 +476,7 @@ form.sign-in-form {
     font-size: 0.7rem;
   }
 
-  .container2:before {
+  .container:before {
     width: 1500px;
     height: 1500px;
     transform: translateX(-50%);
@@ -487,19 +487,19 @@ form.sign-in-form {
     transition: 2s ease-in-out;
   }
 
-  .container2.sign-up-mode:before {
+  .container.sign-up-mode:before {
     transform: translate(-50%, 100%);
     bottom: 32%;
     right: initial;
   }
 
-  .container2.sign-up-mode .left-panel .image,
-  .container2.sign-up-mode .left-panel .content {
+  .container.sign-up-mode .left-panel .image,
+  .container.sign-up-mode .left-panel .content {
     transform: translateY(-300px);
   }
 
-  .container2.sign-up-mode .right-panel .image,
-  .container2.sign-up-mode .right-panel .content {
+  .container.sign-up-mode .right-panel .image,
+  .container.sign-up-mode .right-panel .content {
     transform: translateY(0px);
   }
 
@@ -508,7 +508,7 @@ form.sign-in-form {
     transform: translateY(300px);
   }
 
-  .container2.sign-up-mode .signin-signup {
+  .container.sign-up-mode .signin-signup {
     top: 5%;
     transform: translate(-50%, 0);
   }
@@ -525,16 +525,16 @@ form.sign-in-form {
   .panel .content {
     padding: 0.5rem 1rem;
   }
-  .container2 {
+  .container {
     padding: 1.5rem;
   }
 
-  .container2:before {
+  .container:before {
     bottom: 72%;
     left: 50%;
   }
 
-  .container2.sign-up-mode:before {
+  .container.sign-up-mode:before {
     bottom: 28%;
     left: 50%;
   }
