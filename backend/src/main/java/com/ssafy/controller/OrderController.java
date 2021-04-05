@@ -39,12 +39,12 @@ public class OrderController {
 	public OrderController() {
 		// i'mport rest api key, secret
 		this.api = new IamportClient("1538295053237784",
-				"aPXsDO8KmvABvbF5vUphFeHQt84sp6DzVB2yqajMGUnb52hBXGSDVzuoHyR6EuGA6I9wTtiznFKtI24G	");
+				"aPXsDO8KmvABvbF5vUphFeHQt84sp6DzVB2yqajMGUnb52hBXGSDVzuoHyR6EuGA6I9wTtiznFKtI24G");
 	}
 
 	@ApiOperation(value = "imp_uid 로 검증 진행")
 	@GetMapping("/verifyIamport")
-	private IamportResponse<Payment> paymentByImpUid(@RequestParam(required = true) final String imp_uid) {
+	private IamportResponse<Payment> verifyIamport(@RequestParam(required = true) final String imp_uid) {
 
 		try {
 			return api.paymentByImpUid(imp_uid);
