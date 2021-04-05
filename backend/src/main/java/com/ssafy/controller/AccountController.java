@@ -48,8 +48,11 @@ public class AccountController {
 	@PostMapping("/login")
 	private ResponseEntity<Map<String, Object>> login(@RequestBody final LoginRequestDto loginRequestDto) {
 		Map<String, Object> resultMap = new HashMap<>();
+		AccountDto accountDto = new AccountDto();
+		accountDto.setEmail(loginRequestDto.getEmail());
+		accountDto.setPassword(loginRequestDto.getPassword());
 		try {
-			AccountDto loginUser = accountService.login(loginRequestDto);
+			AccountDto loginUser = accountService.login(accountDto);
 			if (loginUser != null) {
 				String token = tokenProvider.createToken();
 				System.out.println(token);
