@@ -24,27 +24,69 @@
     <v-btn depressed class="btn" color="error" @click="sweetalertTest3">sweetalert test3</v-btn>
     <br />
 
-    <div>
+    <!-- <div>
       <h2>로컬 파일 테스트</h2>
       <img id="img_test" />
+    </div> -->
+
+    <div>
+      <h2>아임포트결제테스트</h2>
+      <v-btn depressed color="primary" @click="iamport">결제호출</v-btn>
     </div>
   </div>
 </template>
 
 <script>
 import SelectAge from '@/views/select/SelectAge.vue';
-
+import { eventDetail } from '@/api/event';
 export default {
   name: 'Test',
   components: {
     SelectAge,
   },
   created() {
-    var filePath = 'file:///volumes/data/df48f6e7-eda0-490f-8aa4-8e8f2c94bb0c.png';
-    var output = document.getElementById('img_test');
-    output.src = this.readTextFile(filePath);
+    // var filePath = 'file:///volumes/data/df48f6e7-eda0-490f-8aa4-8e8f2c94bb0c.png';
+    // var output = document.getElementById('img_test');
+    // output.src = this.readTextFile(filePath);
   },
   methods: {
+    async iamport() {
+      var event_id = 25;
+      const { data } = await eventDetail(event_id);
+      var event = data[0];
+      console.log(event.price);
+
+      //가맹점 식별코드
+      Vue.IMP().request_pay(
+        {
+          pg: 'inicis',
+          pay_method: 'card',
+          merchant_uid: event.event_id, // 이벤트 아이디 매핑
+          name: event.product, // 이벤트 제품이름 매핑
+          amount: event.price, // 이벤트 가격 매핑
+          buyer_email: 'iamport@siot.do', // 로그인한유저의 이메일 넣기
+          buyer_name: '구매자이름', // 로그인한 유저의 닉네임 넣기
+          buyer_tel: '010-1234-5678', // 로그인한 유저의 전화번호 넣기
+          buyer_addr: '서울특별시 강남구 삼성동', // 로그인한 유저 주소 넣기
+        },
+        (result_success) => {
+          //성공할 때 실행 될 콜백 함수
+          var msg = '결제가 완료되었습니다.';
+          console.log(result_success);
+          msg += '고유ID : ' + result_success.imp_uid;
+          msg += '상점 거래ID : ' + result_success.merchant_uid;
+          msg += '결제 금액 : ' + result_success.paid_amount;
+          msg += '카드 승인번호 : ' + result_success.apply_num;
+          alert(msg);
+        },
+        (result_failure) => {
+          //실패시 실행 될 콜백 함수
+          var msg = '결제에 실패하였습니다.';
+          msg += '에러내용 : ' + result_failure.error_msg;
+          alert(msg);
+        }
+      );
+    },
     readTextFile(file) {
       var rawFile = new XMLHttpRequest();
       rawFile.open('GET', file, false);
@@ -58,6 +100,7 @@ export default {
       };
       rawFile.send(null);
     },
+
     sweetalertTest1() {
       this.$swal({
         icon: 'success',
