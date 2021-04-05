@@ -19,4 +19,14 @@ public class OrderServiceImpl implements OrderService {
 		return orderDao.completePayment(orderDto) == 1;
 	}
 
+	@Override
+	public OrderDto selectOrderByEventId(int event_id) throws SQLException {
+		return orderDao.selectOrderByEventId(event_id);
+	}
+
+	@Override
+	public boolean deleteOrderByEventId(int event_id) throws SQLException {
+		return orderDao.deleteOrderByEventId(event_id) == 1;
+	}
+
 }
