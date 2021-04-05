@@ -4,9 +4,11 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +29,8 @@ import com.ssafy.pjt.service.AccountServiceImpl;
 import com.ssafy.pjt.service.TokenProvider;
 
 import io.swagger.annotations.ApiOperation;
+import net.nurigo.java_sdk.api.Message;
+import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
 /**
  * http://localhost:8000/truffle/swagger-ui.html
@@ -42,7 +46,6 @@ public class AccountController {
 
 	@Autowired
 	private AccountServiceImpl accountService;
-
 
 	@ApiOperation(value = "로그인")
 	@PostMapping("/login")
@@ -90,7 +93,7 @@ public class AccountController {
 	@ApiOperation(value = "회원가입", notes = "uuid값 제외한값으로 입력")
 	@PostMapping("/signUp")
 	private ResponseEntity<String> signUp(@RequestBody final AccountDto accountDto) {
-		
+
 		try {
 			boolean result = accountService.signUp(accountDto);
 			if (result) {
@@ -172,6 +175,39 @@ public class AccountController {
 		} catch (SQLException e) {
 			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
 		}
+	}
+
+	@ApiOperation(value = "휴대폰 번호 인증 테스트", notes = "반환되는 숫자와 입력한 휴대폰번호로 수신된 문자에서 숫자값과 비교하여 인증 진행")
+	@GetMapping("/verifyPhoneNumber")
+	private String verifyPhoneNumber(@RequestParam(required = true) final String phone) {
+
+		Random rand = new Random();
+		String numStr = "";
+		for (int i = 0; i < 4; i++) {
+			String ran = Integer.toString(rand.nextInt(10));
+			numStr += ran;
+		}
+
+		String api_key = "NCSIVOZHLC9Z7CJW";
+		String api_secret = "MJMUXFFTXNCDXYLCX2QECLGFQCMTEKOY";
+		Message coolsms = new Message(api_key, api_secret);
+
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("to", phone); // 수신전화번호
+		params.put("from", "01094927120"); // 발신전화번호.
+		params.put("type", "SMS");
+		params.put("text", "트러플 휴대폰인증 테스트 메시지 : 인증번호는" + "[" + numStr + "]" + "입니다.");
+		params.put("app_version", "test app 1.2");
+
+		try {
+			JSONObject obj = (JSONObject) coolsms.send(params);
+			System.out.println(obj.toString());
+		} catch (CoolsmsException e) {
+			System.out.println(e.getMessage());
+			System.out.println(e.getCode());
+			System.out.println("error");
+		}
+		return numStr;
 	}
 
 }
