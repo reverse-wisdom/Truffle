@@ -10,13 +10,16 @@
             <v-file-input
               id="thumbnail"
               name="thumbnail"
-              v-model="image"
+              v-model="detailImg"
               show-size
               label="썸네일 이미지 (입력창을 클릭해주세요)"
               @change="Preview_image($event)"
               style="display:inline-block; cursor : pointer;"
             ></v-file-input>
-            <v-img :src="event.imgFile" id="preview"></v-img>
+            <div class="img-showcase">
+              <!-- 이미지 -->
+              <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" alt="" />
+            </div>
           </div>
           <v-select :items="items" v-model="event.category" label="카테고리" dense solo></v-select>
           <div class="input-container gender">
@@ -119,7 +122,7 @@
 </template>
 
 <script>
-import { eventDetail, eventUpdate } from '@/api/event';
+import { eventDetail, eventUpdate, returnImage64 } from '@/api/event';
 
 export default {
   data: (vm) => ({
@@ -141,14 +144,17 @@ export default {
     win_num: '',
 
     event: '',
-
+    detailImg: '',
     url: null,
-    image: null,
+    // image: null,
   }),
   async created() {
     const event_id = this.$route.query.event_id;
     console.log(event_id);
     const { data } = await eventDetail(event_id);
+    const response = await returnImage64(event_id);
+    console.log('이미지', response.data);
+    this.detailImg = response.data;
     console.log('수정', data);
     this.event = data[0];
     var $vm = this;
@@ -173,6 +179,7 @@ export default {
       $('#summernote').summernote('pasteHTML', data[0].detail);
     });
   },
+
   computed: {
     computedDateFormatted() {
       return this.formatDate(this.date);
@@ -186,7 +193,7 @@ export default {
 
   methods: {
     Preview_image() {
-      this.url = URL.createObjectURL(this.image);
+      this.url = URL.createObjectURL(this.detailImg);
     },
     formatDate(date) {
       if (!date) return null;
@@ -202,20 +209,22 @@ export default {
     },
     async Update() {
       const eventData = {
-        age: this.age,
-        category: this.category,
+        uuid: this.$store.state.retailuuid,
+        event_id: this.event.event_id,
+        age: this.event.age,
+        category: this.event.category,
         detail: $('#summernote').summernote('code'),
-        open_date: this.open_date,
-        end_date: this.end_date,
-        gender: this.gender,
-        price: this.price,
-        product: this.product,
-        win_num: this.win_num,
+        open_date: this.event.open_date,
+        end_date: this.event.end_date,
+        gender: this.event.gender,
+        price: this.event.price,
+        product: this.event.product,
+        win_num: this.event.win_num,
       };
-      console.log(eventData);
+      console.log('이벤트데이타', eventData);
 
-      const { data } = await eventUpdate(eventData);
-      console.log(data);
+      const data = await eventUpdate(eventData);
+      console.log('수정완료', data);
 
       this.$swal({
         icon: 'success',
@@ -583,8 +592,8 @@ input[type='radio'] {
   color: #fff;
 }
 #preview {
-  max-height: 200px;
-  max-width: 200px;
+  max-height: 100px;
+  max-width: 100px;
   display: inline-block;
   margin-left: 5%;
 }
