@@ -10,6 +10,8 @@
             </div>
           </div>
         </div>
+        <!-- 이미지 -->
+        <img :src="detailImg" alt="" />
         <!-- card right -->
         <div class="product-content">
           <h2 class="product-title">{{ event.product }}</h2>
@@ -105,8 +107,8 @@
 
 <script>
 import EventDetailTab from '@/views/event/EventDetailTab';
-import { eventDetail, eventJoin, checkPartipants, createPartipants, selectedWinner, createWinner } from '@/api/event';
-import { fetchUser } from '@/api/auth';
+import { returnImage64, eventDetail, eventJoin, checkPartipants, createPartipants, selectedWinner, createWinner, returnImage } from '@/api/event';
+
 export default {
   name: 'EventDetail',
   components: { EventDetailTab },
@@ -123,6 +125,7 @@ export default {
       MaskingEmail: '',
       emailLen: '',
       dialog: true,
+      detailImg: '',
     };
   },
   computed: {
@@ -134,13 +137,18 @@ export default {
   async created() {
     const event_id = this.$route.query.event_id;
     const { data } = await eventDetail(event_id);
-    console.log(data, '생성 디테일');
     this.event = data[0];
     if (this.event.gender == 1) {
       this.gender = '남자';
     } else {
       this.gender = '여자';
     }
+    //이미지불러오기
+    const resImage = await returnImage64(this.event.event_id);
+    console.log('이미지', resImage);
+    this.detailImg = 'data:image/jpg;base64,'.concat(this.detailImg.concat(resImage));
+
+    //당첨자 불러오기
     const response = await selectedWinner(this.event.event_id);
     if (response.data.length != 0) {
       const target = document.getElementById('winnerbtn');
