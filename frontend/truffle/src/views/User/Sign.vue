@@ -33,27 +33,27 @@
 
     <div class="panels-container">
       <div class="panel left-panel">
-        <div class="content">
+        <div class="content left-content">
           <h3>어서오세요 트러플 회원님!</h3>
           <p style="font-size: 0.8rem;">
-            서비스 이용을 위해 로그인을 진행해주세요 서비스 이용을 위해 로그인을 진행해주세요 서비스 이용을 위해 로그인을 진행해주세요
+            서비스 이용을 위해 로그인을 진행해주세요.
           </p>
           <p style="font-size:10px; margin-bottom: -1rem;">계정이 없으신가요?</p>
           <button class="btn transparent" id="sign-up-btn" @click="goSignup">
-            →SIGN UP
+            SIGN-UP
           </button>
         </div>
         <img src="img/log.svg" class="image" alt="" />
       </div>
       <div class="panel right-panel">
-        <div class="content">
+        <div class="content right-content">
           <h3>환영합니다!</h3>
-          <p>
-            서비스 이용을 위해 회원가입을 진행해주세요 서비스 이용을 위해 회원가입을 진행해주세요 서비스 이용을 위해 회원가입을 진행해주세요
+          <p style="font-size: 0.8rem;">
+            서비스 이용을 위해 회원가입을 진행해주세요.
           </p>
           <p style="font-size:10px; margin-bottom: -1rem;">이미 계정이 있으신가요?</p>
           <button class="btn transparent" id="sign-in-btn" @click="goSignin">
-            →SIGN IN
+            SIGN-IN
           </button>
         </div>
         <img src="img/register.svg" class="image" alt="" />
@@ -250,7 +250,7 @@ form.sign-in-form {
 } */
 
 .btn {
-  width: 150px;
+  width: 300px;
   background-color: #000;
 
   /* background-color: #5995fd; */
@@ -276,7 +276,7 @@ form.sign-in-form {
   width: 100%;
   top: 0;
   left: 0;
-  display: grid;
+  display: block;
   grid-template-columns: repeat(2, 1fr);
 }
 
@@ -323,6 +323,18 @@ form.sign-in-form {
   color: #fff;
   transition: transform 0.9s ease-in-out;
   transition-delay: 0.6s;
+
+  z-index: 7;
+}
+.left-content {
+  position: absolute;
+  top: 25%;
+  left: 10%;
+}
+.right-content {
+  position: absolute;
+  top: 25%;
+  right: 10%;
 }
 
 .panel h3 {
@@ -340,21 +352,21 @@ form.sign-in-form {
   margin: 0;
   background: none;
   /* border: 2px solid #000; */
-  width: 130px;
+  width: 200px;
   height: 41px;
-  font-weight: 600;
-  font-size: 0.8rem;
+  font-weight: 1000;
+  font-size: 2rem;
 }
 
 .btn.transparent:hover {
   margin: 0;
   background: none;
   border: 2px solid #fff;
-  width: 130px;
+  width: 200px;
   height: 41px;
   color: #fff;
-  font-weight: 600;
-  font-size: 0.8rem;
+  font-weight: 1000;
+  font-size: 2.3rem;
 }
 .btn.solid:hover {
   margin: 0;
