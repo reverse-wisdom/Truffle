@@ -51,7 +51,6 @@
       </div>
     </div>
     <div class="space"></div>
-    <div class="linestyle"></div>
 
     <div>
       <div class="box">
@@ -83,6 +82,7 @@
     <br />
     <br />
     <div>
+      <div class="linestyle"></div>
       <h1 id="deadline"># 응모 마감이 얼마 남지 않은 이벤트</h1>
       <EndEventList></EndEventList>
     </div>
@@ -251,8 +251,14 @@ export default {
 };
 </script>
 <style scoped>
+@font-face {
+  font-family: 'KOTRA_BOLD-Bold';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.1/KOTRA_BOLD-Bold.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
 .space {
-  margin-top: 45rem;
+  margin-top: 60rem;
 }
 
 * {
@@ -426,10 +432,12 @@ section::after {
 }
 .title-search {
   text-align: center;
+  height: auto;
   margin-bottom: 2rem;
   letter-spacing: 0.2rem;
-  font-size: 1.2rem;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 2rem;
+  /* font-weight: bold; */
+  font-family: 'KOTRA_BOLD-Bold';
 }
 /* .left-col {
   background: #d45b48;
@@ -732,7 +740,7 @@ section::after {
 .linestyle {
   width: 100vw;
   height: 10px;
-  margin-top: 30px;
+  /* margin-top: 10rem; */
   background-color: #f9f9f9;
 }
 
@@ -752,8 +760,9 @@ h1 {
 .box {
   margin-bottom: 200px;
   position: absolute;
-  top: 25%;
-  left: 35%;
+  /* top: 25%; */
+  left: 20%;
+  width: auto;
   margin: 0 auto;
 }
 input {
@@ -765,7 +774,7 @@ input {
 input[type='text'] {
   /* border: #000; */
   background: #eaeaea;
-  width: 340px;
+  width: 50vw;
   height: 50px;
   border: none;
   border-radius: 25px 0 0 25px;
@@ -775,10 +784,10 @@ input[type='text'] {
 }
 input[type='button'] {
   position: relative;
-  left: -5px;
+  /* left: -5px; */
   border-radius: 0 25px 25px 0;
   height: 50px;
-  width: 150px;
+  width: 11vw;
   border: none;
   outline: none;
   cursor: pointer;
