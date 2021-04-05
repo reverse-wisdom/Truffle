@@ -61,7 +61,18 @@ function selectedWinner(event_id) {
 function createWinner(winData) {
   return posts.post('/event/insertUserIdWinParticipation', winData);
 }
+
+//이미지 자체로 반환
+function returnImage(event_id) {
+  return posts.get(`/event/selectEventImgFileEventID?event_id=${event_id}`);
+}
+//이미지 파일썸네일출력(base64)
+function returnImage64(event_id) {
+  return posts.get(`/event/selectEventFileBase64ByEventID?event_id=${event_id}`);
+}
 export {
+  returnImage64,
+  returnImage,
   createWinner,
   selectedWinner,
   createPartipants,
