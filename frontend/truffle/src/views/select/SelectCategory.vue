@@ -428,7 +428,7 @@ h1 {
   font-weight: 400;
 }
 .details > .options h1 {
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 .details > .options ul {
   list-style-type: none;
@@ -452,7 +452,7 @@ h1 {
   transition: background-color 0.3s ease-in-out;
 }
 .options-size > ul > li:hover {
-  background-color: #192a56;
+  background-color: #f3118e;
 }
 .options-colors > ul > li {
   border: none;
@@ -473,7 +473,7 @@ h1 {
   background-color: #ff1;
 }
 .btn {
-  background-color: #192a56;
+  background-color: #f3118e;
   border-radius: 5px;
   color: #fff;
   display: block;

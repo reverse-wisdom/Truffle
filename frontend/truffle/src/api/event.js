@@ -10,7 +10,6 @@ function eventDetail(event_id) {
 }
 //이벤트 페이지 작성
 function eventInsert(age, category, detail, end_date, gender, open_date, price, product, uuid, win_num, frm) {
-  // return posts.post('/event/insert', event_data, { headers: { 'Content-Type': 'multipart/form-data' } });
   return posts.post(
     `/event/insert?age=${age}&category=${category}&detail=${detail}&end_date=${end_date}&gender=${gender}&open_date=${open_date}&price=${price}&product=${product}&uuid=${uuid}&win_num=${win_num}`,
     frm,
@@ -74,7 +73,12 @@ function returnImage64(event_id) {
 function searchProduct(product) {
   return posts.get(`/event/selectByProduct?product=${product}`);
 }
+//랭킹조회
+function searchRank() {
+  return instance.get('/event/selectSearchHit');
+}
 export {
+  searchRank,
   searchProduct,
   returnImage64,
   returnImage,
