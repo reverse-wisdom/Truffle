@@ -64,6 +64,7 @@ export default {
       this.$store.commit('clearToken');
       this.$store.commit('clearType');
       this.$store.commit('clearPassword');
+      this.$store.commit('clearNickname');
 
       if (this.$store.state.type == '1') {
         this.$store.commit('clearUuid');
