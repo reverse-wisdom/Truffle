@@ -48,12 +48,12 @@
                   <span>#{{ event.age }}대</span>
                 </div>
                 <div>
-                  <v-chip color="#3D5AFE" text-color="white">응모자{{ event.join_num }}명 / 총추첨인원{{ event.win_num }}명</v-chip>
+                  <v-chip style="background-color:#07b8ac;" text-color="white">응모자{{ event.join_num }}명 / 총추첨인원{{ event.win_num }}명</v-chip>
                 </div>
                 <div>
                   <div style="font-size: 12px; margin: 10px 0;">이벤트종료일:{{ event.end_date }}</div>
                 </div>
-                <a href="#" class="btn" style="margin-top:;" @click="eventDetailGo(event.event_id)">응모현황</a>
+                <a href="#" class="btn" style="margin-top:;" @click="eventDetailGo(event.event_id)">자세히보기</a>
               </div>
             </section>
           </div>
@@ -82,12 +82,12 @@
                   <span>#{{ event.age }}대</span>
                 </div>
                 <div>
-                  <v-chip color="#3D5AFE" text-color="white">응모자{{ event.join_num }}명 / 총추첨인원{{ event.win_num }}명</v-chip>
+                  <v-chip style="background-color:#07b8ac;" text-color="white">응모자{{ event.join_num }}명 / 총추첨인원{{ event.win_num }}명</v-chip>
                 </div>
                 <div>
                   <div style="font-size: 12px; margin: 10px 0;">이벤트종료일:{{ event.end_date }}</div>
                 </div>
-                <a href="#" class="btn" style="margin-top:;" @click="eventDetailGo(event.event_id)">응모현황</a>
+                <a href="#" class="btn" style="margin-top:;" @click="eventDetailGo(event.event_id)">자세히보기</a>
               </div>
             </section>
           </div>
@@ -116,12 +116,12 @@
                   <span>#{{ event.age }}대</span>
                 </div>
                 <div>
-                  <v-chip color="#3D5AFE" text-color="white">응모자{{ event.join_num }}명 / 총추첨인원{{ event.win_num }}명</v-chip>
+                  <v-chip style="background-color:#07b8ac;" text-color="white">응모자{{ event.join_num }}명 / 총추첨인원{{ event.win_num }}명</v-chip>
                 </div>
                 <div>
                   <div style="font-size: 12px; margin: 10px 0;">이벤트종료일:{{ event.end_date }}</div>
                 </div>
-                <a href="#" class="btn" style="margin-top:;" @click="eventDetailGo(event.event_id)">응모현황</a>
+                <a href="#" class="btn" style="margin-top:;" @click="eventDetailGo(event.event_id)">자세히보기</a>
               </div>
             </section>
           </div>
@@ -150,12 +150,12 @@
                   <span>#{{ event.age }}대</span>
                 </div>
                 <div>
-                  <v-chip color="#3D5AFE" text-color="white">응모자{{ event.join_num }}명 / 총추첨인원{{ event.win_num }}명</v-chip>
+                  <v-chip style="background-color:#07b8ac;" text-color="white">응모자{{ event.join_num }}명 / 총추첨인원{{ event.win_num }}명</v-chip>
                 </div>
                 <div>
                   <div style="margin-top:20px;">이벤트종료일:{{ event.end_date }}</div>
                 </div>
-                <a href="#" class="btn" style="margin-top:;" @click="eventDetailGo(event.event_id)">응모현황</a>
+                <a href="#" class="btn" style="margin-top:;" @click="eventDetailGo(event.event_id)">자세히보기</a>
               </div>
             </section>
           </div>
@@ -183,12 +183,12 @@
                   <span>#{{ event.age }}대</span>
                 </div>
                 <div>
-                  <v-chip color="#3D5AFE" text-color="white">응모자{{ event.join_num }}명 / 총추첨인원{{ event.win_num }}명</v-chip>
+                  <v-chip style="background-color:#07b8ac;" text-color="white">응모자{{ event.join_num }}명 / 총추첨인원{{ event.win_num }}명</v-chip>
                 </div>
                 <div>
                   <div style="font-size: 12px; margin: 10px 0;">이벤트종료일:{{ event.end_date }}</div>
                 </div>
-                <a href="#" class="btn" style="margin-top:;" @click="eventDetailGo(event.event_id)">응모현황</a>
+                <a href="#" class="btn" style="margin-top:;" @click="eventDetailGo(event.event_id)">자세히보기</a>
               </div>
             </section>
           </div>
@@ -216,12 +216,12 @@
                   <span>#{{ event.age }}대</span>
                 </div>
                 <div>
-                  <v-chip color="#3D5AFE" text-color="white">응모자{{ event.join_num }}명 / 총추첨인원{{ event.win_num }}명</v-chip>
+                  <v-chip style="background-color:#07b8ac;" text-color="white">응모자{{ event.join_num }}명 / 총추첨인원{{ event.win_num }}명</v-chip>
                 </div>
                 <div>
                   <div style="margin-top:20px;">이벤트종료일:{{ event.end_date }}</div>
                 </div>
-                <a href="#" class="btn" style="margin-top:;" @click="eventDetailGo(event.event_id)">응모현황</a>
+                <a href="#" class="btn" style="margin-top:;" @click="eventDetailGo(event.event_id)">자세히보기</a>
               </div>
             </section>
           </div>
@@ -249,12 +249,12 @@
                   <span>#{{ event.age }}대</span>
                 </div>
                 <div>
-                  <v-chip color="#3D5AFE" text-color="white">응모자{{ event.join_num }}명 / 총추첨인원{{ event.win_num }}명</v-chip>
+                  <v-chip style="background-color:#07b8ac;" class="join-win" text-color="white">응모자{{ event.join_num }}명 / 총추첨인원{{ event.win_num }}명</v-chip>
                 </div>
                 <div>
                   <div style="font-size: 12px; margin: 10px 0;">이벤트종료일:{{ event.end_date }}</div>
                 </div>
-                <a href="#" class="btn" style="margin-top:;" @click="eventDetailGo(event.event_id)">응모현황</a>
+                <a href="#" class="btn" style="margin-top:;" @click="eventDetailGo(event.event_id)">자세히보기</a>
               </div>
             </section>
           </div>
@@ -458,7 +458,9 @@ h1 {
   font-weight: 900;
   font-size: 1rem;
 }
-
+#agecontent1 > div:nth-child(4) > div > section > div.min-details > div:nth-child(2) > span:nth-child(1) {
+  background-color: #07b8ac;
+}
 .details > .options h1 {
   margin-bottom: 10px;
 }

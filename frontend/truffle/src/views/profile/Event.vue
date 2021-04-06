@@ -24,7 +24,7 @@
                 <h1>마감일:{{ event.end_date }}</h1>
               </div>
             </div>
-            <a class="btn" @click="eventDetailGo">응모현황</a>
+            <a href="#" class="btn" @click="eventDetailGo">자세히보기</a>
           </section>
         </div>
       </div>
@@ -53,7 +53,7 @@
                 <h1>마감일:{{ event.end_date }}</h1>
               </div>
             </div>
-            <a class="btn" @click="eventDetailGo">응모현황</a>
+            <a href="#" class="btn" @click="eventDetailGo">자세히보기</a>
           </section>
         </div>
       </div>

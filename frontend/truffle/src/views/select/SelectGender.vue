@@ -30,12 +30,12 @@
                   <span>#{{ event.age }}대</span>
                 </div>
                 <div>
-                  <v-chip color="#3D5AFE" text-color="white">응모자{{ event.join_num }}명 / 총추첨인원{{ event.win_num }}명</v-chip>
+                  <v-chip style="background-color:#07b8ac;" text-color="white">응모자{{ event.join_num }}명 / 총추첨인원{{ event.win_num }}명</v-chip>
                 </div>
                 <div>
                   <div style="font-size: 12px; margin: 10px 0;">이벤트종료일:{{ event.end_date }}</div>
                 </div>
-                <a href="#" class="btn" style="margin-top:;" @click="eventDetailGo(event.event_id)">응모현황</a>
+                <a href="#" class="btn" style="margin-top:;" @click="eventDetailGo(event.event_id)">자세히보기</a>
               </div>
             </section>
           </div>
@@ -64,12 +64,12 @@
                   <span>#{{ event.age }}대</span>
                 </div>
                 <div>
-                  <v-chip color="#3D5AFE" text-color="white">응모자{{ event.join_num }}명 / 총추첨인원{{ event.win_num }}명</v-chip>
+                  <v-chip style="background-color:#07b8ac;" text-color="white">응모자{{ event.join_num }}명 / 총추첨인원{{ event.win_num }}명</v-chip>
                 </div>
                 <div>
                   <div style="font-size: 12px; margin: 10px 0;">이벤트종료일:{{ event.end_date }}</div>
                 </div>
-                <a href="#" class="btn" style="margin-top:;" @click="eventDetailGo(event.event_id)">응모현황</a>
+                <a href="#" class="btn" style="margin-top:;" @click="eventDetailGo(event.event_id)">자세히보기</a>
               </div>
             </section>
           </div>
@@ -114,11 +114,11 @@ export default {
     GenderArray.reverse();
     this.GenderArray = GenderArray.slice(0, 4);
     console.log('성별', this.GenderArray);
-    $('#content1').addClass('display');
+    $('#gendercontent1').addClass('display');
   },
   methods: {
     async selectGender() {
-      $('#content1').removeClass('display');
+      $('#gendercontent1').removeClass('display');
       const gender = this.gender;
       // console.log('성별확인', gender);
       const { data } = await eventSelectGender(gender);
@@ -199,8 +199,8 @@ input:checked + label {
   border-bottom: 1px solid #ffffff;
 }
 
-#gd1:checked ~ #content1,
-#gd2:checked ~ #content2 {
+#gd1:checked ~ #gendercontent1,
+#gd2:checked ~ #gendercontent2 {
   display: flex;
   justify-content: center;
   align-items: center;

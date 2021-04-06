@@ -24,7 +24,7 @@
                 <h1>마감일:{{ win.end_date }}</h1>
               </div>
             </div>
-            <a class="btn" @click="eventDetailGo">결제하기</a>
+            <a href="#" class="btn" @click="eventDetailGo">결제하기</a>
           </section>
         </div>
       </div>
@@ -53,7 +53,7 @@
                 <h1>마감일:{{ win.end_date }}</h1>
               </div>
             </div>
-            <a class="btn" @click="eventDetailGo">당첨자 현황</a>
+            <a href="#" class="btn" @click="eventDetailGo">당첨자 현황</a>
           </section>
         </div>
       </div>
@@ -67,17 +67,22 @@ import { eventWin } from '@/api/event';
 export default {
   name: 'Win',
   data() {
-    return {};
+    return {
+      value: '',
+    };
   },
   props: {
     win: {
       type: Object,
     },
   },
+  async created() {
+    // const { data } = await eventWin(this.win.event_id);
+    // console.log('당첨자 목록', data);
+    // this.win = data;
+  },
   methods: {
-    eventDetailGo() {
-      this.$router.push({ name: 'EventDetail', query: { event_id: this.win.event_id } });
-    },
+    eventDetailGo() {},
   },
 };
 </script>

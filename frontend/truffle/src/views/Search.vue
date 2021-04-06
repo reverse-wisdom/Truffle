@@ -1,6 +1,9 @@
 <template>
   <div class="container">
     <v-row>
+      <v-img :src="url" max-height="300" max-width="1800"></v-img>
+    </v-row>
+    <v-row>
       <v-col cols="2"></v-col>
       <v-col cols="10">
         <hr />
@@ -30,7 +33,7 @@
       <div class="vtab-content">
         <div id="content1">
           <h1 class="profile">'{{ this.$route.query.product }}'으로 검색한 결과</h1>
-          <SearchOne v-for="(event, idx) in productEvent" :key="idx" :event="event"></SearchOne>
+          <SearchOne v-for="(event, idx) in productEvent" :key="idx" :refs="productEvent" :event="event"></SearchOne>
         </div>
         <div id="content2">
           <Wear></Wear>
@@ -45,7 +48,7 @@
           <Shoes></Shoes>
         </div>
         <div id="content6">
-          <Digita></Digita>
+          <Digital></Digital>
         </div>
         <div id="content7">
           <Hobby></Hobby>
@@ -82,6 +85,7 @@ export default {
   data() {
     return {
       productEvent: [],
+      url: require('@/assets/img/event.png'),
     };
   },
   async created() {
