@@ -56,7 +56,7 @@
                 <div style="font-size: 12px; margin: 10px 0;">이벤트종료일:{{ win.end_date }}</div>
               </div>
 
-              <a class="btn" @click="eventDetailGo">자세히보기</a>
+              <a class="btn" @click="eventDetailGo">추첨자뽑기</a>
             </div>
           </section>
         </div>
