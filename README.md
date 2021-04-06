@@ -12,21 +12,25 @@
 
 개발환경 실행
 
-​	프론트엔드(vue-js)
-
-```
-npm install
-npm run serve
-```
-
 ​	백엔드 (SpringBoot)
-
 ```
 STS
  File - Import Projects from File System or Archieve
  Import source : /s04p23d110/backend
 Run: 프로젝트 우폴더 클릭후 Run As - SpringBootApp
+실행백엔드서버: http://localhost:8000
+API문서 주소(Swagger): http://localhost:8000/truffle/swagger-ui.html
 ```
+
+
+​	프론트엔드(vue-js)
+```
+npm install
+npm run serve
+실행 프론트엔드: http://localhost:8080/
+```
+
+
 
 배포환경 
 
