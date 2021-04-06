@@ -4,9 +4,9 @@
       <h1>TRUFFLE</h1>
       <div class="detail">쇼핑에 재미와 신뢰를 더하다</div>
       <div class="overlay"></div>
-      <v-btn @click="goGuide" class="mainbtn" elevation="2" large outlined text color="white">GUIDE</v-btn>
-      <v-btn @click="goMain" class="mainbtn" elevation="2" large outlined text color="white">MAIN</v-btn>
-      <v-btn @click="goTest" class="mainbtn" elevation="2" large outlined text color="white">TEST</v-btn>
+      <!-- <v-btn @click="goGuide" class="mainbtn" elevation="2" large outlined text color="white">GUIDE</v-btn> -->
+      <button @click="goMain" class="home-btn" type="submit" @click.prevent="signup">Main</button>
+      <button @click="goGuide" class="home-btn" type="submit" @click.prevent="signup">Guide</button>
     </div>
   </div>
 </template>
@@ -33,16 +33,48 @@ export default {
   padding: 0;
   /* box-sizing: border-box; */
 }
-/* .projects {
-  margin: 0 !important;
-} */
+.home-btn {
+  /* display: block; */
+  margin: 10px 0px;
+  width: 30%;
+  /* background: #80ff00; */
+  background: rgba(128, 255, 0, 0.7);
+  color: #383838;
+  font-weight: 700;
+  border: none;
+  padding: 1rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 10px;
+
+  transform: translateY(600px);
+  animation: 2s slideIn ease-in-out forwards 2s;
+  z-index: 10;
+  opacity: 0;
+}
+.home-btn:hover {
+  /* display: block; */
+  margin: 10px 0px;
+  width: 30%;
+  background: #fff;
+  color: #383838;
+  font-weight: 700;
+  border: none;
+  padding: 1rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 10px;
+  z-index: 10;
+}
 .mcontainer {
   min-height: 100vh;
   position: inherit;
   width: auto;
   margin: 0;
   display: flex;
-  background-color: #6b3ee6;
+  background-color: #80ff00;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -66,7 +98,7 @@ h1 {
   font-weight: 900;
   color: #fff;
   transform: translateY(600px);
-  animation: 0.5s slideIn ease-in-out forwards 0.5s;
+  animation: 2s slideIn ease-in-out forwards 2s;
   z-index: 10;
   opacity: 0;
   letter-spacing: 15px;
@@ -112,9 +144,9 @@ h1 {
   opacity: 0;
   left: 0;
   right: 0;
-  background-color: #000;
+  background: no-repeat center/100% url('../assets/img/boardmen.jpg');
   transform: scale(0.5);
-  animation: 1s slideIn ease-in-out forwards, 1s skewBg ease-in-out;
+  animation: 1.5s slideIn ease-in-out forwards, 1.5s skewBg ease-in-out;
 }
 
 /* .anim-typewriter {
