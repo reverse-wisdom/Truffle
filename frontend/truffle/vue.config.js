@@ -1,7 +1,7 @@
 module.exports = {
   lintOnSave: false, // 저장시 lint 설정
   productionSourceMap: false, //빌드 시에 webpack 내의 코드가 보이지 않도록 설정
-  filenameHashing: true, //빌드 시에 파일 이름에 해쉬값이 없도록 함
+  filenameHashing: true, //빌드 시에 파일 이름에 해쉬값이 없도록 함 ==> 빌드시 웹팩 관련반영 문제로 true로변경
   publicPath: '', // 디폴트가 '/' 인데, root 호스트 중심으로 탐색하므로 상대경로로 갈 수 있도록 publicPath를 공백으로 설정
   // 개발 서버 설정
   devServer: {
