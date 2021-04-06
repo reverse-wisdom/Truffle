@@ -177,10 +177,10 @@ export default {
 .container-user {
   background: #fff;
   width: 60vw;
-  height: 600px;
+  height: 660px;
   margin: 0 auto;
   position: relative;
-  /* box-shadow: 2px 5px 20px rgba(119, 119, 119, 0.5); */
+  box-shadow: 2px 5px 20px rgba(119, 119, 119, 0.5);
   /* margin-bottom: 50px; */
   padding-top: 20px;
 }

@@ -1,6 +1,6 @@
 <template>
   <span class="order">
-    <div class="process-wrapper" v-if="(this.$store.state.type = '1')">
+    <div class="process-wrapper" v-if="this.$store.state.type == '1'">
       <div id="progress-bar-container">
         <ul>
           <li class="step step01 active" @click="step01"><div class="step-inner">결제전</div></li>
@@ -43,44 +43,33 @@
       </div>
     </div>
     <div class="process-wrapper" v-else>
-      <div id="progress-bar-container">
-        <ul>
-          <li class="step step01 active" @click="step01"><div class="step-inner">결제전</div></li>
-          <li class="step step02" @click="step02"><div class="step-inner">결제완료</div></li>
-          <li class="step step03" @click="step03"><div class="step-inner">배송준비중</div></li>
-          <li class="step step04" @click="step04"><div class="step-inner">배송중</div></li>
-          <li class="step step05" @click="step05"><div class="step-inner">배송완료</div></li>
-        </ul>
+      <div class="event-index" v-for="(event, idx) in endevent" ref="endevent" :key="idx">
+        <div class="card">
+          <figure>
+            <img src="@/assets/img/women.jpg" alt="" />
+          </figure>
+          <section class="details">
+            <div class="product-detail">
+              <div class="product">{{ event.product }}</div>
+              <h1 class="price">{{ priceComma[idx] }}원</h1>
+            </div>
+            <div class="min-details">
+              <div>
+                <span>#{{ event.category }}</span>
+                <span>#{{ event.gender }}</span>
+                <span>#{{ event.age }}</span>
+              </div>
 
-        <div id="line">
-          <div id="line-progress"></div>
-        </div>
-      </div>
-
-      <div id="progress-content-section">
-        <div class="section-content discovery active">
-          <h2>결제전</h2>
-          <p>{{ status0 }}}</p>
-        </div>
-
-        <div class="section-content strategy">
-          <h2>결제완료</h2>
-          <p>{{ status1 }}}</p>
-        </div>
-
-        <div class="section-content creative">
-          <h2>배송준비중</h2>
-          <p>{{ status2 }}}</p>
-        </div>
-
-        <div class="section-content production">
-          <h2>배송중</h2>
-          <p>{{ status3 }}}</p>
-        </div>
-
-        <div class="section-content analysis">
-          <h2>배송완료</h2>
-          <p>{{ status4 }}}</p>
+              <div class="">
+                <v-chip style="background-color:#07b8ac;" text-color="white">응모자{{ event.join_num }}명 / 총추첨인원{{ event.win_num }}명</v-chip>
+              </div>
+              <div class="">
+                <div style="font-size: 12px; margin: 10px 0;">이벤트종료일:{{ event.end_date }}</div>
+              </div>
+              <!-- <a class="btn">자세히보기</a> -->
+              <a @click="ManageGo(event.event_id)" class="btn">당첨자관리</a>
+            </div>
+          </section>
         </div>
       </div>
     </div>
@@ -89,7 +78,8 @@
 
 <script>
 import { fetchOrder } from '@/api/order';
-import { userWinEvent } from '@/api/auth';
+import { userWinEvent, retailerAllEvent } from '@/api/auth';
+import { selectedWinner } from '@/api/event';
 export default {
   name: 'Order',
   data() {
@@ -99,17 +89,26 @@ export default {
       status2: [],
       status3: [],
       status4: [],
+      endevent: '',
     };
   },
+  computed: {
+    priceComma: function() {
+      return this.endevent.map(function(event) {
+        return event.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      });
+    },
+  },
   async created() {
+    //// 유저입장
     // 당첨내역조회
     const { data } = await userWinEvent(this.$store.state.email);
-    console.log(data);
+    // console.log(data);
 
     // 이벤트아이디로 결제 조회
     for (let i = 0; i < data.length; i++) {
       const res = await fetchOrder(data[i].event_id);
-      console.log('당첨자 결제조회', res);
+      // console.log('당첨자 결제조회', res);
       if (res.data.uuid == this.$store.state.uuid && res.data.pay_status == 1) {
         this.status1.push(res.data);
       } else if (res.data.uuid == this.$store.state.uuid && res.data.pay_status == 2) {
@@ -122,7 +121,29 @@ export default {
         this.status0.push(res.data);
       }
     }
+
+    //// 리테일러 입장
+    {
+      //마감된 상품
+      const { data } = await retailerAllEvent(this.$store.state.retailuuid);
+      const endevent = [];
+      for (let i = 0; i < data.length; i++) {
+        if (new Date(data[i].end_date) < Date.now()) {
+          endevent.push(data[i]);
+        }
+      }
+      this.endevent = endevent;
+
+      const winner = [];
+      for (let i = 0; i < endevent.length; i++) {
+        // 당첨자 조회
+        var res = await selectedWinner(endevent[i].event_id);
+        winner.push(res);
+      }
+      console.log(res);
+    }
   },
+
   methods: {
     step01() {
       $('.step').click(function() {
@@ -202,6 +223,9 @@ export default {
         .addClass('active')
         .siblings()
         .removeClass('active');
+    },
+    ManageGo(event_id) {
+      this.$router.push({ name: 'WinnerManage', query: { event_id: event_id } });
     },
   },
 };
@@ -390,5 +414,116 @@ h4 {
     transform: translateY(0px);
     opacity: 1;
   }
+}
+
+/* card */
+.product-detail > .product {
+  margin: 3px 0;
+  font-size: 1.5rem;
+  font-weight: 900;
+}
+.product-detail > .price {
+  display: flex;
+  font-weight: 900;
+  font-size: 1rem;
+  color: #256eff;
+  flex-direction: row-reverse;
+  margin-top: 10px;
+}
+/* * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+} */
+.event {
+  width: 15vw;
+  margin-bottom: 50px;
+  display: inline-table;
+}
+.event-index {
+  display: flex;
+  align-items: center;
+  min-height: auto;
+  /* justify-content: space-around; */
+  font-family: 'Poppins', sans-serif;
+}
+h1 {
+  font-size: 1.2rem;
+  text-transform: capitalize;
+}
+
+.card {
+  margin-right: 20px;
+  position: relative;
+  border-radius: 5px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+  height: 400px;
+  overflow: hidden;
+  width: 280px;
+}
+.card > figure {
+  width: 90%;
+  margin: 20px auto 0 auto;
+}
+.card > .idx-box {
+  background: #000;
+  color: #fff;
+  text-align: center;
+}
+.card > figure > img {
+  width: 100%;
+}
+.details {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  position: absolute;
+  top: 60%;
+  width: 100%;
+  transition: box-shadow 0.3s ease-in-out, top 0.3s ease-in-out;
+}
+.card:hover .details {
+  box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.3);
+  top: 30%;
+}
+.details > .min-details,
+.details > .options,
+.details > .options > .options-colors {
+  margin: 5px 0;
+}
+.details > .min-details {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  font-weight: 900;
+  font-size: 1rem;
+}
+
+.details > .options h1 {
+  margin-bottom: 10px;
+}
+.details > .options-size {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn {
+  background-color: #f3118e;
+  border-radius: 5px;
+  color: #fff;
+  display: block;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: capitalize;
+  width: 100%;
+  padding-bottom: 10px;
+  transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+.btn:hover {
+  box-shadow: 0 8px 10px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
 }
 </style>

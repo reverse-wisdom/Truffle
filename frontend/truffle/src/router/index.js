@@ -16,6 +16,7 @@ import ResisterUser from '../views/User/ResisterUser.vue';
 import ResisterRetailer from '../views/User/ResisterRetailer.vue';
 
 import ProfileUser from '../views/ProfileUser.vue';
+import WinnerManage from '../views/WinnerManage.vue';
 
 import EventAll from '../views/event/EventAll.vue';
 import EventDetail from '../views/event/EventDetail.vue';
@@ -29,6 +30,7 @@ import QnAdetail from '../views/QnA/QnAdetail.vue';
 
 import Search from '../views/Search.vue';
 import CategoryAll from '../views/CategoryAll.vue';
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -103,6 +105,11 @@ const routes = [
     path: '/eventUpdate',
     name: 'EventUpdate',
     components: { default: EventUpdate, header: MainNavbar },
+  },
+  {
+    path: '/winnermanage',
+    name: 'WinnerManage',
+    components: { default: WinnerManage, header: MainNavbar },
   },
 
   // QnA
