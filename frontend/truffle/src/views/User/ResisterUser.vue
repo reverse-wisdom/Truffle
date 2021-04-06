@@ -343,7 +343,8 @@ a:hover {
 .left {
   background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), url('../../assets/img/hero.jpg');
   background-size: cover;
-  height: 100%;
+  height: 100vh;
+  margin-bottom: 0;
 }
 .left .copy {
   color: white;

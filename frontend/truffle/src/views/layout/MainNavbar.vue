@@ -130,7 +130,7 @@ header {
 .nav__links li:hover {
   padding: 9px 15px;
   color: #fff;
-  background-color: #381dfc;
+  background-color: #07b8ac;
   font-size: 1rem;
 }
 
@@ -144,7 +144,7 @@ header {
 .nav__links li a:hover {
   color: #fff;
   padding: 9px 15px;
-  background-color: #381dfc;
+  background-color: #07b8ac;
   /* font-size: 1rem; */
 }
 
@@ -161,7 +161,7 @@ header {
 
 .cta:hover {
   color: #fff;
-  background-color: #381dfc;
+  background-color: #07b8ac;
   font-size: 1.5rem;
 }
 

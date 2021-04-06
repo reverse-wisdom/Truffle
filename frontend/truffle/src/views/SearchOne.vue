@@ -24,7 +24,7 @@
                 <h1>마감일:{{ event.end_date }}</h1>
               </div>
             </div>
-            <a href="#" class="btn" @click="eventDetailGo">응모현황</a>
+            <a href="#" class="btn" @click="eventDetailGo">자세히보기</a>
           </section>
         </div>
       </div>
@@ -32,28 +32,32 @@
     <div v-else>
       <div class="event-index">
         <div class="card">
+          <!-- <div class="idx-box">{{ idx + 1 }}위</div> -->
           <figure>
             <img src="@/assets/img/women.jpg" alt="" />
+            <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" alt="" />
           </figure>
+
           <section class="details">
+            <div class="product-detail">
+              <div class="product">{{ event.product }}</div>
+              <div class="price">{{ priceComma[idx] }}원</div>
+            </div>
             <div class="min-details">
-              <h1>
-                {{ event.product }}
-                <span>카테고리:{{ event.category }}</span>
-                <span>성별:{{ event.gender }}</span>
-                <span>연령대:{{ event.age }}</span>
-              </h1>
-              <h1 class="price">{{ event.price }}</h1>
-            </div>
-            <div class="options">
-              <div class="options-size">
-                <h1 class="">응모자수:{{ event.join_num }}</h1>
+              <div>
+                <span>#{{ event.category }}</span>
+                <span v-show="event.gender == 1" outlined>#남성</span>
+                <span v-show="event.gender == 2" outlined>#여성</span>
+                <span>#{{ event.age }}대</span>
               </div>
-              <div class="options-colors">
-                <h1>마감일:{{ event.end_date }}</h1>
+              <div>
+                <v-chip style="background-color:#07b8ac;" text-color="white">응모자{{ event.join_num }}명 / 총추첨인원{{ event.win_num }}명</v-chip>
               </div>
+              <div>
+                <div style="font-size: 12px; margin: 10px 0;">이벤트종료일:{{ event.end_date }}</div>
+              </div>
+              <a href="#" class="btn" style="margin-top:;" @click="eventDetailGo(event.event_id)">자세히보기</a>
             </div>
-            <a href="#" class="btn" @click="eventDetailGo">응모현황</a>
           </section>
         </div>
       </div>
