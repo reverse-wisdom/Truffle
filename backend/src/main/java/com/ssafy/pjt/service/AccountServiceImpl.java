@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.ssafy.pjt.dao.AccountDao;
 import com.ssafy.pjt.dto.AccountDto;
 import com.ssafy.pjt.dto.EventDto;
+import com.ssafy.pjt.dto.ParticipationDto;
 import com.ssafy.security.PasswordEncoding;
 
 @Service
@@ -65,6 +66,11 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public List<EventDto> selectCreateEventListByID(int uuid) throws SQLException {
 		return accountDao.selectCreateEventListByID(uuid);
+	}
+
+	@Override
+	public boolean cancelParticipation(ParticipationDto participationDto) throws SQLException {
+		return accountDao.cancelParticipation(participationDto) == 1;
 	}
 
 }
