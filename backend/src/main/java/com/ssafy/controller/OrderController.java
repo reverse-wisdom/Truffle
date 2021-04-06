@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,6 +22,7 @@ import com.siot.IamportRestClient.request.CancelData;
 import com.siot.IamportRestClient.response.IamportResponse;
 import com.siot.IamportRestClient.response.Payment;
 import com.ssafy.pjt.dto.OrderDto;
+import com.ssafy.pjt.dto.OrderUpdateRequestDto;
 import com.ssafy.pjt.service.OrderServiceImpl;
 
 import io.swagger.annotations.ApiOperation;
@@ -96,6 +98,21 @@ public class OrderController {
 	private ResponseEntity<String> deleteOrderByEventId(@RequestParam(required = true) final int event_id) {
 		try {
 			boolean result = orderService.deleteOrderByEventId(event_id);
+			if (result) {
+				return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+			}
+		} catch (SQLException e) {
+			return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+	}
+
+	@ApiOperation(value = "주문상태변경")
+	@PutMapping("/updateOrderStatus")
+	private ResponseEntity<String> updateOrderStatus(
+			@RequestBody(required = true) OrderUpdateRequestDto orderUpdateRequestDto) {
+		try {
+			boolean result = orderService.updateOrderStatus(orderUpdateRequestDto);
 			if (result) {
 				return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
 			}
