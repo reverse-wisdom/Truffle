@@ -32,7 +32,7 @@
                   <h1>마감일:{{ event.end_date }}</h1>
                 </div>
               </div>
-              <a href="#" class="btn" @click="eventDetailGo">응모현황</a>
+              <a href="#" class="btn" @click="eventDetailGo(event.event_id)">응모현황</a>
             </section>
           </div>
         </div>
@@ -121,17 +121,14 @@ export default {
       this.GenderArray = GenderArray.slice(0, 4);
       console.log('성별', this.GenderArray);
     },
-    eventDetailGo() {},
+    eventDetailGo(event_id) {
+      this.$router.push({ name: 'EventDetail', query: { event_id: event_id } });
+    },
   },
 };
 </script>
 
 <style scoped>
-.gender {
-  /* color: #555; */
-  /* background: #eeeeee; */
-}
-
 p {
   margin: 0 0 20px;
   line-height: 1.5;
@@ -149,6 +146,7 @@ p {
   display: none;
   padding: 20px 0 0;
   border-top: 1px solid #ddd;
+  margin-bottom: 200px;
 }
 .display {
   display: flex !important;
