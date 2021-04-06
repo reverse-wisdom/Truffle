@@ -38,7 +38,7 @@
 		set
 		ship_status = #{ship_status},
 		pay_status = #{pay_status}
-		where event_id = #{event_id}
+		where event_id = #{event_id} and uuid = #{uuid}
 	</update>
 		
 	
