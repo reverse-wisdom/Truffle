@@ -12,7 +12,7 @@
     <br />
     <v-btn color="#f3118e" class="btn" style="color:white" @click="goFormDataTest">썸네일테스트</v-btn>
     <br />
-    <SelectAge></SelectAge>
+    <!-- <SelectAge></SelectAge> -->
     <h2 style="font-weight: 900">배포테스트 일자:04-01/20:05</h2>
 
     <v-btn depressed color="primary" @click="sweetalertTest1">sweetalert test1</v-btn>
@@ -37,21 +37,68 @@
       <h2>암호화적용랜덤함수</h2>
       <v-btn depressed color="primary" @click="getRandomIntInclusive(1, 50)">호출</v-btn>
     </div>
+    <div>
+      <h2>이미지호출 테스트</h2>
+      <img :src="imgSrc" alt="" />
+    </div>
+    <div>
+      <h2>이미지호출 테스트2</h2>
+      <img :src="'data:image/jpeg;base64,' + imgSrc2" alt="" />
+    </div>
+
+    <br />
+    <br />
+    <br />
+    <br />
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
   </div>
 </template>
 
 <script>
 import SelectAge from '@/views/select/SelectAge.vue';
-import { eventDetail } from '@/api/event';
+import { eventDetail, returnImage64 } from '@/api/event';
 export default {
   name: 'Test',
   components: {
     SelectAge,
   },
-  created() {
-    // var filePath = 'file:///volumes/data/df48f6e7-eda0-490f-8aa4-8e8f2c94bb0c.png';
-    // var output = document.getElementById('img_test');
-    // output.src = this.readTextFile(filePath);
+  data() {
+    return {
+      imgEventid: null,
+      imgSrc: null,
+      imgSrc2: null,
+    };
+  },
+  async created() {
+    const imgRequstURL = 'https://j4d110.p.ssafy.io/truffle/event/selectEventImgFileEventID?event_id=';
+    this.imgEventid = 54;
+    this.imgSrc = imgRequstURL + this.imgEventid;
+    const { data } = await returnImage64(this.imgEventid);
+    this.imgSrc2 = data;
   },
   methods: {
     getRandomIntInclusive(min, max) {
