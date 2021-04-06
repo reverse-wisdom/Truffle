@@ -31,6 +31,17 @@
 		where event_id = #{event_id};
 	</delete>
 	
+	<update
+		id="updateOrderStatus"
+		parameterType="OrderUpdateRequestDto">
+		update `order`
+		set
+		ship_status = #{ship_status},
+		pay_status = #{pay_status}
+		where event_id = #{event_id}
+	</update>
+		
+	
 	
 	
 </mapper>
