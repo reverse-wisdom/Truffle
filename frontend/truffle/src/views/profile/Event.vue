@@ -1,7 +1,7 @@
 <template>
   <div class="event">
     <div v-if="this.$store.state.type == '1'">
-      <div class="event-index">
+      <div class="event-index" ref="event">
         <div class="card">
           <figure>
             <img src="@/assets/img/women.jpg" alt="" />
@@ -9,7 +9,7 @@
           <section class="details">
             <div class="product-detail">
               <div class="product">{{ event.product }}</div>
-              <h1 class="price">{{ event.price }}</h1>
+              <h1 class="price">{{ priceComma }}원</h1>
             </div>
             <div class="min-details">
               <div>
@@ -32,7 +32,7 @@
       </div>
     </div>
     <div v-else>
-      <div class="event-index">
+      <div class="event-index" ref="event">
         <div class="card">
           <figure>
             <img src="@/assets/img/women.jpg" alt="" />
@@ -40,7 +40,7 @@
           <section class="details">
             <div class="product-detail">
               <div class="product">{{ event.product }}</div>
-              <h1 class="price">{{ event.price }}</h1>
+              <h1 class="price">{{ priceComma }}원</h1>
             </div>
             <div class="min-details">
               <div>
@@ -77,6 +77,11 @@ export default {
       type: Object,
     },
   },
+  computed: {
+    priceComma() {
+      return this.event.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    },
+  },
   methods: {
     eventDetailGo() {
       this.$router.push({ name: 'EventDetail', query: { event_id: this.event.event_id } });
@@ -98,12 +103,13 @@ export default {
   font-size: 1rem;
   color: #256eff;
   flex-direction: row-reverse;
+  margin-top: 10px;
 }
-* {
+/* * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-}
+} */
 .event {
   width: 15vw;
   margin-bottom: 50px;
@@ -133,6 +139,11 @@ h1 {
 .card > figure {
   width: 90%;
   margin: 20px auto 0 auto;
+}
+.card > .idx-box {
+  background: #000;
+  color: #fff;
+  text-align: center;
 }
 .card > figure > img {
   width: 100%;
