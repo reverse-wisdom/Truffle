@@ -17,49 +17,39 @@
 
       <div id="progress-content-section">
         <div class="section-content discovery active">
-          <h2>배송준비중</h2>
-          <p>
-            준비중인 물품들
-          </p>
+          <h2>결제전</h2>
+          <p>{{ status0 }}}</p>
         </div>
 
         <div class="section-content strategy">
-          <h2>배송시작</h2>
-          <p>
-            배송 시작한 물품
-          </p>
+          <h2>결제완료</h2>
+          <p>{{ status1 }}}</p>
         </div>
 
         <div class="section-content creative">
-          <h2>배송중</h2>
-          <p>
-            배송중인 물품
-          </p>
+          <h2>배송준비중</h2>
+          <p>{{ status2 }}}</p>
         </div>
 
         <div class="section-content production">
-          <h2>배송완료</h2>
-          <p>
-            배송완료된 물품
-          </p>
+          <h2>배송중</h2>
+          <p>{{ status3 }}}</p>
         </div>
 
         <div class="section-content analysis">
-          <h2>전달완료</h2>
-          <p>
-            전달완료된 물품
-          </p>
+          <h2>배송완료</h2>
+          <p>{{ status4 }}}</p>
         </div>
       </div>
     </div>
     <div class="process-wrapper" v-else>
       <div id="progress-bar-container">
         <ul>
-          <li class="step step01 active" @click="step01"><div class="step-inner">배송 준비중</div></li>
-          <li class="step step02" @click="step02"><div class="step-inner">배송시작</div></li>
-          <li class="step step03" @click="step03"><div class="step-inner">배송중</div></li>
-          <li class="step step04" @click="step04"><div class="step-inner">배송완료</div></li>
-          <li class="step step05" @click="step05"><div class="step-inner">전달완료</div></li>
+          <li class="step step01 active" @click="step01"><div class="step-inner">결제전</div></li>
+          <li class="step step02" @click="step02"><div class="step-inner">결제완료</div></li>
+          <li class="step step03" @click="step03"><div class="step-inner">배송준비중</div></li>
+          <li class="step step04" @click="step04"><div class="step-inner">배송중</div></li>
+          <li class="step step05" @click="step05"><div class="step-inner">배송완료</div></li>
         </ul>
 
         <div id="line">
@@ -69,38 +59,28 @@
 
       <div id="progress-content-section">
         <div class="section-content discovery active">
-          <h2>결제완료</h2>
-          <p>
-            준비중인 물품들
-          </p>
+          <h2>결제전</h2>
+          <p>{{ status0 }}}</p>
         </div>
 
         <div class="section-content strategy">
-          <h2>배송시작</h2>
-          <p>
-            배송 시작한 물품
-          </p>
+          <h2>결제완료</h2>
+          <p>{{ status1 }}}</p>
         </div>
 
         <div class="section-content creative">
-          <h2>배송중</h2>
-          <p>
-            배송중인 물품
-          </p>
+          <h2>배송준비중</h2>
+          <p>{{ status2 }}}</p>
         </div>
 
         <div class="section-content production">
-          <h2>배송완료</h2>
-          <p>
-            배송완료된 물품
-          </p>
+          <h2>배송중</h2>
+          <p>{{ status3 }}}</p>
         </div>
 
         <div class="section-content analysis">
-          <h2>전달완료</h2>
-          <p>
-            전달완료된 물품
-          </p>
+          <h2>배송완료</h2>
+          <p>{{ status4 }}}</p>
         </div>
       </div>
     </div>
@@ -108,8 +88,41 @@
 </template>
 
 <script>
+import { fetchOrder } from '@/api/order';
+import { userWinEvent } from '@/api/auth';
 export default {
   name: 'Order',
+  data() {
+    return {
+      status0: [],
+      status1: [],
+      status2: [],
+      status3: [],
+      status4: [],
+    };
+  },
+  async created() {
+    // 당첨내역조회
+    const { data } = await userWinEvent(this.$store.state.email);
+    console.log(data);
+
+    // 이벤트아이디로 결제 조회
+    for (let i = 0; i < data.length; i++) {
+      const res = await fetchOrder(data[i].event_id);
+      console.log('당첨자 결제조회', res);
+      if (res.data.uuid == this.$store.state.uuid && res.data.pay_status == 1) {
+        this.status1.push(res.data);
+      } else if (res.data.uuid == this.$store.state.uuid && res.data.pay_status == 2) {
+        this.status2.push(res.data);
+      } else if (res.data.uuid == this.$store.state.uuid && res.data.pay_status == 3) {
+        this.status3.push(res.data);
+      } else if (res.data.uuid == this.$store.state.uuid && res.data.pay_status == 4) {
+        this.status4.push(res.data);
+      } else {
+        this.status0.push(res.data);
+      }
+    }
+  },
   methods: {
     step01() {
       $('.step').click(function() {
