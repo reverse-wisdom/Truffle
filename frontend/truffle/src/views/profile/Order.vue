@@ -3,11 +3,11 @@
     <div class="process-wrapper" v-if="(this.$store.state.type = '1')">
       <div id="progress-bar-container">
         <ul>
-          <li class="step step01 active" @click="step01"><div class="step-inner">결제완료</div></li>
-          <li class="step step02" @click="step02"><div class="step-inner">배송시작</div></li>
-          <li class="step step03" @click="step03"><div class="step-inner">배송중</div></li>
-          <li class="step step04" @click="step04"><div class="step-inner">배송완료</div></li>
-          <li class="step step05" @click="step05"><div class="step-inner">전달완료</div></li>
+          <li class="step step01 active" @click="step01"><div class="step-inner">결제전</div></li>
+          <li class="step step02" @click="step02"><div class="step-inner">결제완료</div></li>
+          <li class="step step03" @click="step03"><div class="step-inner">배송준비중</div></li>
+          <li class="step step04" @click="step04"><div class="step-inner">배송중</div></li>
+          <li class="step step05" @click="step05"><div class="step-inner">배송완료</div></li>
         </ul>
 
         <div id="line">
