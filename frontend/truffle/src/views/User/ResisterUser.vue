@@ -9,17 +9,6 @@
       </div>
       <div class="right">
         <div class="form">
-          <section class="copy">
-            <h2>Sign Up</h2>
-            <div class="login-container">
-              <p>
-                이미계정이 있으신가요?
-                <a href="">
-                  <strong>LOGIN</strong>
-                </a>
-              </p>
-            </div>
-          </section>
           <div class="input-container name">
             <label for="fname">NICKNAME</label>
             <input id="fname" name="fname" type="text" v-model="nickname" />
@@ -411,10 +400,10 @@ a:hover {
 }
 .left {
   height: 100%;
-  margin-top: 10rem;
+  margin-top: 4rem;
 }
 .right {
-  margin-top: 13rem;
+  margin-top: 20rem;
 }
 .left,
 .right {

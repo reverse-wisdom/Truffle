@@ -11,14 +11,6 @@
         <div class="form">
           <section class="copy">
             <h2>Sign Up</h2>
-            <div class="login-container">
-              <p>
-                이미계정이 있으신가요?
-                <a href="">
-                  <strong>LOGIN</strong>
-                </a>
-              </p>
-            </div>
           </section>
           <div class="input-container email">
             <label for="email">E-MAIL</label>
