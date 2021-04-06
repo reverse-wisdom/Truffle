@@ -1,6 +1,7 @@
 package com.ssafy.pjt.service;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public OrderDto selectOrderByEventId(int event_id) throws SQLException {
+	public List<OrderDto> selectOrderByEventId(int event_id) throws SQLException {
 		return orderDao.selectOrderByEventId(event_id);
 	}
 
