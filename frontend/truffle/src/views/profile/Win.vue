@@ -24,7 +24,7 @@
                 <h1>마감일:{{ win.end_date }}</h1>
               </div>
             </div>
-            <a href="#" class="btn" @click="eventDetailGo">결제하기</a>
+            <a class="btn" @click="eventDetailGo">결제하기</a>
           </section>
         </div>
       </div>
@@ -53,7 +53,7 @@
                 <h1>마감일:{{ win.end_date }}</h1>
               </div>
             </div>
-            <a href="#" class="btn" @click="eventDetailGo">당첨자 현황</a>
+            <a class="btn" @click="eventDetailGo">당첨자 현황</a>
           </section>
         </div>
       </div>
@@ -82,7 +82,9 @@ export default {
     // this.win = data;
   },
   methods: {
-    eventDetailGo() {},
+    eventDetailGo() {
+      this.$router.push({ name: 'EventDetail', query: { event_id: this.win.event_id } });
+    },
   },
 };
 </script>

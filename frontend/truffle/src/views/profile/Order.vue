@@ -198,6 +198,7 @@ export default {
 .order {
   margin: 0;
   font-family: 'Roboto Condensed', sans-serif;
+  margin-bottom: 5rem;
 }
 
 h4 {
