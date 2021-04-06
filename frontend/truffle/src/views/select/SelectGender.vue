@@ -114,11 +114,11 @@ export default {
     GenderArray.reverse();
     this.GenderArray = GenderArray.slice(0, 4);
     console.log('성별', this.GenderArray);
-    $('#gendercontent1').addClass('display');
+    $('#content1').addClass('display');
   },
   methods: {
     async selectGender() {
-      $('#gendercontent1').removeClass('display');
+      $('#content1').removeClass('display');
       const gender = this.gender;
       // console.log('성별확인', gender);
       const { data } = await eventSelectGender(gender);
@@ -199,8 +199,8 @@ input:checked + label {
   border-bottom: 1px solid #ffffff;
 }
 
-#gd1:checked ~ #gendercontent1,
-#gd2:checked ~ #gendercontent2 {
+#gd1:checked ~ #content1,
+#gd2:checked ~ #content2 {
   display: flex;
   justify-content: center;
   align-items: center;
