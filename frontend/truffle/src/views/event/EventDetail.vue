@@ -18,7 +18,7 @@
 
           <div class="product-price">
             <p class="price">
-              가격:
+              PRICE:
               <!-- <span>{{ event.price }}</span> -->
               <span>{{ priceComma }}원</span>
             </p>
@@ -31,10 +31,10 @@
             <p class="product-tag">{{ event.age }}대</p>
           </div>
           <div class="product-detail">
-            <h2>about this item:</h2>
+            <!-- <h2>about this item:</h2> -->
             <ul>
               <li>
-                Category:
+                CATEGORY:
                 <span>{{ event.category }}</span>
               </li>
               <li>
@@ -77,9 +77,9 @@
               </template>
               <template v-slot:default="dialog">
                 <v-card>
-                  <v-toolbar color="primary" dark>Opening from the top</v-toolbar>
+                  <v-toolbar color="dark" dark class="text-h5" style="display:flex; justify-content:center;">당첨자내역</v-toolbar>
                   <v-card-text>
-                    <div class="text-h2 pa-12" v-for="(win, index) in modal" :key="index">
+                    <div class="text-h6 pa-2" style="display:flex; justify-content:center;" v-for="(win, index) in modal" :key="index">
                       <p id="win_email">{{ win }}</p>
                     </div>
                   </v-card-text>
@@ -350,7 +350,7 @@ img {
   margin-bottom: 0.5rem;
   background: #256eff;
   color: #fff;
-  padding: 0 0.3rem;
+  padding: 0.2rem 1rem;
   transition: all 0.5s ease;
 }
 .product-tag:hover {
@@ -359,7 +359,7 @@ img {
 
 .product-price {
   margin: 1rem 0;
-  font-size: 1rem;
+  font-size: 2rem;
   font-weight: 700;
 }
 .product-price span {
@@ -367,6 +367,7 @@ img {
 }
 .price span {
   color: #256eff;
+  font-weight: 800;
 }
 .product-detail h2 {
   text-transform: capitalize;
@@ -380,7 +381,7 @@ img {
 }
 .product-detail ul {
   margin: 1rem 0;
-  font-size: 0.9rem;
+  font-size: 1.2rem;
 }
 .product-detail ul li {
   margin: 0;

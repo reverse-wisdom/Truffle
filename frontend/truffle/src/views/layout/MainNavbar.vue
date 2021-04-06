@@ -4,7 +4,8 @@
       <a class="logo" href="/"><img src="@/assets/img/logo1.png" alt="logo" /></a>
       <nav>
         <ul class="nav__links" v-if="this.$store.state.token">
-          <li><a class="font" href="/main">Home</a></li>
+          <li><a class="font" href="/main">Main</a></li>
+          <li><a class="font" href="/">Home</a></li>
           <li><a class="font" href="/categoryall">Category</a></li>
           <li><a class="font" href="/test">Test</a></li>
           <li><a class="font" href="/guide">Guide</a></li>
@@ -13,7 +14,7 @@
           <li>
             <a class="font" href="/profileUser">Profile</a>
           </li>
-          <li><a class="font" @click="logout">logout</a></li>
+          <li><a class="font" @click="logout">Logout</a></li>
         </ul>
         <ul class="nav__links" v-else>
           <li><a class="font" href="/">Home</a></li>
@@ -30,7 +31,7 @@
           <a class="font" href="/">Home</a>
           <a class="font" href="/guide">Guide</a>
           <a class="font" href="/ProfileUser">profileuser</a>
-          <a class="font" @click="logout">logout</a>
+          <a class="font" @click="logout">Logout</a>
         </div>
         <div class="nav__links" v-else>
           <a class="font" href="/">Home</a>
