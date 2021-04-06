@@ -1,8 +1,8 @@
 <template>
   <div class="guide">
     <input type="checkbox" class="checkbox" v-model="checked" />
-    <a class="a2" @click="gohome" v-show="checked == true">HOME</a>
-    <a class="a1" @click="gohome" v-show="checked == false">HOME</a>
+    <a class="a2" @click="gohome" v-show="checked == true">바로가기</a>
+    <a class="a1" @click="gohome" v-show="checked == false">바로가기</a>
     <div id="user" v-if="checked == true">User</div>
     <div id="retailer" v-else>Retailer</div>
 
@@ -58,7 +58,7 @@
       <div class="guide-title" v-show="checked == false">
         <div class="right3">
           <div class="retailer-detail_1">트러플이 여러분과</div>
-          <div class="retailer-detail_1">고객간의 니즈를</div>
+          <div class="retailer-detail_1">소비자간의 니즈를</div>
           <div class="retailer-detail_1">이어드리겠습니다.</div>
         </div>
       </div>
@@ -66,7 +66,7 @@
       <div v-show="checked == true" class="guide-title">
         <div class="left3-user">
           <div class="retailer-detail_4">모든 래플이벤트만</div>
-          <div class="retailer-detail_4">모아서 볼 수 있고,응모할수 있도록</div>
+          <div class="retailer-detail_4">모아서 볼 수 있고, 응모할수 있도록</div>
           <div class="retailer-detail_4">트러플이 도와드리겠습니다.</div>
         </div>
         <div class="right3-user">
@@ -143,10 +143,12 @@ export default {
   cursor: pointer;
   outline: none;
   z-index: 2;
+  outline: none;
 }
 
 .checkbox:checked {
   background-color: #f3118e;
+  outline: none;
 }
 
 .checkbox::before {
@@ -189,7 +191,7 @@ export default {
   background-size: cover;
 }
 .section2 {
-  background: url(../assets/img/bluemen.jpg) no-repeat;
+  background: url(../assets/img/yellow_red.jpg) no-repeat;
   background-size: cover;
   width: 100%;
   height: 100%;
@@ -205,7 +207,7 @@ export default {
   background-size: cover;
 }
 .section3 {
-  background: url(../assets/img/yellow_red.jpg) no-repeat;
+  background: url(../assets/img/bluemen.jpg) no-repeat;
   background-size: cover;
   width: 100%;
   height: 100%;
@@ -231,10 +233,12 @@ export default {
   font-weight: bold;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin-left: px;
+  outline: none;
   z-index: 3;
 }
 #user {
   position: fixed;
+  outline: none;
   top: 43px;
   right: 130px;
   /* transform: translateY(-50%); */
@@ -316,9 +320,9 @@ export default {
   position: absolute;
   width: 700px;
   text-align: center;
-  right: -5%;
+  right: 4%;
   line-height: 50px;
-  top: 240%;
+  top: 230%;
 }
 .left1-user {
   position: absolute;
@@ -389,6 +393,22 @@ export default {
   /* top: 285%; */
   right: 3%;
 }
+.a1:hover {
+  position: fixed;
+  bottom: 2%;
+  display: inline-block;
+  padding: 12px 36px;
+  margin: 10px 0;
+  color: #fff;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 18px;
+  letter-spacing: 2px;
+  border-radius: 40px;
+  background-color: #f3118e;
+  /* top: 285%; */
+  right: 3%;
+}
 .a2 {
   position: fixed;
   bottom: 2%;
@@ -401,7 +421,23 @@ export default {
   font-size: 18px;
   letter-spacing: 2px;
   border-radius: 40px;
-  background: linear-gradient(90deg, #f3118e, #f3118e);
+  background: #f3118e;
+  /* top: 285%; */
+  right: 3%;
+}
+.a2:hover {
+  position: fixed;
+  bottom: 2%;
+  display: inline-block;
+  padding: 12px 36px;
+  margin: 10px 0;
+  color: #fff;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 18px;
+  letter-spacing: 2px;
+  border-radius: 40px;
+  background: #07b8ac;
   /* top: 285%; */
   right: 3%;
 }
