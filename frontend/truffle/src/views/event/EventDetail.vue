@@ -58,7 +58,7 @@
               응모하기
             </button>
           </div>
-          <div class="join-info">
+          <div v-show="this.$store.state.type == '2' && new Date(this.event.end_date) < Date.now()" class="join-info">
             <button type="button" class="btn" id="winnerbtn" @click="raffleGo">
               추첨하기
             </button>
@@ -68,9 +68,9 @@
               당첨자보기
             </button>
           </div> -->
-          <v-col cols="auto">
+          <v-col cols="auto" v-show="this.$store.state.type == '2' && new Date(this.event.end_date) < Date.now()">
             <v-dialog transition="dialog-top-transition" max-width="600">
-              <template v-slot:activator="{ on, attrs }" v-show="this.$store.state.type == '2' && new Date(this.event.end_date) < Date.now()">
+              <template v-slot:activator="{ on, attrs }">
                 <v-btn class="ma-2 white--text" block color="#000" largedepressed v-bind="attrs" @click="winnerListGo" v-on="on">
                   당첨자보기
                 </v-btn>
