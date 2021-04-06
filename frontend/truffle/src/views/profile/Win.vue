@@ -9,7 +9,7 @@
           <section class="details">
             <div class="product-detail">
               <div class="product">{{ win.product }}</div>
-              <h1 class="price">{{ win.price }}</h1>
+              <h1 class="price">{{ priceComma }}원</h1>
             </div>
             <div class="min-details">
               <div>
@@ -40,7 +40,7 @@
           <section class="details">
             <div class="product-detail">
               <div class="product">{{ win.product }}</div>
-              <h1 class="price">{{ win.price }}</h1>
+              <h1 class="price">{{ priceComma }}원</h1>
             </div>
             <div class="min-details">
               <div>
@@ -56,7 +56,7 @@
                 <div style="font-size: 12px; margin: 10px 0;">이벤트종료일:{{ win.end_date }}</div>
               </div>
 
-              <a class="btn" @click="eventDetailGo">자세히보기</a>
+              <a class="btn" @click="eventDetailGo">추첨자뽑기</a>
             </div>
           </section>
         </div>
@@ -74,6 +74,11 @@ export default {
     return {
       value: '',
     };
+  },
+  computed: {
+    priceComma() {
+      return this.win.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    },
   },
   props: {
     win: {
@@ -105,12 +110,13 @@ export default {
   font-size: 1rem;
   color: #256eff;
   flex-direction: row-reverse;
+  margin-top: 10px;
 }
-* {
+/* * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-}
+} */
 .event {
   width: 15vw;
   margin-bottom: 50px;
