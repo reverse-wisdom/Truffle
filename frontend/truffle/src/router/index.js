@@ -51,12 +51,12 @@ const routes = [
   {
     path: '/search',
     name: 'Search',
-    components: { default: Search, header: MainNavbar, footer: MainFooter },
+    components: { default: Search, header: MainNavbar },
   },
   {
     path: '/categoryall',
     name: 'CategoryAll',
-    components: { default: CategoryAll, header: MainNavbar, footer: MainFooter },
+    components: { default: CategoryAll, header: MainNavbar },
   },
   {
     path: '/guide',
@@ -73,7 +73,7 @@ const routes = [
   {
     path: '/resisteruser',
     name: 'ResisterUser',
-    components: { default: ResisterUser, header: MainNavbar, footer: MainFooter },
+    components: { default: ResisterUser, header: MainNavbar },
   },
   {
     path: '/resisterretailer',

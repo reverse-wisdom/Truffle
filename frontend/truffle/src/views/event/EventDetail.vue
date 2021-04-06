@@ -54,11 +54,11 @@
           </div>
 
           <div v-show="this.$store.state.type == '1' && new Date(this.event.end_date) > Date.now()" class="join-info">
-            <button type="button" class="btn" @click="joinAdd">
+            <button type="button" id="btn-join" class="btn" @click="joinAdd">
               응모하기
             </button>
           </div>
-          <div class="join-info">
+          <div v-show="this.$store.state.type == '2' && new Date(this.event.end_date) < Date.now()" class="join-info">
             <button type="button" class="btn" id="winnerbtn" @click="raffleGo">
               추첨하기
             </button>
@@ -78,9 +78,9 @@
               당첨자보기
             </button>
           </div> -->
-          <v-col cols="auto">
+          <v-col cols="auto" v-show="this.$store.state.type == '2' && new Date(this.event.end_date) < Date.now()">
             <v-dialog transition="dialog-top-transition" max-width="600">
-              <template v-slot:activator="{ on, attrs }" v-show="this.$store.state.type == '2' && new Date(this.event.end_date) < Date.now()">
+              <template v-slot:activator="{ on, attrs }">
                 <v-btn class="ma-2 white--text" block color="#000" largedepressed v-bind="attrs" @click="winnerListGo" v-on="on">
                   당첨자보기
                 </v-btn>
@@ -162,15 +162,14 @@ export default {
   },
   computed: {
     priceComma: function() {
-      const price = this.event.price;
-
-      this.event.price = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-      return this.event.price;
+      return this.event.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     },
   },
   async created() {
     const event_id = this.$route.query.event_id;
+    console.log('이벤트아이디', event_id);
     const { data } = await eventDetail(event_id);
+
     this.event = data[0];
     if (this.event.gender == 1) {
       this.gender = '남자';
@@ -243,26 +242,35 @@ export default {
       }
       console.log('타입', this.modal);
     },
+    //응모하기버튼누르면
     async joinAdd() {
       const email = this.$store.state.email;
       let check = false;
       const event_id = this.$route.query.event_id;
       console.log(event_id, email);
+      // 로그인한 유저가 참여한적이 있는지 체크
       const { data } = await checkPartipants(event_id);
       console.log(data);
       for (let i = 0; i < data.length; i++) {
+        //참여한적이 있으면
         if (data[i].email == email) {
           check = true;
+          //중단
           break;
         } else {
+          //for문끝까지 돌아야하므로 continue처리
           continue;
         }
       }
+      //참여한적이 없다 (check==false 초기값으로되어있음)
       if (check == false) {
         const { data } = await eventJoin(event_id);
         console.log('check=true', data);
         if (data == 'SUCCESS') {
           console.log('1증가');
+          const target = document.getElementById('btn-join');
+          target.disabled = true;
+          target.innerText = '응모취소';
           const partData = {
             event_id: this.$route.query.event_id,
             uuid: this.$store.state.uuid,
@@ -496,6 +504,7 @@ img {
   color: #fff;
   background: #f3118e;
 }
+
 .join-info .btn:disabled {
   cursor: pointer;
   color: #fff;

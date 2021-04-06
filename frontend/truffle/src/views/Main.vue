@@ -412,7 +412,7 @@ section::after {
   background: #03a94f;
 }
 .container .card .content .color span:nth-child(2) {
-  background: #e91e63;
+  background: #f3118e;
 }
 .container .card .content a {
   position: relative;
