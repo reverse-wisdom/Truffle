@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.ssafy.pjt.dao.OrderDao;
 import com.ssafy.pjt.dto.OrderDto;
+import com.ssafy.pjt.dto.OrderUpdateRequestDto;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -27,6 +28,11 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public boolean deleteOrderByEventId(int event_id) throws SQLException {
 		return orderDao.deleteOrderByEventId(event_id) == 1;
+	}
+
+	@Override
+	public boolean updateOrderStatus(OrderUpdateRequestDto orderUpdateRequestDto) throws SQLException {
+		return orderDao.updateOrderStatus(orderUpdateRequestDto) == 1;
 	}
 
 }
