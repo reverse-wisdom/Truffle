@@ -30,8 +30,8 @@
                 <div class="post">
                   <img src="1.jpg" alt="" />
                   <div class="post-s">
-                    <h2>
-                      HOVER TEST
+                    <h2 @click="category">
+                      EVENTS
                     </h2>
                   </div>
                 </div>
@@ -246,6 +246,9 @@ export default {
     async detailSearch() {
       var product = document.getElementById('searchWord').value;
       this.$router.push({ name: 'Search', query: { product: product } });
+    },
+    category() {
+      this.$router.push('/categoryall');
     },
   },
 };

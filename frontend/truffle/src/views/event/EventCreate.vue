@@ -208,10 +208,10 @@ export default {
     },
     async eventInsert() {
       const uuid = this.$store.state.retailuuid;
-      // const imgFile = document.getElementById('#thumbnail');
+
       const frm = new FormData();
       frm.append('imgFile', this.image);
-      // console.log(frm);
+
       const age = this.age;
       const category = this.category;
       const detail = $('#summernote').summernote('code');

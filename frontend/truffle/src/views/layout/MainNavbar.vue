@@ -5,13 +5,13 @@
       <nav>
         <ul class="nav__links" v-if="this.$store.state.token">
           <li><a class="font" href="/main">Home</a></li>
+          <li><a class="font" href="/categoryall">Category</a></li>
           <li><a class="font" href="/test">Test</a></li>
           <li><a class="font" href="/guide">Guide</a></li>
-          <li><a class="font" href="/guide">둘러보기</a></li>
 
-          <li v-show="$store.state.type == '2'"><a class="font" href="/eventCreate">event</a></li>
+          <li v-show="$store.state.type == '2'"><a class="font" href="/eventCreate">Event</a></li>
           <li>
-            <a class="font" href="/profileUser">{{ this.$store.state.email }}님 안녕하세요</a>
+            <a class="font" href="/profileUser">Profile</a>
           </li>
           <li><a class="font" @click="logout">logout</a></li>
         </ul>
