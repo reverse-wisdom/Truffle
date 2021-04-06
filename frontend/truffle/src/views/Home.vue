@@ -38,7 +38,7 @@ export default {
   margin: 10px 0px;
   width: 30%;
   /* background: #80ff00; */
-  background: rgba(128, 255, 0, 0.7);
+  background: rgba(255, 255, 255, 1);
   color: #383838;
   font-weight: 700;
   border: none;
@@ -57,7 +57,7 @@ export default {
   /* display: block; */
   margin: 10px 0px;
   width: 30%;
-  background: #fff;
+  background: #80ff00;
   color: #383838;
   font-weight: 700;
   border: none;

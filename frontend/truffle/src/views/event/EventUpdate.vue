@@ -14,13 +14,14 @@
               show-size
               label="썸네일 이미지 (입력창을 클릭해주세요)"
               @change="Preview_image($event)"
-              style="display:inline-block; cursor : pointer;"
+              style="cursor: pointer;"
             ></v-file-input>
             <div class="img-showcase">
               <!-- 이미지 -->
-              <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" alt="" />
+              <img class="detail-image" style="margin-bottom: 20px;" :src="'data:image/jpeg;base64,' + detailImg" alt="" />
             </div>
           </div>
+          <label for="">카테고리</label>
           <v-select :items="items" v-model="event.category" label="카테고리" dense solo></v-select>
           <div class="input-container gender">
             <label for="">GENDER</label>
@@ -78,7 +79,7 @@
           <!-- 가격 -->
           <div class="input-container gender">
             <label for="">가격</label>
-            <input type="text" v-model="event.price" />
+            <input type="text" v-model="event.price" @keyup="priceComma" />
           </div>
           <div class="input-container gender">
             <label for="">당첨자수</label>
@@ -192,6 +193,17 @@ export default {
   },
 
   methods: {
+    priceComma() {
+      var selection = window.getSelection().toString();
+      if (selection !== '') {
+        return;
+      } else {
+        var input = this.event.price;
+        var input = input.replace(/[\D\s\._\-]+/g, '');
+        input = Number(input);
+        this.event.price = input.toLocaleString('en-US');
+      }
+    },
     Preview_image() {
       this.url = URL.createObjectURL(this.detailImg);
     },
@@ -217,7 +229,7 @@ export default {
         open_date: this.event.open_date,
         end_date: this.event.end_date,
         gender: this.event.gender,
-        price: this.event.price,
+        price: Number(this.event.price.replace(/[\D\s\._\-]+/g, '')),
         product: this.event.product,
         win_num: this.event.win_num,
       };
