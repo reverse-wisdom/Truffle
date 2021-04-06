@@ -42,6 +42,13 @@ export default new Vuex.Store({
     clearPassword(state) {
       state.password = '';
     },
+    setNickname(state, nickname) {
+      state.nickname = nickname;
+    },
+    clearNickname(state) {
+      state.nickname = '';
+    },
+
     setRetailuuid(state, retailuuid) {
       state.retailuuid = retailuuid;
     },
@@ -76,6 +83,7 @@ export default new Vuex.Store({
         commit('setType', response.data.type);
         if (response.data.type == 1) {
           commit('setUuid', response.data.uuid);
+          commit('setNickname', response.data.nickname);
         } else {
           commit('setRetailuuid', response.data.uuid);
         }

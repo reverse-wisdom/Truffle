@@ -19,4 +19,9 @@ function fetchOrder(event_id) {
 function cancleOrder(imp_uid) {
   return posts.get(`order/cancelIamport?imp_uid=${imp_uid}`);
 }
-export { verifyIamport, completePayment, fetchOrder, cancleOrder };
+// 결제 테이블삭제
+function deleteOrdertable(imp_uid) {
+  return posts.delete(`order/deleteOrderByEventId?event_id=${imp_uid}`);
+}
+
+export { verifyIamport, completePayment, fetchOrder, cancleOrder, deleteOrdertable };
