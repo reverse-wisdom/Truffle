@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.ssafy.pjt.dto.AccountDto;
 import com.ssafy.pjt.dto.EventDto;
+import com.ssafy.pjt.dto.ParticipationDto;
 
 public interface AccountDao {
 	public AccountDto login(AccountDto accountDto) throws SQLException;
@@ -22,4 +23,6 @@ public interface AccountDao {
 	public List<EventDto> selectEventParticipationByEmail(String email) throws SQLException;
 
 	public List<EventDto> selectCreateEventListByID(int uuid) throws SQLException;
+
+	public int cancelParticipation(ParticipationDto participationDto) throws SQLException;
 }

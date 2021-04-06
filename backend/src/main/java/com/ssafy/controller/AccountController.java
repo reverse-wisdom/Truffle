@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ssafy.pjt.dto.AccountDto;
 import com.ssafy.pjt.dto.EventDto;
 import com.ssafy.pjt.dto.LoginRequestDto;
+import com.ssafy.pjt.dto.ParticipationDto;
 import com.ssafy.pjt.service.AccountServiceImpl;
 import com.ssafy.pjt.service.TokenProvider;
 
@@ -214,6 +215,24 @@ public class AccountController {
 			System.out.println("error");
 		}
 		return numStr;
+	}
+
+	@ApiOperation(value = "이벤트아이디,uuid로 참여기록 테이블 제거, 참여취소", notes = "해당 이벤트 참여중이지않거나 존재하지않는 이벤트일때 204")
+	@DeleteMapping("/cancelParticipation")
+	private ResponseEntity<String> cancelParticipation(@RequestParam(required = true) final int event_id,
+			@RequestParam(required = true) final int uuid) {
+		ParticipationDto participationDto = new ParticipationDto();
+		participationDto.setEvent_id(event_id);
+		participationDto.setUuid(uuid);
+		try {
+			boolean result = accountService.cancelParticipation(participationDto);
+			if (result) {
+				return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+			}
+		} catch (SQLException e) {
+			return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
 	}
 
 }

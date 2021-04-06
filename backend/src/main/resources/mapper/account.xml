@@ -75,12 +75,19 @@
 	<select
 		id="selectCreateEventListByID"
 		parameterType="int"
-		resultType="EventDto"
-	>
+		resultType="EventDto">
 		select * 
 		from event
 		where uuid = #{uuid}
 	</select>
+	
+	<delete
+		id="cancelParticipation"
+		parameterType = "ParticipationDto">
+		delete 
+		from participation
+		where event_id = #{event_id} and uuid = #{uuid};
+	</delete>
 	
 	
 
