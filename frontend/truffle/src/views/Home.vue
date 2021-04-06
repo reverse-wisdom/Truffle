@@ -5,8 +5,9 @@
       <div class="detail">쇼핑에 재미와 신뢰를 더하다</div>
       <div class="overlay"></div>
       <!-- <v-btn @click="goGuide" class="mainbtn" elevation="2" large outlined text color="white">GUIDE</v-btn> -->
-      <button @click="goMain" class="home-btn" type="submit" @click.prevent="signup">Main</button>
-      <button @click="goGuide" class="home-btn" type="submit" @click.prevent="signup">Guide</button>
+      <button @click="goMain" class="home-btn" type="submit">MAIN</button>
+      <button @click="goGuide" class="home-btn" type="submit">GUIDE</button>
+      <button @click="goSign" class="home-btn" type="submit">LOGIN</button>
     </div>
   </div>
 </template>
@@ -22,6 +23,9 @@ export default {
     },
     goTest() {
       this.$router.push({ name: 'Test' });
+    },
+    goSign() {
+      this.$router.push({ name: 'Sign-In-Up' });
     },
   },
 };

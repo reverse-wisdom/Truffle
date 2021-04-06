@@ -55,7 +55,7 @@ export default {
       }
       return 0;
     });
-    data.reverse();
+    // data.reverse();
     console.log('정렬후', data);
     this.events = data.slice(0, 4);
     //이미지불러오기
