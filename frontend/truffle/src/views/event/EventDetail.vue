@@ -52,12 +52,39 @@
               </li>
             </ul>
           </div>
-
+          <!-- 
           <div v-show="this.$store.state.type == '1' && new Date(this.event.end_date) > Date.now()" class="join-info">
-            <button type="button" id="btn-join" class="btn" @click="joinAdd">
+            <button type="button" id="btn-join" class="btn" value="응모하기" @click="joinAdd">
               응모하기
             </button>
-          </div>
+          </div> -->
+          <!-- 응모취소하기 -->
+          <v-col cols="auto" v-show="this.$store.state.type == '1' && new Date(this.event.end_date) > Date.now()">
+            <button v-if="cancelcheck" type="button" id="btn-join" class="btn" value="응모하기" @click="joinAdd">
+              응모하기
+            </button>
+
+            <v-dialog transition="dialog-top-transition" max-width="600" v-else>
+              <template v-slot:activator="{ on, attrs }">
+                <button class="join-info" v-bind="attrs" id="btn-join" v-on="on" value="응모하기" @click="joinAdd">응모취소</button>
+              </template>
+              <template v-slot:default="dialog" v-show="cancelcheck == true">
+                <v-card>
+                  <v-toolbar color="dark" dark>응모취소확인</v-toolbar>
+                  <v-card-text>
+                    <div class="text-h3 pa-12">
+                      응모를 취소하시겠습니까?
+                    </div>
+                  </v-card-text>
+                  <v-card-actions class="justify-end">
+                    <v-btn text @click="cancle">OK</v-btn>
+                    <v-btn text @click="dialog.value = false">닫기</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </template>
+            </v-dialog>
+          </v-col>
+          <!-- 추첨 -->
           <div v-show="this.$store.state.type == '2' && new Date(this.event.end_date) < Date.now()" class="join-info">
             <button type="button" class="btn" id="winnerbtn" @click="raffleGo">
               추첨하기
@@ -103,6 +130,7 @@
         </div>
       </div>
     </div>
+
     <v-container>
       <!-- <EventDetailTab :event_id="event_id"></EventDetailTab> -->
       <div>
@@ -139,7 +167,7 @@
 <script>
 import EventDetailTab from '@/views/event/EventDetailTab';
 import { returnImage64, eventDetail, eventJoin, checkPartipants, createPartipants, selectedWinner, createWinner, returnImage } from '@/api/event';
-import { fetchUser } from '@/api/auth';
+import { fetchUser, cancleparticle } from '@/api/auth';
 import { verifyIamport, completePayment, fetchOrder, cancleOrder, deleteOrdertable } from '@/api/order';
 
 export default {
@@ -159,6 +187,8 @@ export default {
       emailLen: '',
       dialog: true,
       detailImg: '',
+      partcheck: false,
+      cancelcheck: true,
     };
   },
   computed: {
@@ -248,7 +278,7 @@ export default {
     //응모하기버튼누르면
     async joinAdd() {
       const email = this.$store.state.email;
-      let check = false;
+
       const event_id = this.$route.query.event_id;
       console.log(event_id, email);
       // 로그인한 유저가 참여한적이 있는지 체크
@@ -257,7 +287,7 @@ export default {
       for (let i = 0; i < data.length; i++) {
         //참여한적이 있으면
         if (data[i].email == email) {
-          check = true;
+          this.partcheck = true;
           //중단
           break;
         } else {
@@ -266,26 +296,39 @@ export default {
         }
       }
       //참여한적이 없다 (check==false 초기값으로되어있음)
-      if (check == false) {
+      if (this.partcheck == false) {
         const { data } = await eventJoin(event_id);
-        console.log('check=true', data);
         if (data == 'SUCCESS') {
           console.log('1증가');
-          const target = document.getElementById('btn-join');
-          target.disabled = true;
-          target.innerText = '응모취소';
           const partData = {
             event_id: this.$route.query.event_id,
             uuid: this.$store.state.uuid,
           };
+          //참여자테이블에 추가
           const part_data = await createPartipants(partData);
+          console.log('part_Data', part_data);
+          if (part_data.data == 'SUCCESS') {
+            console.log('성공');
+            const target = document.getElementById('btn-join');
+            console.log(target);
+
+            this.cancelcheck = false;
+          }
           const { data } = await eventDetail(event_id);
           this.event.join_num = data[0].join_num;
         }
       } else {
+        this.cancelcheck = false;
         console.log('이미참여한이벤트');
       }
     },
+    async cancle() {
+      const { data } = await cancleparticle(this.event.event_id, this.$store.state.uuid);
+      // this.dialog.value = false;
+      this.cancelcheck = true;
+      console.log(data);
+    },
+
     updateGo() {
       var event_id = this.event.event_id;
       this.$router.push({ name: 'EventUpdate', query: { event_id: event_id } });
