@@ -1,29 +1,33 @@
 <template>
   <div class="event-ct">
-    <div class="event-index" v-for="(event, idx) in events" :key="idx">
+    <div class="event-index" v-for="(event, idx) in events" refs="events" :key="idx">
       <div class="card">
+        <!-- <div class="idx-box">{{ idx + 1 }}위</div> -->
         <figure>
           <img src="@/assets/img/women.jpg" alt="" />
+          <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" alt="" />
         </figure>
+
         <section class="details">
+          <div class="product-detail">
+            <div class="product">{{ event.product }}</div>
+            <div class="price">{{ priceComma[idx] }}원</div>
+          </div>
           <div class="min-details">
-            <h1>
-              {{ event.product }}
-              <span>카테고리:{{ event.category }}</span>
-              <span>성별:{{ event.gender }}</span>
-              <span>연령대:{{ event.age }}</span>
-            </h1>
-            <h1 class="price">{{ event.price }}</h1>
-          </div>
-          <div class="options">
-            <div class="options-size">
-              <h1 class="">응모자수:{{ event.join_num }}</h1>
+            <div>
+              <span>#{{ event.category }}</span>
+              <span v-show="event.gender == 1" outlined>#남성</span>
+              <span v-show="event.gender == 2" outlined>#여성</span>
+              <span>#{{ event.age }}대</span>
             </div>
-            <div class="options-colors">
-              <h1>마감일:{{ event.end_date }}</h1>
+            <div>
+              <v-chip style="background-color:#07b8ac;" text-color="white">응모자{{ event.join_num }}명 / 총추첨인원{{ event.win_num }}명</v-chip>
             </div>
+            <div>
+              <div style="font-size: 12px; margin: 10px 0;">이벤트종료일:{{ event.end_date }}</div>
+            </div>
+            <a href="#" class="btn" style="margin-top:;" @click="eventDetailGo(event.event_id)">자세히보기</a>
           </div>
-          <a href="#" class="btn" @click="eventDetailGo(event.event_id)">응모현황</a>
         </section>
       </div>
     </div>
@@ -48,6 +52,13 @@ export default {
       this.$router.push({ name: 'EventDetail', query: { event_id: event_id } });
     },
   },
+  computed: {
+    priceComma: function() {
+      return this.events.map(function(event) {
+        return event.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      });
+    },
+  },
 };
 </script>
 
@@ -61,20 +72,14 @@ export default {
   display: flex;
   align-items: center;
   min-height: auto;
-  /* justify-content: space-around; */
   font-family: 'Poppins', sans-serif;
 }
 h1 {
   font-size: 1.2rem;
   text-transform: capitalize;
 }
-.event-ct {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
+
 .card {
-  margin-bottom: 2rem;
   margin-right: 20px;
   position: relative;
   border-radius: 5px;
@@ -86,6 +91,11 @@ h1 {
 .card > figure {
   width: 90%;
   margin: 20px auto 0 auto;
+}
+.card > .idx-box {
+  background: #000;
+  color: #fff;
+  text-align: center;
 }
 .card > figure > img {
   width: 100%;
@@ -106,24 +116,25 @@ h1 {
 .details > .min-details,
 .details > .options,
 .details > .options > .options-colors {
-  margin-bottom: 10px;
+  margin: 5px 0;
 }
 .details > .min-details {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  font-weight: 900;
+  font-size: 1rem;
 }
-.details > .min-details > h1 > span {
-  color: #7b7b7b;
-  display: block;
-  font-size: 0.9rem;
-  font-weight: 400;
-}
+
 .details > .options h1 {
   margin-bottom: 10px;
 }
-.details > .options ul {
-  list-style-type: none;
+.details > .options-size {
   display: flex;
+
+  justify-content: center;
+  align-items: center;
 }
 .details > .options ul li {
   border-radius: 50%;
@@ -134,35 +145,7 @@ h1 {
   text-align: center;
   width: 30px;
 }
-.options-size > ul > li {
-  background-color: rgba(0, 0, 0, 0.3);
-  color: #000;
-  font-size: 0.7rem;
-  font-weight: 900;
-  text-transform: uppercase;
-  transition: background-color 0.3s ease-in-out;
-}
-.options-size > ul > li:hover {
-  background-color: #f3118e;
-}
-.options-colors > ul > li {
-  border: none;
-}
-.options-colors > ul > li:nth-child(1) {
-  background-color: #ff1;
-}
-.options-colors > ul > li:nth-child(2) {
-  background-color: #000;
-}
-.options-colors > ul > li:nth-child(3) {
-  background-color: #fb0000;
-}
-.options-colors > ul > li:nth-child(4) {
-  background-color: #ff69b4;
-}
-.options-colors > ul > li:nth-child(5) {
-  background-color: #ff1;
-}
+
 .btn {
   background-color: #f3118e;
   border-radius: 5px;
@@ -179,5 +162,17 @@ h1 {
 .btn:hover {
   box-shadow: 0 8px 10px rgba(0, 0, 0, 0.3);
   transform: translateY(-2px);
+}
+.product-detail > .product {
+  margin: 3px 0;
+  font-size: 1.5rem;
+  font-weight: 900;
+}
+.product-detail > .price {
+  display: flex;
+  font-weight: 900;
+  font-size: 1rem;
+  color: #256eff;
+  flex-direction: row-reverse;
 }
 </style>

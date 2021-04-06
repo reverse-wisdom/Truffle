@@ -34,7 +34,7 @@ export default {
     QnA,
   },
   props: {
-    event_id: { type: String },
+    event_id: String,
   },
   async created() {
     const { data } = await eventDetail(this.event_id);

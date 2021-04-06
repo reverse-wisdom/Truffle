@@ -8,7 +8,7 @@
         </section>
       </div>
       <div class="right">
-        <div class="form">
+        <form action="">
           <section class="copy">
             <h2>Sign Up</h2>
             <div class="login-container">
@@ -96,48 +96,16 @@
             <input name="" type="text" v-model="address" disabled />
             <input name="" type="text" v-model="address_detail" placeholder="상세주소를 입력해주세요" />
           </div>
-          <div class="input-container">
-            <label for="fname">PHONE</label>
-            <div class="phone-num">
-              <input maxlength="3" type="text" v-model="phone_num1" />
-              <div class="b">-</div>
-              <input maxlength="4" type="text" v-model="phone_num2" />
-              <div class="b">-</div>
-              <input maxlength="4" type="text" v-model="phone_num3" />
-            </div>
-          </div>
-          <v-col cols="auto">
-            <v-dialog transition="dialog-top-transition" max-width="600">
-              <template v-slot:activator="{ on, attrs }">
-                <button class="signup-btn" v-bind="attrs" v-on="on" @click="verifyphone">휴대폰 본인인증</button>
-              </template>
-
-              <template v-slot:default="dialog">
-                <v-card>
-                  <v-toolbar color="dark" dark>휴대폰 인증하기</v-toolbar>
-                  <v-card-text>
-                    <div class="text-h3 pa-12">
-                      <label for="" class="text-h5">인증번호 4자리를 입력해주세요</label>
-                      <input type="text" id="verifyphone" v-model="verifynum1" />
-                    </div>
-                  </v-card-text>
-                  <v-card-actions class="justify-end">
-                    <v-btn text @click="verifychk">인증하기</v-btn>
-                    <v-btn text @click="dialog.value = false">닫기</v-btn>
-                  </v-card-actions>
-                </v-card>
-              </template>
-            </v-dialog>
-          </v-col>
-          <button class="signup-btn" type="button" @click.prevent="signup">Sign up</button>
-        </div>
+          <button class="signup-btn" type="submit">SMS 본인인증</button>
+          <button class="signup-btn" type="submit" @click.prevent="signup">Sign up</button>
+        </form>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { register, verifyPhone } from '@/api/auth';
+import { register } from '@/api/auth';
 
 export default {
   data() {
@@ -150,16 +118,9 @@ export default {
       address_detail: '',
       postcode: '',
       phone: '',
-      phone_num1: '',
-      phone_num2: '',
-      phone_num3: '',
       msg: [],
       gender: '',
       age: '',
-      verifynum1: '',
-      verifynum2: '',
-      phonechk: false,
-      dialog: true,
     };
   },
   created() {},
@@ -174,27 +135,6 @@ export default {
     },
   },
   methods: {
-    async verifyphone() {
-      const phone_num = this.phone_num1 + this.phone_num2 + this.phone_num3;
-      this.phone = phone_num;
-      // const { data } = await verifyPhone(phone_num);
-      this.verifynum2 = data;
-    },
-    verifychk() {
-      if (this.verifynum1 == this.verifynum2) {
-        this.$swal({
-          icon: 'success',
-          title: '인증성공',
-        });
-        this.phonechk = true;
-        this.dialog = false;
-      } else {
-        this.$swal({
-          icon: 'error',
-          title: '인증실패',
-        });
-      }
-    },
     validateEmail(value) {
       if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)) {
         this.msg['email'] = true;
@@ -254,11 +194,6 @@ export default {
         this.$swal({
           icon: 'error',
           title: '연령대를 체크해주세요!',
-        });
-      } else if (this.phonechk == true) {
-        this.$swal({
-          icon: 'error',
-          title: '휴대폰 본인인증를 해주세요!',
         });
       } else {
         const userData = {
@@ -358,21 +293,6 @@ export default {
 };
 </script>
 <style scoped>
-.col-auto {
-  padding: 0;
-  height: 100%;
-}
-#verifyphone {
-  max-width: 450px;
-  border: 1px solid;
-}
-.phone-num {
-  display: flex;
-  align-items: center;
-}
-.b {
-  margin-bottom: 20px;
-}
 :root {
   font-size: 100%;
   font-size: 16px;
@@ -412,7 +332,7 @@ a:hover {
   margin-top: 10rem;
 }
 .right {
-  margin-top: 13rem;
+  margin-top: 15rem;
 }
 .left,
 .right {
@@ -423,7 +343,8 @@ a:hover {
 .left {
   background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), url('../../assets/img/hero.jpg');
   background-size: cover;
-  height: 100%;
+  height: 100vh;
+  margin-bottom: 0;
 }
 .left .copy {
   color: white;
@@ -442,12 +363,12 @@ a:hover {
   margin: 1.5em 0;
   font-size: 0.875rem;
 }
-.right .form {
+.right form {
   width: 400px;
 }
-.form input[type='text'],
-.form input[type='email'],
-.form input[type='password'] {
+form input[type='text'],
+form input[type='email'],
+form input[type='password'] {
   display: block;
   width: 100%;
   box-sizing: border-box;
