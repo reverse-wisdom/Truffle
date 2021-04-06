@@ -2,6 +2,7 @@ package com.ssafy.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -72,11 +73,11 @@ public class OrderController {
 
 	@ApiOperation(value = "Order 테이블조회", notes = "pay_status가 1이면 결제완료상태")
 	@GetMapping("/selectOrderByEventId")
-	private ResponseEntity<OrderDto> selectOrderByEventId(@RequestParam(required = true) final int event_id) {
-		OrderDto orderDto;
+	private ResponseEntity<List<OrderDto>> selectOrderByEventId(@RequestParam(required = true) final int event_id) {
+		List<OrderDto> list;
 		try {
-			orderDto = orderService.selectOrderByEventId(event_id);
-			return new ResponseEntity<>(orderDto, HttpStatus.OK);
+			list = orderService.selectOrderByEventId(event_id);
+			return new ResponseEntity<>(list, HttpStatus.OK);
 		} catch (SQLException e) {
 			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
 		}
