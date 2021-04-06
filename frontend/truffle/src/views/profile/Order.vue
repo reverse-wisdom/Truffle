@@ -251,7 +251,7 @@ h4 {
 #progress-bar-container li:hover:before {
   border: solid 2px #fff;
 
-  background: linear-gradient(to right, #e91e63 0%, #fff 100%);
+  background: #381dfc;
 }
 
 #progress-bar-container li {
@@ -287,9 +287,9 @@ h4 {
   display: block;
   width: 20px;
   height: 20px;
-  background: #777;
+  background: #fff;
   margin: auto;
-  border: solid 7px #fff;
+  border: solid 4px #10004d;
   border-radius: 50%;
   margin-top: 40px;
   box-shadow: 0 2px 13px -1px rgba(0, 0, 0, 0.3);
@@ -297,11 +297,11 @@ h4 {
 }
 
 #progress-bar-container li:hover:after {
-  background: #555;
+  background: #000;
 }
 
 #progress-bar-container li.active:after {
-  background: #207893;
+  background: #f3118e;
 }
 
 #progress-bar-container #line {
@@ -321,8 +321,8 @@ h4 {
   content: ' ';
   width: 3%;
   height: 100%;
-  background: #207893;
-  background: linear-gradient(to right, #207893 0%, #2ea3b7 100%);
+  background: #f3118e;
+  /* background: linear-gradient(to right, #207893 0%, #2ea3b7 100%); */
   position: absolute;
   z-index: 2;
   border-radius: 50px;

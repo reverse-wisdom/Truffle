@@ -47,7 +47,7 @@ export default {
   font-size: 1rem;
   text-transform: uppercase;
   letter-spacing: 10px;
-
+  outline: 0;
   transform: translateY(600px);
   animation: 2s slideIn ease-in-out forwards 2s;
   z-index: 10;
@@ -66,6 +66,7 @@ export default {
   font-size: 1rem;
   text-transform: uppercase;
   letter-spacing: 10px;
+  outline: 0;
   z-index: 10;
 }
 .mcontainer {
