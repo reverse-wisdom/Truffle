@@ -1,6 +1,9 @@
 <template>
   <div class="container">
     <v-row>
+      <v-img :src="url" max-height="300" max-width="1800"></v-img>
+    </v-row>
+    <v-row>
       <v-col cols="2"></v-col>
       <v-col cols="10">
         <hr />
@@ -76,6 +79,7 @@ export default {
   data() {
     return {
       productEvent: [],
+      url: require('@/assets/img/event.png'),
     };
   },
   async created() {
