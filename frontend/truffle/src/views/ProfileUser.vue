@@ -51,6 +51,9 @@
       <input type="radio" name="vtab" id="tab3" />
       <label for="tab3">응모마감 상품</label>
 
+      <input type="radio" name="vtab" id="tab4" />
+      <label for="tab4">배송관리</label>
+
       <div class="vtab-content">
         <div id="content1">
           <Basic></Basic>
@@ -60,6 +63,9 @@
         </div>
         <div id="content3">
           <Win v-for="(win, idx) in wins" :key="idx" :win="win"></Win>
+        </div>
+        <div id="content4">
+          <Order></Order>
         </div>
       </div>
     </div>

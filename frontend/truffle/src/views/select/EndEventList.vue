@@ -55,9 +55,16 @@ export default {
       }
       return 0;
     });
-    data.reverse();
-    console.log('정렬후', data);
-    this.events = data.slice(0, 4);
+    for (let i = 0; i < data.length; i++) {
+      if (new Date(data[i].end_date) < Date.now()) {
+        continue;
+      } else {
+        this.events.push(data[i]);
+      }
+    }
+    this.events = this.events.slice(0, 4);
+    console.log('정렬후', this.ev);
+
     //이미지불러오기
     // const event_id = this.$refs.events[Number(this.index)].event_id;
     for (let i = 0; i < this.events.length; i++) {
@@ -160,7 +167,6 @@ h1 {
 }
 .details > .options-size {
   display: flex;
-
   justify-content: center;
   align-items: center;
 }
