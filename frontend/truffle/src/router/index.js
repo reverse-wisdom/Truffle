@@ -2,6 +2,8 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
 
+import store from '@/store/index';
+
 import Guide from '../views/Guide.vue';
 import Test from '../views/Test.vue';
 import Main from '../views/Main.vue';
@@ -28,6 +30,7 @@ import QnAdetail from '../views/QnA/QnAdetail.vue';
 import FormDataTest from '../views/event/FormDataTest.vue';
 
 import Search from '../views/Search.vue';
+import CategoryAll from '../views/CategoryAll.vue';
 Vue.use(VueRouter);
 
 const routes = [
@@ -52,7 +55,11 @@ const routes = [
     name: 'Search',
     components: { default: Search, header: MainNavbar },
   },
-
+  {
+    path: '/categoryall',
+    name: 'CategoryAll',
+    components: { default: CategoryAll, header: MainNavbar },
+  },
   {
     path: '/guide',
     name: 'Guide',
@@ -106,26 +113,26 @@ const routes = [
     components: { default: FormDataTest, header: MainNavbar },
   },
   // QnA
-  {
-    path: '/QnA',
-    name: 'QnA',
-    components: { default: QnA },
-  },
-  {
-    path: '/QnAdetail',
-    name: 'QnAdeatil',
-    components: { default: QnAdetail },
-  },
-  {
-    path: '/QnAwrite',
-    name: 'QnAwrite',
-    components: { default: QnAwrite },
-  },
-  {
-    path: '/QnAupdate',
-    name: 'QnAupdate',
-    components: { default: QnAupdate },
-  },
+  // {
+  //   path: '/QnA',
+  //   name: 'QnA',
+  //   components: { default: QnA },
+  // },
+  // {
+  //   path: '/QnAdetail',
+  //   name: 'QnAdeatil',
+  //   components: { default: QnAdetail },
+  // },
+  // {
+  //   path: '/QnAwrite',
+  //   name: 'QnAwrite',
+  //   components: { default: QnAwrite },
+  // },
+  // {
+  //   path: '/QnAupdate',
+  //   name: 'QnAupdate',
+  //   components: { default: QnAupdate },
+  // },
 
   // 프로필
   {

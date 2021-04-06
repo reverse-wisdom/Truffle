@@ -19,7 +19,8 @@
           <div class="product-price">
             <p class="price">
               가격:
-              <span>{{ event.price }}</span>
+              <!-- <span>{{ event.price }}</span> -->
+              <span>{{ priceComma }}원</span>
             </p>
           </div>
           <div class="tag">
@@ -52,7 +53,7 @@
             </ul>
           </div>
 
-          <div v-show="$store.state.type == '1' && new Date(this.event.end_date) > Date.now()" class="join-info">
+          <div v-show="this.$store.state.type == '1' && new Date(this.event.end_date) > Date.now()" class="join-info">
             <button type="button" class="btn" @click="joinAdd">
               응모하기
             </button>
@@ -69,8 +70,10 @@
           </div> -->
           <v-col cols="auto">
             <v-dialog transition="dialog-top-transition" max-width="600">
-              <template v-slot:activator="{ on, attrs }" v-show="$store.state.type == '2' && new Date(this.event.end_date) < Date.now()">
-                <v-btn color="primary" v-bind="attrs" @click="winnerListGo" v-on="on">당첨자보기</v-btn>
+              <template v-slot:activator="{ on, attrs }" v-show="this.$store.state.type == '2' && new Date(this.event.end_date) < Date.now()">
+                <v-btn class="ma-2 white--text" block color="#000" largedepressed v-bind="attrs" @click="winnerListGo" v-on="on">
+                  당첨자보기
+                </v-btn>
               </template>
               <template v-slot:default="dialog">
                 <v-card>
@@ -103,23 +106,23 @@
           </div>
         </div>
 
-        <div>
-          <!-- <img src="@/assets/img/tombrown3.jpg" alt="" /> -->
+        <div class="detail-contain">
           <div v-html="event.detail">
             {{ event.detail }}
           </div>
         </div>
       </div>
+      <div class="btns">
+        <div v-if="this.$store.state.retailuuid == event.uuid" style="text-align:right">
+          <v-btn color="" class="mr-1" dark @click="updateGo">수정</v-btn>
+          <v-btn dark @click="$router.go(-1)">뒤로가기</v-btn>
+        </div>
+        <!-- else -->
+        <div v-else style="text-align:right">
+          <v-btn dark @click="$router.go(-1)">뒤로가기</v-btn>
+        </div>
+      </div>
     </v-container>
-    <div v-if="$store.state.retailuuid == event.uuid" style="text-align:right">
-      <v-btn color="" class="mr-1" dark @click="updateGo">수정</v-btn>
-      <v-btn dark @click="$router.go(-1)">뒤로가기</v-btn>
-    </div>
-    <!-- else -->
-    <div v-else style="text-align:right">
-      <v-btn dark @click="$router.go(-1)">뒤로가기</v-btn>
-      <!-- 모달 -->
-    </div>
   </div>
 </template>
 
@@ -147,10 +150,12 @@ export default {
     };
   },
   computed: {
-    // maskingEmail: function(win) {
-    //   var len = win.email.split('@')[0].length - 3; // ******@gmail.com
-    //   return win.email.replace(new RegExp('.(?=.{0,' + len + '}@)', 'g'), '*');
-    // },
+    priceComma: function() {
+      const price = this.event.price;
+
+      this.event.price = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      return this.event.price;
+    },
   },
   async created() {
     const event_id = this.$route.query.event_id;
@@ -474,6 +479,17 @@ img {
 #tab2-title {
   color: #000;
   font-size: 1.2rem;
+}
+
+.detail-contain {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+.btns {
+  display: flex;
+  flex-direction: row-reverse;
+  margin-right: 10%;
 }
 @media screen and (min-width: 992px) {
   .card {
