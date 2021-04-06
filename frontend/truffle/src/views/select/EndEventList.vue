@@ -23,7 +23,7 @@
               <h1>마감일:{{ event.end_date }}</h1>
             </div>
           </div>
-          <a href="#" class="btn" @click="eventDetailGo">응모현황</a>
+          <a href="#" class="btn" @click="eventDetailGo(event.event_id)">응모현황</a>
         </section>
       </div>
     </div>
@@ -54,7 +54,9 @@ export default {
     this.events = data.slice(0, 4);
   },
   methods: {
-    eventDetailGo() {},
+    eventDetailGo(event_id) {
+      this.$router.push({ name: 'EventDetail', query: { event_id: event_id } });
+    },
   },
 };
 </script>

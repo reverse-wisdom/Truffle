@@ -110,7 +110,7 @@
                   <h1>마감일:{{ event.end_date }}</h1>
                 </div>
               </div>
-              <a href="#" class="btn" @click="eventDetailGo">응모현황</a>
+              <a href="#" class="btn" @click="eventDetailGo(event.event_id)">응모현황</a>
             </section>
           </div>
         </div>
@@ -286,7 +286,9 @@ export default {
       this.CategoryArray = CategoryArray.slice(0, 4);
       console.log('카테고리', this.CategoryArray);
     },
-    eventDetailGo() {},
+    eventDetailGo(event_id) {
+      this.$router.push({ name: 'EventDetail', query: { event_id: event_id } });
+    },
   },
 };
 </script>

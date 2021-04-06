@@ -4,7 +4,7 @@
       <div class="signin-signup">
         <!-- 로그인 폼 -->
         <form class="sign-in-form">
-          <h2 class="title">LOGIN</h2>
+          <p class="title">LOGIN</p>
           <div class="input-field">
             <i class="fas fa-user"></i>
             <input type="text" placeholder="Username" v-model="email" />
@@ -17,15 +17,15 @@
         </form>
         <form action="#" class="sign-up-form">
           <div class="about">
-            <h1 class="title">Sign up</h1>
+            <p class="title">Sign up</p>
           </div>
           <div class="input-field">
             <i class="fas fa-user"></i>
-            <button @click="retailer" class="branch-sign">리테일러</button>
+            <button @click="retailer" class="branch-sign">RETAILER</button>
           </div>
           <div class="input-field">
             <i class="fas fa-user"></i>
-            <button @click="user" class="branch-sign">일반회원</button>
+            <button @click="user" class="branch-sign">CUSTOMER</button>
           </div>
         </form>
       </div>
@@ -205,13 +205,14 @@ form.sign-in-form {
 .title {
   font-size: 2.2rem;
   color: #444;
+
   margin-bottom: 10px;
 }
 
 .input-field {
   max-width: 380px;
   width: 100%;
-  background-color: #f0f0f0;
+  background-color: #f3118e;
   margin: 10px 0;
   height: 55px;
   border-radius: 55px;
@@ -219,12 +220,13 @@ form.sign-in-form {
   grid-template-columns: 15% 85%;
   padding: 0 0.4rem;
   position: relative;
+  color: #fff;
 }
 
 .input-field i {
   text-align: center;
   line-height: 55px;
-  color: #acacac;
+  color: #fff;
   transition: 0.5s;
   font-size: 1.1rem;
 }
@@ -236,7 +238,12 @@ form.sign-in-form {
   line-height: 1;
   font-weight: 600;
   font-size: 1.1rem;
-  color: #333;
+  color: #fff;
+}
+.input-field input::placeholder {
+  color: #fff !important;
+
+  /* font-style: italic; */
 }
 
 .input-field input::placeholder {
@@ -265,7 +272,9 @@ form.sign-in-form {
   cursor: pointer;
   transition: 0.5s;
 }
-
+.branch-sign {
+  margin-left: -10px;
+}
 .btn:hover {
   background-color: #fff;
   color: #000;
@@ -283,13 +292,14 @@ form.sign-in-form {
 .container:before {
   content: '';
   position: absolute;
-  height: 2000px;
+  height: 2200px;
   width: 2000px;
   top: -10%;
   right: 48%;
   transform: translateY(-50%);
-  background-image: linear-gradient(-45deg, #000 0%, #d4cfcf 100%);
-  transition: 1.8s ease-in-out;
+  background: #07b8ac;
+  /* background-image: linear-gradient(0deg, #000 0%, #d4cfcf 100%); */
+  transition: 1s ease-in-out;
   border-radius: 50%;
   z-index: 6;
 }
@@ -323,17 +333,16 @@ form.sign-in-form {
   color: #fff;
   transition: transform 0.9s ease-in-out;
   transition-delay: 0.6s;
-
   z-index: 7;
 }
 .left-content {
   position: absolute;
-  top: 25%;
+  top: 30%;
   left: 10%;
 }
 .right-content {
   position: absolute;
-  top: 25%;
+  top: 30%;
   right: 10%;
 }
 
@@ -368,12 +377,25 @@ form.sign-in-form {
   font-weight: 1000;
   font-size: 2.3rem;
 }
-.btn.solid:hover {
-  margin: 0;
+
+.btn.solid {
+  margin-top: 20px;
   background: none;
-  border: 2px solid #000;
-  width: 130px;
+  /* border: 2px solid #000; */
+  background: #000;
+  width: 200px;
   height: 41px;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+.btn.solid:hover {
+  margin-top: 20px;
+  background: none;
+  /* border: 2px solid #000; */
+  background: #07b8ac;
+  width: 220px;
+  height: 50px;
+  color: white;
   font-weight: 600;
   font-size: 0.8rem;
 }
@@ -559,11 +581,12 @@ form.sign-in-form {
   font-size: 3rem;
 }
 
-.about h1 {
-  font-weight: bolder;
+.about p {
+  /* font-weight: bolder; */
   color: #000;
+  /* font-weight: 600; */
   font-family: Poppins;
-
+  font-size: 3rem;
   text-transform: uppercase;
 }
 </style>

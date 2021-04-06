@@ -27,8 +27,6 @@ import QnAupdate from '../views/QnA/QnAupdate.vue';
 import QnAwrite from '../views/QnA/QnAwrite.vue';
 import QnAdetail from '../views/QnA/QnAdetail.vue';
 
-import FormDataTest from '../views/event/FormDataTest.vue';
-
 import Search from '../views/Search.vue';
 import CategoryAll from '../views/CategoryAll.vue';
 Vue.use(VueRouter);
@@ -53,12 +51,12 @@ const routes = [
   {
     path: '/search',
     name: 'Search',
-    components: { default: Search, header: MainNavbar },
+    components: { default: Search, header: MainNavbar, footer: MainFooter },
   },
   {
     path: '/categoryall',
     name: 'CategoryAll',
-    components: { default: CategoryAll, header: MainNavbar },
+    components: { default: CategoryAll, header: MainNavbar, footer: MainFooter },
   },
   {
     path: '/guide',
@@ -70,12 +68,12 @@ const routes = [
   {
     path: '/signin-signup',
     name: 'Sign-In-Up',
-    component: Sign,
+    components: { default: Sign },
   },
   {
     path: '/resisteruser',
     name: 'ResisterUser',
-    components: { default: ResisterUser, header: MainNavbar },
+    components: { default: ResisterUser, header: MainNavbar, footer: MainFooter },
   },
   {
     path: '/resisterretailer',
@@ -106,12 +104,7 @@ const routes = [
     name: 'EventUpdate',
     components: { default: EventUpdate, header: MainNavbar },
   },
-  //임시테스트
-  {
-    path: '/formdataTest',
-    name: 'FormDataTest',
-    components: { default: FormDataTest, header: MainNavbar },
-  },
+
   // QnA
   // {
   //   path: '/QnA',
