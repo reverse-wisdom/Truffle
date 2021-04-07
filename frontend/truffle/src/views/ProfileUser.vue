@@ -51,7 +51,7 @@
       <input type="radio" name="vtab" id="tab3" />
       <label for="tab3">응모마감 상품</label>
 
-      <input type="radio" name="vtab" id="tab4" />
+      <input type="radio" name="vtab" id="tab4" @click="gomange" />
       <label for="tab4">배송관리</label>
 
       <div class="vtab-content">
@@ -94,7 +94,14 @@ export default {
     Event,
     Win,
   },
-  methods: {},
+  methods: {
+    goOrder() {
+      this.$router.push('/winnerItem');
+    },
+    gomange() {
+      this.$router.push('/winnerManage');
+    },
+  },
   async created() {
     if (this.$store.state.type == '2') {
       const { data } = await retailerAllEvent(this.$store.state.uuid);
@@ -129,6 +136,7 @@ export default {
   margin-top: 8rem;
   font-family: 'Open Sans', sans-serif;
   color: #404040;
+  min-height: 900px;
 }
 p {
   line-height: 1.5;
