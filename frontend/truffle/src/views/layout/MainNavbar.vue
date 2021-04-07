@@ -66,9 +66,7 @@ export default {
       this.$store.commit('clearType');
       this.$store.commit('clearPassword');
       this.$store.commit('clearNickname');
-
       this.$store.commit('clearUuid');
-
       localStorage.clear();
       sessionStorage.clear();
 
