@@ -1,9 +1,7 @@
 <template>
   <div class="event-index">
     <div class="card">
-      <figure>
-        <img src="@/assets/img/women.jpg" alt="" />
-      </figure>
+      <figure></figure>
       <section class="details">
         <div class="min-details">
           <h1>

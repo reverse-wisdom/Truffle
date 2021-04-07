@@ -46,7 +46,7 @@
           <div class="card">
             <div class="idx-box">{{ idx + 1 }}위</div>
             <figure>
-              <img src="@/assets/img/women.jpg" alt="" />
+              >
               <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" alt="" />
             </figure>
 
@@ -79,13 +79,13 @@
 </template>
 
 <script>
-import { eventSelectGender } from '@/api/event';
+import { eventSelectGender, returnImage64 } from '@/api/event';
 export default {
   data() {
     return {
       gender: '',
       GenderArray: [],
-      detailImg: '',
+      detailImg: [],
     };
   },
   computed: {
@@ -113,7 +113,14 @@ export default {
     GenderArray.reverse();
     this.GenderArray = GenderArray.slice(0, 4);
     console.log('성별', this.GenderArray);
+
     $('#gendercontent1').addClass('display');
+    for (let i = 0; i < this.GenderArray.length; i++) {
+      const event_id = this.GenderArray[i].event_id;
+      // console.log(event_id, '이벤트아이디');
+      const resImage = await returnImage64(event_id);
+      this.detailImg.push(resImage.data);
+    }
   },
   methods: {
     async selectGender() {
@@ -135,6 +142,12 @@ export default {
       GenderArray.reverse();
       this.GenderArray = GenderArray.slice(0, 4);
       console.log('성별', this.GenderArray);
+      for (let i = 0; i < this.GenderArray.length; i++) {
+        const event_id = this.GenderArray[i].event_id;
+        // console.log(event_id, '이벤트아이디');
+        const resImage = await returnImage64(event_id);
+        this.detailImg.push(resImage.data);
+      }
     },
     eventDetailGo(event_id) {
       this.$router.push({ name: 'EventDetail', query: { event_id: event_id } });

@@ -72,8 +72,9 @@ export default new Vuex.Store({
         commit('setEmail', userData.email);
         commit('setPassword', userData.password);
         const response = await fetchUser(userData.email);
-        commit('setType', response.data.type);
+        console.log(response.data);
         commit('setUuid', response.data.uuid);
+        commit('setType', response.data.type);
         if (response.data.type == 1) {
           commit('setNickname', response.data.nickname);
         }
