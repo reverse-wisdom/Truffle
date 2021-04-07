@@ -4,7 +4,7 @@
       <div class="event-index" ref="event">
         <div class="card">
           <figure>
-            <img src="@/assets/img/women.jpg" alt="" />
+            <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" />
           </figure>
           <section class="details">
             <div class="product-detail">
@@ -34,9 +34,7 @@
     <div v-else>
       <div class="event-index" ref="event">
         <div class="card">
-          <figure>
-            <img src="@/assets/img/women.jpg" alt="" />
-          </figure>
+          <figure></figure>
           <section class="details">
             <div class="product-detail">
               <div class="product">{{ event.product }}</div>
@@ -66,11 +64,13 @@
 </template>
 
 <script>
-import { userJoinEvent, retailerAllEvent } from '@/api/auth';
+import { returnImage64 } from '@/api/event';
 export default {
   name: 'Event',
   data() {
-    return {};
+    return {
+      detailImg: [],
+    };
   },
   props: {
     event: {
@@ -87,7 +87,6 @@ export default {
       this.$router.push({ name: 'EventDetail', query: { event_id: this.event.event_id } });
     },
   },
-  created() {},
 };
 </script>
 
