@@ -11,8 +11,6 @@ import java.util.Base64;
 import java.util.List;
 import java.util.UUID;
 
-import javax.validation.Valid;
-
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -149,7 +147,7 @@ public class EventController {
 			@RequestPart("end_date") final String end_date, @RequestPart("gender") final String gender,
 			@RequestPart("open_date") final String open_date, @RequestPart("price") final String price,
 			@RequestPart("product") final String product, @RequestPart("uuid") final String uuid,
-			@RequestPart("win_num") final String win_num, @RequestPart("11") final MultipartFile imgFile) {
+			@RequestPart("win_num") final String win_num, @RequestPart("썸네일이미지") final MultipartFile imgFile) {
 		EventDto eventDto = new EventDto();
 		eventDto.setAge(Integer.parseInt(age));
 		eventDto.setCategory(category);
@@ -207,57 +205,7 @@ public class EventController {
 
 	}
 
-	@ApiOperation(value = "이벤트 페이지 작성", notes = "작성가능한 필드: age category detail end_date gender(남:1,여:2) open_date price product win_num, uuid")
-	@PostMapping("/test")
-	private ResponseEntity<String> insert(@Valid final EventDto eventDto,
-			@RequestPart(required = true) final MultipartFile imgFile) {
-
-		String os = System.getProperty("os.name").toLowerCase();
-		String FILE_PATH;
-
-		if (os.contains("win"))
-			FILE_PATH = "C:\\SSAFY\\upload\\img\\"; // 환경에맞게 파일경로 수정
-		else
-			FILE_PATH = "/volumes/data/"; // 환경에맞게 파일경로 수정
-
-		String fileName = null;
-		EventImgFileDto eventImgFileDto = null;
-
-		if (imgFile.isEmpty()) {
-			return new ResponseEntity<>("썸네일파일을 업로드해주세요.", HttpStatus.NO_CONTENT);
-		} else {
-			String originalFileName = imgFile.getOriginalFilename();
-
-			String ext = FilenameUtils.getExtension(originalFileName); // 파일 확장자 구하기
-			UUID uuid = UUID.randomUUID(); // UUID 구하기
-			fileName = uuid + "." + ext;
-			try {
-				imgFile.transferTo(new File(FILE_PATH + fileName)); // 실제 업로드부분
-				eventImgFileDto = new EventImgFileDto();
-				eventImgFileDto.setOrignal_file(originalFileName);
-				eventImgFileDto.setUuid_file(fileName);
-			} catch (IllegalStateException e) {
-				return new ResponseEntity<String>("FAIL", HttpStatus.NO_CONTENT);
-			} catch (IOException e) {
-				return new ResponseEntity<String>("FAIL", HttpStatus.NO_CONTENT);
-			}
-
-			try {
-				boolean result = eventService.insert(eventDto, eventImgFileDto);
-
-				if (result) {
-					return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
-				}
-
-			} catch (SQLException e) {
-				return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
-			}
-			return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
-		}
-
-	}
-
-	@ApiOperation(value = "이벤트 참여자수 증가")
+	@ApiOperation(value = "이벤트 참여자수 1 증가")
 	@PutMapping("/joinEvent")
 	private ResponseEntity<String> joinEvent(@RequestBody(required = true) final int event_id) {
 		try {
@@ -400,7 +348,6 @@ public class EventController {
 		} catch (IOException e) {
 			return new ResponseEntity<>("지정된 파일을 찾을수 없습니다.", HttpStatus.NO_CONTENT);
 		}
-
 	}
 
 	private static byte[] getFileBinary(String filepath) {

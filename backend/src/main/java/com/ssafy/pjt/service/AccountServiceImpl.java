@@ -70,7 +70,13 @@ public class AccountServiceImpl implements AccountService {
 
 	@Override
 	public boolean cancelParticipation(ParticipationDto participationDto) throws SQLException {
-		return accountDao.cancelParticipation(participationDto) == 1;
+		int result = accountDao.cancelParticipation(participationDto);
+		if (result == 1) {
+			accountDao.leftEvent(participationDto.getEvent_id());
+			return true;
+		}
+		return false;
+
 	}
 
 }
