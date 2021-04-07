@@ -1,6 +1,6 @@
 <template>
   <span class="order">
-    <div class="process-wrapper" v-if="this.$store.state.type == '1'">
+    <div v-if="this.$store.state.type == '1'">
       <div id="progress-bar-container">
         <ul>
           <li class="step step01 active" @click="step01"><div class="step-inner">결제전</div></li>
@@ -42,11 +42,11 @@
         </div>
       </div>
     </div>
-    <div class="process-wrapper" v-else>
+    <div v-else class="wrap">
       <div class="event-index" v-for="(event, idx) in endevent" ref="endevent" :key="idx">
         <div class="card">
           <figure>
-            <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" />
+            <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg[idx]" />
           </figure>
           <section class="details">
             <div class="product-detail">
@@ -79,7 +79,7 @@
 <script>
 import { fetchOrder } from '@/api/order';
 import { userWinEvent, retailerAllEvent } from '@/api/auth';
-import { selectedWinner } from '@/api/event';
+import { selectedWinner, returnImage64 } from '@/api/event';
 export default {
   name: 'Order',
   data() {
@@ -90,6 +90,7 @@ export default {
       status3: [],
       status4: [],
       endevent: '',
+      detailImg: [],
     };
   },
   computed: {
@@ -99,47 +100,49 @@ export default {
       });
     },
   },
-  // async created() {
-  //   if (this.$store.state.type == 1) {
-  //     //// 유저입장
-  //     // 당첨내역조회
-  //     const { data } = await userWinEvent(this.$store.state.email);
-  //     // console.log(data);
+  async created() {
+    if (this.$store.state.type == 1) {
+      //// 유저입장
+      // 당첨내역조회
+      const { data } = await userWinEvent(this.$store.state.email);
+      // console.log(data);
 
-  //     // 이벤트아이디로 결제 조회
-  //     for (let i = 0; i < data.length; i++) {
-  //       const res = await fetchOrder(data[i].event_id);
+      // 이벤트아이디로 결제 조회
+      for (let i = 0; i < data.length; i++) {
+        const res = await fetchOrder(data[i].event_id);
 
-  //       if (res.data.uuid == this.$store.state.uuid && res.data.ship_status == 1) {
-  //         const response = await eventDetail(res.data.event_id);
+        if (res.data.uuid == this.$store.state.uuid && res.data.ship_status == 1) {
+          const response = await eventDetail(res.data.event_id);
 
-  //         this.status1.push(response.data[0]);
-  //       } else if (res.data.uuid == this.$store.state.uuid && res.data.ship_status == 2) {
-  //         const response = await eventDetail(res.data.event_id);
-  //         this.status2.push(response.data[0]);
-  //       } else if (res.data.uuid == this.$store.state.uuid && res.data.ship_status == 3) {
-  //         const response = await eventDetail(res.data.event_id);
-  //         this.status3.push(response.data[0]);
-  //       } else if (res.data.uuid == this.$store.state.uuid && res.data.ship_status == 4) {
-  //         const response = await eventDetail(res.data.event_id);
-  //         this.status4.push(response.data[0]);
-  //       } else {
-  //         const response = await eventDetail(res.data.event_id);
-  //         this.status0.push(response.data[0]);
-  //       }
-  //     }
-  //   } else {
-  //     //마감된 상품
-  //     const { data } = await retailerAllEvent(this.$store.state.uuid);
-  //     const endevent = [];
-  //     for (let i = 0; i < data.length; i++) {
-  //       if (new Date(data[i].end_date) < Date.now()) {
-  //         endevent.push(data[i]);
-  //       }
-  //       this.endevent = endevent;
-  //     }
-  //   }
-  // },
+          this.status1.push(response.data[0]);
+        } else if (res.data.uuid == this.$store.state.uuid && res.data.ship_status == 2) {
+          const response = await eventDetail(res.data.event_id);
+          this.status2.push(response.data[0]);
+        } else if (res.data.uuid == this.$store.state.uuid && res.data.ship_status == 3) {
+          const response = await eventDetail(res.data.event_id);
+          this.status3.push(response.data[0]);
+        } else if (res.data.uuid == this.$store.state.uuid && res.data.ship_status == 4) {
+          const response = await eventDetail(res.data.event_id);
+          this.status4.push(response.data[0]);
+        } else {
+          const response = await eventDetail(res.data.event_id);
+          this.status0.push(response.data[0]);
+        }
+      }
+    } else {
+      //마감된 상품
+      const { data } = await retailerAllEvent(this.$store.state.uuid);
+      const endevent = [];
+      for (let i = 0; i < data.length; i++) {
+        if (new Date(data[i].end_date) < Date.now()) {
+          endevent.push(data[i]);
+          const resImage = await returnImage64(data[i].event_id);
+          this.detailImg.push(resImage.data);
+        }
+      }
+      this.endevent = endevent;
+    }
+  },
   methods: {
     step01() {
       $('.step').click(function() {
@@ -233,8 +236,19 @@ export default {
   font-family: 'Roboto Condensed', sans-serif;
   margin-bottom: 5rem;
 }
-
-h4 {
+.wrap {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.event-index {
+  display: flex;
+  align-items: center;
+  min-height: auto;
+  /* justify-content: space-around; */
+  font-family: 'Poppins', sans-serif;
+}
+/* h4 {
   color: #333;
   font-weight: 700;
   margin-top: -20px;
@@ -242,181 +256,16 @@ h4 {
   text-transform: uppercase;
   letter-spacing: 4px;
   line-height: 23px;
-}
-
-/* --- Start progress bar --- */
-
-.process-wrapper {
-  margin: auto;
-  max-width: 1080px;
-  width: 60vw;
-}
-
-#progress-bar-container {
-  position: relative;
-  width: 80%;
-  margin: auto;
-  height: 100px;
-  margin-top: 65px;
-}
-
-#progress-bar-container ul {
-  padding: 0;
-  margin: 0;
-  padding-top: 15px;
-  z-index: 9999;
-  position: absolute;
-  width: 100%;
-  margin-top: -40px;
-}
-
-#progress-bar-container li:before {
-  content: ' ';
-  display: block;
-  margin: auto;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  border: solid 2px #aaa;
-  transition: all ease 0.3s;
-}
-
-#progress-bar-container li.active:before,
-#progress-bar-container li:hover:before {
-  border: solid 2px #fff;
-
-  background: #381dfc;
-}
-
-#progress-bar-container li {
-  list-style: none;
-  float: left;
-  width: 20%;
-  text-align: center;
-  color: #aaa;
-  text-transform: uppercase;
-  font-size: 11px;
-  cursor: pointer;
-  font-weight: 700;
-  transition: all ease 0.2s;
-  vertical-align: bottom;
-  height: 60px;
-  position: relative;
-}
-
-#progress-bar-container li .step-inner {
-  position: absolute;
-  width: 100%;
-  bottom: 0;
-  font-size: 14px;
-}
-
-#progress-bar-container li.active,
-#progress-bar-container li:hover {
-  color: #444;
-}
-
-#progress-bar-container li:after {
-  content: ' ';
-  display: block;
-  width: 20px;
-  height: 20px;
-  background: #fff;
-  margin: auto;
-  border: solid 4px #10004d;
-  border-radius: 50%;
-  margin-top: 40px;
-  box-shadow: 0 2px 13px -1px rgba(0, 0, 0, 0.3);
-  transition: all ease 0.2s;
-}
-
-#progress-bar-container li:hover:after {
-  background: #000;
-}
-
-#progress-bar-container li.active:after {
-  background: #f3118e;
-}
-
-#progress-bar-container #line {
-  width: 80%;
-  margin: auto;
-  background: #eee;
-  height: 6px;
-  position: absolute;
-  left: 10%;
-  top: 50px;
-  z-index: 1;
-  border-radius: 50px;
-  transition: all ease 0.9s;
-}
-
-#progress-bar-container #line-progress {
-  content: ' ';
-  width: 3%;
-  height: 100%;
-  background: #f3118e;
-  /* background: linear-gradient(to right, #207893 0%, #2ea3b7 100%); */
-  position: absolute;
-  z-index: 2;
-  border-radius: 50px;
-  transition: all ease 0.9s;
-}
-
-#progress-content-section {
-  width: 90%;
-  margin: auto;
-  background: #f3f3f3;
-  border-radius: 4px;
-}
-
-#progress-content-section .section-content {
-  padding: 30px 40px;
-  text-align: center;
-}
-
-#progress-content-section .section-content h2 {
-  font-size: 17px;
-  text-transform: uppercase;
-  color: #333;
-  letter-spacing: 1px;
-}
-
-#progress-content-section .section-content p {
-  font-size: 16px;
-  line-height: 1.8em;
-  color: #777;
-}
-
-#progress-content-section .section-content {
-  display: none;
-  animation: FadeInUp 700ms ease 1;
-  animation-fill-mode: forwards;
-  transform: translateY(15px);
-  opacity: 0;
-}
-
-#progress-content-section .section-content.active {
-  display: block;
-}
-
-@keyframes FadeInUp {
-  0% {
-    transform: translateY(15px);
-    opacity: 0;
-  }
-
-  100% {
-    transform: translateY(0px);
-    opacity: 1;
-  }
-}
+} */
 
 /* card */
 .product-detail > .product {
   margin: 3px 0;
   font-size: 1.5rem;
   font-weight: 900;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .product-detail > .price {
   display: flex;
