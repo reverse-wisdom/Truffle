@@ -34,7 +34,9 @@
     <div v-else>
       <div class="event-index" ref="event">
         <div class="card">
-          <figure></figure>
+          <figure>
+            <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" />
+          </figure>
           <section class="details">
             <div class="product-detail">
               <div class="product">{{ event.product }}</div>
@@ -69,13 +71,18 @@ export default {
   name: 'Event',
   data() {
     return {
-      detailImg: [],
+      detailImg: '',
     };
   },
   props: {
     event: {
       type: Object,
     },
+  },
+  async created() {
+    const resImage = await returnImage64(this.event.event_id);
+    // console.log(resImage);
+    this.detailImg = resImage.data;
   },
   computed: {
     priceComma() {
