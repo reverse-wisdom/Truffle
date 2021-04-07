@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.Base64;
 import java.util.List;
@@ -142,7 +143,74 @@ public class EventController {
 	}
 
 	@ApiOperation(value = "이벤트 페이지 작성", notes = "작성가능한 필드: age category detail end_date gender(남:1,여:2) open_date price product win_num, uuid")
-	@PostMapping("/insert")
+	@PostMapping(value = "/insert", consumes = { "multipart/form-data" })
+	private ResponseEntity<String> test(@RequestPart("age") final String age,
+			@RequestPart("category") final String category, @RequestPart("detail") final String detail,
+			@RequestPart("end_date") final String end_date, @RequestPart("gender") final String gender,
+			@RequestPart("open_date") final String open_date, @RequestPart("price") final String price,
+			@RequestPart("product") final String product, @RequestPart("uuid") final String uuid,
+			@RequestPart("win_num") final String win_num, @RequestPart("11") final MultipartFile imgFile) {
+		EventDto eventDto = new EventDto();
+		eventDto.setAge(Integer.parseInt(age));
+		eventDto.setCategory(category);
+		eventDto.setDetail(detail);
+		eventDto.setEnd_date(Date.valueOf(end_date));
+		eventDto.setGender(Integer.parseInt(gender));
+		eventDto.setOpen_date(Date.valueOf(open_date));
+		eventDto.setPrice(Integer.parseInt(price));
+		eventDto.setProduct(product);
+		eventDto.setUuid(Integer.parseInt(uuid));
+		eventDto.setWin_num(Integer.parseInt(win_num));
+		System.out.println(eventDto);
+
+		String os = System.getProperty("os.name").toLowerCase();
+		String FILE_PATH;
+
+		if (os.contains("win"))
+			FILE_PATH = "C:\\SSAFY\\upload\\img\\"; // 환경에맞게 파일경로 수정
+		else
+			FILE_PATH = "/volumes/data/"; // 환경에맞게 파일경로 수정
+
+		String fileName = null;
+		EventImgFileDto eventImgFileDto = null;
+
+		if (imgFile.isEmpty()) {
+			return new ResponseEntity<>("썸네일파일을 업로드해주세요.", HttpStatus.NO_CONTENT);
+		} else {
+			String originalFileName = imgFile.getOriginalFilename();
+			System.out.println(originalFileName);
+
+			String ext = FilenameUtils.getExtension(originalFileName); // 파일 확장자 구하기
+			UUID fileUUID = UUID.randomUUID(); // UUID 구하기
+			fileName = fileUUID + "." + ext;
+			try {
+				imgFile.transferTo(new File(FILE_PATH + fileName)); // 실제 업로드부분
+				eventImgFileDto = new EventImgFileDto();
+				eventImgFileDto.setOrignal_file(originalFileName);
+				eventImgFileDto.setUuid_file(fileName);
+			} catch (IllegalStateException e) {
+				return new ResponseEntity<String>("FAIL", HttpStatus.NO_CONTENT);
+			} catch (IOException e) {
+				return new ResponseEntity<String>("FAIL", HttpStatus.NO_CONTENT);
+			}
+
+			try {
+				boolean result = eventService.insert(eventDto, eventImgFileDto);
+
+				if (result) {
+					return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+				}
+
+			} catch (SQLException e) {
+				return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+			}
+			return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+		}
+
+	}
+
+	@ApiOperation(value = "이벤트 페이지 작성", notes = "작성가능한 필드: age category detail end_date gender(남:1,여:2) open_date price product win_num, uuid")
+	@PostMapping("/test")
 	private ResponseEntity<String> insert(@Valid final EventDto eventDto,
 			@RequestPart(required = true) final MultipartFile imgFile) {
 
