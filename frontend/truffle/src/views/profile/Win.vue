@@ -34,9 +34,7 @@
     <div v-else>
       <div class="win-index">
         <div class="card">
-          <figure>
-            <img src="@/assets/img/women.jpg" alt="" />
-          </figure>
+          <figure></figure>
           <section class="details">
             <div class="product-detail">
               <div class="product">{{ win.product }}</div>

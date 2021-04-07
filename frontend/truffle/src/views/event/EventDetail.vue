@@ -52,13 +52,7 @@
               </li>
             </ul>
           </div>
-          <!-- 
-          <div v-show="this.$store.state.type == '1' && new Date(this.event.end_date) > Date.now()" class="join-info">
-            <button type="button" id="btn-join" class="btn" value="응모하기" @click="joinAdd">
-              응모하기
-            </button>
-          </div> -->
-          <!-- 응모취소하기 -->
+
           <v-col cols="auto" v-show="this.$store.state.type == '1' && new Date(this.event.end_date) > Date.now()">
             <button v-if="cancelcheck" type="button" id="btn-join" class="btn" value="응모하기" @click="joinAdd">
               응모하기
@@ -91,15 +85,6 @@
             </button>
           </div>
 
-          <div class="join-info">
-            <button type="button" class="btn" id="payment" @click="iamport">
-              결제하기
-            </button>
-            <button type="button" class="btn" id="canclepayment" @click="cancleiamport">
-              결제취소
-            </button>
-          </div>
-
           <!-- <div v-show="new Date(this.event.end_date) < Date.now()" class="join-info" @click="winnerListGo">
             <button type="button" class="btn">
               당첨자보기
@@ -127,6 +112,14 @@
               </template>
             </v-dialog>
           </v-col>
+          <div class="join-info" v-if="paycheck == true && new Date(this.event.end_date) < Date.now()">
+            <button type="button" class="btn" id="payment" @click="iamport">
+              결제하기
+            </button>
+            <button type="button" class="btn" id="canclepayment" @click="cancleiamport">
+              결제취소
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -189,6 +182,8 @@ export default {
       detailImg: '',
       partcheck: false,
       cancelcheck: true,
+      winnerEventId: [],
+      paycheck: false,
     };
   },
   computed: {
@@ -221,6 +216,13 @@ export default {
       target.disabled = true;
       target.innerText = '추첨완료';
       console.log('당첨여부', response.data);
+      for (let i = 0; i < response.data.length; i++) {
+        this.winnerEventId.push(response.data[i].event_id);
+      }
+      //결제하기 버튼 보일지말지 확인
+      if (this.winnerEventId.includes(this.event.uuid)) {
+        this.paycheck = true;
+      }
     }
   },
   methods: {
