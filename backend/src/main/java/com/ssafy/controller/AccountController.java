@@ -216,7 +216,7 @@ public class AccountController {
 		return numStr;
 	}
 
-	@ApiOperation(value = "이벤트아이디,uuid로 참여기록 테이블 제거, 참여취소", notes = "해당 이벤트 참여중이지않거나 존재하지않는 이벤트일때 204")
+	@ApiOperation(value = "이벤트아이디,uuid로 참여기록 테이블 제거, 이벤트테이블 join_num 1감소 포함", notes = "해당 이벤트 참여중이지않거나 존재하지않는 이벤트일때 204")
 	@DeleteMapping("/cancelParticipation")
 	private ResponseEntity<String> cancelParticipation(@RequestParam(required = true) final int event_id,
 			@RequestParam(required = true) final int uuid) {
