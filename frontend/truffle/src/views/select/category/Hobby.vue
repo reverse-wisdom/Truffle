@@ -4,7 +4,7 @@
       <div class="card">
         <!-- <div class="idx-box">{{ idx + 1 }}위</div> -->
         <figure>
-          <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" alt="" />
+          v
         </figure>
 
         <section class="details">
@@ -46,11 +46,6 @@ export default {
     const { data } = await eventSelectCategory('취미');
     console.log(data);
     this.events = data;
-    for (let i = 0; i < this.events.length; i++) {
-      const event_id = this.events[i].event_id;
-      const resImage = await returnImage64(event_id);
-      this.detailImg.push(resImage.data);
-    }
   },
   computed: {
     priceComma: function() {
@@ -72,6 +67,11 @@ export default {
   width: 15vw;
   margin-bottom: 50px;
   display: inline-table;
+}
+.event-ct {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20%;
 }
 .event-index {
   display: flex;

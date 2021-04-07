@@ -7,7 +7,7 @@
           <div class="img-display">
             <div class="img-showcase">
               <!-- 이미지 -->
-              <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" alt="" />
+              <img class="detail-image" :src="imgURL + event.event_id" />
             </div>
           </div>
         </div>
@@ -54,24 +54,27 @@
           </div>
 
           <v-col cols="auto" v-show="this.$store.state.type == '1' && new Date(this.event.end_date) > Date.now()">
-            <button v-if="cancelcheck" type="button" id="btn-join" class="btn" value="응모하기" @click="joinAdd">
-              응모하기
-            </button>
-
+            <div class="join-info" style="" v-if="cancelcheck">
+              <button type="button" id="joinBtn" class="btn" value="응모하기" @click="joinAdd">
+                응모하기
+              </button>
+            </div>
             <v-dialog transition="dialog-top-transition" max-width="600" v-else>
-              <template v-slot:activator="{ on, attrs }">
-                <button class="join-info" v-bind="attrs" id="btn-join" v-on="on" value="응모하기" @click="joinAdd">응모취소</button>
+              <template class="join-info" v-slot:activator="{ on, attrs }">
+                <div class="join-info">
+                  <button class="btn" v-bind="attrs" id="btn-join" v-on="on" value="응모하기" @click="joinAdd">응모취소</button>
+                </div>
               </template>
               <template v-slot:default="dialog" v-show="cancelcheck == true">
                 <v-card>
                   <v-toolbar color="dark" dark>응모취소확인</v-toolbar>
                   <v-card-text>
-                    <div class="text-h3 pa-12">
+                    <div class="text-h5 text-center pt-10">
                       응모를 취소하시겠습니까?
                     </div>
                   </v-card-text>
                   <v-card-actions class="justify-end">
-                    <v-btn text @click="cancle">OK</v-btn>
+                    <v-btn text @click="cancel">OK</v-btn>
                     <v-btn text @click="dialog.value = false">닫기</v-btn>
                   </v-card-actions>
                 </v-card>
@@ -159,8 +162,8 @@
 
 <script>
 import EventDetailTab from '@/views/event/EventDetailTab';
-import { returnImage64, eventDetail, eventJoin, checkPartipants, createPartipants, selectedWinner, createWinner, returnImage } from '@/api/event';
-import { fetchUser, cancleparticle } from '@/api/auth';
+import { eventDetail, eventJoin, checkPartipants, createPartipants, selectedWinner, createWinner } from '@/api/event';
+import { fetchUser, cancelPart } from '@/api/auth';
 import { verifyIamport, completePayment, fetchOrder, cancleOrder, deleteOrdertable } from '@/api/order';
 
 export default {
@@ -184,6 +187,10 @@ export default {
       cancelcheck: true,
       winnerEventId: [],
       paycheck: false,
+      imgURL: 'https://j4d110.p.ssafy.io/truffle/event/selectEventImgFileEventID?event_id=',
+      //로드늦어서 따로 변수지정함
+      event_id: this.$route.query.event_id,
+      uuid: this.$store.state.uuid,
     };
   },
   computed: {
@@ -204,10 +211,22 @@ export default {
     } else {
       this.gender = '여자';
     }
+    //응모한 사람인지 확인(응모취소 버튼보이게)
+    const part_data = await checkPartipants(event_id);
+    console.log(part_data);
+    console.log('uuid:', this.$store.state.uuid);
+
+    for (let i = 0; i < part_data.data.length; i++) {
+      if ((this.$store.state.uuid = part_data.data[i].event_id)) {
+        console.log('포문안', part_data.data[i].event_id);
+        const joinBtn = document.getElementById('joinBtn');
+        target.disabled = true;
+        joinBtn.innerText = '응모취소';
+        console.log('joinBtn', joinBtn);
+        break;
+      }
+    }
     //이미지불러오기
-    const resImage = await returnImage64(this.event.event_id);
-    // console.log('이미지', resImage.data);
-    this.detailImg = resImage.data;
 
     //당첨자 불러오기
     const response = await selectedWinner(this.event.event_id);
@@ -331,11 +350,16 @@ export default {
         console.log('이미참여한이벤트');
       }
     },
-    async cancle() {
-      const { data } = await cancleparticle(this.event.event_id, this.$store.state.uuid);
+    async cancel() {
+      const { data } = await cancelPart(this.event_id, this.uuid);
+      const resp = await eventDetail(this.event_id);
+      this.event.join_num = resp.data[0].join_num;
+      const event_data = {};
+      const updateDT = await eventUpdate;
       // this.dialog.value = false;
+      console.log(resp, '취소후');
+      // console.log(resp.data[0].join_num);
       this.cancelcheck = true;
-      console.log(data);
     },
 
     updateGo() {
