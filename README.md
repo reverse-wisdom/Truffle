@@ -46,7 +46,7 @@ npm run serve
 
 ### 기술스택
 
- 작성중
+![image-20210407175410087](README.assets/image-20210407175410087.png)
 
 ---
 
