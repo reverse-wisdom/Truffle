@@ -16,7 +16,7 @@ import ResisterUser from '../views/User/ResisterUser.vue';
 import ResisterRetailer from '../views/User/ResisterRetailer.vue';
 
 import ProfileUser from '../views/ProfileUser.vue';
-import WinnerManage from '../views/profile/WinnerManage.vue';
+import WinnerManageList from '../views/profile/WinnerManageList.vue';
 import WinnerItem from '../views/profile/WinnerItem.vue';
 
 import EventAll from '../views/event/EventAll.vue';
@@ -108,9 +108,9 @@ const routes = [
     components: { default: EventUpdate, header: MainNavbar },
   },
   {
-    path: '/winnermanage',
-    name: 'WinnerManage',
-    components: { default: WinnerManage, header: MainNavbar },
+    path: '/winnermanagelist',
+    name: 'WinnerManageList',
+    components: { default: WinnerManageList, header: MainNavbar },
   },
   {
     path: '/winnerItem',
