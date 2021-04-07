@@ -224,7 +224,7 @@ export default {
         .removeClass('active');
     },
     ManageGo(event_id) {
-      this.$router.push({ name: 'WinnerManage', query: { event_id: event_id } });
+      this.$router.push({ name: 'WinnerManageList', query: { event_id: event_id } });
     },
   },
 };
