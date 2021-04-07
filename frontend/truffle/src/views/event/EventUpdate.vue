@@ -18,7 +18,7 @@
             ></v-file-input>
             <div class="img-showcase">
               <!-- 이미지 -->
-              <img class="detail-image" style="margin-bottom: 20px;" :src="'data:image/jpeg;base64,' + detailImg" alt="" />
+              <img class="detail-image" :src="imgURL + event.event_id" style="margin-bottom: 20px;" />
             </div>
           </div>
           <label for="">카테고리</label>
@@ -123,7 +123,7 @@
 </template>
 
 <script>
-import { eventDetail, eventUpdate, returnImage64 } from '@/api/event';
+import { eventDetail, eventUpdate } from '@/api/event';
 
 export default {
   data: (vm) => ({
@@ -143,7 +143,7 @@ export default {
     price: '',
     product: '',
     win_num: '',
-
+    imgURL: 'https://j4d110.p.ssafy.io/truffle/event/selectEventImgFileEventID?event_id=',
     event: '',
     detailImg: '',
     url: null,
@@ -153,9 +153,7 @@ export default {
     const event_id = this.$route.query.event_id;
     console.log(event_id);
     const { data } = await eventDetail(event_id);
-    const response = await returnImage64(event_id);
-    // console.log('이미지', response.data);
-    this.detailImg = response.data;
+
     // console.log('수정', data);
     this.event = data[0];
     var $vm = this;

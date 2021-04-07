@@ -33,8 +33,8 @@ function verifyPhone(phone) {
   return posts.get(`/account/verifyPhoneNumber?phone=${phone}`);
 }
 // 이벤트 참여취소
-function cancleparticle(event_id, uuid) {
+function cancelPart(event_id, uuid) {
   return posts.delete(`/account/cancelParticipation?event_id=${event_id}&uuid=${uuid}`);
 }
 
-export { loginUser, fetchUser, register, userJoinEvent, userWinEvent, editUser, retailerAllEvent, verifyPhone, cancleparticle };
+export { loginUser, fetchUser, register, userJoinEvent, userWinEvent, editUser, retailerAllEvent, verifyPhone, cancelPart };
