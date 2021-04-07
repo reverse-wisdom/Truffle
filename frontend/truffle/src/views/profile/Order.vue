@@ -46,7 +46,7 @@
       <div class="event-index" v-for="(event, idx) in endevent" ref="endevent" :key="idx">
         <div class="card">
           <figure>
-            <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg[idx]" />
+            <img class="detail-image" :src="imgURL + event.event_id" />
           </figure>
           <section class="details">
             <div class="product-detail">
@@ -80,7 +80,6 @@
 <script>
 import { fetchOrder } from '@/api/order';
 import { userWinEvent, retailerAllEvent } from '@/api/auth';
-import { selectedWinner, returnImage64 } from '@/api/event';
 export default {
   name: 'Order',
   data() {
@@ -91,7 +90,7 @@ export default {
       status3: [],
       status4: [],
       endevent: '',
-      detailImg: [],
+      imgURL: 'https://j4d110.p.ssafy.io/truffle/event/selectEventImgFileEventID?event_id=',
     };
   },
   computed: {
@@ -137,16 +136,9 @@ export default {
       for (let i = 0; i < data.length; i++) {
         if (new Date(data[i].end_date) < Date.now()) {
           endevent.push(data[i]);
-          const resImage = await returnImage64(data[i].event_id);
-          this.detailImg.push(resImage.data);
         }
       }
       this.endevent = endevent;
-    }
-    for (let i = 0; i < this.endevent.length; i++) {
-      const event_id = this.endevent[i].event_id;
-      const resImage = await returnImage64(event_id);
-      this.detailImg.push(resImage.data);
     }
   },
   methods: {
