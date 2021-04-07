@@ -51,7 +51,7 @@ export default {
   },
   async created() {
     const { data } = await eventSelectCategory('신발');
-    console.log(data);
+    // console.log(data);
     this.events = data;
   },
   methods: {

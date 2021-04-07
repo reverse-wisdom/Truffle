@@ -44,7 +44,7 @@ export default {
   },
   async created() {
     const { data } = await eventSelectCategory('잡화');
-    console.log(data);
+    // console.log(data);
     this.events = data;
   },
   methods: {
