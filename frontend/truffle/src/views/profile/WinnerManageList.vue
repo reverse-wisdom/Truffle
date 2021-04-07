@@ -71,7 +71,7 @@ export default {
   methods: {
     async checkState(uuid) {
       const res = await fetchOrder(this.$route.query.event_id);
-      console.log(res);
+      // console.log(res);
 
       const editdata = {
         uuid: uuid,
@@ -79,9 +79,9 @@ export default {
         pay_status: res.data.pay_status,
         ship_status: this.status,
       };
-      console.log(editdata);
+      // console.log(editdata);
       const { data } = await editOderStatus(editdata);
-      console.log(data);
+      // console.log(data);
     },
   },
 };

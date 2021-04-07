@@ -151,7 +151,7 @@ export default {
   }),
   async created() {
     const event_id = this.$route.query.event_id;
-    console.log(event_id);
+    // console.log(event_id);
     const { data } = await eventDetail(event_id);
 
     // console.log('수정', data);
@@ -231,10 +231,10 @@ export default {
         product: this.event.product,
         win_num: this.event.win_num,
       };
-      console.log('이벤트데이타', eventData);
+      // console.log('이벤트데이타', eventData);
 
       const data = await eventUpdate(eventData);
-      console.log('수정완료', data);
+      // console.log('수정완료', data);
 
       this.$swal({
         icon: 'success',

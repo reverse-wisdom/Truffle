@@ -109,7 +109,7 @@ export default {
           this.wins.push(data[i]);
         }
       }
-      console.log(this.wins);
+      // console.log(this.wins);
     } else {
       const { data } = await userJoinEvent(this.$store.state.email);
       // console.log('응모', data);

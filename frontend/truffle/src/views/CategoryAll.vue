@@ -86,7 +86,7 @@ export default {
     const product = this.$route.query.product;
     const { data } = await eventSelectProduct(product);
     this.productEvent = data;
-    console.log(this.productEvent);
+    // console.log(this.productEvent);
   },
   methods: {},
 };

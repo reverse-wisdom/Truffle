@@ -95,7 +95,7 @@ export default {
           var editgender = 2;
         }
         if (this.value.type == '1') {
-          console.log(this.value.phone.length);
+          // console.log(this.value.phone.length);
           if (this.value.phone.length == 11) {
             const phone = this.value.phone;
             const editdata = {
@@ -109,7 +109,7 @@ export default {
               business_number: this.value.business_number,
               type: this.value.type,
             };
-            console.log(editdata);
+            // console.log(editdata);
             const { data } = await editUser(editdata);
           } else if (this.value.phone.length == 13) {
             const editdata = {
@@ -123,7 +123,7 @@ export default {
               business_number: this.value.business_number,
               type: this.value.type,
             };
-            console.log(editdata);
+            // console.log(editdata);
             const { data } = await editUser(editdata);
           } else {
             this.$swal({
@@ -143,7 +143,7 @@ export default {
               business_number: this.value.business_number,
               type: this.value.type,
             };
-            console.log(editdata);
+            // console.log(editdata);
             const { data } = await editUser(editdata);
           } else if (this.value.phone.length == 13) {
             const editdata = {
@@ -155,7 +155,7 @@ export default {
               business_number: this.value.business_number,
               type: this.value.type,
             };
-            console.log(editdata);
+            // console.log(editdata);
             const { data } = await editUser(editdata);
           } else {
             this.$swal({

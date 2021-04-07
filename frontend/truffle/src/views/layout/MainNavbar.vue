@@ -7,10 +7,9 @@
           <li><a class="font" href="/main">Main</a></li>
           <li><a class="font" href="/">Home</a></li>
           <li><a class="font" href="/categoryall">Category</a></li>
-          <li><a class="font" href="/test">Test</a></li>
           <li><a class="font" href="/guide">Guide</a></li>
 
-          <li v-show="$store.state.type == '2'"><a class="font" href="/eventCreate">Event</a></li>
+          <li v-show="$store.state.type == '2'"><a class="font" href="/eventCreate">Raffle</a></li>
           <li>
             <a class="font" href="/profileUser">Profile</a>
           </li>
