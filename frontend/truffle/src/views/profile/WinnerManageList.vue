@@ -8,7 +8,6 @@
             <th class="no">NO</th>
             <th class="email">E-MAIL</th>
             <th class="phone">PHONE</th>
-            <th class="now">NOW</th>
             <th class="state">STATE</th>
             <!-- <th>결제전</th>
           <th>결제완료</th>
@@ -93,15 +92,11 @@ export default {
   text-align: center !important;
 }
 .email {
-  width: 15vw !important;
+  width: 40vw !important;
   text-align: center !important;
 }
 .phone {
-  width: 35vw !important;
-  text-align: center !important;
-}
-.now {
-  width: 10vw !important;
+  width: 40vw !important;
   text-align: center !important;
 }
 

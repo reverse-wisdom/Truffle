@@ -4,7 +4,7 @@
       <td class="no">{{ idx + 1 }}</td>
       <td class="email">{{ winner.email }}</td>
       <td class="phone">{{ winner.phone }}</td>
-      <td class="now">{{ position }}</td>
+      <td class="">{{ position }}</td>
       <td class="status">
         <div @change="checkState">
           <label id="id_state" for="state1">
@@ -48,7 +48,6 @@ export default {
     return {
       status: '',
       position: '',
-      first: '',
     };
   },
   props: {
@@ -62,29 +61,28 @@ export default {
 
   async created() {
     const res = await fetchOrder(this.winner.uuid);
-    // console.log(res.data == '');
-    if (res.data == '') {
-      this.first = '0';
+    // console.log(res.data);
+    if (res.data) {
+      const status = res.data.ship_status;
     } else {
-      this.first = res.data.ship_status;
+      const status = '0';
     }
-    if (this.first == 1) {
-      // document.getElementById('state1').setAttribute('checked', 'checked');
-      this.position = '결제완료';
-    } else if (this.first == 2) {
-      // document.getElementById('state2').setAttribute('checked', 'checked');
-      this.position = '배송준비중';
-    } else if (this.first == 3) {
-      // document.getElementById('state3').setAttribute('checked', 'checked');
-      this.position = '배송중';
-    } else if (this.first == 4) {
-      // document.getElementById('state4').setAttribute('checked', 'checked');
-      this.position = '배송완료';
+    if (status == 1) {
+      document.getElementById('state1').setAttribute('checked', 'checked');
+      this.position = status;
+    } else if (status == 2) {
+      document.getElementById('state2').setAttribute('checked', 'checked');
+      this.position = status;
+    } else if (status == 3) {
+      document.getElementById('state3').setAttribute('checked', 'checked');
+      this.position = status;
+    } else if (status == 4) {
+      document.getElementById('state4').setAttribute('checked', 'checked');
+      this.position = status;
     } else {
-      // document.getElementById('state0').setAttribute('checked', 'checked');
-      this.position = '결제전';
+      document.getElementById('state0').setAttribute('checked', 'checked');
+      this.position = status;
     }
-    // console.log('111111111', this.position);
   },
   methods: {
     async checkState() {
@@ -117,16 +115,10 @@ export default {
   text-align: center;
 }
 .email {
-  width: 15vw;
-  text-align: center;
+  width: 20vw;
 }
 .phone {
-  width: 13vw;
-  text-align: center;
-}
-.now {
-  width: 13vw;
-  text-align: center;
+  width: 18vw;
 }
 .status {
   display: flex;
