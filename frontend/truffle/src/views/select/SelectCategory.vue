@@ -20,19 +20,18 @@
       <input id="ct6" v-model="category" type="radio" value="디지털" @change="selectCategory" />
       <label for="ct6">디지털</label>
 
-      <input id="ct6" v-model="category" type="radio" value="취미/문화" @change="selectCategory" />
-      <label for="ct6">취미/문화</label>
+      <input id="ct7" v-model="category" type="radio" value="취미/문화" @change="selectCategory" />
+      <label for="ct7">취미/문화</label>
 
-      <input id="ct7" v-model="category" type="radio" value="기타" @change="selectCategory" />
-      <label for="ct7">기타</label>
+      <input id="ct8" v-model="category" type="radio" value="기타" @change="selectCategory" />
+      <label for="ct8">기타</label>
 
       <div id="categorycontent1" class="section">
         <div class="event-index" v-for="(event, idx) in CategoryArray" ref="CategoryArray" :key="idx">
           <div class="card">
             <div class="idx-box">{{ idx + 1 }}위</div>
             <figure>
-              <img src="@/assets/img/women.jpg" alt="" />
-              <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" alt="" />
+              <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" />
             </figure>
 
             <section class="details">
@@ -65,8 +64,7 @@
           <div class="card">
             <div class="idx-box">{{ idx + 1 }}위</div>
             <figure>
-              <img src="@/assets/img/women.jpg" alt="" />
-              <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" alt="" />
+              <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" />
             </figure>
 
             <section class="details">
@@ -99,8 +97,7 @@
           <div class="card">
             <div class="idx-box">{{ idx + 1 }}위</div>
             <figure>
-              <img src="@/assets/img/women.jpg" alt="" />
-              <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" alt="" />
+              <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" />
             </figure>
 
             <section class="details">
@@ -133,8 +130,7 @@
           <div class="card">
             <div class="idx-box">{{ idx + 1 }}위</div>
             <figure>
-              <img src="@/assets/img/women.jpg" alt="" />
-              <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" alt="" />
+              <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" />
             </figure>
 
             <section class="details">
@@ -166,8 +162,7 @@
           <div class="card">
             <div class="idx-box">{{ idx + 1 }}위</div>
             <figure>
-              <img src="@/assets/img/women.jpg" alt="" />
-              <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" alt="" />
+              <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" />
             </figure>
 
             <section class="details">
@@ -199,8 +194,7 @@
           <div class="card">
             <div class="idx-box">{{ idx + 1 }}위</div>
             <figure>
-              <img src="@/assets/img/women.jpg" alt="" />
-              <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" alt="" />
+              <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" />
             </figure>
 
             <section class="details">
@@ -232,8 +226,40 @@
           <div class="card">
             <div class="idx-box">{{ idx + 1 }}위</div>
             <figure>
-              <img src="@/assets/img/women.jpg" alt="" />
-              <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" alt="" />
+              <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" />
+            </figure>
+
+            <section class="details">
+              <div class="product-detail">
+                <div class="product">{{ event.product }}</div>
+                <div class="price">{{ priceComma[idx] }}원</div>
+              </div>
+              <div class="min-details">
+                <div>
+                  <span>#{{ event.category }}</span>
+                  <span v-show="event.gender == 1" outlined>#남성</span>
+                  <span v-show="event.gender == 2" outlined>#여성</span>
+                  <span>#{{ event.age }}대</span>
+                </div>
+                <div>
+                  <v-chip style="background-color:#07b8ac;" text-color="white">응모자{{ event.join_num }}명 / 총추첨인원{{ event.win_num }}명</v-chip>
+                </div>
+                <div>
+                  <div style="margin-top:20px;">이벤트종료일:{{ event.end_date }}</div>
+                </div>
+                <a href="#" class="btn" style="margin-top:;" @click="eventDetailGo(event.event_id)">자세히보기</a>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+
+      <div id="categorycontent8" class="section">
+        <div class="event-index" v-for="(event, idx) in CategoryArray" ref="CategoryArray" :key="idx">
+          <div class="card">
+            <div class="idx-box">{{ idx + 1 }}위</div>
+            <figure>
+              <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" />
             </figure>
 
             <section class="details">
@@ -265,12 +291,13 @@
 </template>
 
 <script>
-import { eventSelectCategory } from '@/api/event';
+import { eventSelectCategory, returnImage64 } from '@/api/event';
 export default {
   data() {
     return {
       category: '',
       CategoryArray: [],
+      detailImg: [],
     };
   },
   computed: {
@@ -295,10 +322,24 @@ export default {
       }
       return 0;
     });
+
     CategoryArray.reverse();
-    this.CategoryArray = CategoryArray.slice(0, 4);
+    const newCategoryArray = [];
+    for (let i = 0; i < CategoryArray.length; i++) {
+      if (new Date(CategoryArray[i].end_date) < Date.now()) {
+        continue;
+      } else {
+        newCategoryArray.push(CategoryArray[i]);
+      }
+    }
+    this.CategoryArray = newCategoryArray.slice(0, 4);
     console.log('카테고리', this.CategoryArray);
     $('#categorycontent1').addClass('display');
+    for (let i = 0; i < this.CategoryArray.length; i++) {
+      const event_id = this.CategoryArray[i].event_id;
+      const resImage = await returnImage64(event_id);
+      this.detailImg.push(resImage.data);
+    }
   },
   methods: {
     async selectCategory() {
@@ -318,7 +359,20 @@ export default {
         return 0;
       });
       CategoryArray.reverse();
-      this.CategoryArray = CategoryArray.slice(0, 4);
+      const newCategoryArray = [];
+      for (let i = 0; i < CategoryArray.length; i++) {
+        if (new Date(CategoryArray[i].end_date) < Date.now()) {
+          continue;
+        } else {
+          newCategoryArray.push(CategoryArray[i]);
+        }
+      }
+      this.CategoryArray = newCategoryArray.slice(0, 4);
+      for (let i = 0; i < this.CategoryArray.length; i++) {
+        const event_id = this.CategoryArray[i].event_id;
+        const resImage = await returnImage64(event_id);
+        this.detailImg.push(resImage.data);
+      }
       console.log('카테고리', this.CategoryArray);
     },
     eventDetailGo(event_id) {
@@ -388,7 +442,8 @@ input:checked + label {
 #ct4:checked ~ #categorycontent4,
 #ct5:checked ~ #categorycontent5,
 #ct6:checked ~ #categorycontent6,
-#ct7:checked ~ #categorycontent7 {
+#ct7:checked ~ #categorycontent7,
+#ct8:checked ~ #categorycontent8 {
   display: flex;
   justify-content: center;
   align-items: center;

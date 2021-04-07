@@ -13,7 +13,6 @@
           <div class="card">
             <div class="idx-box">{{ idx + 1 }}위</div>
             <figure>
-              <img src="@/assets/img/women.jpg" alt="" />
               <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" alt="" />
             </figure>
 
@@ -35,7 +34,7 @@
                 <div>
                   <div style="font-size: 12px; margin: 10px 0;">이벤트종료일:{{ event.end_date }}</div>
                 </div>
-                <a href="#" class="btn" style="margin-top:;" @click="eventDetailGo(event.event_id)">자세히보기</a>
+                <a href="#" class="btn" style="margin-top:;" @click="eventDetailGo(event.event_id)">응모현황</a>
               </div>
             </section>
           </div>
@@ -47,7 +46,7 @@
           <div class="card">
             <div class="idx-box">{{ idx + 1 }}위</div>
             <figure>
-              <img src="@/assets/img/women.jpg" alt="" />
+              >
               <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" alt="" />
             </figure>
 
@@ -69,7 +68,7 @@
                 <div>
                   <div style="font-size: 12px; margin: 10px 0;">이벤트종료일:{{ event.end_date }}</div>
                 </div>
-                <a href="#" class="btn" style="margin-top:;" @click="eventDetailGo(event.event_id)">자세히보기</a>
+                <a href="#" class="btn" style="margin-top:;" @click="eventDetailGo(event.event_id)">응모현황</a>
               </div>
             </section>
           </div>
@@ -80,13 +79,13 @@
 </template>
 
 <script>
-import { eventSelectGender } from '@/api/event';
+import { eventSelectGender, returnImage64 } from '@/api/event';
 export default {
   data() {
     return {
       gender: '',
       GenderArray: [],
-      detailImg: '',
+      detailImg: [],
     };
   },
   computed: {
@@ -114,7 +113,14 @@ export default {
     GenderArray.reverse();
     this.GenderArray = GenderArray.slice(0, 4);
     console.log('성별', this.GenderArray);
+
     $('#gendercontent1').addClass('display');
+    for (let i = 0; i < this.GenderArray.length; i++) {
+      const event_id = this.GenderArray[i].event_id;
+      // console.log(event_id, '이벤트아이디');
+      const resImage = await returnImage64(event_id);
+      this.detailImg.push(resImage.data);
+    }
   },
   methods: {
     async selectGender() {
@@ -136,6 +142,12 @@ export default {
       GenderArray.reverse();
       this.GenderArray = GenderArray.slice(0, 4);
       console.log('성별', this.GenderArray);
+      for (let i = 0; i < this.GenderArray.length; i++) {
+        const event_id = this.GenderArray[i].event_id;
+        // console.log(event_id, '이벤트아이디');
+        const resImage = await returnImage64(event_id);
+        this.detailImg.push(resImage.data);
+      }
     },
     eventDetailGo(event_id) {
       this.$router.push({ name: 'EventDetail', query: { event_id: event_id } });
@@ -270,7 +282,9 @@ h1 {
   font-weight: 900;
   font-size: 1rem;
 }
-
+#agecontent1 > div:nth-child(4) > div > section > div.min-details > div:nth-child(2) > span:nth-child(1) {
+  background-color: #07b8ac;
+}
 .details > .options h1 {
   margin-bottom: 10px;
 }

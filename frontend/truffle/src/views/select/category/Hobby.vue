@@ -4,7 +4,6 @@
       <div class="card">
         <!-- <div class="idx-box">{{ idx + 1 }}위</div> -->
         <figure>
-          <img src="@/assets/img/women.jpg" alt="" />
           <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" alt="" />
         </figure>
 
