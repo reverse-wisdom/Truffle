@@ -207,7 +207,7 @@ export default {
       return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
     },
     async eventInsert() {
-      const uuid = this.$store.state.retailuuid;
+      const uuid = this.$store.state.uuid;
 
       const frm = new FormData();
       frm.append('imgFile', this.image);
