@@ -227,7 +227,7 @@ export default {
   },
   methods: {
     async raffleGo() {
-      if (this.showWinner == false) {
+      if (this.showWinner == false && this.event.join_num >= this.event.win_num) {
         const { data } = await checkPartipants(this.event.event_id);
         let randomIndexArray = [];
         for (var i = 0; i < this.event.win_num; i++) {
@@ -247,6 +247,13 @@ export default {
         target.innerText = '추첨완료';
         // console.log(this.winnerList);
         console.log(this.winnerList);
+      } else if (this.event.join_num < this.event.win_num) {
+        this.$swal({
+          icon: 'info',
+          title: '응모자가 없습니다',
+          showConfirmButton: false,
+          timer: 1500,
+        });
       } else {
         this.winnerListGo();
       }
