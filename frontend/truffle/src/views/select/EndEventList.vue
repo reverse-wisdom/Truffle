@@ -5,8 +5,6 @@
         <div class="idx-box">{{ idx + 1 }}위</div>
         <figure>
           <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" />
-
-          <img src="@/assets/img/women.jpg" alt="" />
         </figure>
 
         <section class="details">
@@ -64,17 +62,12 @@ export default {
       }
     }
     this.events = this.events.slice(0, 4);
-    // console.log('정렬후', this.ev);
-
-    //이미지불러오기
-    // const event_id = this.$refs.events[Number(this.index)].event_id;
     for (let i = 0; i < this.events.length; i++) {
       const event_id = this.events[i].event_id;
       // console.log(event_id, '이벤트아이디');
       const resImage = await returnImage64(event_id);
       this.detailImg.push(resImage.data);
     }
-    // console.log('1111111', this.detailImg);
   },
   computed: {
     priceComma: function() {

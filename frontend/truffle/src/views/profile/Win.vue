@@ -34,9 +34,7 @@
     <div v-else>
       <div class="win-index">
         <div class="card">
-          <figure>
-            <img src="@/assets/img/women.jpg" alt="" />
-          </figure>
+          <figure></figure>
           <section class="details">
             <div class="product-detail">
               <div class="product">{{ win.product }}</div>
@@ -202,5 +200,8 @@ h1 {
 .btn:hover {
   box-shadow: 0 8px 10px rgba(0, 0, 0, 0.3);
   transform: translateY(-2px);
+}
+.price {
+  margin-top: 10px;
 }
 </style>
