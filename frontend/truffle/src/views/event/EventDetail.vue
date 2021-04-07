@@ -79,7 +79,7 @@
             </v-dialog>
           </v-col>
           <!-- 추첨 -->
-          <div v-show="this.$store.state.type == '2' && new Date(this.event.end_date) < Date.now()" class="join-info">
+          <div v-show="this.$store.state.uuid == this.event.uuid && new Date(this.event.end_date) < Date.now()" class="join-info">
             <button type="button" class="btn" id="winnerbtn" @click="raffleGo">
               추첨하기
             </button>
@@ -227,7 +227,7 @@ export default {
   },
   methods: {
     async raffleGo() {
-      if (this.showWinner == false) {
+      if (this.showWinner == false && this.event.join_num >= this.event.win_num) {
         const { data } = await checkPartipants(this.event.event_id);
         let randomIndexArray = [];
         for (var i = 0; i < this.event.win_num; i++) {
@@ -247,10 +247,12 @@ export default {
         target.innerText = '추첨완료';
         // console.log(this.winnerList);
         console.log(this.winnerList);
-      } else if (this.event.join_num) {
+      } else if (this.event.join_num < this.event.win_num) {
         this.$swal({
-          icon: 'success',
-          title: '응모한 사람이 없습니다.',
+          icon: 'info',
+          title: '응모자가 없습니다',
+          showConfirmButton: false,
+          timer: 1500,
         });
       } else {
         this.winnerListGo();
@@ -414,7 +416,7 @@ export default {
         const data = await deleteOrdertable(this.event.event_id);
         console.log(data);
         this.$swal({
-          position: 'top-end',
+          position: 'center',
           icon: 'success',
           title: '결제취소완료!!',
           showConfirmButton: false,
@@ -422,7 +424,7 @@ export default {
         });
       } else if (response.data.code == 1) {
         this.$swal({
-          position: 'top-end',
+          position: 'center',
           icon: 'error',
           title: '결제취소실패!! 이미 전액취소 되었습니다',
           showConfirmButton: false,
@@ -430,7 +432,7 @@ export default {
         });
       } else {
         this.$swal({
-          position: 'top-end',
+          position: 'center',
           icon: 'error',
           title: '결제취소실패!! 올바른 상품인지 확인하세요',
           showConfirmButton: false,

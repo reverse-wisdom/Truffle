@@ -51,7 +51,7 @@
       <input type="radio" name="vtab" id="tab3" />
       <label for="tab3">응모마감 상품</label>
 
-      <input type="radio" name="vtab" id="tab4" @click="gomange" />
+      <input type="radio" name="vtab" id="tab4" />
       <label for="tab4">배송관리</label>
 
       <div class="vtab-content">
@@ -98,14 +98,11 @@ export default {
     goOrder() {
       this.$router.push('/winnerItem');
     },
-    gomange() {
-      this.$router.push('/winnerManage');
-    },
   },
   async created() {
     if (this.$store.state.type == '2') {
       const { data } = await retailerAllEvent(this.$store.state.uuid);
-      console.log('등록한 래플', data);
+      // console.log('등록한 래플', data);
       this.events = data;
       for (let i = 0; i < data.length; i++) {
         if (new Date(data[i].end_date) < Date.now()) {
