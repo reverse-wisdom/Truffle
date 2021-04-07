@@ -154,9 +154,9 @@ export default {
     console.log(event_id);
     const { data } = await eventDetail(event_id);
     const response = await returnImage64(event_id);
-    console.log('이미지', response.data);
+    // console.log('이미지', response.data);
     this.detailImg = response.data;
-    console.log('수정', data);
+    // console.log('수정', data);
     this.event = data[0];
     var $vm = this;
     $(function() {

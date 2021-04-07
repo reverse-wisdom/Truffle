@@ -1,6 +1,6 @@
 <template>
   <span class="order">
-    <div class="process-wrapper" v-if="this.$store.state.type == '1'">
+    <div v-if="this.$store.state.type == '1'">
       <div id="progress-bar-container">
         <ul>
           <li class="step step01 active" @click="step01"><div class="step-inner">결제전</div></li>
@@ -42,11 +42,11 @@
         </div>
       </div>
     </div>
-    <div class="process-wrapper" v-else>
+    <div v-else class="wrap">
       <div class="event-index" v-for="(event, idx) in endevent" ref="endevent" :key="idx">
         <div class="card">
           <figure>
-            <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" />
+            <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg[idx]" />
           </figure>
           <section class="details">
             <div class="product-detail">
@@ -102,47 +102,46 @@ export default {
     },
   },
   async created() {
-    //// 유저입장
-    // 당첨내역조회
-    const { data } = await userWinEvent(this.$store.state.email);
-    // console.log(data);
+    if (this.$store.state.type == 1) {
+      //// 유저입장
+      // 당첨내역조회
+      const { data } = await userWinEvent(this.$store.state.email);
+      // console.log(data);
 
-    // 이벤트아이디로 결제 조회
-    for (let i = 0; i < data.length; i++) {
-      const res = await fetchOrder(data[i].event_id);
-      // console.log('당첨자 결제조회', res);
-      if (res.data.uuid == this.$store.state.uuid && res.data.pay_status == 1) {
-        this.status1.push(res.data);
-      } else if (res.data.uuid == this.$store.state.uuid && res.data.pay_status == 2) {
-        this.status2.push(res.data);
-      } else if (res.data.uuid == this.$store.state.uuid && res.data.pay_status == 3) {
-        this.status3.push(res.data);
-      } else if (res.data.uuid == this.$store.state.uuid && res.data.pay_status == 4) {
-        this.status4.push(res.data);
-      } else {
-        this.status0.push(res.data);
+      // 이벤트아이디로 결제 조회
+      for (let i = 0; i < data.length; i++) {
+        const res = await fetchOrder(data[i].event_id);
+
+        if (res.data.uuid == this.$store.state.uuid && res.data.ship_status == 1) {
+          const response = await eventDetail(res.data.event_id);
+
+          this.status1.push(response.data[0]);
+        } else if (res.data.uuid == this.$store.state.uuid && res.data.ship_status == 2) {
+          const response = await eventDetail(res.data.event_id);
+          this.status2.push(response.data[0]);
+        } else if (res.data.uuid == this.$store.state.uuid && res.data.ship_status == 3) {
+          const response = await eventDetail(res.data.event_id);
+          this.status3.push(response.data[0]);
+        } else if (res.data.uuid == this.$store.state.uuid && res.data.ship_status == 4) {
+          const response = await eventDetail(res.data.event_id);
+          this.status4.push(response.data[0]);
+        } else {
+          const response = await eventDetail(res.data.event_id);
+          this.status0.push(response.data[0]);
+        }
       }
-    }
-
-    //// 리테일러 입장
-    {
+    } else {
       //마감된 상품
-      const { data } = await retailerAllEvent(this.$store.state.retailuuid);
+      const { data } = await retailerAllEvent(this.$store.state.uuid);
       const endevent = [];
       for (let i = 0; i < data.length; i++) {
         if (new Date(data[i].end_date) < Date.now()) {
           endevent.push(data[i]);
+          const resImage = await returnImage64(data[i].event_id);
+          this.detailImg.push(resImage.data);
         }
       }
       this.endevent = endevent;
-
-      const winner = [];
-      for (let i = 0; i < endevent.length; i++) {
-        // 당첨자 조회
-        var res = await selectedWinner(endevent[i].event_id);
-        winner.push(res);
-      }
-      console.log(res);
     }
     for (let i = 0; i < this.endevent.length; i++) {
       const event_id = this.endevent[i].event_id;
@@ -243,8 +242,19 @@ export default {
   font-family: 'Roboto Condensed', sans-serif;
   margin-bottom: 5rem;
 }
-
-h4 {
+.wrap {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.event-index {
+  display: flex;
+  align-items: center;
+  min-height: auto;
+  /* justify-content: space-around; */
+  font-family: 'Poppins', sans-serif;
+}
+/* h4 {
   color: #333;
   font-weight: 700;
   margin-top: -20px;
@@ -536,5 +546,47 @@ h1 {
 .btn:hover {
   box-shadow: 0 8px 10px rgba(0, 0, 0, 0.3);
   transform: translateY(-2px);
+}
+
+.content-table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  min-width: 100%;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.content-table thead tr {
+  background-color: #000;
+  color: #ffffff;
+  text-align: left;
+  font-weight: bold;
+}
+
+.content-table th,
+.content-table td {
+  padding: 12px 15px;
+}
+
+.content-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.content-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.content-table tbody tr:last-of-type {
+  border-bottom: 2px solid #000;
+}
+
+.content-table tbody tr.active-row {
+  font-weight: bold;
+  color: #000;
+}
+.price {
+  margin-top: 10px;
 }
 </style>

@@ -4,7 +4,7 @@
       <div class="event-index">
         <div class="card">
           <figure>
-            <img src="@/assets/img/women.jpg" alt="" />
+            <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" />
           </figure>
           <section class="details">
             <div class="product-detail">
@@ -35,7 +35,9 @@
     <div v-else>
       <div class="win-index">
         <div class="card">
-          <figure></figure>
+          <figure>
+            <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" />
+          </figure>
           <section class="details">
             <div class="product-detail">
               <div class="product">{{ win.product }}</div>
@@ -66,12 +68,12 @@
 
 <script>
 import { userWinEvent } from '@/api/auth';
-import { eventWin } from '@/api/event';
+import { eventWin, returnImage64 } from '@/api/event';
 export default {
   name: 'Win',
   data() {
     return {
-      value: '',
+      detailImg: '',
     };
   },
   computed: {
@@ -85,9 +87,10 @@ export default {
     },
   },
   async created() {
-    // const { data } = await eventWin(this.win.event_id);
-    // console.log('당첨자 목록', data);
-    // this.win = data;
+    console.log(this.win.event_id);
+    const resImage = await returnImage64(this.win.event_id);
+    console.log(resImage);
+    this.detailImg = resImage.data;
   },
   methods: {
     eventDetailGo() {
@@ -204,5 +207,8 @@ h1 {
 .btn:hover {
   box-shadow: 0 8px 10px rgba(0, 0, 0, 0.3);
   transform: translateY(-2px);
+}
+.price {
+  margin-top: 10px;
 }
 </style>
