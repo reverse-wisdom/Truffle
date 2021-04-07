@@ -161,7 +161,6 @@ public class EventController {
 		eventDto.setProduct(product);
 		eventDto.setUuid(Integer.parseInt(uuid));
 		eventDto.setWin_num(Integer.parseInt(win_num));
-		System.out.println(eventDto);
 
 		String os = System.getProperty("os.name").toLowerCase();
 		String FILE_PATH;
@@ -178,7 +177,6 @@ public class EventController {
 			return new ResponseEntity<>("썸네일파일을 업로드해주세요.", HttpStatus.NO_CONTENT);
 		} else {
 			String originalFileName = imgFile.getOriginalFilename();
-			System.out.println(originalFileName);
 
 			String ext = FilenameUtils.getExtension(originalFileName); // 파일 확장자 구하기
 			UUID fileUUID = UUID.randomUUID(); // UUID 구하기
@@ -229,7 +227,6 @@ public class EventController {
 			return new ResponseEntity<>("썸네일파일을 업로드해주세요.", HttpStatus.NO_CONTENT);
 		} else {
 			String originalFileName = imgFile.getOriginalFilename();
-			System.out.println(originalFileName);
 
 			String ext = FilenameUtils.getExtension(originalFileName); // 파일 확장자 구하기
 			UUID uuid = UUID.randomUUID(); // UUID 구하기
@@ -365,7 +362,6 @@ public class EventController {
 
 			String base64Img = Base64.getEncoder().encodeToString(file);
 
-			System.out.println(base64Img);
 			return new ResponseEntity<>(base64Img, HttpStatus.OK);
 		} catch (SQLException e) {
 			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
