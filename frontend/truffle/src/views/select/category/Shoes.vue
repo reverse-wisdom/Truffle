@@ -4,7 +4,7 @@
       <div class="card">
         <!-- <div class="idx-box">{{ idx + 1 }}위</div> -->
         <figure>
-          <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" alt="" />
+          <img class="detail-image" :src="imgURL + event.event_id" />
         </figure>
 
         <section class="details">
@@ -39,7 +39,7 @@ export default {
   data() {
     return {
       events: [],
-      datailImg: [],
+      imgURL: 'https://j4d110.p.ssafy.io/truffle/event/selectEventImgFileEventID?event_id=',
     };
   },
   computed: {
@@ -53,11 +53,6 @@ export default {
     const { data } = await eventSelectCategory('신발');
     console.log(data);
     this.events = data;
-    for (let i = 0; i < this.events.length; i++) {
-      const event_id = this.events[i].event_id;
-      const resImage = await returnImage64(event_id);
-      this.detailImg.push(resImage.data);
-    }
   },
   methods: {
     async eventDetailGo(event_id) {
@@ -73,9 +68,15 @@ export default {
   margin-bottom: 50px;
   display: inline-table;
 }
+.event-ct {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20%;
+}
 .event-index {
   display: flex;
   min-height: auto;
+
   font-family: 'Poppins', sans-serif;
 }
 h1 {

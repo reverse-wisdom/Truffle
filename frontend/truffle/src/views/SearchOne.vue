@@ -33,7 +33,7 @@
           <!-- <div class="idx-box">{{ idx + 1 }}위</div> -->
           <figure>
             <img src="@/assets/img/women.jpg" alt="" />
-            <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" alt="" />
+            <img class="detail-image" :src="imgURL + event.event_id" />
           </figure>
 
           <section class="details">
@@ -64,11 +64,12 @@
 </template>
 
 <script>
-import { userJoinEvent, retailerAllEvent } from '@/api/auth';
 export default {
   name: 'Event',
   data() {
-    return {};
+    return {
+      imgURL: 'https://j4d110.p.ssafy.io/truffle/event/selectEventImgFileEventID?event_id=',
+    };
   },
   props: {
     event: {

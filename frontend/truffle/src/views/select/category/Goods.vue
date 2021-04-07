@@ -4,7 +4,7 @@
       <div class="card">
         <!-- <div class="idx-box">{{ idx + 1 }}위</div> -->
         <figure>
-          <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" alt="" />
+          <img class="detail-image" :src="imgURL + event.event_id" />
         </figure>
 
         <section class="details">
@@ -39,6 +39,7 @@ export default {
   data() {
     return {
       events: [],
+      imgURL: 'https://j4d110.p.ssafy.io/truffle/event/selectEventImgFileEventID?event_id=',
     };
   },
   async created() {
@@ -66,6 +67,11 @@ export default {
   width: 15vw;
   margin-bottom: 50px;
   display: inline-table;
+}
+.event-ct {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20%;
 }
 .event-index {
   display: flex;

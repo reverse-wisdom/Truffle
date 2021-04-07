@@ -13,10 +13,9 @@
             </div>
             <div class="min-details">
               <div>
-                <span>#{{ event.category }}</span>
-                <span v-show="event.gender == 1" outlined>#남성</span>
-                <span v-show="event.gender == 2" outlined>#여성</span>
-                <span>#{{ event.age }}대</span>
+                <span>#{{ win.category }}</span>
+                <span>#{{ win.gender }}</span>
+                <span>#{{ win.age }}</span>
               </div>
 
               <div class="">
