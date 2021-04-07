@@ -12,7 +12,6 @@ export default new Vuex.Store({
     email: '',
     password: '',
     nickname: '',
-    retailuuid: '',
     uuid: '',
     type: '',
   },
@@ -49,12 +48,6 @@ export default new Vuex.Store({
       state.nickname = '';
     },
 
-    setRetailuuid(state, retailuuid) {
-      state.retailuuid = retailuuid;
-    },
-    clearRetailuuid(state) {
-      state.retailuuid = '';
-    },
     //일반유저
     setUuid(state, uuid) {
       state.uuid = uuid;
@@ -80,12 +73,10 @@ export default new Vuex.Store({
         commit('setPassword', userData.password);
         const response = await fetchUser(userData.email);
         console.log(response.data);
+        commit('setUuid', response.data.uuid);
         commit('setType', response.data.type);
         if (response.data.type == 1) {
-          commit('setUuid', response.data.uuid);
           commit('setNickname', response.data.nickname);
-        } else {
-          commit('setRetailuuid', response.data.uuid);
         }
         router.push('/main');
       } else {
