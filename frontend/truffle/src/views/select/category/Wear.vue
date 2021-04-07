@@ -34,17 +34,23 @@
 </template>
 
 <script>
-import { eventSelectCategory } from '@/api/event';
+import { eventSelectCategory, returnImage64 } from '@/api/event';
 export default {
   data() {
     return {
       events: [],
+      detailImg: [],
     };
   },
   async created() {
     const { data } = await eventSelectCategory('의류');
     console.log(data);
     this.events = data;
+    for (let i = 0; i < this.events.length; i++) {
+      const event_id = this.events[i].event_id;
+      const resImage = await returnImage64(event_id);
+      this.detailImg.push(resImage.data);
+    }
   },
   methods: {
     async eventDetailGo(event_id) {
@@ -166,6 +172,9 @@ h1 {
   margin: 3px 0;
   font-size: 1.5rem;
   font-weight: 900;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .product-detail > .price {
   display: flex;

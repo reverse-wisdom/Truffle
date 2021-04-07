@@ -208,22 +208,23 @@ export default {
     },
     async eventInsert() {
       const uuid = this.$store.state.uuid;
-
-      const frm = new FormData();
-      frm.append('imgFile', this.image);
-
-      const age = this.age;
-      const category = this.category;
-      const detail = $('#summernote').summernote('code');
-      const open_date = this.open_date;
-      const end_date = this.end_date;
-      const gender = this.gender;
-      const price = this.price.replace(/[\D\s\._\-]+/g, '');
-      const product = this.product;
-      const win_num = this.win_num;
-      console.log(price);
-
-      const response = await eventInsert(age, category, detail, end_date, gender, open_date, price, product, uuid, win_num, frm);
+      var frm = new FormData();
+      frm.append('11', this.image);
+      frm.append('uuid', this.$store.state.uuid);
+      frm.append('age', this.age);
+      frm.append('category', this.category);
+      // frm.append('image', this.image);
+      frm.append('detail', $('#summernote').summernote('code'));
+      frm.append('open_date', this.open_date);
+      frm.append('end_date', this.end_date);
+      frm.append('gender', this.gender);
+      frm.append('price', this.price.replace(/[\D\s\._\-]+/g, ''));
+      frm.append('product', this.product);
+      frm.append('win_num', this.win_num);
+      for (var key of frm.keys()) {
+        console.log(key);
+      }
+      const response = await eventInsert(frm);
       console.log(response);
       const { data } = await retailerAllEvent(uuid);
       console.log(data[data.length - 1]);
