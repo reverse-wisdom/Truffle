@@ -1,6 +1,6 @@
 <template>
   <span class="order">
-    <div class="process-wrapper" v-if="this.$store.state.type == '1'">
+    <div v-if="this.$store.state.type == '1'">
       <div id="progress-bar-container">
         <ul>
           <li class="step step01 active" @click="step01"><div class="step-inner">결제전</div></li>
@@ -42,11 +42,11 @@
         </div>
       </div>
     </div>
-    <div class="process-wrapper" v-else>
+    <div v-else class="wrap">
       <div class="event-index" v-for="(event, idx) in endevent" ref="endevent" :key="idx">
         <div class="card">
           <figure>
-            <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" />
+            <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg[idx]" />
           </figure>
           <section class="details">
             <div class="product-detail">
@@ -56,8 +56,9 @@
             <div class="min-details">
               <div>
                 <span>#{{ event.category }}</span>
-                <span>#{{ event.gender }}</span>
-                <span>#{{ event.age }}</span>
+                <span v-show="event.gender == 1" outlined>#남성</span>
+                <span v-show="event.gender == 2" outlined>#여성</span>
+                <span>#{{ event.age }}대</span>
               </div>
 
               <div class="">
@@ -79,7 +80,7 @@
 <script>
 import { fetchOrder } from '@/api/order';
 import { userWinEvent, retailerAllEvent } from '@/api/auth';
-import { selectedWinner } from '@/api/event';
+import { selectedWinner, returnImage64 } from '@/api/event';
 export default {
   name: 'Order',
   data() {
@@ -90,6 +91,7 @@ export default {
       status3: [],
       status4: [],
       endevent: '',
+      detailImg: [],
     };
   },
   computed: {
@@ -99,47 +101,54 @@ export default {
       });
     },
   },
-  // async created() {
-  //   if (this.$store.state.type == 1) {
-  //     //// 유저입장
-  //     // 당첨내역조회
-  //     const { data } = await userWinEvent(this.$store.state.email);
-  //     // console.log(data);
+  async created() {
+    if (this.$store.state.type == 1) {
+      //// 유저입장
+      // 당첨내역조회
+      const { data } = await userWinEvent(this.$store.state.email);
+      // console.log(data);
 
-  //     // 이벤트아이디로 결제 조회
-  //     for (let i = 0; i < data.length; i++) {
-  //       const res = await fetchOrder(data[i].event_id);
+      // 이벤트아이디로 결제 조회
+      for (let i = 0; i < data.length; i++) {
+        const res = await fetchOrder(data[i].event_id);
 
-  //       if (res.data.uuid == this.$store.state.uuid && res.data.ship_status == 1) {
-  //         const response = await eventDetail(res.data.event_id);
+        if (res.data.uuid == this.$store.state.uuid && res.data.ship_status == 1) {
+          const response = await eventDetail(res.data.event_id);
 
-  //         this.status1.push(response.data[0]);
-  //       } else if (res.data.uuid == this.$store.state.uuid && res.data.ship_status == 2) {
-  //         const response = await eventDetail(res.data.event_id);
-  //         this.status2.push(response.data[0]);
-  //       } else if (res.data.uuid == this.$store.state.uuid && res.data.ship_status == 3) {
-  //         const response = await eventDetail(res.data.event_id);
-  //         this.status3.push(response.data[0]);
-  //       } else if (res.data.uuid == this.$store.state.uuid && res.data.ship_status == 4) {
-  //         const response = await eventDetail(res.data.event_id);
-  //         this.status4.push(response.data[0]);
-  //       } else {
-  //         const response = await eventDetail(res.data.event_id);
-  //         this.status0.push(response.data[0]);
-  //       }
-  //     }
-  //   } else {
-  //     //마감된 상품
-  //     const { data } = await retailerAllEvent(this.$store.state.uuid);
-  //     const endevent = [];
-  //     for (let i = 0; i < data.length; i++) {
-  //       if (new Date(data[i].end_date) < Date.now()) {
-  //         endevent.push(data[i]);
-  //       }
-  //       this.endevent = endevent;
-  //     }
-  //   }
-  // },
+          this.status1.push(response.data[0]);
+        } else if (res.data.uuid == this.$store.state.uuid && res.data.ship_status == 2) {
+          const response = await eventDetail(res.data.event_id);
+          this.status2.push(response.data[0]);
+        } else if (res.data.uuid == this.$store.state.uuid && res.data.ship_status == 3) {
+          const response = await eventDetail(res.data.event_id);
+          this.status3.push(response.data[0]);
+        } else if (res.data.uuid == this.$store.state.uuid && res.data.ship_status == 4) {
+          const response = await eventDetail(res.data.event_id);
+          this.status4.push(response.data[0]);
+        } else {
+          const response = await eventDetail(res.data.event_id);
+          this.status0.push(response.data[0]);
+        }
+      }
+    } else {
+      //마감된 상품
+      const { data } = await retailerAllEvent(this.$store.state.uuid);
+      const endevent = [];
+      for (let i = 0; i < data.length; i++) {
+        if (new Date(data[i].end_date) < Date.now()) {
+          endevent.push(data[i]);
+          const resImage = await returnImage64(data[i].event_id);
+          this.detailImg.push(resImage.data);
+        }
+      }
+      this.endevent = endevent;
+    }
+    for (let i = 0; i < this.endevent.length; i++) {
+      const event_id = this.endevent[i].event_id;
+      const resImage = await returnImage64(event_id);
+      this.detailImg.push(resImage.data);
+    }
+  },
   methods: {
     step01() {
       $('.step').click(function() {
@@ -233,8 +242,19 @@ export default {
   font-family: 'Roboto Condensed', sans-serif;
   margin-bottom: 5rem;
 }
-
-h4 {
+.wrap {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.event-index {
+  display: flex;
+  align-items: center;
+  min-height: auto;
+  /* justify-content: space-around; */
+  font-family: 'Poppins', sans-serif;
+}
+/* h4 {
   color: #333;
   font-weight: 700;
   margin-top: -20px;
@@ -250,6 +270,8 @@ h4 {
   margin: auto;
   max-width: 1080px;
   width: 60vw;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 #progress-bar-container {
@@ -440,9 +462,9 @@ h4 {
   display: inline-table;
 }
 .event-index {
-  display: flex;
   align-items: center;
   min-height: auto;
+
   /* justify-content: space-around; */
   font-family: 'Poppins', sans-serif;
 }
