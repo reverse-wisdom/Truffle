@@ -56,8 +56,9 @@
             <div class="min-details">
               <div>
                 <span>#{{ event.category }}</span>
-                <span>#{{ event.gender }}</span>
-                <span>#{{ event.age }}</span>
+                <span v-show="event.gender == 1" outlined>#남성</span>
+                <span v-show="event.gender == 2" outlined>#여성</span>
+                <span>#{{ event.age }}대</span>
               </div>
 
               <div class="">
@@ -79,7 +80,7 @@
 <script>
 import { fetchOrder } from '@/api/order';
 import { userWinEvent, retailerAllEvent } from '@/api/auth';
-import { selectedWinner } from '@/api/event';
+import { selectedWinner, returnImage64 } from '@/api/event';
 export default {
   name: 'Order',
   data() {
@@ -90,6 +91,7 @@ export default {
       status3: [],
       status4: [],
       endevent: '',
+      detailImg: [],
     };
   },
   computed: {
@@ -142,8 +144,12 @@ export default {
       }
       console.log(res);
     }
+    for (let i = 0; i < this.endevent.length; i++) {
+      const event_id = this.endevent[i].event_id;
+      const resImage = await returnImage64(event_id);
+      this.detailImg.push(resImage.data);
+    }
   },
-
   methods: {
     step01() {
       $('.step').click(function() {
@@ -254,6 +260,8 @@ h4 {
   margin: auto;
   max-width: 1080px;
   width: 60vw;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 #progress-bar-container {
@@ -444,9 +452,9 @@ h4 {
   display: inline-table;
 }
 .event-index {
-  display: flex;
   align-items: center;
   min-height: auto;
+
   /* justify-content: space-around; */
   font-family: 'Poppins', sans-serif;
 }
