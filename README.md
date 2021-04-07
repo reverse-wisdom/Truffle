@@ -145,13 +145,13 @@ SpringBoot-->>-SignUpPage:"result message"
 
 ```mermaid
 sequenceDiagram
-rect rgba(0, 0, 255, .05)
+
 loop event_id
 	EventListPage->>+AWS Docker Volume:imageRequest
 	AWS Docker Volume-->>-EventListPage:thumnail Image
 end
  Note left of AWS Docker Volume:요청주소<br/>https://j4d110.p.ssafy.io/truffle/event/selectEventImgFileEventID?event_id=
-end
+
 EventListPage->>+SpringBoot:all()
 SpringBoot->>+Database:all()
 Database->>Database:select all event
