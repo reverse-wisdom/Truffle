@@ -135,9 +135,9 @@ p {
 .vtabs #tab3:checked ~ .vtab-content #content3,
 .vtabs #tab4:checked ~ .vtab-content #content4,
 .vtabs #tab5:checked ~ .vtab-content #content5,
-.vtabs #tab5:checked ~ .vtab-content #content6,
-.vtabs #tab5:checked ~ .vtab-content #content7,
-.vtabs #tab5:checked ~ .vtab-content #content8 {
+.vtabs #tab6:checked ~ .vtab-content #content6,
+.vtabs #tab7:checked ~ .vtab-content #content7,
+.vtabs #tab8:checked ~ .vtab-content #content8 {
   display: block;
 }
 .vtabs .vtab-content {
