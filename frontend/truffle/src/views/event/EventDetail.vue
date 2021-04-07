@@ -151,7 +151,7 @@
         </div>
       </div>
       <div class="btns">
-        <div v-if="this.$store.state.retailuuid == event.uuid" style="text-align:right">
+        <div v-if="this.$store.state.uuid == event.uuid" style="text-align:right">
           <v-btn color="" class="mr-1" dark @click="updateGo">수정</v-btn>
           <v-btn dark @click="$router.go(-1)">뒤로가기</v-btn>
         </div>
