@@ -25,8 +25,8 @@
             <div class="card">
               <div class="idx-box">{{ idx + 1 }}위</div>
               <figure>
-                <img src="@/assets/img/women.jpg" alt="" />
-                <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" alt="" />
+                <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" v-if="detailImg" />
+                <img src="@/assets/img/women.jpg" alt="" v-else />
               </figure>
 
               <section class="details">
@@ -59,8 +59,8 @@
             <div class="card">
               <div class="idx-box">{{ idx + 1 }}위</div>
               <figure>
-                <img src="@/assets/img/women.jpg" alt="" />
-                <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" alt="" />
+                <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" v-if="detailImg" />
+                <img src="@/assets/img/women.jpg" alt="" v-else />
               </figure>
 
               <section class="details">
@@ -93,8 +93,8 @@
             <div class="card">
               <div class="idx-box">{{ idx + 1 }}위</div>
               <figure>
-                <img src="@/assets/img/women.jpg" alt="" />
-                <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" alt="" />
+                <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" v-if="detailImg" />
+                <img src="@/assets/img/women.jpg" alt="" v-else />
               </figure>
 
               <section class="details">
@@ -127,8 +127,8 @@
             <div class="card">
               <div class="idx-box">{{ idx + 1 }}위</div>
               <figure>
-                <img src="@/assets/img/women.jpg" alt="" />
-                <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" alt="" />
+                <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" v-if="detailImg" />
+                <img src="@/assets/img/women.jpg" alt="" v-else />
               </figure>
 
               <section class="details">
@@ -160,8 +160,8 @@
             <div class="card">
               <div class="idx-box">{{ idx + 1 }}위</div>
               <figure>
-                <img src="@/assets/img/women.jpg" alt="" />
-                <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" alt="" />
+                <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" v-if="detailImg" />
+                <img src="@/assets/img/women.jpg" alt="" v-else />
               </figure>
 
               <section class="details">
@@ -193,8 +193,8 @@
             <div class="card">
               <div class="idx-box">{{ idx + 1 }}위</div>
               <figure>
-                <img src="@/assets/img/women.jpg" alt="" />
-                <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" alt="" />
+                <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" v-if="detailImg" />
+                <img src="@/assets/img/women.jpg" alt="" v-else />
               </figure>
 
               <section class="details">
@@ -233,6 +233,7 @@ export default {
     return {
       age: '',
       AgeArray: [],
+      detailImg: '',
     };
   },
   computed: {
@@ -258,7 +259,15 @@ export default {
       return 0;
     });
     AgeArray.reverse();
-    this.AgeArray = AgeArray.slice(0, 4);
+    const newAgeArray = [];
+    for (let i = 0; i < AgeArray.length; i++) {
+      if (new Date(AgeArray[i].end_date) < Date.now()) {
+        continue;
+      } else {
+        newAgeArray.push(AgeArray[i]);
+      }
+    }
+    this.AgeArray = newAgeArray.slice(0, 4);
     console.log('나이', this.AgeArray);
     $('#agecontent1').addClass('display');
   },
@@ -280,7 +289,15 @@ export default {
         return 0;
       });
       AgeArray.reverse();
-      this.AgeArray = AgeArray.slice(0, 4);
+      const newAgeArray = [];
+      for (let i = 0; i < AgeArray.length; i++) {
+        if (new Date(AgeArray[i].end_date) < Date.now()) {
+          continue;
+        } else {
+          newAgeArray.push(AgeArray[i]);
+        }
+      }
+      this.AgeArray = newAgeArray.slice(0, 4);
       console.log('나이', this.AgeArray);
     },
     eventDetailGo(event_id) {

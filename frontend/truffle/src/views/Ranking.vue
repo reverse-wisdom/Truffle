@@ -40,7 +40,7 @@ export default {
   async created() {
     this.loadCheck = false;
     const { data } = await searchRank();
-    console.log(data);
+    // console.log(data);
     // 랭킹 7등까지만
     for (let i = 0; i < 3; i++) {
       this.items.push({
@@ -49,7 +49,7 @@ export default {
       });
     }
     this.loadCheck = true;
-    console.log(this.items, 'items');
+    // console.log(this.items, 'items');
   },
   methods: {
     moveSearch(query) {

@@ -13,7 +13,6 @@
           <div class="card">
             <div class="idx-box">{{ idx + 1 }}위</div>
             <figure>
-              <img src="@/assets/img/women.jpg" alt="" />
               <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" alt="" />
             </figure>
 
@@ -35,7 +34,7 @@
                 <div>
                   <div style="font-size: 12px; margin: 10px 0;">이벤트종료일:{{ event.end_date }}</div>
                 </div>
-                <a href="#" class="btn" style="margin-top:;" @click="eventDetailGo(event.event_id)">자세히보기</a>
+                <a href="#" class="btn" style="margin-top:;" @click="eventDetailGo(event.event_id)">응모현황</a>
               </div>
             </section>
           </div>
@@ -69,7 +68,7 @@
                 <div>
                   <div style="font-size: 12px; margin: 10px 0;">이벤트종료일:{{ event.end_date }}</div>
                 </div>
-                <a href="#" class="btn" style="margin-top:;" @click="eventDetailGo(event.event_id)">자세히보기</a>
+                <a href="#" class="btn" style="margin-top:;" @click="eventDetailGo(event.event_id)">응모현황</a>
               </div>
             </section>
           </div>
@@ -270,7 +269,9 @@ h1 {
   font-weight: 900;
   font-size: 1rem;
 }
-
+#agecontent1 > div:nth-child(4) > div > section > div.min-details > div:nth-child(2) > span:nth-child(1) {
+  background-color: #07b8ac;
+}
 .details > .options h1 {
   margin-bottom: 10px;
 }
