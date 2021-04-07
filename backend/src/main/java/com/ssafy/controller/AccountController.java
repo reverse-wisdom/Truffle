@@ -133,7 +133,6 @@ public class AccountController {
 		if (tokenProvider.validateToken(request.getHeader("x-auth-token"))) {
 			try {
 				boolean result = accountService.update(accountDto);
-				System.out.println(result);
 				if (result) {
 					return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
 				}
