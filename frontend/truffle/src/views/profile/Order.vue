@@ -60,47 +60,47 @@ export default {
       });
     },
   },
-  async created() {
-    if (this.$store.state.type == 1) {
-      //// 유저입장
-      // 당첨내역조회
-      const { data } = await userWinEvent(this.$store.state.email);
-      // console.log(data);
+  // async created() {
+  //   if (this.$store.state.type == 1) {
+  //     //// 유저입장
+  //     // 당첨내역조회
+  //     const { data } = await userWinEvent(this.$store.state.email);
+  //     // console.log(data);
 
-      // 이벤트아이디로 결제 조회
-      for (let i = 0; i < data.length; i++) {
-        const res = await fetchOrder(data[i].event_id);
+  //     // 이벤트아이디로 결제 조회
+  //     for (let i = 0; i < data.length; i++) {
+  //       const res = await fetchOrder(data[i].event_id);
 
-        if (res.data.uuid == this.$store.state.uuid && res.data.ship_status == 1) {
-          const response = await eventDetail(res.data.event_id);
+  //       if (res.data.uuid == this.$store.state.uuid && res.data.ship_status == 1) {
+  //         const response = await eventDetail(res.data.event_id);
 
-          this.status1.push(response.data[0]);
-        } else if (res.data.uuid == this.$store.state.uuid && res.data.ship_status == 2) {
-          const response = await eventDetail(res.data.event_id);
-          this.status2.push(response.data[0]);
-        } else if (res.data.uuid == this.$store.state.uuid && res.data.ship_status == 3) {
-          const response = await eventDetail(res.data.event_id);
-          this.status3.push(response.data[0]);
-        } else if (res.data.uuid == this.$store.state.uuid && res.data.ship_status == 4) {
-          const response = await eventDetail(res.data.event_id);
-          this.status4.push(response.data[0]);
-        } else {
-          const response = await eventDetail(res.data.event_id);
-          this.status0.push(response.data[0]);
-        }
-      }
-    } else {
-      //마감된 상품
-      const { data } = await retailerAllEvent(this.$store.state.uuid);
-      const endevent = [];
-      for (let i = 0; i < data.length; i++) {
-        if (new Date(data[i].end_date) < Date.now()) {
-          endevent.push(data[i]);
-        }
-        this.endevent = endevent;
-      }
-    }
-  },
+  //         this.status1.push(response.data[0]);
+  //       } else if (res.data.uuid == this.$store.state.uuid && res.data.ship_status == 2) {
+  //         const response = await eventDetail(res.data.event_id);
+  //         this.status2.push(response.data[0]);
+  //       } else if (res.data.uuid == this.$store.state.uuid && res.data.ship_status == 3) {
+  //         const response = await eventDetail(res.data.event_id);
+  //         this.status3.push(response.data[0]);
+  //       } else if (res.data.uuid == this.$store.state.uuid && res.data.ship_status == 4) {
+  //         const response = await eventDetail(res.data.event_id);
+  //         this.status4.push(response.data[0]);
+  //       } else {
+  //         const response = await eventDetail(res.data.event_id);
+  //         this.status0.push(response.data[0]);
+  //       }
+  //     }
+  //   } else {
+  //     //마감된 상품
+  //     const { data } = await retailerAllEvent(this.$store.state.uuid);
+  //     const endevent = [];
+  //     for (let i = 0; i < data.length; i++) {
+  //       if (new Date(data[i].end_date) < Date.now()) {
+  //         endevent.push(data[i]);
+  //       }
+  //       this.endevent = endevent;
+  //     }
+  //   }
+  // },
   methods: {
     ManageGo(event_id) {
       this.$router.push({ name: 'WinnerManage', query: { event_id: event_id } });
@@ -278,5 +278,8 @@ h1 {
 .content-table tbody tr.active-row {
   font-weight: bold;
   color: #000;
+}
+.price {
+  margin-top: 10px;
 }
 </style>
