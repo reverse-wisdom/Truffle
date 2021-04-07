@@ -9,25 +9,20 @@
         <div @click="tabclick()" id="tab5">배송완료</div>
       </div>
       <div class="tab-content">
-        <div class="active">
-          <h2>결제전</h2>
-          <p>{{ status0 }}</p>
+        <div class="a active">
+          <v-data-table :headers="headers" :items="status0" @click:row="detailPage" class=""></v-data-table>
         </div>
-        <div>
-          <h2>결제완료</h2>
-          <p>{{ status1 }}</p>
+        <div class="a">
+          <v-data-table :headers="headers" :items="status1" @click:row="detailPage" class=""></v-data-table>
         </div>
-        <div>
-          <h2>배송준비중</h2>
-          <p>{{ status2 }}</p>
+        <div class="a">
+          <v-data-table :headers="headers" :items="status2" @click:row="detailPage" class=""></v-data-table>
         </div>
-        <div>
-          <h2>배송중</h2>
-          <p>{{ status3 }}</p>
+        <div class="a">
+          <v-data-table :headers="headers" :items="status3" @click:row="detailPage" class=""></v-data-table>
         </div>
-        <div>
-          <h2>배송완료</h2>
-          <p>{{ status4 }}</p>
+        <div class="a">
+          <v-data-table :headers="headers" :items="status4" @click:row="detailPage" class=""></v-data-table>
         </div>
       </div>
       <div class="btn-style">
@@ -52,6 +47,17 @@ export default {
       status4: [],
       endevent: '',
       state: '',
+      headers: [
+        {
+          text: '카테고리',
+          align: 'start',
+          value: 'category',
+        },
+        { text: '제목', value: 'product' },
+        { text: '가격', value: 'price' },
+        { text: '시작시간', value: 'open_date' },
+        { text: '마감시간', value: 'end_date' },
+      ],
     };
   },
   computed: {
@@ -61,62 +67,92 @@ export default {
       });
     },
   },
+  mounted() {
+    let tabPanes = document.getElementsByClassName('tab-header')[0].getElementsByTagName('div');
+
+    for (let i = 0; i < tabPanes.length; i++) {
+      tabPanes[i].addEventListener('click', function() {
+        document
+          .getElementsByClassName('tab-header')[0]
+          .getElementsByClassName('active')[0]
+          .classList.remove('active');
+        tabPanes[i].classList.add('active');
+
+        document
+          .getElementsByClassName('tab-content')[0]
+          .getElementsByClassName('active')[0]
+          .classList.remove('active');
+
+        document
+          .getElementsByClassName('tab-content')[0]
+          .getElementsByClassName('a')
+          [i].classList.add('active');
+      });
+    }
+  },
   async created() {
     //// 유저입장
     // 당첨내역조회
     const { data } = await userWinEvent(this.$store.state.email);
-    // console.log(data);
+    // console.log('담첨내역', data);
 
     // 이벤트아이디로 결제 조회
     for (let i = 0; i < data.length; i++) {
       const res = await fetchOrder(data[i].event_id);
+      // console.log('결제조회', res);
 
       if (res.data.uuid == this.$store.state.uuid && res.data.ship_status == 1) {
-        const response = await eventDetail(res.data.event_id);
+        const response = await eventDetail(data[i].event_id);
         this.status1.push(response.data[0]);
       } else if (res.data.uuid == this.$store.state.uuid && res.data.ship_status == 2) {
-        const response = await eventDetail(res.data.event_id);
+        const response = await eventDetail(data[i].event_id);
         this.status2.push(response.data[0]);
       } else if (res.data.uuid == this.$store.state.uuid && res.data.ship_status == 3) {
-        const response = await eventDetail(res.data.event_id);
+        const response = await eventDetail(data[i].event_id);
         this.status3.push(response.data[0]);
       } else if (res.data.uuid == this.$store.state.uuid && res.data.ship_status == 4) {
-        const response = await eventDetail(res.data.event_id);
+        const response = await eventDetail(data[i].event_id);
         this.status4.push(response.data[0]);
       } else {
-        const response = await eventDetail(res.data.event_id);
+        const response = await eventDetail(data[i].event_id);
         this.status0.push(response.data[0]);
       }
     }
   },
+
   methods: {
     tabclick() {
-      let tabPanes = document.getElementsByClassName('tab-header')[0].getElementsByTagName('div');
-
-      for (let i = 0; i < tabPanes.length; i++) {
-        tabPanes[i].addEventListener('click', function() {
-          document
-            .getElementsByClassName('tab-header')[0]
-            .getElementsByClassName('active')[0]
-            .classList.remove('active');
-          tabPanes[i].classList.add('active');
-
-          document
-            .getElementsByClassName('tab-content')[0]
-            .getElementsByClassName('active')[0]
-            .classList.remove('active');
-          document
-            .getElementsByClassName('tab-content')[0]
-            .getElementsByTagName('div')
-            [i].classList.add('active');
-        });
-      }
+      // let tabPanes = document.getElementsByClassName('tab-header')[0].getElementsByTagName('div');
+      // for (let i = 0; i < tabPanes.length; i++) {
+      //   tabPanes[i].addEventListener('click', function() {
+      //     document
+      //       .getElementsByClassName('tab-header')[0]
+      //       .getElementsByClassName('active')[0]
+      //       .classList.remove('active');
+      //     tabPanes[i].classList.add('active');
+      //     document
+      //       .getElementsByClassName('tab-content')[0]
+      //       .getElementsByClassName('active')[0]
+      //       .classList.remove('active');
+      //     document
+      //       .getElementsByClassName('tab-content')[0]
+      //       .getElementsByTagName('div')
+      //       [i].classList.add('active');
+      //   });
+      // }
+    },
+    detailPage(value) {
+      const event_id = value.event_id;
+      this.$router.push({ name: 'EventDetail', query: { event_id: event_id } });
     },
   },
 };
 </script>
 
 <style scoped>
+.v-data-table {
+  width: 59vw;
+}
 .winneritem {
   background: #fff;
   width: 100vw;
@@ -188,7 +224,7 @@ export default {
   position: relative;
   background: #f5f5f5;
   height: calc(100% - 80px);
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 .tabs .tab-content > div {
   position: absolute;
