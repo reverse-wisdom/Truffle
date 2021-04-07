@@ -108,14 +108,14 @@ export default {
       min = Math.ceil(min);
       max = Math.floor(max);
       // return Math.floor(randomNumber * (max - min + 1)) + min;
-      console.log(Math.floor(randomNumber * (max - min + 1) + min));
+      // console.log(Math.floor(randomNumber * (max - min + 1) + min));
     },
 
     async iamport() {
       var event_id = 25;
       const { data } = await eventDetail(event_id);
       var event = data[0];
-      console.log(event.price);
+      // console.log(event.price);
 
       // 현재이벤트 상태가 결제됬는지 안됬는지 판단하는 API 추후 구현 예정
       // 해당 API로 0 반환시(미결제이벤트) 결제진행, else: 결제진행 X
@@ -136,7 +136,7 @@ export default {
         (result_success) => {
           //성공할 때 실행 될 콜백 함수
           var msg = '결제가 완료되었습니다.';
-          console.log(result_success);
+          // console.log(result_success);
           msg += '고유ID : ' + result_success.imp_uid; // imp_uid order테이블에 추가예정
           msg += '상점 거래ID : ' + result_success.merchant_uid;
           msg += '결제 금액 : ' + result_success.paid_amount;

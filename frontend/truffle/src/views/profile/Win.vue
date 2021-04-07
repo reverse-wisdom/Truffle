@@ -14,7 +14,8 @@
             <div class="min-details">
               <div>
                 <span>#{{ win.category }}</span>
-                <span>#{{ win.gender }}</span>
+                <span v-show="win.gender == 1" outlined>#남성</span>
+                <span v-show="win.gender == 2" outlined>#여성</span>
                 <span>#{{ win.age }}</span>
               </div>
 
@@ -45,7 +46,8 @@
             <div class="min-details">
               <div>
                 <span>#{{ win.category }}</span>
-                <span>#{{ win.gender }}</span>
+                <span v-show="win.gender == 1" outlined>#남성</span>
+                <span v-show="win.gender == 2" outlined>#여성</span>
                 <span>#{{ win.age }}</span>
               </div>
 
@@ -86,9 +88,9 @@ export default {
     },
   },
   async created() {
-    console.log(this.win.event_id);
+    // console.log(this.win.event_id);
     const resImage = await returnImage64(this.win.event_id);
-    console.log(resImage);
+    // console.log(resImage);
     this.detailImg = resImage.data;
   },
   methods: {

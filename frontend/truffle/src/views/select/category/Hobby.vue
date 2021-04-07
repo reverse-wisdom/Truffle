@@ -44,7 +44,7 @@ export default {
   },
   async created() {
     const { data } = await eventSelectCategory('취미');
-    console.log(data);
+    // console.log(data);
     this.events = data;
   },
   computed: {

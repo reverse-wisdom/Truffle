@@ -222,12 +222,12 @@ export default {
       frm.append('product', this.product);
       frm.append('win_num', this.win_num);
       for (var key of frm.keys()) {
-        console.log(key);
+        // console.log(key);
       }
       const response = await eventInsert(frm);
-      console.log(response);
+      // console.log(response);
       const { data } = await retailerAllEvent(uuid);
-      console.log(data[data.length - 1]);
+      // console.log(data[data.length - 1]);
       var event_id = data[data.length - 1].event_id;
       this.$router.push({ name: 'EventDetail', query: { event_id: event_id } });
     },
