@@ -31,8 +31,7 @@
           <div class="card">
             <div class="idx-box">{{ idx + 1 }}위</div>
             <figure>
-              <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" v-if="detailImg" />
-              <img src="@/assets/img/women.jpg" alt="" v-else />
+              <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" />
             </figure>
 
             <section class="details">
@@ -65,8 +64,7 @@
           <div class="card">
             <div class="idx-box">{{ idx + 1 }}위</div>
             <figure>
-              <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" v-if="detailImg" />
-              <img src="@/assets/img/women.jpg" alt="" v-else />
+              <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" />
             </figure>
 
             <section class="details">
@@ -99,8 +97,7 @@
           <div class="card">
             <div class="idx-box">{{ idx + 1 }}위</div>
             <figure>
-              <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" v-if="detailImg" />
-              <img src="@/assets/img/women.jpg" alt="" v-else />
+              <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" />
             </figure>
 
             <section class="details">
@@ -133,8 +130,7 @@
           <div class="card">
             <div class="idx-box">{{ idx + 1 }}위</div>
             <figure>
-              <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" v-if="detailImg" />
-              <img src="@/assets/img/women.jpg" alt="" v-else />
+              <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" />
             </figure>
 
             <section class="details">
@@ -166,8 +162,7 @@
           <div class="card">
             <div class="idx-box">{{ idx + 1 }}위</div>
             <figure>
-              <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" v-if="detailImg" />
-              <img src="@/assets/img/women.jpg" alt="" v-else />
+              <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" />
             </figure>
 
             <section class="details">
@@ -199,8 +194,7 @@
           <div class="card">
             <div class="idx-box">{{ idx + 1 }}위</div>
             <figure>
-              <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" v-if="detailImg" />
-              <img src="@/assets/img/women.jpg" alt="" v-else />
+              <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" />
             </figure>
 
             <section class="details">
@@ -232,8 +226,7 @@
           <div class="card">
             <div class="idx-box">{{ idx + 1 }}위</div>
             <figure>
-              <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" v-if="detailImg" />
-              <img src="@/assets/img/women.jpg" alt="" v-else />
+              <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" />
             </figure>
 
             <section class="details">
@@ -266,8 +259,7 @@
           <div class="card">
             <div class="idx-box">{{ idx + 1 }}위</div>
             <figure>
-              <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" v-if="detailImg" />
-              <img src="@/assets/img/women.jpg" alt="" v-else />
+              <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" />
             </figure>
 
             <section class="details">
@@ -299,12 +291,13 @@
 </template>
 
 <script>
-import { eventSelectCategory } from '@/api/event';
+import { eventSelectCategory, returnImage64 } from '@/api/event';
 export default {
   data() {
     return {
       category: '',
       CategoryArray: [],
+      detailImg: [],
     };
   },
   computed: {
@@ -342,6 +335,11 @@ export default {
     this.CategoryArray = newCategoryArray.slice(0, 4);
     console.log('카테고리', this.CategoryArray);
     $('#categorycontent1').addClass('display');
+    for (let i = 0; i < this.CategoryArray.length; i++) {
+      const event_id = this.CategoryArray[i].event_id;
+      const resImage = await returnImage64(event_id);
+      this.detailImg.push(resImage.data);
+    }
   },
   methods: {
     async selectCategory() {
@@ -370,6 +368,11 @@ export default {
         }
       }
       this.CategoryArray = newCategoryArray.slice(0, 4);
+      for (let i = 0; i < this.CategoryArray.length; i++) {
+        const event_id = this.CategoryArray[i].event_id;
+        const resImage = await returnImage64(event_id);
+        this.detailImg.push(resImage.data);
+      }
       console.log('카테고리', this.CategoryArray);
     },
     eventDetailGo(event_id) {
