@@ -10,11 +10,6 @@
             <th>PHONE</th>
             <th>UUID</th>
             <th colspan="5" style="text-align:center;">STATE</th>
-            <!-- <th>결제전</th>
-          <th>결제완료</th>
-          <th>배송준비중</th>
-          <th>배송중</th>
-          <th>배송완료</th> -->
           </tr>
         </thead>
         <tbody>
