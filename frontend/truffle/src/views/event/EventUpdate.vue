@@ -221,7 +221,7 @@ export default {
     },
     async Update() {
       const eventData = {
-        uuid: this.$store.state.retailuuid,
+        uuid: this.$store.state.uuid,
         event_id: this.event.event_id,
         age: this.event.age,
         category: this.event.category,
