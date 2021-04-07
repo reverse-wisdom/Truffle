@@ -223,6 +223,9 @@ h1 {
   margin: 3px 0;
   font-size: 1.5rem;
   font-weight: 900;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .product-detail > .price {
   display: flex;
