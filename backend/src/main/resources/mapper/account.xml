@@ -89,6 +89,15 @@
 		where event_id = #{event_id} and uuid = #{uuid};
 	</delete>
 	
+	<update
+		id="leftEvent"
+		parameterType="int">
+		update event
+		set
+		join_num = join_num - 1
+		where event_id = #{event_id}
+	</update>
+	
 	
 
 </mapper>

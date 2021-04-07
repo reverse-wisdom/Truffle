@@ -25,4 +25,6 @@ public interface AccountDao {
 	public List<EventDto> selectCreateEventListByID(int uuid) throws SQLException;
 
 	public int cancelParticipation(ParticipationDto participationDto) throws SQLException;
+	
+	public int leftEvent(int event_id) throws SQLException;
 }
