@@ -46,7 +46,7 @@ npm run serve
 
 ### 기술스택
 
- 작성중
+![image-20210407175410087](README.assets/image-20210407175410087.png)
 
 ---
 
@@ -64,15 +64,15 @@ npm run serve
 
    ​	기능정의서(JIRA이슈) : 윤예준
 
-   ​	시퀀스다이어그램 : 이혜지
+   ​	시퀀스다이어그램 : 윤예준
 
-   
+   UCC기획 및 편집 : 이원회, 이혜지
+
+
 
 2. 개발
 
    테크리더 : 윤예준
-
-   ​	팀 내 기술적인 방향을 정하는 역할
 
    ​	Git관리 : master,develop에 대한 관리 
 
@@ -88,7 +88,7 @@ npm run serve
 
    
 
-3. QA
+2. QA
 
    기획 산출물을 기반으로 테스트 케이스를 작성 및 수행 : 이원회
 
@@ -101,6 +101,8 @@ npm run serve
    산출물 : 이원회, 이혜지
 
    ​	테스트 케이스 및 수행 결과
+
+   샘플데이터 작성: 이혜지
 
    sonarQube 관리 : 윤예준
 
@@ -120,48 +122,61 @@ npm run serve
 
 ### 주요 Sequence Diagram
 
-수정중
-
-#### 각 한정판 제품에 대한 검색기능 & 검색 결과 페이지
-
-```mermaid
-sequenceDiagram
-
-SearchPage ->> DjangoServer: 검색 키워드 전달
-SearchPage -->> BlockChainNetwork: 검색키워드 전달
-DjangoServer ->> DB: 검색정보 전달
-DB ->> DB: 해당 제품 검색
-DB ->> DjangoServer: 검색결과정보 전달
-BlockChainNetwork -->> SearchPage: 검색정보전달
-DjangoServer ->> SearchPage: 검색 결과 페이지에 출력
-```
-
-#### 판매자 한정판 제품 등록 기능
+#### 회원가입
+전화번호 인증 API를 호출후 회원가입 절차 진행, 비밀번호는 SpringSecurity로 암호화하여 DB에 저장
 
 ```mermaid
 sequenceDiagram
 
-RegisterPage -->> BlockChainNetwork: 한정판 제품 등록
-RegisterPage -->> DjangoServer: 한정판 제품정보 등록
-BlockChainNetwork ->> BlockChainNetwork: 비대칭암호화 및 한정판 제품 저장
-DjangoServer ->> DB: 암호화된 정보 전달
-DB -->> DB: 한정판 제품 정보 저장
+SignUpPage->>+SpringBoot:verifyPhoneNumber(phone)
+SpringBoot->>+coolsms API:휴대폰번호인증서비스호출
+coolsms API-->>-SpringBoot:랜덤한숫자4자리값 반환
+SpringBoot-->>-SignUpPage:Stirng:verifyPhoneNumber(phone)
+SignUpPage->>SignUpPage:반환된4자리값과 문자로수신한 4자리값 일치 비교
+SignUpPage->>+SpringBoot:signUp(accountInfo)
+SpringBoot->>SpringBoot:setPassword(passwordEncoding(password))
+SpringBoot->>+Database:signUp(accountInfo)
+Database->>Database:insert(accountInfo)
+Database-->>-SpringBoot:insert result
+SpringBoot-->>-SignUpPage:"result message"
 ```
 
-#### 결제서비스 기능
+#### 이벤트 전체조회
 
 ```mermaid
 sequenceDiagram
 
-사용자 ->> 결제 API: 결제프로그램 설치
-결제 API ->> 사용자: 설치완료
-사용자 ->> 결제 API: 결제수단 선택
-결제 API ->> 사용자: 선택완료
-사용자 ->> 결제 API: 결제하기
-결제 API -->> DB: 회원정보수정
-DB -->> DjangoServer: 변경 정보 전달
-DjangoServer ->> MyPage: 결제내역 안내
+loop event_id
+	EventListPage->>+AWS Docker Volume:imageRequest
+	AWS Docker Volume-->>-EventListPage:thumnail Image
+end
+ Note left of AWS Docker Volume:요청주소<br/>https://j4d110.p.ssafy.io/truffle/event/selectEventImgFileEventID?event_id=
+
+EventListPage->>+SpringBoot:all()
+SpringBoot->>+Database:all()
+Database->>Database:select all event
+Database-->>-SpringBoot:select result
+SpringBoot-->>-EventListPage:List<EventDto>
 ```
+
+#### 당첨자 구매진행
+
+```mermaid
+sequenceDiagram
+EventResultPage->>PaymentPage:당첨자정보
+PaymentPage->>PaymentPage:iamport 결제모듈 호출
+PaymentPage->>+SpringBoot:verifyIamport(결제 고유번호)
+SpringBoot->>+iamport Server:paymentByImpUid(결제 고유번호)
+iamport Server-->>-SpringBoot:Payment 정보
+SpringBoot-->>-PaymentPage:Payment 정보
+PaymentPage->>PaymentPage:결제검증확인(결제 status체크)
+PaymentPage->>+SpringBoot:completePayment(orderDto)
+SpringBoot->>+Database:completePayment(orderDto)
+Database->>Database:insert order
+Database-->>-SpringBoot:insert result
+SpringBoot-->>-PaymentPage:"result message"
+```
+
 
 ------
 

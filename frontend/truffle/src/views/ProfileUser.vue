@@ -13,7 +13,7 @@
     <br />
     <h2>나의 활동</h2>
 
-    <div class="vtabs" v-if="this.$store.state.type == '1'">
+    <div class="vtabs" v-if="this.$store.state.type == 1">
       <input type="radio" name="vtab" id="tab1" checked="checked" />
       <label for="tab1">기본정보</label>
 
@@ -23,7 +23,7 @@
       <input type="radio" name="vtab" id="tab3" />
       <label for="tab3">당첨된 이벤트</label>
 
-      <input type="radio" name="vtab" id="tab4" />
+      <input type="radio" name="vtab" id="tab4" @click="goOrder" />
       <label for="tab4">주문내역조회</label>
 
       <div class="vtab-content">
@@ -94,19 +94,13 @@ export default {
     Event,
     Win,
   },
-  methods: {},
+  methods: {
+    goOrder() {
+      this.$router.push('/winnerItem');
+    },
+  },
   async created() {
-    if (this.$store.state.type == '2') {
-      const { data } = await retailerAllEvent(this.$store.state.retailuuid);
-      console.log('등록한 래플', data);
-      this.events = data;
-      for (let i = 0; i < data.length; i++) {
-        if (new Date(data[i].end_date) < Date.now()) {
-          this.wins.push(data[i]);
-        }
-      }
-      console.log(this.wins);
-    } else {
+    if (this.$store.state.type == 1) {
       const { data } = await userJoinEvent(this.$store.state.email);
       // console.log('응모', data);
       this.events = data;
@@ -115,6 +109,16 @@ export default {
         const { data } = await userWinEvent(this.$store.state.email);
         // console.log('당첨상품', data);
         this.wins = data;
+        // console.log(this.wins);
+      }
+    } else {
+      const { data } = await retailerAllEvent(this.$store.state.uuid);
+      console.log('등록한 래플', data);
+      this.events = data;
+      for (let i = 0; i < data.length; i++) {
+        if (new Date(data[i].end_date) < Date.now()) {
+          this.wins.push(data[i]);
+        }
       }
     }
   },

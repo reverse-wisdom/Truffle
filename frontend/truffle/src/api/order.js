@@ -23,5 +23,9 @@ function cancleOrder(imp_uid) {
 function deleteOrdertable(imp_uid) {
   return posts.delete(`order/deleteOrderByEventId?event_id=${imp_uid}`);
 }
+// 주문 상태변경
+function editOderStatus(editorder) {
+  return posts.put(`order/updateOrderStatus`, editorder);
+}
 
-export { verifyIamport, completePayment, fetchOrder, cancleOrder, deleteOrdertable };
+export { verifyIamport, completePayment, fetchOrder, cancleOrder, deleteOrdertable, editOderStatus };

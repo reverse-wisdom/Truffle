@@ -1,192 +1,194 @@
-# Truffle = Trust+Raffle 
-
-
-
+# 회원관리
 ## 1. 로그인
 
-사용자가 ID(email)와 PW를 입력하면, 해당 정보를 DB에서 확인한다.
+사용자가 email  password를 입력하면, 해당 정보를 DB에서 확인 후 결과에따라 access-token생성, 그후 결과메시지와 uuid 값을 전송
 
 ```mermaid
 sequenceDiagram
 
-LoginPage->>DjangoServer:ID(email)/PW입력
-DjangoServer->>DB : 고객정보 확인
-DB -->> MainPage: 로그인 완료
-
+LoginPage->>+SpringBoot:login(email,password)
+SpringBoot->>+Database:login(email,password)
+Database->>Database:select login info
+Database-->>-SpringBoot:uuid
+SpringBoot-->>SpringBoot:create "access-token"
+SpringBoot-->>-LoginPage:"access-token","result message","uuid"
 ```
-
-
 
 ## 2. 회원 가입
 
-전화번호 인증 API를 거쳐 본인인증(실명인증)이 완료되면 회원가입을 진행한다. 
+전화번호 인증 API를 호출후 회원가입 절차 진행, 비밀번호는 SpringSecurity로 암호화하여 DB에 저장
 
-#### 본인인증 성공할 경우
-
-```mermaid
-sequenceDiagram
-
-SignupPage ->> 전화번호 인증 API : 인증 요청
-
-전화번호 인증 API -->> SignupPage : [인증완료]
-SignupPage ->> DjangoServer : 회원정보 입력 및 전송 
-
-DjangoServer ->> DB : 회원정보 저장
-DB -->> DjangoServer : 성공코드(200)
-DjangoServer -->> SignupPage : 성공코드(200)
-
-
-```
-
-#### 본인인증 실패할 경우
+accountInfo: email, password, phone, address, address_detail, business_number,nickname, type(유저구분), 						gender, age
 
 ```mermaid
 sequenceDiagram
 
-SignupPage ->> 전화번호 인증 API : 인증 요청
-전화번호 인증 API -->> SignupPage : [인증실패]
-SignupPage ->> SignupPage : 회원가입 초기 페이지 이동
+SignUpPage->>+SpringBoot:verifyPhoneNumber(phone)
+SpringBoot->>+coolsms API:휴대폰번호인증서비스호출
+coolsms API-->>-SpringBoot:랜덤한숫자4자리값 반환
+SpringBoot-->>-SignUpPage:Stirng:verifyPhoneNumber(phone)
+SignUpPage->>SignUpPage:반환된4자리값과 문자로수신한 4자리값 일치 비교
+SignUpPage->>+SpringBoot:signUp(accountInfo)
+SpringBoot->>SpringBoot:setPassword(passwordEncoding(password))
+SpringBoot->>+Database:signUp(accountInfo)
+Database->>Database:insert(accountInfo)
+Database-->>-SpringBoot:insert result
+SpringBoot-->>-SignUpPage:"result message"
 ```
 
-## 3. 로그아웃
-
-로그아웃 버튼을 클릭하면 해당 정보가 서버로 전송되며, 유저와의 연결이 해제된다.
+## 3. 회원정보 수정
+회원정보를 가져오는 accountInfo를 호출하여 받아온후 update를 호출하여 회원정보 수정 요청
+access-token 검증이 필요함
 
 ```mermaid
 sequenceDiagram
 
-MyPage->>DjangoServer:로그아웃 버튼 클릭
-DjangoServer -->> MainPage: 연동해제, 로그아웃 완료
+UpdatePage->>+SpringBoot:accountInfo(email,access-token)
+SpringBoot->>SpringBoot:validToken(access-token)
+SpringBoot-->>UpdatePage:accountInfo
+UpdatePage->>SpringBoot:update(accountInfo,access-token)
+SpringBoot->>SpringBoot:validToken(access-token)
+SpringBoot->>SpringBoot:setPassword(passwordEncoding(password))
+SpringBoot->>+Database:update(accountInfo)
+Database->>Database:update(accountInfo)
+Database-->>-SpringBoot:update result
+SpringBoot-->>-UpdatePage:"result message"
 ```
 
-## 4. 회원정보 수정
+
+
+## 4. 회원탈퇴
 
 ```mermaid
 sequenceDiagram
 
-UpdatePage->>DjangoServer:수정된 회원정보 입력
-DjangoServer->>DB : 고객정보 업데이트
-DB -->> UpdatePage: 수정 완료
+ProfilePage->>+SpringBoot:delete(access-token,email)
+SpringBoot->>SpringBoot:validToken(access-token)
+SpringBoot->>+Database:delete(email)
+Database->>Database:delete account
+Database-->>-SpringBoot:delete result
+SpringBoot-->>-ProfilePage:"result message"
 ```
 
+---
 
 
-## 5. 회원탈퇴
+# 이벤트 관리
+
+## 1. 이벤트 전체조회
+
+```mermaid
+sequenceDiagram
+rect rgba(0, 0, 255, .05)
+loop event_id
+	EventListPage->>+AWS Docker Volume:imageRequest
+	AWS Docker Volume-->>-EventListPage:thumnail Image
+end
+ Note left of AWS Docker Volume:요청주소<br/>https://j4d110.p.ssafy.io/truffle/event/selectEventImgFileEventID?event_id=
+end
+EventListPage->>+SpringBoot:all()
+SpringBoot->>+Database:all()
+Database->>Database:select all event
+Database-->>-SpringBoot:select result
+SpringBoot-->>-EventListPage:List<EventDto>
+```
+
+## 2. 이벤트 상세조회
 
 ```mermaid
 sequenceDiagram
 
-MyPage->>DjangoServer: 회원탈퇴 버튼 클릭
-DjangoServer->>DB : 해당 고객정보 삭제
-DB -->> MainPage: 회원탈퇴 완료
+EventPage->>+AWS Docker Volume:imageRequest
+AWS Docker Volume-->>-EventPage:thumnail Image
+Note left of AWS Docker Volume:요청주소<br/>https://j4d110.p.ssafy.io/truffle/event/selectEventImgFileEventID?event_id=
+EventPage->>+SpringBoot:detail(event_id)
+SpringBoot->>+Database:all(event_id)
+Database->>Database:select event
+Database-->>-SpringBoot:select result
+SpringBoot-->>-EventPage:EventDto
 ```
 
 
-
-## 6. 회원정보 확인
+## 3. 이벤트 참여
 
 ```mermaid
 sequenceDiagram
 
-MyPage->>DjangoServer: 회원정보 요청
-DjangoServer->>DB : 고객정보 확인
-DB -->> DjangoServer: 고객정보 전달
-DjangoServer->> MyPage:고객정보 화면 출력
+EventPage->>+SpringBoot:joinEvent(event_id)
+EventPage->>SpringBoot:insertUserIdToParticipation(event_id,uuid)
+SpringBoot->>+Database:joinEvent(event_id)
+SpringBoot->>Database:insertUserIdToParticipation(event_id)
+Database->>Database:update 이벤트참여자수 증가
+Database->>Database:insert 참여자정보
+Database-->>SpringBoot:update result
+Database-->>-SpringBoot:insert result
+SpringBoot-->>-EventPage:"result message"
 ```
 
 
 
-
-
-## 7. 성별, 나이, 구매이력 등으로 우선추천기능
+## 4. 이벤트 당첨자 추첨
 
 ```mermaid
 sequenceDiagram
+EventPage->>+SpringBoot:selectParticipationListByEventId(event_id)
+SpringBoot->>+Database:selectParticipationListByEventId(event_id)
+Database->>Database:select all Participation
+Database-->>-SpringBoot:select result
+SpringBoot-->>-EventPage:List<User>
+EventPage->>EventPage:setRandomUUID(List<User>)
 
-MyPage->>DjangoServer: 성별, 나이, 구매이력 등의 회원 정보
-DjangoServer->>DB : 추천 알고리즘으로 추천내역 DB 조회
-DB ->> DjangoServer: 추천 정보 전달
-DjangoServer->> MyPage: 추천 정보 제공
+EventPage->>+SpringBoot:insertUserIdWinParticipation(uuid)
+SpringBoot->>+Database:insertUserIdWinParticipation(uuid)
+Database->>Database:insert 당첨자 정보
+Database-->>SpringBoot:insert result
+SpringBoot-->>-EventPage:"result message"
 ```
 
+---
 
 
 
+# 주문 관리
 
-## 8. 카카오톡 채팅봇 연동
-
-채팅 서버는 별도의  카카오톡 채팅 서버를 거쳐 서비스 된다.
+## 1. 당첨자 구매 진행
 
 ```mermaid
 sequenceDiagram
-
-chatClient(FrontPage) ->> chatClient(FrontPage): 채팅 메시지 입력
-chatClient(FrontPage) ->> chatServer : 메시지 전송
-chatServer ->> chatServer : 유저 및 포트 체크
-chatServer -->> chatClient(FrontPage) : 채팅 메시지 전달
-chatClient(FrontPage) ->> chatClient(FrontPage) : 메시지 출력
-chatServer ->> chatClient2 : 메시지 전달
-chatClient2 ->> chatClient2 : 메시지 출력
-
+EventResultPage->>PaymentPage:당첨자정보
+PaymentPage->>PaymentPage:iamport 결제모듈 호출
+PaymentPage->>+SpringBoot:verifyIamport(결제 고유번호)
+SpringBoot->>+iamport Server:paymentByImpUid(결제 고유번호)
+iamport Server-->>-SpringBoot:Payment 정보
+SpringBoot-->>-PaymentPage:Payment 정보
+PaymentPage->>PaymentPage:결제검증확인(결제 status체크)
+PaymentPage->>+SpringBoot:completePayment(orderDto)
+SpringBoot->>+Database:completePayment(orderDto)
+Database->>Database:insert order
+Database-->>-SpringBoot:insert result
+SpringBoot-->>-PaymentPage:"result message"
 ```
 
 
-
-## 9. 광고
+## 2. 당첨자 구매취소 진행
 
 ```mermaid
 sequenceDiagram
+OrderPage->>+SpringBoot:selectOrderByEventId(event_id)
+SpringBoot->>+Database:selectOrderByEventId(event_id)
+Database->>Database:select order
+Database-->>-SpringBoot:OrderDto
+SpringBoot-->>-OrderPage:"결제고유번호", "OrderDto"
+OrderPage->>+SpringBoot:cancelIamport(결제 고유번호)
+SpringBoot->>+iamport Server:cancelIamport(결제 고유번호)
+iamport Server-->>-SpringBoot:Payment 정보
+SpringBoot-->>-OrderPage:결제취소확인(결제 status체크)
 
-MainPage ->> Web Server : 배너클릭
-Web Server -->> ad Page:해당 광고페이지로 리다이렉트
+OrderPage->>+SpringBoot:deleteOrderByEventId(event_id)
+SpringBoot->>+Database:deleteOrderByEventId(event_id)
+Database->>Database:delete order
+Database-->>-SpringBoot:delete result
+SpringBoot-->>-OrderPage:"result message"
 ```
 
-
-
-## 10. 판매자 한정판 제품 등록 기능
-
-```mermaid
-sequenceDiagram
-
-RegisterPage -->> BlockChainNetwork: 한정판 제품 등록
-RegisterPage -->> DjangoServer: 한정판 제품정보 등록
-BlockChainNetwork ->> BlockChainNetwork: 비대칭암호화 및 한정판 제품 저장
-DjangoServer ->> DB: 암호화된 정보 전달
-DB -->> DB: 한정판 제품 정보 저장
-```
-
-
-
-## 11. 각 한정판 제품에 대한 검색기능 & 검색 결과 페이지
-
-```mermaid
-sequenceDiagram
-
-SearchPage ->> DjangoServer: 검색 키워드 전달
-SearchPage -->> BlockChainNetwork: 검색키워드 전달
-DjangoServer ->> DB: 검색정보 전달
-DB ->> DB: 해당 제품 검색
-DB ->> DjangoServer: 검색결과정보 전달
-BlockChainNetwork -->> SearchPage: 검색정보전달
-DjangoServer ->> SearchPage: 검색 결과 페이지에 출력
-```
-
-
-
-
-
-## 12. 결제서비스 기능
-
-```mermaid
-sequenceDiagram
-
-사용자 ->> 결제 API: 결제프로그램 설치
-결제 API ->> 사용자: 설치완료
-사용자 ->> 결제 API: 결제수단 선택
-결제 API ->> 사용자: 선택완료
-사용자 ->> 결제 API: 결제하기
-결제 API -->> DB: 회원정보수정
-DB -->> DjangoServer: 변경 정보 전달
-DjangoServer ->> MyPage: 결제내역 안내
-```
 
