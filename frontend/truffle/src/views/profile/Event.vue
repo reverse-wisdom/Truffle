@@ -4,7 +4,7 @@
       <div class="event-index" ref="event">
         <div class="card">
           <figure>
-            <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" />
+            style="margin-bottom: 20px;"
           </figure>
           <section class="details">
             <div class="product-detail">
@@ -36,7 +36,7 @@
       <div class="event-index" ref="event">
         <div class="card">
           <figure>
-            <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" />
+            <img class="detail-image" :src="imgURL + event.event_id" />
           </figure>
           <section class="details">
             <div class="product-detail">
@@ -67,12 +67,12 @@
 </template>
 
 <script>
-import { returnImage64 } from '@/api/event';
 export default {
   name: 'Event',
   data() {
     return {
       detailImg: '',
+      imgURL: 'https://j4d110.p.ssafy.io/truffle/event/selectEventImgFileEventID?event_id=',
     };
   },
   props: {
@@ -80,11 +80,7 @@ export default {
       type: Object,
     },
   },
-  async created() {
-    const resImage = await returnImage64(this.event.event_id);
-    // console.log(resImage);
-    this.detailImg = resImage.data;
-  },
+  async created() {},
   computed: {
     priceComma() {
       return this.event.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');

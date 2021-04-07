@@ -4,7 +4,7 @@
       <div class="card">
         <div class="idx-box">{{ idx + 1 }}위</div>
         <figure>
-          <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" />
+          <img class="detail-image" :src="imgURL + event.event_id" />
         </figure>
 
         <section class="details">
@@ -34,13 +34,14 @@
 </template>
 
 <script>
-import { eventAll, returnImage64 } from '@/api/event';
+import { eventAll } from '@/api/event';
 export default {
   data() {
     return {
       events: [],
       detailImg: [],
       index: 0,
+      imgURL: 'https://j4d110.p.ssafy.io/truffle/event/selectEventImgFileEventID?event_id=',
     };
   },
   async created(idx) {
@@ -62,12 +63,6 @@ export default {
       }
     }
     this.events = this.events.slice(0, 4);
-    for (let i = 0; i < this.events.length; i++) {
-      const event_id = this.events[i].event_id;
-      // console.log(event_id, '이벤트아이디');
-      const resImage = await returnImage64(event_id);
-      this.detailImg.push(resImage.data);
-    }
   },
   computed: {
     priceComma: function() {
