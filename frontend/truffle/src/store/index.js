@@ -66,13 +66,13 @@ export default new Vuex.Store({
   actions: {
     async LOGIN({ commit }, userData) {
       const data = await loginUser(userData);
-      console.log(data);
+      // console.log(data);
       if (data.data.message == 'SUCCESS') {
         commit('setToken', data.data['access-token']);
         commit('setEmail', userData.email);
         commit('setPassword', userData.password);
         const response = await fetchUser(userData.email);
-        console.log(response.data);
+        // console.log(response.data);
         commit('setUuid', response.data.uuid);
         commit('setType', response.data.type);
         if (response.data.type == 1) {

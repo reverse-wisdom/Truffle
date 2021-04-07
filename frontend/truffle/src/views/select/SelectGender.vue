@@ -98,7 +98,7 @@ export default {
     const gender = '1';
     // console.log('성별확인', gender);
     const { data } = await eventSelectGender(gender);
-    console.log('응답데이터', data);
+    // console.log('응답데이터', data);
     var GenderArray = data;
     GenderArray.sort(function(a, b) {
       if (a.join_num > b.join_num) {
@@ -111,7 +111,7 @@ export default {
     });
     GenderArray.reverse();
     this.GenderArray = GenderArray.slice(0, 4);
-    console.log('성별', this.GenderArray);
+    // console.log('성별', this.GenderArray);
 
     $('#gendercontent1').addClass('display');
   },
@@ -121,7 +121,7 @@ export default {
       const gender = this.gender;
       // console.log('성별확인', gender);
       const { data } = await eventSelectGender(gender);
-      console.log('응답데이터', data);
+      // console.log('응답데이터', data);
       var GenderArray = data;
       GenderArray.sort(function(a, b) {
         if (a.join_num > b.join_num) {
@@ -134,7 +134,7 @@ export default {
       });
       GenderArray.reverse();
       this.GenderArray = GenderArray.slice(0, 4);
-      console.log('성별', this.GenderArray);
+      // console.log('성별', this.GenderArray);
     },
     eventDetailGo(event_id) {
       this.$router.push({ name: 'EventDetail', query: { event_id: event_id } });

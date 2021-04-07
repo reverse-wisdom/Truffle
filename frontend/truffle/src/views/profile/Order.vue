@@ -80,6 +80,8 @@
 <script>
 import { fetchOrder } from '@/api/order';
 import { userWinEvent, retailerAllEvent } from '@/api/auth';
+import { eventDetail } from '@/api/event';
+
 export default {
   name: 'Order',
   data() {
@@ -110,35 +112,38 @@ export default {
       // 이벤트아이디로 결제 조회
       for (let i = 0; i < data.length; i++) {
         const res = await fetchOrder(data[i].event_id);
-
-        if (res.data.uuid == this.$store.state.uuid && res.data.ship_status == 1) {
-          const response = await eventDetail(res.data.event_id);
-
-          this.status1.push(response.data[0]);
-        } else if (res.data.uuid == this.$store.state.uuid && res.data.ship_status == 2) {
-          const response = await eventDetail(res.data.event_id);
-          this.status2.push(response.data[0]);
-        } else if (res.data.uuid == this.$store.state.uuid && res.data.ship_status == 3) {
-          const response = await eventDetail(res.data.event_id);
-          this.status3.push(response.data[0]);
-        } else if (res.data.uuid == this.$store.state.uuid && res.data.ship_status == 4) {
-          const response = await eventDetail(res.data.event_id);
-          this.status4.push(response.data[0]);
-        } else {
-          const response = await eventDetail(res.data.event_id);
-          this.status0.push(response.data[0]);
+        // console.log(res);
+        for (let j = 0; i < res.data.length; j++) {
+          if (this.$store.state.uuid == res.data[j].uuid && res.data[j].ship_status == 1) {
+            const response = await eventDetail(res.data[j].event_id);
+            this.status1.push(response.data);
+          } else if (this.$store.state.uuid == res.data[j].uuid && res.data[j].ship_status == 2) {
+            const response = await eventDetail(res.data[j].event_id);
+            this.status2.push(response.data);
+          } else if (this.$store.state.uuid == res.data[j].uuid && res.data[j].ship_status == 3) {
+            const response = await eventDetail(res.data[j].event_id);
+            this.status3.push(response.data);
+          } else if (this.$store.state.uuid == res.data[j].uuid && res.data[j].ship_status == 4) {
+            const response = await eventDetail(res.data[j].event_id);
+            this.status4.push(response.data);
+          } else {
+            const response = await eventDetail(res.data[j].event_id);
+            this.status0.push(response.data);
+          }
         }
       }
     } else {
-      //마감된 상품
-      const { data } = await retailerAllEvent(this.$store.state.uuid);
-      const endevent = [];
-      for (let i = 0; i < data.length; i++) {
-        if (new Date(data[i].end_date) < Date.now()) {
-          endevent.push(data[i]);
+      {
+        //마감된 상품
+        const { data } = await retailerAllEvent(this.$store.state.uuid);
+        const endevent = [];
+        for (let i = 0; i < data.length; i++) {
+          if (new Date(data[i].end_date) < Date.now()) {
+            endevent.push(data[i]);
+          }
         }
+        this.endevent = endevent;
       }
-      this.endevent = endevent;
     }
   },
   methods: {

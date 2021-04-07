@@ -115,13 +115,37 @@
               </template>
             </v-dialog>
           </v-col>
-          <div class="join-info" v-if="paycheck == true && new Date(this.event.end_date) < Date.now()">
-            <button type="button" class="btn" id="payment" @click="iamport">
-              결제하기
-            </button>
-            <button type="button" class="btn" id="canclepayment" @click="cancleiamport">
-              결제취소
-            </button>
+          <div v-if="this.$store.state.type == 1">
+            <div class="join-info">
+              <div v-if="paycheck == true && new Date(this.event.end_date) < Date.now()">
+                <button type="button" class="btn" id="payment" @click="iamport">
+                  결제하기
+                </button>
+              </div>
+              <div v-else>
+                <v-dialog transition="dialog-top-transition" max-width="600">
+                  <template class="join-info" v-slot:activator="{ on, attrs }">
+                    <div class="join-info">
+                      <button class="btn" v-bind="attrs" id="btn-join" v-on="on" value="응모하기">결제취소</button>
+                    </div>
+                  </template>
+                  <template v-slot:default="dialog" v-show="cancelcheck == true">
+                    <v-card>
+                      <v-toolbar color="dark" dark>결제취소확인</v-toolbar>
+                      <v-card-text>
+                        <div class="text-h5 text-center pt-10">
+                          결제를 취소하시겠습니까?
+                        </div>
+                      </v-card-text>
+                      <v-card-actions class="justify-end">
+                        <v-btn text @click="cancleiamport">OK</v-btn>
+                        <v-btn text @click="dialog.value = false">닫기</v-btn>
+                      </v-card-actions>
+                    </v-card>
+                  </template>
+                </v-dialog>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -186,7 +210,7 @@ export default {
       partcheck: false,
       cancelcheck: true,
       winnerEventId: [],
-      paycheck: false,
+      paycheck: true,
       imgURL: 'https://j4d110.p.ssafy.io/truffle/event/selectEventImgFileEventID?event_id=',
       //로드늦어서 따로 변수지정함
       event_id: this.$route.query.event_id,
@@ -202,7 +226,7 @@ export default {
   },
   async created() {
     const event_id = this.$route.query.event_id;
-    console.log('이벤트아이디', event_id);
+    // console.log('이벤트아이디', event_id);
     const { data } = await eventDetail(event_id);
 
     this.event = data[0];
@@ -213,16 +237,16 @@ export default {
     }
     //응모한 사람인지 확인(응모취소 버튼보이게)
     const part_data = await checkPartipants(event_id);
-    console.log(part_data);
-    console.log('uuid:', this.$store.state.uuid);
+    // console.log(part_data);
+    // console.log('uuid:', this.$store.state.uuid);
 
     for (let i = 0; i < part_data.data.length; i++) {
-      if ((this.$store.state.uuid = part_data.data[i].event_id)) {
-        console.log('포문안', part_data.data[i].event_id);
+      if (this.$store.state.uuid == part_data.data[i].event_id) {
+        // console.log('포문안', part_data.data[i].event_id);
         const joinBtn = document.getElementById('joinBtn');
         target.disabled = true;
         joinBtn.innerText = '응모취소';
-        console.log('joinBtn', joinBtn);
+        // console.log('joinBtn', joinBtn);
         break;
       }
     }
@@ -233,14 +257,24 @@ export default {
     if (response.data.length != 0) {
       const target = document.getElementById('winnerbtn');
       target.disabled = true;
-      target.innerText = '추첨완료';
-      console.log('당첨여부', response.data);
+      // target.innerText = '추첨완료';
+      // console.log('당첨여부', response.data);
       for (let i = 0; i < response.data.length; i++) {
         this.winnerEventId.push(response.data[i].event_id);
       }
       //결제하기 버튼 보일지말지 확인
       if (this.winnerEventId.includes(this.event.uuid)) {
         this.paycheck = true;
+      }
+    }
+
+    //결제여부
+    // console.log(event_id);
+    const res = await fetchOrder(event_id);
+    // console.log('결제여부', res);
+    for (let i = 0; i < res.data.length; i++) {
+      if (this.$store.state.uuid == res.data[i].uuid) {
+        this.paycheck = false;
       }
     }
   },
@@ -265,7 +299,7 @@ export default {
         target.disabled = true;
         target.innerText = '추첨완료';
         // console.log(this.winnerList);
-        console.log(this.winnerList);
+        // console.log(this.winnerList);
       } else if (this.event.join_num < this.event.win_num) {
         this.$swal({
           icon: 'info',
@@ -278,14 +312,14 @@ export default {
       }
     },
     async winnerListGo() {
-      console.log(this.winnerList);
+      // console.log(this.winnerList);
       for (let i = 0; i < this.winnerList.length; i++) {
         const winData = {
           uuid: this.winnerList[i].uuid,
           event_id: this.event.event_id,
         };
         const { data } = await createWinner(winData);
-        console.log(data, '당첨자확인');
+        // console.log(data, '당첨자확인');
       }
       this.winnerListShow();
     },
@@ -295,23 +329,23 @@ export default {
         this.modal = [];
       }
       const { data } = await selectedWinner(this.event.event_id);
-      console.log('winnerListShow', data);
+      // console.log('winnerListShow', data);
       // this.modal = data;
       for (let i = 0; i < data.length; i++) {
         var len = data[i].email.split('@')[0].length - 6; // ******@gmail.com
         this.modal.push(data[i].email.replace(new RegExp('.(?=.{0,' + len + '}@)', 'g'), '*'));
       }
-      console.log('타입', this.modal);
+      // console.log('타입', this.modal);
     },
     //응모하기버튼누르면
     async joinAdd() {
       const email = this.$store.state.email;
 
       const event_id = this.$route.query.event_id;
-      console.log(event_id, email);
+      // console.log(event_id, email);
       // 로그인한 유저가 참여한적이 있는지 체크
       const { data } = await checkPartipants(event_id);
-      console.log(data);
+      // console.log(data);
       for (let i = 0; i < data.length; i++) {
         //참여한적이 있으면
         if (data[i].email == email) {
@@ -327,18 +361,18 @@ export default {
       if (this.partcheck == false) {
         const { data } = await eventJoin(event_id);
         if (data == 'SUCCESS') {
-          console.log('1증가');
+          // console.log('1증가');
           const partData = {
             event_id: this.$route.query.event_id,
             uuid: this.$store.state.uuid,
           };
           //참여자테이블에 추가
           const part_data = await createPartipants(partData);
-          console.log('part_Data', part_data);
+          // console.log('part_Data', part_data);
           if (part_data.data == 'SUCCESS') {
-            console.log('성공');
+            // console.log('성공');
             const target = document.getElementById('btn-join');
-            console.log(target);
+            // console.log(target);
 
             this.cancelcheck = false;
           }
@@ -347,7 +381,7 @@ export default {
         }
       } else {
         this.cancelcheck = false;
-        console.log('이미참여한이벤트');
+        // console.log('이미참여한이벤트');
       }
     },
     async cancel() {
@@ -357,7 +391,7 @@ export default {
       const event_data = {};
       const updateDT = await eventUpdate;
       // this.dialog.value = false;
-      console.log(resp, '취소후');
+      // console.log(resp, '취소후');
       // console.log(resp.data[0].join_num);
       this.cancelcheck = true;
     },
@@ -366,18 +400,20 @@ export default {
       var event_id = this.event.event_id;
       this.$router.push({ name: 'EventUpdate', query: { event_id: event_id } });
     },
+
+    //
     async iamport() {
       var event_id = this.event.event_id;
       const { data } = await eventDetail(event_id);
       var event = data[0];
-      console.log(event.price);
+      // console.log(event.price);
 
       // 현재이벤트 상태가 결제됬는지 안됬는지 판단하는 API 추후 구현 예정
       // 해당 API로 0 반환시(미결제이벤트) 결제진행, else: 결제진행 X
 
       //가맹점 식별코드
       const response = await fetchUser(this.$store.state.email);
-      console.log(response);
+      // console.log(response);
       Vue.IMP().request_pay(
         {
           pg: 'inicis',
@@ -391,12 +427,44 @@ export default {
           buyer_addr: response.data.address + ' ' + response.data.address_detail, // 로그인한 유저 주소 넣기
         },
         (result_success) => {
+          this.verifyIam(result_success);
           //성공할 때 실행 될 콜백 함수
           var msg = '결제가 완료되었습니다.';
           msg += '고유ID : ' + result_success.imp_uid; // imp_uid order테이블에 추가예정
           msg += '상점 거래ID : ' + result_success.merchant_uid;
           msg += '결제 금액 : ' + result_success.paid_amount;
           msg += '카드 승인번호 : ' + result_success.apply_num;
+        },
+        (result_failure) => {
+          //실패시 실행 될 콜백 함수
+          var msg = '결제에 실패하였습니다.';
+          msg += '에러내용 : ' + result_failure.error_msg;
+          this.$swal({
+            position: 'top-end',
+            icon: 'error',
+            title: '결제실패!!',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      );
+    },
+    async verifyIam(result_success) {
+      // console.log('result_success', result_success);
+      const { data } = await verifyIamport(result_success.imp_uid);
+      // console.log(data.response.status);
+      if (data.response.status == 'paid') {
+        const data1 = {
+          uuid: this.uuid,
+          event_id: this.event.event_id,
+          imp_uid: result_success.imp_uid,
+          ship_status: 1,
+          pay_status: 1,
+        };
+        // console.log('data1', data1);
+        const responsedata = await completePayment(data1);
+        // console.log('1111111', responsedata);
+        if (responsedata.data == 'SUCCESS') {
           this.$swal({
             position: 'top-end',
             icon: 'success',
@@ -404,64 +472,58 @@ export default {
             showConfirmButton: false,
             timer: 1500,
           });
-          this.verifyIam(result_success);
-        },
-        (result_failure) => {
-          //실패시 실행 될 콜백 함수
-          var msg = '결제에 실패하였습니다.';
-          msg += '에러내용 : ' + result_failure.error_msg;
-          alert(msg);
+          this.paycheck = false;
+        } else {
+          this.$swal({
+            position: 'top-end',
+            icon: 'error',
+            title: '결제실패!!',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          this.paycheck = true;
         }
-      );
-    },
-    async verifyIam(result_success) {
-      console.log('result_success', result_success);
-      const { data } = await verifyIamport(result_success.imp_uid);
-      console.log(data.response.status);
-      if (data.response.status == 'paid') {
-        const data = {
-          uuid: this.$store.state.uuid,
-          event_id: this.event.event_id,
-          imp_uid: result_success.imp_uid,
-          ship_status: 1,
-          pay_status: 1,
-        };
-        const responsedata = completePayment(data);
-        // console.log(responsedata);
       }
     },
     async cancleiamport() {
       const { data } = await fetchOrder(this.event.event_id);
-      console.log(data);
+      // console.log('결제테이블', data);
 
-      const response = await cancleOrder(data.imp_uid);
-      console.log(response);
-      if (response.data.code == 0) {
-        const data = await deleteOrdertable(this.event.event_id);
-        console.log(data);
-        this.$swal({
-          position: 'center',
-          icon: 'success',
-          title: '결제취소완료!!',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      } else if (response.data.code == 1) {
-        this.$swal({
-          position: 'center',
-          icon: 'error',
-          title: '결제취소실패!! 이미 전액취소 되었습니다',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      } else {
-        this.$swal({
-          position: 'center',
-          icon: 'error',
-          title: '결제취소실패!! 올바른 상품인지 확인하세요',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+      for (let i = 0; i < data.length; i++) {
+        if (this.$store.state.uuid == data[i].uuid) {
+          const response = await cancleOrder(data[i].imp_uid);
+          // console.log(response);
+          if (response.data.code == 0) {
+            const data = await deleteOrdertable(this.event.event_id);
+            // console.log(data);
+            this.$swal({
+              position: 'center',
+              icon: 'success',
+              title: '결제취소완료!!',
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            this.paycheck = true;
+          } else if (response.data.code == 1) {
+            this.$swal({
+              position: 'center',
+              icon: 'error',
+              title: '결제취소실패!! 이미 전액취소 되었습니다',
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            this.paycheck = false;
+          } else {
+            this.$swal({
+              position: 'center',
+              icon: 'error',
+              title: '결제취소실패!! 올바른 상품인지 확인하세요',
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            this.paycheck = false;
+          }
+        }
       }
     },
   },

@@ -73,7 +73,7 @@ export default {
   },
   methods: {
     eventDetailGo(event_id) {
-      console.log('인덱스에서 이벤트아이디', event_id);
+      // console.log('인덱스에서 이벤트아이디', event_id);
       this.$router.push({ name: 'EventDetail', query: { event_id: event_id } });
     },
   },
