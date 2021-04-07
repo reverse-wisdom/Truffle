@@ -11,32 +11,84 @@
       <div class="tab-content">
         <div class="active">
           <h2>결제전</h2>
-          <p>결제전상품</p>
+          <p>{{ status0 }}</p>
         </div>
         <div>
           <h2>결제완료</h2>
-          <p>결제전상품</p>
+          <p>{{ status1 }}</p>
         </div>
         <div>
           <h2>배송준비중</h2>
-          <p>결제전상품</p>
+          <p>{{ status2 }}</p>
         </div>
         <div>
           <h2>배송중</h2>
-          <p>결제전상품</p>
+          <p>{{ status3 }}</p>
         </div>
         <div>
           <h2>배송완료</h2>
-          <p>결제전상품</p>
+          <p>{{ status4 }}</p>
         </div>
+      </div>
+      <div class="btn-style">
+        <v-btn dark @click="$router.go(-1)">뒤로가기</v-btn>
       </div>
     </div>
   </v-container>
 </template>
 
 <script>
+import { userWinEvent } from '@/api/auth';
+import { fetchOrder } from '@/api/order';
+import { eventDetail } from '@/api/event';
+
 export default {
-  async created() {},
+  data() {
+    return {
+      status0: [],
+      status1: [],
+      status2: [],
+      status3: [],
+      status4: [],
+      endevent: '',
+      state: '',
+    };
+  },
+  computed: {
+    priceComma: function() {
+      return this.endevent.map(function(event) {
+        return event.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      });
+    },
+  },
+  async created() {
+    //// 유저입장
+    // 당첨내역조회
+    const { data } = await userWinEvent(this.$store.state.email);
+    // console.log(data);
+
+    // 이벤트아이디로 결제 조회
+    for (let i = 0; i < data.length; i++) {
+      const res = await fetchOrder(data[i].event_id);
+
+      if (res.data.uuid == this.$store.state.uuid && res.data.ship_status == 1) {
+        const response = await eventDetail(res.data.event_id);
+        this.status1.push(response.data[0]);
+      } else if (res.data.uuid == this.$store.state.uuid && res.data.ship_status == 2) {
+        const response = await eventDetail(res.data.event_id);
+        this.status2.push(response.data[0]);
+      } else if (res.data.uuid == this.$store.state.uuid && res.data.ship_status == 3) {
+        const response = await eventDetail(res.data.event_id);
+        this.status3.push(response.data[0]);
+      } else if (res.data.uuid == this.$store.state.uuid && res.data.ship_status == 4) {
+        const response = await eventDetail(res.data.event_id);
+        this.status4.push(response.data[0]);
+      } else {
+        const response = await eventDetail(res.data.event_id);
+        this.status0.push(response.data[0]);
+      }
+    }
+  },
   methods: {
     tabclick() {
       let tabPanes = document.getElementsByClassName('tab-header')[0].getElementsByTagName('div');
@@ -76,6 +128,10 @@ export default {
   left: 0%;
   padding: 30px;
   top: 20%;
+}
+.btn-style {
+  text-align: right;
+  margin-top: 20px;
 }
 * {
   box-sizing: border-box;
