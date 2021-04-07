@@ -25,8 +25,7 @@
             <div class="card">
               <div class="idx-box">{{ idx + 1 }}위</div>
               <figure>
-                <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" v-if="detailImg" />
-                <img src="@/assets/img/women.jpg" alt="" v-else />
+                <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" />
               </figure>
 
               <section class="details">
@@ -59,8 +58,7 @@
             <div class="card">
               <div class="idx-box">{{ idx + 1 }}위</div>
               <figure>
-                <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" v-if="detailImg" />
-                <img src="@/assets/img/women.jpg" alt="" v-else />
+                <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" />
               </figure>
 
               <section class="details">
@@ -93,8 +91,7 @@
             <div class="card">
               <div class="idx-box">{{ idx + 1 }}위</div>
               <figure>
-                <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" v-if="detailImg" />
-                <img src="@/assets/img/women.jpg" alt="" v-else />
+                <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" />
               </figure>
 
               <section class="details">
@@ -127,8 +124,7 @@
             <div class="card">
               <div class="idx-box">{{ idx + 1 }}위</div>
               <figure>
-                <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" v-if="detailImg" />
-                <img src="@/assets/img/women.jpg" alt="" v-else />
+                <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" />
               </figure>
 
               <section class="details">
@@ -160,8 +156,7 @@
             <div class="card">
               <div class="idx-box">{{ idx + 1 }}위</div>
               <figure>
-                <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" v-if="detailImg" />
-                <img src="@/assets/img/women.jpg" alt="" v-else />
+                <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" />
               </figure>
 
               <section class="details">
@@ -193,8 +188,7 @@
             <div class="card">
               <div class="idx-box">{{ idx + 1 }}위</div>
               <figure>
-                <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" v-if="detailImg" />
-                <img src="@/assets/img/women.jpg" alt="" v-else />
+                <img class="detail-image" :src="'data:image/jpeg;base64,' + detailImg" />
               </figure>
 
               <section class="details">
@@ -227,13 +221,13 @@
 </template>
 
 <script>
-import { eventSelectAge } from '@/api/event';
+import { eventSelectAge, returnImage64 } from '@/api/event';
 export default {
   data() {
     return {
       age: '',
       AgeArray: [],
-      detailImg: '',
+      detailImg: [],
     };
   },
   computed: {
@@ -270,6 +264,11 @@ export default {
     this.AgeArray = newAgeArray.slice(0, 4);
     console.log('나이', this.AgeArray);
     $('#agecontent1').addClass('display');
+    for (let i = 0; i < this.AgeArray.length; i++) {
+      const event_id = this.AgeArray[i].event_id;
+      const resImage = await returnImage64(event_id);
+      this.detailImg.push(resImage.data);
+    }
   },
   methods: {
     async selectAge() {
@@ -299,6 +298,11 @@ export default {
       }
       this.AgeArray = newAgeArray.slice(0, 4);
       console.log('나이', this.AgeArray);
+      for (let i = 0; i < this.AgeArray.length; i++) {
+        const event_id = this.AgeArray[i].event_id;
+        const resImage = await returnImage64(event_id);
+        this.detailImg.push(resImage.data);
+      }
     },
     eventDetailGo(event_id) {
       this.$router.push({ name: 'EventDetail', query: { event_id: event_id } });
