@@ -247,6 +247,11 @@ export default {
         target.innerText = '추첨완료';
         // console.log(this.winnerList);
         console.log(this.winnerList);
+      } else if (this.event.join_num) {
+        this.$swal({
+          icon: 'success',
+          title: '응모한 사람이 없습니다.',
+        });
       } else {
         this.winnerListGo();
       }

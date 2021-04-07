@@ -42,7 +42,7 @@
           <Shoes></Shoes>
         </div>
         <div id="content6">
-          <Digita></Digita>
+          <Digital></Digital>
         </div>
         <div id="content7">
           <Hobby></Hobby>

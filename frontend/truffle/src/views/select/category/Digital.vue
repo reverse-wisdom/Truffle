@@ -1,6 +1,6 @@
 <template>
   <div class="event-ct">
-    <div class="event-index" v-for="(event, idx) in events" refs="events" :key="idx">
+    <div class="event-index" v-for="(event, idx) in events" ref="events" refs="events" :key="idx">
       <div class="card">
         <!-- <div class="idx-box">{{ idx + 1 }}위</div> -->
         <figure>
@@ -34,28 +34,34 @@
 </template>
 
 <script>
-import { eventSelectCategory } from '@/api/event';
+import { eventSelectCategory, returnImage64 } from '@/api/event';
 export default {
   data() {
     return {
       events: [],
+      detailImg: [],
     };
+  },
+  async created() {
+    const { data } = await eventSelectCategory('디지털');
+    console.log(data);
+    this.events = data;
+    for (let i = 0; i < this.events.length; i++) {
+      const event_id = this.events[i].event_id;
+      const resImage = await returnImage64(event_id);
+      this.detailImg.push(resImage.data);
+    }
+  },
+  methods: {
+    async eventDetailGo(event_id) {
+      this.$router.push({ name: 'EventDetail', query: { event_id: event_id } });
+    },
   },
   computed: {
     priceComma: function() {
       return this.events.map(function(event) {
         return event.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
       });
-    },
-  },
-  async created() {
-    const { data } = await eventSelectCategory('디지털');
-    console.log(data);
-    this.events = data;
-  },
-  methods: {
-    async eventDetailGo(event_id) {
-      this.$router.push({ name: 'EventDetail', query: { event_id: event_id } });
     },
   },
 };
@@ -166,6 +172,9 @@ h1 {
   margin: 3px 0;
   font-size: 1.5rem;
   font-weight: 900;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .product-detail > .price {
   display: flex;
