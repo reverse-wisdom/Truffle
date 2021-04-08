@@ -67,79 +67,60 @@ export default {
       });
     },
   },
-  mounted() {
-    let tabPanes = document.getElementsByClassName('tab-header')[0].getElementsByTagName('div');
-
-    for (let i = 0; i < tabPanes.length; i++) {
-      tabPanes[i].addEventListener('click', function() {
-        document
-          .getElementsByClassName('tab-header')[0]
-          .getElementsByClassName('active')[0]
-          .classList.remove('active');
-        tabPanes[i].classList.add('active');
-
-        document
-          .getElementsByClassName('tab-content')[0]
-          .getElementsByClassName('active')[0]
-          .classList.remove('active');
-
-        document
-          .getElementsByClassName('tab-content')[0]
-          .getElementsByClassName('a')
-          [i].classList.add('active');
-      });
-    }
-  },
   async created() {
     //// 유저입장
     // 당첨내역조회
     const { data } = await userWinEvent(this.$store.state.email);
-    // console.log('담첨내역', data);
+    // console.log('당첨내역', data);
 
     // 이벤트아이디로 결제 조회
     for (let i = 0; i < data.length; i++) {
       const res = await fetchOrder(data[i].event_id);
       // console.log('결제조회', res);
-
-      if (res.data.uuid == this.$store.state.uuid && res.data.ship_status == 1) {
-        const response = await eventDetail(data[i].event_id);
-        this.status1.push(response.data[0]);
-      } else if (res.data.uuid == this.$store.state.uuid && res.data.ship_status == 2) {
-        const response = await eventDetail(data[i].event_id);
-        this.status2.push(response.data[0]);
-      } else if (res.data.uuid == this.$store.state.uuid && res.data.ship_status == 3) {
-        const response = await eventDetail(data[i].event_id);
-        this.status3.push(response.data[0]);
-      } else if (res.data.uuid == this.$store.state.uuid && res.data.ship_status == 4) {
-        const response = await eventDetail(data[i].event_id);
-        this.status4.push(response.data[0]);
-      } else {
-        const response = await eventDetail(data[i].event_id);
-        this.status0.push(response.data[0]);
+      for (let j = 0; j < res.data.length; j++) {
+        if (res.data[j].uuid == this.$store.state.uuid && res.data[j].ship_status == 1) {
+          const response = await eventDetail(res.data[j].event_id);
+          this.status1.push(response.data[j]);
+        } else if (res.data[j].uuid == this.$store.state.uuid && res.data[j].ship_status == 2) {
+          const response = await eventDetail(res.data[j].event_id);
+          this.status2.push(response.data[j]);
+        } else if (res.data[j].uuid == this.$store.state.uuid && res.data[j].ship_status == 3) {
+          const response = await eventDetail(res.data[j].event_id);
+          this.status3.push(response.data[j]);
+        } else if (res.data[j].uuid == this.$store.state.uuid && res.data[j].ship_status == 4) {
+          const response = await eventDetail(res.data[j].event_id);
+          this.status4.push(response.data[j]);
+        } else {
+          const response = await eventDetail(res.data[j].event_id);
+          this.status0.push(response.data[j]);
+        }
       }
     }
   },
 
   methods: {
     tabclick() {
-      // let tabPanes = document.getElementsByClassName('tab-header')[0].getElementsByTagName('div');
-      // for (let i = 0; i < tabPanes.length; i++) {
-      //   tabPanes[i].addEventListener('click', function() {
-      //     document
-      //       .getElementsByClassName('tab-header')[0]
-      //       .getElementsByClassName('active')[0]
-      //       .classList.remove('active');
-      //     tabPanes[i].classList.add('active');
-      //     document
-      //       .getElementsByClassName('tab-content')[0]
-      //       .getElementsByClassName('active')[0]
-      //       .classList.remove('active');
-      //     document
-      //       .getElementsByClassName('tab-content')[0]
-      //       .getElementsByTagName('div')
-      //       [i].classList.add('active');
-      //   });
-      // }
+      let tabPanes = document.getElementsByClassName('tab-header')[0].getElementsByTagName('div');
+
+      for (let i = 0; i < tabPanes.length; i++) {
+        tabPanes[i].addEventListener('click', function() {
+          document
+            .getElementsByClassName('tab-header')[0]
+            .getElementsByClassName('active')[0]
+            .classList.remove('active');
+          tabPanes[i].classList.add('active');
+
+          document
+            .getElementsByClassName('tab-content')[0]
+            .getElementsByClassName('active')[0]
+            .classList.remove('active');
+
+          document
+            .getElementsByClassName('tab-content')[0]
+            .getElementsByClassName('a')
+            [i].classList.add('active');
+        });
+      }
     },
     detailPage(value) {
       const event_id = value.event_id;
