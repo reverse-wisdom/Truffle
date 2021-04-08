@@ -2,7 +2,6 @@
   <div class="event-ct">
     <div class="event-index" v-for="(event, idx) in events" refs="events" :key="idx">
       <div class="card">
-        <!-- <div class="idx-box">{{ idx + 1 }}위</div> -->
         <figure>
           <img class="detail-image" :src="imgURL + event.event_id" />
         </figure>
@@ -42,13 +41,6 @@ export default {
       imgURL: 'https://j4d110.p.ssafy.io/truffle/event/selectEventImgFileEventID?event_id=',
     };
   },
-  computed: {
-    priceComma: function() {
-      return this.events.map(function(event) {
-        return event.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-      });
-    },
-  },
   async created() {
     const { data } = await eventSelectCategory('뷰티');
     // console.log(data);
@@ -62,7 +54,15 @@ export default {
   computed: {
     priceComma: function() {
       return this.events.map(function(event) {
-        return event.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        return event.price
+          .toString()
+          .split('')
+          .reverse()
+          .join('')
+          .replace(/(\d{3}(?!.*\.|$))/g, '$1,')
+          .split('')
+          .reverse()
+          .join('');
       });
     },
   },

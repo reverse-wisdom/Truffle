@@ -90,7 +90,15 @@ export default {
   computed: {
     priceComma: function() {
       return this.GenderArray.map(function(event) {
-        return event.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        return event.price
+          .toString()
+          .split('')
+          .reverse()
+          .join('')
+          .replace(/(\d{3}(?!.*\.|$))/g, '$1,')
+          .split('')
+          .reverse()
+          .join('');
       });
     },
   },

@@ -6,20 +6,13 @@
       <table class="content-table">
         <thead>
           <tr>
-            <th class="no">NO</th>
-            <th class="email">E-MAIL</th>
-            <th class="phone">PHONE</th>
-            <th class="now">NOW</th>
-            <th class="state">STATE</th>
-            <!-- <th>결제전</th>
-          <th>결제완료</th>
-          <th>배송준비중</th>
-          <th>배송중</th>
-          <th>배송완료</th> -->
+            <th id="no" class="no">NO</th>
+            <th id="email" class="email">E-MAIL</th>
+            <th id="phone" class="phone">PHONE</th>
+            <th id="now" class="now">NOW</th>
+            <th id="state" class="state">STATE</th>
           </tr>
         </thead>
-        <!-- <tbody>
-        </tbody> -->
       </table>
       <WinnerManage v-for="(winner, idx) in winnerList" :key="idx" :winner="winner" :idx="idx" :event_id="event_id"></WinnerManage>
     </div>
@@ -50,15 +43,10 @@ export default {
     this.event_id = this.$route.query.event_id;
     const event_id = this.$route.query.event_id;
     const { data } = await selectedWinner(event_id);
-    // console.log('당첨지조회', data);
     this.winnerList = data;
     const res = await fetchOrder(event_id);
-    // console.log(res);
-    // console.log('당첨+주문', this.winnerList);
 
     for (let j = 0; j < data.length; j++) {
-      // console.log('1', data[j]);
-      // console.log('2', res);
       for (let i = 0; i < res.data.length; i++) {
         if (data[j].uuid == res.data[i].uuid) {
           const addUser = {
@@ -70,22 +58,17 @@ export default {
         }
       }
     }
-    // console.log(this.list);
   },
   methods: {
     async checkState(uuid) {
       const res = await fetchOrder(this.$route.query.event_id);
-      // console.log(res);
-
       const editdata = {
         uuid: uuid,
         event_id: res.data.event_id,
         pay_status: res.data.pay_status,
         ship_status: this.status,
       };
-      // console.log(editdata);
       const { data } = await editOderStatus(editdata);
-      // console.log(data);
     },
   },
 };

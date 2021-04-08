@@ -585,7 +585,7 @@ form.sign-in-form {
   /* font-weight: bolder; */
   color: #000;
   /* font-weight: 600; */
-  font-family: Poppins;
+  font-family: 'Poppins', sans-serif;
   font-size: 3rem;
   text-transform: uppercase;
 }
