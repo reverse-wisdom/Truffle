@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.pjt.dao.AccountDao">
+
+	<select
+		id="accountInfo"
+		parameterType="String"
+		resultType="AccountDto">
+		select *
+		from account
+		where email = #{email}
+	</select>
+
+	<insert
+		id="signUp"
+		parameterType="AccountDto">
+		INSERT INTO
+		account(`email`,`password`,`phone`,`address`,`address_detail`,`business_number`,`nickname`,`type`,`gender`,`age`)
+		VALUES
+		(#{email},#{password},#{phone},#{address},#{address_detail},#{business_number},#{nickname},#{type},#{gender},#{age});
+	</insert>
+
+	<delete
+		id="delete"
+		parameterType="String">
+		delete
+		from account
+		where email = #{email};
+	</delete>
+
+	<update
+		id="update"
+		parameterType="AccountDto">
+		update account
+		set
+		password = #{password},
+		phone = #{phone},
+		address = #{address},
+		address_detail = #{address_detail},
+		business_number = #{business_number},
+		nickname = #{nickname},
+		gender = #{gender},
+		age = #{age}
+		where email = #{email};
+	</update>
+
+	<select
+		id="selectEventWinnerByEmail"
+		parameterType="String"
+		resultType="EventDto">
+		select e.*
+		from event e
+		left join win w
+		on e.event_id = w.event_id
+		left join account a
+		on a.uuid = w.uuid
+		where a.email = #{email};
+	</select>
+
+	<select
+		id="selectEventParticipationByEmail"
+		parameterType="String"
+		resultType="EventDto">
+		select e.*
+		from event e
+		left join participation p
+		on e.event_id = p.event_id
+		left join account a
+		on a.uuid = p.uuid
+		where a.email = #{email};
+	</select>
+	
+	<select
+		id="selectCreateEventListByID"
+		parameterType="int"
+		resultType="EventDto">
+		select * 
+		from event
+		where uuid = #{uuid}
+	</select>
+	
+	<delete
+		id="cancelParticipation"
+		parameterType = "ParticipationDto">
+		delete 
+		from participation
+		where event_id = #{event_id} and uuid = #{uuid};
+	</delete>
+	
+	<update
+		id="leftEvent"
+		parameterType="int">
+		update event
+		set
+		join_num = join_num - 1
+		where event_id = #{event_id}
+	</update>
+	
+	
+
+</mapper>
