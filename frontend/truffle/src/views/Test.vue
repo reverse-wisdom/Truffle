@@ -106,17 +106,7 @@ export default {
   },
   methods: {
     comma(price) {
-      console.log(
-        price
-          .toString()
-          .split('')
-          .reverse()
-          .join('')
-          .replace(/(\d{3}(?!.*\.|$))/g, '$1,')
-          .split('')
-          .reverse()
-          .join('')
-      );
+      console.log(price.toLocaleString('ko-KR'));
     },
     getRandomIntInclusive(min, max) {
       const randomBuffer = new Uint32Array(1);

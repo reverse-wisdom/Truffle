@@ -233,15 +233,7 @@ export default {
   computed: {
     priceComma: function() {
       return this.AgeArray.map(function(event) {
-        return event.price
-          .toString()
-          .split('')
-          .reverse()
-          .join('')
-          .replace(/(\d{3}(?!.*\.|$))/g, '$1,')
-          .split('')
-          .reverse()
-          .join('');
+        return event.price.toLocaleString('ko-KR');
       });
     },
   },
