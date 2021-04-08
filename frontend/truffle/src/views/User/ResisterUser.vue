@@ -166,7 +166,7 @@ export default {
     async verifyphone() {
       const phone_num = this.phone_num1 + this.phone_num2 + this.phone_num3;
       this.phone = phone_num;
-      // const { data } = await verifyPhone(phone_num);
+      const { data } = await verifyPhone(phone_num);
       this.verifynum2 = data;
     },
     verifychk() {
@@ -245,7 +245,7 @@ export default {
           icon: 'error',
           title: '연령대를 체크해주세요!',
         });
-      } else if (this.phonechk == true) {
+      } else if (this.phonechk == false) {
         this.$swal({
           icon: 'error',
           title: '휴대폰 본인인증를 해주세요!',
