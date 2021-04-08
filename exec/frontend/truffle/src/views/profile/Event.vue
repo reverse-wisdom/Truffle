@@ -84,15 +84,7 @@ export default {
   async created() {},
   computed: {
     priceComma() {
-      return this.event.price
-        .toString()
-        .split('')
-        .reverse()
-        .join('')
-        .replace(/(\d{3}(?!.*\.|$))/g, '$1,')
-        .split('')
-        .reverse()
-        .join('');
+      return this.event.price.toLocaleString('ko-KR');
     },
   },
   methods: {
