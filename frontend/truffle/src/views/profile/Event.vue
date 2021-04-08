@@ -84,7 +84,7 @@ export default {
   async created() {},
   computed: {
     priceComma() {
-      return this.event.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      return this.event.price.toLocaleString('ko-KR');
     },
   },
   methods: {

@@ -55,7 +55,7 @@ export default {
   computed: {
     priceComma: function() {
       return this.events.map(function(event) {
-        return event.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        return event.price.toLocaleString('ko-KR');
       });
     },
   },
@@ -63,6 +63,10 @@ export default {
 </script>
 
 <style scoped>
+.event-ct {
+  display: flex;
+  flex-wrap: wrap;
+}
 .event {
   width: 15vw;
   margin-bottom: 50px;

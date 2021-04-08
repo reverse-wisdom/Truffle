@@ -486,7 +486,7 @@ section::after {
 }
 
 .logo {
-  font-family: Poppins;
+  font-family: 'Poppins', sans-serif;
   color: #fff;
   position: fixed;
   margin: 1.4em;
@@ -514,7 +514,7 @@ section::after {
   left: 30%;
   transform: translate(-50%, -50%);
   color: #000;
-  font-family: Poppins;
+  font-family: 'Poppins', sans-serif;
   text-transform: uppercase;
   letter-spacing: 4px;
 }
@@ -537,13 +537,13 @@ section::after {
 .about h1 {
   font-weight: bolder;
   color: #e1ea35;
-  font-family: Poppins;
+  font-family: 'Poppins', sans-serif;
   text-transform: uppercase;
 }
 
 .about p {
   color: #fff;
-  font-family: Poppins;
+  font-family: 'Poppins', sans-serif;
   text-transform: uppercase;
   letter-spacing: 4px;
   font-size: 1rem;
@@ -761,12 +761,12 @@ h1 {
   font-size: 24px;
 }
 .box {
-  margin-bottom: 200px;
   position: absolute;
   /* top: 25%; */
   left: 20%;
   width: auto;
   margin: 0 auto;
+  margin-bottom: 200px;
 }
 input {
   position: relative;

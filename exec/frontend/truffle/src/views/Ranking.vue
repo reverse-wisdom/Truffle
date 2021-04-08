@@ -27,10 +27,7 @@
 
 <script>
 import { searchRank } from '@/api/event';
-// import { Circle8 } from 'vue-loading-spinner'; // npm 스피너 컴포넌트
-// import { Modal } from '@/components';
 export default {
-  // components: { Circle8, Modal },
   data() {
     return {
       items: [],
@@ -69,10 +66,8 @@ export default {
 .rank {
   text-decoration: none;
   transition: all 0.2s ease-in-out;
-  text-decoration: none;
   color: #000 !important;
   font-size: 1.3rem;
-  font-family: 'paybooc-Bold';
   padding-top: 10px;
   display: 'inline-block';
   font-family: 'Nanum Gothic', sans-serif;
@@ -92,6 +87,6 @@ a {
 }
 .rank-word {
   font-weight: 1000;
-  font-family: 'KOTRA_BOLD-Bold';
+  font-family: 'KOTRA_BOLD-Bold', sans-serif;
 }
 </style>

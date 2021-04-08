@@ -11,6 +11,8 @@ import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 
 import org.json.simple.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,6 +46,14 @@ import net.nurigo.java_sdk.exceptions.CoolsmsException;
 @RequestMapping("/account")
 public class AccountController {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(AccountController.class);
+	
+	private static final String SUCCESS = "SUCCESS";
+	private static final String FAIL = "FAIL";
+	private static final String ACCESS_TOKEN = "access-token";
+	private static final String X_AUTH_TOKEN = "x-auth-token";
+	
+
 	@Autowired
 	private TokenProvider tokenProvider;
 
@@ -61,13 +71,13 @@ public class AccountController {
 			AccountDto loginUser = accountService.login(accountDto);
 			if (loginUser != null) {
 				String token = tokenProvider.createToken();
-				System.out.println(token);
-				resultMap.put("access-token", token);
-				resultMap.put("message", "SUCCESS");
+				LOGGER.info(token);
+				resultMap.put(ACCESS_TOKEN, token);
+				resultMap.put("message", SUCCESS);
 				resultMap.put("uuid", loginUser.getUuid());
 				return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
 			} else {
-				resultMap.put("message", "FAIL");
+				resultMap.put("message", FAIL);
 			}
 		} catch (SQLException e) {
 			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
@@ -81,7 +91,7 @@ public class AccountController {
 			HttpServletRequest request) {
 		AccountDto accountDto;
 
-		if (tokenProvider.validateToken(request.getHeader("x-auth-token"))) {
+		if (tokenProvider.validateToken(request.getHeader(X_AUTH_TOKEN))) {
 			try {
 				accountDto = accountService.accountInfo(email);
 				return new ResponseEntity<>(accountDto, HttpStatus.OK);
@@ -100,49 +110,49 @@ public class AccountController {
 		try {
 			boolean result = accountService.signUp(accountDto);
 			if (result) {
-				return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+				return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
 			}
 		} catch (SQLException e) {
-			return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(FAIL, HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(FAIL, HttpStatus.NO_CONTENT);
 	}
 
 	@ApiOperation(value = "회원탈퇴", notes = "x-auth-token, email값 필수")
 	@DeleteMapping("/delete")
 	private ResponseEntity<String> delete(@RequestParam(required = true) final String email,
 			HttpServletRequest request) {
-		if (tokenProvider.validateToken(request.getHeader("x-auth-token"))) {
+		if (tokenProvider.validateToken(request.getHeader(X_AUTH_TOKEN))) {
 			try {
 				boolean result = accountService.delete(email);
 				if (result) {
-					return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+					return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
 				}
 			} catch (SQLException e) {
-				return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+				return new ResponseEntity<>(FAIL, HttpStatus.NO_CONTENT);
 			}
 		} else {
-			return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(FAIL, HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(FAIL, HttpStatus.NO_CONTENT);
 	}
 
 	@ApiOperation(value = "회원수정", notes = "x-auth-token, email값 필수, 수정가능한값: address,address_detail,age,business_number,gender,nickname,password,phone")
 	@PutMapping("/update")
 	private ResponseEntity<String> update(@RequestBody final AccountDto accountDto, HttpServletRequest request) {
-		if (tokenProvider.validateToken(request.getHeader("x-auth-token"))) {
+		if (tokenProvider.validateToken(request.getHeader(X_AUTH_TOKEN))) {
 			try {
 				boolean result = accountService.update(accountDto);
 				if (result) {
-					return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+					return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
 				}
 			} catch (SQLException e) {
-				return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+				return new ResponseEntity<>(FAIL, HttpStatus.NO_CONTENT);
 			}
 		} else {
-			return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(FAIL, HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(FAIL, HttpStatus.NO_CONTENT);
 	}
 
 	@ApiOperation(value = "회원이메일로 당첨기록 조회", notes = "email 값 필수")
@@ -182,7 +192,6 @@ public class AccountController {
 	@ApiOperation(value = "휴대폰 번호 인증 테스트", notes = "반환되는 숫자와 입력한 휴대폰번호로 수신된 문자에서 숫자값과 비교하여 인증 진행")
 	@GetMapping("/verifyPhoneNumber")
 	private String verifyPhoneNumber(@RequestParam(required = true) final String phone) {
-		System.out.println("Here!!!!!");
 		Random rand;
 		String numStr = "";
 		try {
@@ -211,11 +220,8 @@ public class AccountController {
 
 		try {
 			JSONObject obj = (JSONObject) coolsms.send(params);
-			System.out.println(obj.toString());
+			LOGGER.info(obj.toString());
 		} catch (CoolsmsException e) {
-			System.out.println(e.getMessage());
-			System.out.println(e.getCode());
-			System.out.println("error");
 			return "error:coolsms잔액부족";
 		}
 		return numStr;
@@ -231,12 +237,12 @@ public class AccountController {
 		try {
 			boolean result = accountService.cancelParticipation(participationDto);
 			if (result) {
-				return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+				return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
 			}
 		} catch (SQLException e) {
-			return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(FAIL, HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(FAIL, HttpStatus.NO_CONTENT);
 	}
 
 }

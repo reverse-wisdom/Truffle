@@ -303,7 +303,7 @@ export default {
   computed: {
     priceComma: function() {
       return this.CategoryArray.map(function(event) {
-        return event.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        return event.price.toLocaleString('ko-KR');
       });
     },
   },
@@ -333,7 +333,7 @@ export default {
       }
     }
     this.CategoryArray = newCategoryArray.slice(0, 4);
-    '카테고리', this.CategoryArray;
+    // '카테고리', this.CategoryArray;
     $('#categorycontent1').addClass('display');
   },
   methods: {
