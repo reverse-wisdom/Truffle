@@ -4,7 +4,7 @@
       <div class="card">
         <!-- <div class="idx-box">{{ idx + 1 }}위</div> -->
         <figure>
-          v
+          <img class="detail-image" :src="imgURL + event.event_id" />
         </figure>
 
         <section class="details">
