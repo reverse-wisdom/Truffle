@@ -4,33 +4,33 @@
       <td class="no">{{ idx + 1 }}</td>
       <td class="email">{{ winner.email }}</td>
       <td class="phone">{{ winner.phone }}</td>
-      <td class="">{{ position }}</td>
+      <td class="now">{{ position }}</td>
       <td class="status">
-        <div @change="checkState">
+        <div @change="Confirm">
           <label id="id_state" for="state1">
             <input type="radio" name="" id="state0" value="0" v-model="status" />
             결제전
           </label>
         </div>
-        <div @change="checkState">
+        <div @change="Confirm">
           <label id="id_state" for="state2">
             <input type="radio" id="state1" v-model="status" name="" value="1" />
             결제완료
           </label>
         </div>
-        <div @change="checkState">
+        <div @change="Confirm">
           <label id="id_state" for="state3">
             <input type="radio" id="state2" v-model="status" name="" value="2" />
             배송준비중
           </label>
         </div>
-        <div @change="checkState">
+        <div @change="Confirm">
           <label id="id_state" for="state4">
             <input type="radio" id="state3" v-model="status" name="" value="3" />
             배송중
           </label>
         </div>
-        <div @change="checkState">
+        <div @change="Confirm">
           <label id="id_state" for="state">
             <input type="radio" v-model="status" name="" id="state4" value="4" />
             배송완료
@@ -48,6 +48,8 @@ export default {
     return {
       status: '',
       position: '',
+      first: '',
+      message: '',
     };
   },
   props: {
@@ -63,44 +65,70 @@ export default {
     const res = await fetchOrder(this.winner.uuid);
     // console.log(res.data);
     if (res.data) {
-      const status = res.data.ship_status;
+      this.first = res.data.ship_status;
     } else {
-      const status = '0';
+      this.first = '0';
     }
-    if (status == 1) {
+    if (this.first == 1) {
       document.getElementById('state1').setAttribute('checked', 'checked');
-      this.position = status;
-    } else if (status == 2) {
+      this.position = '결제완료';
+    } else if (this.first == 2) {
       document.getElementById('state2').setAttribute('checked', 'checked');
-      this.position = status;
-    } else if (status == 3) {
+      this.position = '배송준비중';
+    } else if (this.first == 3) {
       document.getElementById('state3').setAttribute('checked', 'checked');
-      this.position = status;
-    } else if (status == 4) {
+      this.position = '배송중';
+    } else if (this.first == 4) {
       document.getElementById('state4').setAttribute('checked', 'checked');
-      this.position = status;
+      this.position = '배송완료';
     } else {
       document.getElementById('state0').setAttribute('checked', 'checked');
-      this.position = status;
+      this.position = '결제전';
     }
   },
   methods: {
     async checkState() {
+      // console.log(this.status);
       const res = await fetchOrder(this.winner.uuid);
       // console.log(res.data);
       if (res.data) {
         const editdata = {
-          uuid: uuid,
+          uuid: this.winner.uuid,
           event_id: res.data.event_id,
           pay_status: res.data.pay_status,
           ship_status: this.status,
         };
-        console.log(editdata);
-        const { data } = await editOderStatus(editdata);
-        console.log(data);
+        // console.log(editdata);
+        const data = await editOderStatus(editdata);
+        // console.log('상태변경', data);
       } else {
-        console.log('결제전');
+        // console.log('결제전');
       }
+    },
+    Confirm() {
+      // console.log(this.status);
+      if (this.status == 0) {
+        this.message = '결제전으로 바꾸시겠습니까?';
+      } else if (this.status == 1) {
+        this.message = '결제완료로 바꾸시겠습니까?';
+      } else if (this.status == 2) {
+        this.message = '배송준비중로 바꾸시겠습니까?';
+      } else if (this.status == 3) {
+        this.message = '배송중로 바꾸시겠습니까?';
+      } else if (this.status == 4) {
+        this.message = '배송완료로 바꾸시겠습니까?';
+      }
+      this.$swal({
+        title: this.message,
+        icon: 'info',
+        showCancelButton: true,
+        cancelButtonText: 'cancel',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.checkState();
+        } else {
+        }
+      });
     },
   },
 };
@@ -115,10 +143,20 @@ export default {
   text-align: center;
 }
 .email {
-  width: 20vw;
+  width: 15vw;
+  text-align: center;
 }
 .phone {
-  width: 18vw;
+  width: 13vw;
+  text-align: center;
+}
+.now {
+  width: 14vw;
+  text-align: center;
+  /* border: 1px solid; */
+  color: #191970;
+  font-weight: 900;
+  font-size: 1rem;
 }
 .status {
   display: flex;

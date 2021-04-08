@@ -45,6 +45,7 @@ const routes = [
     path: '/test',
     name: 'Test',
     components: { default: Test, header: MainNavbar, footer: MainFooter },
+    meta: { auth: true },
   },
   {
     path: '/main',
@@ -60,6 +61,7 @@ const routes = [
     path: '/categoryall',
     name: 'CategoryAll',
     components: { default: CategoryAll, header: MainNavbar },
+    meta: { auth: true },
   },
   {
     path: '/guide',
@@ -89,6 +91,7 @@ const routes = [
     path: '/eventAll',
     name: 'EventAll',
     components: { default: EventAll, header: MainNavbar },
+    meta: { auth: true },
   },
   {
     path: '/eventDetail',
@@ -101,21 +104,25 @@ const routes = [
     path: '/eventCreate',
     name: 'EventCreate',
     components: { default: EventCreate, header: MainNavbar },
+    meta: { auth: true },
   },
   {
     path: '/eventUpdate',
     name: 'EventUpdate',
     components: { default: EventUpdate, header: MainNavbar },
+    meta: { auth: true },
   },
   {
     path: '/winnermanagelist',
     name: 'WinnerManageList',
     components: { default: WinnerManageList, header: MainNavbar },
+    meta: { auth: true },
   },
   {
     path: '/winnerItem',
     name: 'WinnerItem',
     components: { default: WinnerItem, header: MainNavbar },
+    meta: { auth: true },
   },
 
   // QnA
@@ -145,6 +152,7 @@ const routes = [
     path: '/profileUser',
     name: 'ProfileUser',
     components: { default: ProfileUser, header: MainNavbar },
+    meta: { auth: true },
   },
 ];
 

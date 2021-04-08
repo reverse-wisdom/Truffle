@@ -105,7 +105,7 @@ export default {
               // $vm.name = res.kakao_account.profile.nickname;
               // $vm.image = res.kakao_account.profile.profile_image_url;
               // $vm.type = 'kakao';
-              console.log(res);
+              // console.log(res);
             },
             fail: function(error) {
               alert('login success, but failed to request user information: ' + JSON.stringify(error));

@@ -1,6 +1,7 @@
 <template>
   <v-container>
-    <div class="title-text">당첨자 상품관리</div>
+    <!-- <div class="title-text">당첨자 상품관리</div> -->
+    <v-img :src="banner" max-height="400" max-width="1900" class="mt-12 mb-0"></v-img>
     <div class="winner-manage">
       <table class="content-table">
         <thead>
@@ -8,6 +9,7 @@
             <th class="no">NO</th>
             <th class="email">E-MAIL</th>
             <th class="phone">PHONE</th>
+            <th class="now">NOW</th>
             <th class="state">STATE</th>
             <!-- <th>결제전</th>
           <th>결제완료</th>
@@ -40,6 +42,7 @@ export default {
       winnerList: [],
       status: '',
       list: [],
+      banner: require('@/assets/img/orderbanner.jpg'),
     };
   },
   async created() {
@@ -70,7 +73,7 @@ export default {
   methods: {
     async checkState(uuid) {
       const res = await fetchOrder(this.$route.query.event_id);
-      console.log(res);
+      // console.log(res);
 
       const editdata = {
         uuid: uuid,
@@ -78,9 +81,9 @@ export default {
         pay_status: res.data.pay_status,
         ship_status: this.status,
       };
-      console.log(editdata);
+      // console.log(editdata);
       const { data } = await editOderStatus(editdata);
-      console.log(data);
+      // console.log(data);
     },
   },
 };
@@ -92,11 +95,15 @@ export default {
   text-align: center !important;
 }
 .email {
-  width: 40vw !important;
+  width: 23vw !important;
   text-align: center !important;
 }
 .phone {
-  width: 40vw !important;
+  width: 26vw !important;
+  text-align: center !important;
+}
+.now {
+  width: 26vw !important;
   text-align: center !important;
 }
 
@@ -112,7 +119,7 @@ export default {
   text-align: center;
   justify-content: center;
   /* display: flex; */
-  margin-top: 5rem;
+  margin-top: 2rem;
 }
 .content-table {
   border-collapse: collapse;

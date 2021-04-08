@@ -104,13 +104,13 @@ export default {
       const elm3 = document.querySelector('#section3');
 
       if (this.checked == true) {
-        console.log('true');
+        // console.log('true');
 
         elm1.classList.add('section1-false');
         elm2.classList.add('section2-false');
         elm3.classList.add('section3-false');
       } else {
-        console.log('false');
+        // console.log('false');
         elm1.classList.remove('section1-false');
         elm2.classList.remove('section2-false');
         elm3.classList.remove('section3-false');
