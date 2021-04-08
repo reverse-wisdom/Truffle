@@ -278,7 +278,7 @@ export default {
       }
       //결제하기 버튼 보일지말지 확인
       if (this.winnerEventId.includes(this.event.uuid)) {
-        this.paycheck = true;
+        this.winnerChk = false;
       }
     }
 
@@ -287,7 +287,7 @@ export default {
     const res = await fetchOrder(event_id);
     // console.log('결제여부', res);
     for (let i = 0; i < res.data.length; i++) {
-      if (this.$store.state.uuid == res.data[i].uuid) {
+      if (this.$store.state.uuid == res.data[i].uuid && res.data[i].pay_status == 1) {
         this.paycheck = false;
       }
     }

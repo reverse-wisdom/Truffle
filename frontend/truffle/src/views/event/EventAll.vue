@@ -20,7 +20,7 @@
             <h1>마감일:{{ event.end_date }}</h1>
           </div>
         </div>
-        <a href="#" class="btn" @click="eventDetailGo">응모하러가기</a>
+        <a class="btn" @click="eventDetailGo">응모하러가기</a>
       </section>
     </div>
   </div>
