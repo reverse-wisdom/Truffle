@@ -353,10 +353,10 @@ a:hover {
 }
 .left {
   height: 100%;
-  margin-top: 10rem;
+  margin-top: 15rem;
 }
 .right {
-  margin-top: 13rem;
+  margin-top: 10rem;
 }
 .left,
 .right {
