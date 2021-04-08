@@ -333,7 +333,7 @@ export default {
       }
     }
     this.CategoryArray = newCategoryArray.slice(0, 4);
-    console.log('카테고리', this.CategoryArray);
+    '카테고리', this.CategoryArray;
     $('#categorycontent1').addClass('display');
   },
   methods: {
@@ -363,7 +363,7 @@ export default {
         }
       }
       this.CategoryArray = newCategoryArray.slice(0, 4);
-      console.log('카테고리', this.CategoryArray);
+      // console.log('카테고리', this.CategoryArray);
     },
     eventDetailGo(event_id) {
       this.$router.push({ name: 'EventDetail', query: { event_id: event_id } });

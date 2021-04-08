@@ -262,7 +262,7 @@ export default {
       }
     }
     this.AgeArray = newAgeArray.slice(0, 4);
-    console.log('나이', this.AgeArray);
+    // console.log('나이', this.AgeArray);
     $('#agecontent1').addClass('display');
   },
   methods: {
@@ -292,7 +292,7 @@ export default {
         }
       }
       this.AgeArray = newAgeArray.slice(0, 4);
-      console.log('나이', this.AgeArray);
+      // console.log('나이', this.AgeArray);
     },
     eventDetailGo(event_id) {
       this.$router.push({ name: 'EventDetail', query: { event_id: event_id } });

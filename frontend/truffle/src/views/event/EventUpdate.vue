@@ -1,8 +1,8 @@
 <template>
   <div>
+    <v-img :src="update" max-height="400" max-width="1900" class="mt-12 mb-0"></v-img>
     <v-container>
       <div style="padding:80px">
-        <h2 class="title text-center kor" style="font-weight:bold; margin-top: 100px;">이벤트수정</h2>
         <form v-on:submit.prevent="writeContent">
           <v-text-field label="제품명" v-model="event.product"></v-text-field>
           <!-- 썸네일 -->
@@ -149,10 +149,11 @@ export default {
     url: null,
     convertPrice: '',
     // image: null,
+    update: require('@/assets/img/create.jpg'),
   }),
   async created() {
     const event_id = this.$route.query.event_id;
-    console.log(event_id);
+    // console.log(event_id);
     const { data } = await eventDetail(event_id);
     this.event = data[0];
     var $vm = this;
@@ -230,10 +231,10 @@ export default {
         product: this.event.product,
         win_num: this.event.win_num,
       };
-      console.log('이벤트데이타', eventData);
+      // console.log('이벤트데이타', eventData);
 
       const data = await eventUpdate(eventData);
-      console.log('수정완료', data);
+      // console.log('수정완료', data);
 
       this.$swal({
         icon: 'success',

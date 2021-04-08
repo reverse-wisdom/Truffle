@@ -50,9 +50,9 @@ export default {
   async created() {
     const event_id = this.$route.query.event_id;
     const { data } = await selectedWinner(event_id);
-    console.log(data);
+    // console.log(data);
     this.winnerList = data;
-    console.log(this.winnerList);
+    // console.log(this.winnerList);
   },
 };
 </script>
