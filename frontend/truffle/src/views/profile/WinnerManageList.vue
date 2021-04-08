@@ -1,6 +1,7 @@
 <template>
   <v-container>
-    <div class="title-text">당첨자 상품관리</div>
+    <!-- <div class="title-text">당첨자 상품관리</div> -->
+    <v-img :src="banner" max-height="400" max-width="1900" class="mt-12 mb-0"></v-img>
     <div class="winner-manage">
       <table class="content-table">
         <thead>
@@ -41,6 +42,7 @@ export default {
       winnerList: [],
       status: '',
       list: [],
+      banner: require('@/assets/img/orderbanner.jpg'),
     };
   },
   async created() {
@@ -117,7 +119,7 @@ export default {
   text-align: center;
   justify-content: center;
   /* display: flex; */
-  margin-top: 5rem;
+  margin-top: 2rem;
 }
 .content-table {
   border-collapse: collapse;

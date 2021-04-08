@@ -68,6 +68,7 @@
                 <div style="font-size: 12px; margin: 10px 0;">이벤트종료일:{{ event.end_date }}</div>
               </div>
               <!-- <a class="btn">자세히보기</a> -->
+
               <a @click="ManageGo(event.event_id)" class="btn">당첨자관리</a>
             </div>
           </section>
