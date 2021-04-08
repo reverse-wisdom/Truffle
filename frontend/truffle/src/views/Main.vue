@@ -783,7 +783,7 @@ input[type='text'] {
   border-radius: 25px 0 0 25px;
   padding: 0 25px;
   outline: none;
-  color: #fff;
+  color: #000;
 }
 input[type='button'] {
   position: relative;
