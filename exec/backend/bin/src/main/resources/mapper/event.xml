@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.pjt.dao.EventDao">
+
+	<select
+		id="all"
+		resultType="EventDto">
+		select *
+		from event;
+	</select>
+
+	<select
+		id="detail"
+		parameterType="int"
+		resultType="EventDto">
+		select *
+		from event
+		where event_id = #{event_id};
+	</select>
+
+	<select
+		id="selectByGender"
+		parameterType="int"
+		resultType="EventDto">
+		select *
+		from event
+		where gender = #{gender};
+	</select>
+
+	<select
+		id="selectByAge"
+		parameterType="int"
+		resultType="EventDto">
+		select *
+		from event
+		where age = #{age};
+	</select>
+
+	<select
+		id="selectByProduct"
+		parameterType="String"
+		resultType="EventDto">
+		select *
+		from event
+		where product like concat(concat('%', #{product}),'%')
+	</select>
+
+	<select
+		id="selectByCategory"
+		parameterType="String"
+		resultType="EventDto">
+		select *
+		from event
+		where category like concat(concat('%', #{category}),'%')
+	</select>
+
+
+
+
+</mapper>
