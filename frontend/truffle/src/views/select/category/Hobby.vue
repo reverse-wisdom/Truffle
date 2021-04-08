@@ -43,7 +43,7 @@ export default {
     };
   },
   async created() {
-    const { data } = await eventSelectCategory('취미');
+    const { data } = await eventSelectCategory('취미/문화');
     // console.log(data);
     this.events = data;
   },
