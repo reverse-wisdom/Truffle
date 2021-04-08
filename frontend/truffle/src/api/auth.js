@@ -36,5 +36,9 @@ function verifyPhone(phone) {
 function cancelPart(event_id, uuid) {
   return posts.delete(`/account/cancelParticipation?event_id=${event_id}&uuid=${uuid}`);
 }
+//회원탈퇴
+function signout(email) {
+  return posts.delete(`/account/delete?email=${email}'`);
+}
 
-export { loginUser, fetchUser, register, userJoinEvent, userWinEvent, editUser, retailerAllEvent, verifyPhone, cancelPart };
+export { loginUser, fetchUser, register, userJoinEvent, userWinEvent, editUser, retailerAllEvent, verifyPhone, cancelPart, signout };
