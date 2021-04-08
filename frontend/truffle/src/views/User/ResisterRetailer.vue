@@ -31,14 +31,6 @@
               <input maxlength="5" type="text" v-model="business_num3" />
             </div>
           </div>
-          <!-- <div class="input-container ">
-            <label for="email">생년월일</label>
-            <form name="frm" class="birthday">
-              <input type="text" size="6" maxlength="6" name="ju1" v-model="birthday" />
-              <div class="b">-</div>
-              <input type="text" size="1" maxlength="1" name="ju2" style="width:100px" v-model="gender" />
-            </form>
-          </div> -->
           <div class="input-container password">
             <label for="">ADRESS</label>
             <div class="d-flex">
@@ -147,7 +139,11 @@ export default {
       }
     },
     validateEmail(value) {
-      if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)) {
+      if (
+        /^([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22))*\x40([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d))*$/.test(
+          value
+        )
+      ) {
         this.msg['email'] = true;
       } else {
         this.msg['email'] = false;
