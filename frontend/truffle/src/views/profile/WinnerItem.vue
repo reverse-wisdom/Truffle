@@ -54,7 +54,7 @@ export default {
           align: 'start',
           value: 'category',
         },
-        { text: '제목', value: 'product' },
+        { text: '상품명', value: 'product' },
         { text: '가격', value: 'price' },
         { text: '시작시간', value: 'open_date' },
         { text: '마감시간', value: 'end_date' },
