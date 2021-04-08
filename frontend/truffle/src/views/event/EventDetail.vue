@@ -61,8 +61,8 @@
             </div>
             <v-dialog transition="dialog-top-transition" max-width="600" v-else>
               <template class="join-info" v-slot:activator="{ on, attrs }">
-                <div class="join-info" @click="joinAdd">
-                  <button class="btn" v-bind="attrs" id="btn-join" v-on="on">응모취소</button>
+                <div class="join-info" >
+                  <button class="btn" v-bind="attrs" id="btn-join" v-on="on" @click="joinAdd">응모취소</button>
                 </div>
               </template>
               <template v-slot:default="dialog" v-show="cancelcheck == true">
