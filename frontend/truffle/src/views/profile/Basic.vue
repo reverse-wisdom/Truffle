@@ -19,7 +19,7 @@
             <input type="text" class="input disabled" v-model="value.phone" disabled />
           </div>
           <button class="btn" id="update_btn" @click="update">수정하기</button>
-          <button class="btn">탈퇴하기</button>
+          <!-- <button class="btn" @click="modal">탈퇴하기</button> -->
         </div>
       </div>
     </span>
@@ -38,7 +38,7 @@
             <input type="text" class="input disabled" v-model="value.business_number" disabled />
           </div>
           <button class="btn" id="update_btn" @click="update">수정하기</button>
-          <button class="btn">탈퇴하기</button>
+          <!-- <button class="btn" @click="modal">탈퇴하기</button> -->
         </div>
       </div>
     </span>
@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import { fetchUser, editUser } from '@/api/auth';
+import { fetchUser, editUser, signout } from '@/api/auth';
 
 export default {
   name: 'Basic',
@@ -165,6 +165,23 @@ export default {
           }
         }
       }
+    },
+    async signout() {
+      const { data } = await signout(this.$store.state.email);
+      // console.log(data)
+    },
+    modal() {
+      this.$swal({
+        title: '탈퇴하시겠습니까?',
+        icon: 'warning',
+        showCancelButton: true,
+        cancelButtonText: 'cancel',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.signout();
+        } else {
+        }
+      });
     },
   },
 };
