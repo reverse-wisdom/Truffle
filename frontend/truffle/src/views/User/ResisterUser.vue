@@ -9,6 +9,9 @@
       </div>
       <div class="right">
         <div class="form">
+          <section class="copy">
+            <h2>Sign Up</h2>
+          </section>
           <div class="input-container name">
             <label for="fname">NICKNAME</label>
             <input id="fname" name="fname" type="text" v-model="nickname" />
@@ -166,6 +169,7 @@ export default {
     async verifyphone() {
       const phone_num = this.phone_num1 + this.phone_num2 + this.phone_num3;
       this.phone = phone_num;
+      console.log(phone_num);
       const { data } = await verifyPhone(phone_num);
       this.verifynum2 = data;
     },
