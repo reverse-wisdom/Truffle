@@ -10,7 +10,7 @@ function eventDetail(event_id) {
 }
 //이벤트 페이지 작성
 function eventInsert(frm) {
-  return posts.post('/event/insert', frm, { headers: { 'Content-Type': 'multipart/form-data' } });
+  return posts.post('/event/insert', frm, { headers: { 'Access-Control-Allow-Origin': '*', 'Content-Type': 'multipart/form-data' } });
 }
 //이벤트 수정
 function eventUpdate(event_data) {
