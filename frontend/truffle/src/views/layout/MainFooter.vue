@@ -4,13 +4,13 @@
       <div class="copyright">&copy;, made with by Team TruffleMaker for a better web.</div>
       <footer>
         <div class="footer-content">
-          <h3>TRUFFLE MAKER</h3>
+          <h3>TRUFFLE</h3>
           <p>윤예준 BE</p>
           <p>이원회 FE</p>
           <p>이혜지 FE</p>
         </div>
         <div class="footer-bottom">
-          <p>copyright &copy;2021 TRUFFLE</p>
+          <p>copyright &copy;2021 TRUFFLE MEKER</p>
         </div>
       </footer>
     </div>
