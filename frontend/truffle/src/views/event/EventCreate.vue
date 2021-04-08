@@ -2,7 +2,7 @@
   <div>
     <v-container>
       <div style="padding:80px">
-        <h2 class="title text-center kor" style="font-weight:bold; margin-top: 100px;">이벤트등록</h2>
+        <v-img :src="create" max-height="400" max-width="1900" class="mt-12 mb-0"></v-img>
         <form v-on:submit.prevent="writeContent">
           <v-text-field label="제품명" v-model="product"></v-text-field>
           <!-- 썸네일 -->
@@ -140,7 +140,7 @@ export default {
     price: '',
     product: '',
     win_num: '',
-
+    create: require('@/assets/img/create.jpg'),
     url: null,
     image: null,
   }),
