@@ -245,7 +245,7 @@ export default {
           icon: 'error',
           title: '연령대를 체크해주세요!',
         });
-      } else if (this.phonechk == true) {
+      } else if (this.phonechk == false) {
         this.$swal({
           icon: 'error',
           title: '휴대폰 본인인증를 해주세요!',
