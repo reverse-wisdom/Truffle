@@ -207,7 +207,7 @@ export default {
       emailLen: '',
       dialog: true,
       detailImg: '',
-      partcheck: true,
+      partcheck: false,
       cancelcheck: true,
       winnerEventId: [],
       paycheck: true,
@@ -370,9 +370,9 @@ export default {
     async joinAdd() {
       const email = this.$store.state.email;
       const event_id = this.$route.query.event_id;
-      // console.log(event_id, email);
+      console.log(event_id, email);
       // 로그인한 유저가 참여한적이 있는지 체크
-      const { data } = await checkPartipants(event_id);
+      const data = await checkPartipants(event_id);
       // console.log(data);
       for (let i = 0; i < data.length; i++) {
         //참여한적이 있으면
@@ -517,7 +517,7 @@ export default {
       for (let i = 0; i < data.length; i++) {
         if (this.$store.state.uuid == data[i].uuid) {
           const response = await cancleOrder(data[i].imp_uid);
-          // console.log(response);
+          // console.log('cancleOrder', response);
           if (response.data.code == 0) {
             const data = await deleteOrdertable(this.event.event_id);
             // console.log(data);
