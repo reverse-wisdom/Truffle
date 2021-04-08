@@ -1,8 +1,8 @@
 <template>
   <div>
+    <v-img :src="update" max-height="400" max-width="1900" class="mt-12 mb-0"></v-img>
     <v-container>
       <div style="padding:80px">
-        <h2 class="title text-center kor" style="font-weight:bold; margin-top: 100px;">이벤트수정</h2>
         <form v-on:submit.prevent="writeContent">
           <v-text-field label="제품명" v-model="event.product"></v-text-field>
           <!-- 썸네일 -->
@@ -148,6 +148,7 @@ export default {
     detailImg: '',
     url: null,
     // image: null,
+    update: require('@/assets/img/create.jpg'),
   }),
   async created() {
     const event_id = this.$route.query.event_id;
