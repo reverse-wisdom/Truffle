@@ -35,6 +35,9 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @RequestMapping("/order")
 public class OrderController {
+	
+	private static final String SUCCESS = "SUCCESS";
+	private static final String FAIL = "FAIL";
 
 	private IamportClient api;
 
@@ -63,12 +66,12 @@ public class OrderController {
 		try {
 			boolean result = orderService.completePayment(orderDto);
 			if (result) {
-				return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+				return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
 			}
 		} catch (SQLException e) {
-			return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(FAIL, HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(FAIL, HttpStatus.NO_CONTENT);
 	}
 
 	@ApiOperation(value = "Order 테이블조회", notes = "pay_status가 1이면 결제완료상태")
@@ -100,12 +103,12 @@ public class OrderController {
 		try {
 			boolean result = orderService.deleteOrderByEventId(event_id);
 			if (result) {
-				return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+				return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
 			}
 		} catch (SQLException e) {
-			return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(FAIL, HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(FAIL, HttpStatus.NO_CONTENT);
 	}
 
 	@ApiOperation(value = "주문상태변경")
@@ -115,12 +118,12 @@ public class OrderController {
 		try {
 			boolean result = orderService.updateOrderStatus(orderUpdateRequestDto);
 			if (result) {
-				return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+				return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
 			}
 		} catch (SQLException e) {
-			return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(FAIL, HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(FAIL, HttpStatus.NO_CONTENT);
 	}
 
 }
