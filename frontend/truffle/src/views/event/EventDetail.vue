@@ -61,8 +61,8 @@
             </div>
             <v-dialog transition="dialog-top-transition" max-width="600" v-else>
               <template class="join-info" v-slot:activator="{ on, attrs }">
-                <div class="join-info" >
-                  <button class="btn" v-bind="attrs" id="btn-join" v-on="on" @click="joinAdd">응모취소</button>
+                <div class="join-info">
+                  <button class="btn" v-bind="attrs" id="btn-join" v-on="on">응모취소</button>
                 </div>
               </template>
               <template v-slot:default="dialog" v-show="cancelcheck == true">
@@ -373,7 +373,7 @@ export default {
       console.log(event_id, email);
       // 로그인한 유저가 참여한적이 있는지 체크
       const data = await checkPartipants(event_id);
-      // console.log(data);
+      console.log(data);
       for (let i = 0; i < data.length; i++) {
         //참여한적이 있으면
         if (data[i].email == email) {
