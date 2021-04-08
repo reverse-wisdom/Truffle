@@ -39,7 +39,7 @@ export default {
   data() {
     return {
       events: [],
-      detailImg: [],
+      imgURL: 'https://j4d110.p.ssafy.io/truffle/event/selectEventImgFileEventID?event_id=',
     };
   },
   async created() {
