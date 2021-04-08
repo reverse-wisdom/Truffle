@@ -115,9 +115,9 @@
               </template>
             </v-dialog>
           </v-col>
-          <div v-if="this.$store.state.type == 1">
+          <div v-if="this.$store.state.type == 1 && new Date(this.event.end_date) < Date.now() && winnerChk == true">
             <div class="join-info">
-              <div v-if="paycheck == true && new Date(this.event.end_date) < Date.now()">
+              <div v-if="paycheck == true && winnerChk == true">
                 <button type="button" class="btn" id="payment" @click="iamport">
                   결제하기
                 </button>
@@ -207,7 +207,7 @@ export default {
       emailLen: '',
       dialog: true,
       detailImg: '',
-      partcheck: false,
+      partcheck: true,
       cancelcheck: true,
       winnerEventId: [],
       paycheck: true,
@@ -276,19 +276,20 @@ export default {
       for (let i = 0; i < response.data.length; i++) {
         this.winnerEventId.push(response.data[i].event_id);
       }
-      //결제하기 버튼 보일지말지 확인
+      // 결제하기 버튼 보일지말지 확인
       if (this.winnerEventId.includes(this.event.uuid)) {
-        this.winnerChk = false;
+        this.winnerChk = true;
       }
     }
-
-    //결제여부
-    // console.log(event_id);
-    const res = await fetchOrder(event_id);
-    // console.log('결제여부', res);
-    for (let i = 0; i < res.data.length; i++) {
-      if (this.$store.state.uuid == res.data[i].uuid && res.data[i].pay_status == 1) {
-        this.paycheck = false;
+    if (this.$store.state.type == '1') {
+      //결제여부
+      // console.log(event_id);
+      const res = await fetchOrder(event_id);
+      // console.log('결제여부', res);
+      for (let i = 0; i < res.data.length; i++) {
+        if (this.$store.state.uuid == res.data[i].uuid && res.data[i].pay_status == 1) {
+          this.paycheck = false;
+        }
       }
     }
   },
