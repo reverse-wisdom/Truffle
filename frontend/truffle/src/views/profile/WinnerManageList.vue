@@ -21,7 +21,7 @@
         <!-- <tbody>
         </tbody> -->
       </table>
-      <WinnerManage v-for="(winner, idx) in winnerList" :key="idx" :winner="winner" :idx="idx"></WinnerManage>
+      <WinnerManage v-for="(winner, idx) in winnerList" :key="idx" :winner="winner" :idx="idx" :event_id="event_id"></WinnerManage>
     </div>
     <div style="text-align:right">
       <v-btn dark @click="$router.go(-1)">뒤로가기</v-btn>
@@ -43,9 +43,11 @@ export default {
       status: '',
       list: [],
       banner: require('@/assets/img/orderbanner.jpg'),
+      event_id: '',
     };
   },
   async created() {
+    this.event_id = this.$route.query.event_id;
     const event_id = this.$route.query.event_id;
     const { data } = await selectedWinner(event_id);
     // console.log('당첨지조회', data);
