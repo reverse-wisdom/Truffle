@@ -30,7 +30,7 @@ function retailerAllEvent(uuid) {
 }
 // 폰인증
 function verifyPhone(phone) {
-  return posts.get(`/account/verifyPhoneNumber?phone=${phone}`);
+  return instance.get(`/account/verifyPhoneNumber?phone=${phone}`);
 }
 // 이벤트 참여취소
 function cancelPart(event_id, uuid) {

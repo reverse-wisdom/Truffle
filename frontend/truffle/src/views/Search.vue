@@ -27,13 +27,15 @@
       <label for="tab6">디지털</label>
       <input type="radio" name="vtab" id="tab7" />
       <label for="tab7">취미/문화</label>
-      <input type="radio" name="vtab" id="tab7" />
+      <input type="radio" name="vtab" id="tab8" />
       <label for="tab8">기타</label>
 
       <div class="vtab-content">
         <div id="content1">
           <h1 class="profile">'{{ this.$route.query.product }}'으로 검색한 결과</h1>
-          <SearchOne v-for="(event, idx) in productEvent" :key="idx" :refs="productEvent" :event="event"></SearchOne>
+          <div class="wrap">
+            <SearchOne v-for="(event, idx) in productEvent" :key="idx" :refs="productEvent" :event="event"></SearchOne>
+          </div>
         </div>
         <div id="content2">
           <Wear></Wear>
@@ -63,7 +65,7 @@
 
 <script>
 import { eventSelectProduct } from '@/api/event';
-import SearchOne from '../views/SearchOne';
+import SearchOne from '@/views/SearchOne';
 import Wear from '@/views/select/category/Wear';
 import Beauty from '@/views/select/category/Beauty';
 import Goods from '@/views/select/category/Goods';
@@ -107,6 +109,10 @@ export default {
   font-family: 'Open Sans', sans-serif;
   color: #404040;
 }
+.wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
 p {
   line-height: 1.5;
 }
@@ -142,9 +148,9 @@ p {
 .vtabs #tab3:checked ~ .vtab-content #content3,
 .vtabs #tab4:checked ~ .vtab-content #content4,
 .vtabs #tab5:checked ~ .vtab-content #content5,
-.vtabs #tab5:checked ~ .vtab-content #content6,
-.vtabs #tab5:checked ~ .vtab-content #content7,
-.vtabs #tab5:checked ~ .vtab-content #content8 {
+.vtabs #tab6:checked ~ .vtab-content #content6,
+.vtabs #tab7:checked ~ .vtab-content #content7,
+.vtabs #tab8:checked ~ .vtab-content #content8 {
   display: block;
 }
 .vtabs .vtab-content {
@@ -168,7 +174,7 @@ p {
   width: 100%;
   border-radius: 15px;
 }
-#content2 {
+/* #content2 {
   display: flex;
-}
+} */
 </style>

@@ -83,7 +83,7 @@ export default {
 .event-index {
   align-items: center;
   min-height: auto;
-  margin: 5px;
+  /* margin: 5px; */
   font-family: 'Poppins', sans-serif;
 }
 h1 {
