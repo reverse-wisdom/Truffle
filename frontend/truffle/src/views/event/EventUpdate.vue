@@ -147,14 +147,13 @@ export default {
     event: '',
     detailImg: '',
     url: null,
+    convertPrice: '',
     // image: null,
   }),
   async created() {
     const event_id = this.$route.query.event_id;
     console.log(event_id);
     const { data } = await eventDetail(event_id);
-
-    // console.log('수정', data);
     this.event = data[0];
     var $vm = this;
     $(function() {
@@ -219,7 +218,7 @@ export default {
     },
     async Update() {
       const eventData = {
-        uuid: this.$store.state.uuid,
+        uuid: this.event.uuid,
         event_id: this.event.event_id,
         age: this.event.age,
         category: this.event.category,
@@ -227,7 +226,7 @@ export default {
         open_date: this.event.open_date,
         end_date: this.event.end_date,
         gender: this.event.gender,
-        price: Number(this.event.price.replace(/[\D\s\._\-]+/g, '')),
+        price: this.event.price,
         product: this.event.product,
         win_num: this.event.win_num,
       };

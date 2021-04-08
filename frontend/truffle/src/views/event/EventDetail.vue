@@ -61,8 +61,8 @@
             </div>
             <v-dialog transition="dialog-top-transition" max-width="600" v-else>
               <template class="join-info" v-slot:activator="{ on, attrs }">
-                <div class="join-info">
-                  <button class="btn" v-bind="attrs" id="btn-join" v-on="on" value="응모하기" @click="joinAdd">응모취소</button>
+                <div class="join-info" @click="joinAdd">
+                  <button class="btn" v-bind="attrs" id="btn-join" v-on="on">응모취소</button>
                 </div>
               </template>
               <template v-slot:default="dialog" v-show="cancelcheck == true">
@@ -93,10 +93,10 @@
               당첨자보기
             </button>
           </div> -->
-          <v-col cols="auto" v-show="this.$store.state.type == '2' && new Date(this.event.end_date) < Date.now()">
+          <v-col cols="auto" v-show="winnerChk == true && new Date(this.event.end_date) < Date.now()">
             <v-dialog transition="dialog-top-transition" max-width="600">
               <template v-slot:activator="{ on, attrs }">
-                <v-btn class="ma-2 white--text" block color="#000" largedepressed v-bind="attrs" @click="winnerListGo" v-on="on">
+                <v-btn class="ma-2 white--text" block color="#000" largedepressed v-bind="attrs" @click="winnerListShow" v-on="on">
                   당첨자보기
                 </v-btn>
               </template>
@@ -191,6 +191,10 @@ export default {
       //로드늦어서 따로 변수지정함
       event_id: this.$route.query.event_id,
       uuid: this.$store.state.uuid,
+      beforePart: false,
+      uuidList: [],
+      raffleList: [],
+      winnerChk: false,
     };
   },
   computed: {
@@ -211,22 +215,32 @@ export default {
     } else {
       this.gender = '여자';
     }
-    //응모한 사람인지 확인(응모취소 버튼보이게)
     const part_data = await checkPartipants(event_id);
     console.log(part_data);
     console.log('uuid:', this.$store.state.uuid);
+    const win_data = await selectedWinner(event_id);
 
     for (let i = 0; i < part_data.data.length; i++) {
-      if ((this.$store.state.uuid = part_data.data[i].event_id)) {
-        console.log('포문안', part_data.data[i].event_id);
-        const joinBtn = document.getElementById('joinBtn');
-        target.disabled = true;
-        joinBtn.innerText = '응모취소';
-        console.log('joinBtn', joinBtn);
+      if (this.$store.state.uuid == part_data.data[i].uuid) {
+        const target = document.getElementById('joinBtn');
+        // this.beforePart = true;
+        target.innerText = '응모취소';
+        // target.style.backgroundColor = '#000';
+        // console.log('joinBtn', joinBtn);
         break;
       }
+
+      if (this.event.uuid == this.$store.state.uuid && win_data.data.length != 0) {
+        const winnerbtn = document.getElementById('winnerbtn');
+        winnerbtn.innerText = '추첨완료';
+      }
+      //응모한 사람인지 확인(응모취소 버튼보이게)
     }
-    //이미지불러오기
+    //당첨자보기
+    const winnerData = await selectedWinner(event_id);
+    if (winnerData.data.length != 0) {
+      this.winnerChk = true;
+    }
 
     //당첨자 불러오기
     const response = await selectedWinner(this.event.event_id);
@@ -248,24 +262,30 @@ export default {
     async raffleGo() {
       if (this.showWinner == false && this.event.join_num >= this.event.win_num) {
         const { data } = await checkPartipants(this.event.event_id);
-        let randomIndexArray = [];
-        for (var i = 0; i < this.event.win_num; i++) {
-          var randomNum = Math.floor(Math.random() * data.length);
-          if (randomIndexArray.indexOf(randomNum) === -1) {
-            randomIndexArray.push(randomNum);
-          } else {
-            i--;
+        console.log(data);
+        // const partNum = data.length;
+        // console.log('partNum', partNum);
+        // console.log('참여자정보', data);
+        // for (var i = 0; i < partNum; i++) {
+        //   this.uuidList.push(data[i]);
+        // }
+        // console.log('uuidList', this.uuidList);
+        while (data.length >= Number(this.event.win_num)) {
+          var moveNum = data.splice(Math.floor(Math.random() * data.length), 1)[0];
+          this.raffleList.push(moveNum);
+          if (this.raffleList.length == this.event.win_num) {
+            break;
           }
         }
-        this.showWinner = true;
-        for (let i = 0; i < randomIndexArray.length; i++) {
-          this.winnerList.push(data[randomIndexArray[i]]);
-        }
+        console.log('raffleList', this.raffleList);
+        // this.showWinner = true;
+
         const target = document.getElementById('winnerbtn');
-        target.disabled = true;
+        // target.disabled = true;
         target.innerText = '추첨완료';
         // console.log(this.winnerList);
-        console.log(this.winnerList);
+        // console.log('당첨자', this.winnerList);
+        this.winnerListGo();
       } else if (this.event.join_num < this.event.win_num) {
         this.$swal({
           icon: 'info',
@@ -274,20 +294,25 @@ export default {
           timer: 1500,
         });
       } else {
-        this.winnerListGo();
+        this.$swal({
+          icon: 'info',
+          title: '추첨하였습니다 ',
+          showConfirmButton: false,
+          timer: 1500,
+        });
       }
     },
     async winnerListGo() {
-      console.log(this.winnerList);
-      for (let i = 0; i < this.winnerList.length; i++) {
+      console.log(this.raffleList);
+      for (let i = 0; i < this.raffleList.length; i++) {
         const winData = {
-          uuid: this.winnerList[i].uuid,
+          uuid: this.raffleList[i].uuid,
           event_id: this.event.event_id,
         };
         const { data } = await createWinner(winData);
         console.log(data, '당첨자확인');
+        this.showWinner = true;
       }
-      this.winnerListShow();
     },
     async winnerListShow() {
       //modal에 데이타 있으면
@@ -298,7 +323,7 @@ export default {
       console.log('winnerListShow', data);
       // this.modal = data;
       for (let i = 0; i < data.length; i++) {
-        var len = data[i].email.split('@')[0].length - 6; // ******@gmail.com
+        var len = data[i].email.split('@')[0].length - 4;
         this.modal.push(data[i].email.replace(new RegExp('.(?=.{0,' + len + '}@)', 'g'), '*'));
       }
       console.log('타입', this.modal);
@@ -306,7 +331,6 @@ export default {
     //응모하기버튼누르면
     async joinAdd() {
       const email = this.$store.state.email;
-
       const event_id = this.$route.query.event_id;
       console.log(event_id, email);
       // 로그인한 유저가 참여한적이 있는지 체크
@@ -352,14 +376,11 @@ export default {
     },
     async cancel() {
       const { data } = await cancelPart(this.event_id, this.uuid);
+      console.log('취소후', data);
       const resp = await eventDetail(this.event_id);
       this.event.join_num = resp.data[0].join_num;
-      const event_data = {};
-      const updateDT = await eventUpdate;
-      // this.dialog.value = false;
-      console.log(resp, '취소후');
-      // console.log(resp.data[0].join_num);
       this.cancelcheck = true;
+      this.dialog = false;
     },
 
     updateGo() {
@@ -469,6 +490,12 @@ export default {
 </script>
 
 <style scoped>
+@font-face {
+  font-family: 'NEXON Lv1 Gothic OTF';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap');
 
 * {
@@ -611,8 +638,13 @@ img {
 }
 
 .join-info .btn {
+  width: 40%;
   cursor: pointer;
   color: #fff;
+  letter-spacing: 2px;
+  padding-top: 5px;
+  font-weight: 700;
+  font-size: 1.1rem;
   background: #f3118e;
 }
 
