@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.pjt.dao.EventDao">
+
+	<select
+		id="all"
+		resultType="EventDto">
+		select *
+		from event;
+	</select>
+
+	<select
+		id="detail"
+		parameterType="int"
+		resultType="EventDto">
+		select *
+		from event
+		where event_id = #{event_id};
+	</select>
+
+	<select
+		id="selectByGender"
+		parameterType="int"
+		resultType="EventDto">
+		select *
+		from event
+		where gender = #{gender};
+	</select>
+
+	<select
+		id="selectByAge"
+		parameterType="int"
+		resultType="EventDto">
+		select *
+		from event
+		where age = #{age};
+	</select>
+
+	<select
+		id="selectByProduct"
+		parameterType="String"
+		resultType="EventDto">
+		select *
+		from event
+		where product like concat(concat('%', #{product}),'%')
+	</select>
+
+	<select
+		id="selectByCategory"
+		parameterType="String"
+		resultType="EventDto">
+		select *
+		from event
+		where category like concat(concat('%', #{category}),'%')
+	</select>
+
+	<update
+		id="update"
+		parameterType="EventDto">
+		update event
+		set
+		product = #{product},
+		detail = #{detail},
+		open_date = #{open_date},
+		end_date = #{end_date},
+		win_num = #{win_num},
+		price = #{price},
+		gender = #{gender},
+		age = #{age},
+		category = #{category}
+		where event_id = #{event_id}
+	</update>
+
+	<insert
+		id="insert"
+		parameterType="EventDto">
+		INSERT INTO
+		event(`product`,`detail`,`open_date`,`end_date`,`win_num`,`price`,`gender`,`age`,`category`,`uuid`)
+		VALUES
+		(#{product},#{detail},#{open_date},#{end_date},#{win_num},#{price},#{gender},#{age},#{category},#{uuid});
+	</insert>
+
+	<update
+		id="joinEvent"
+		parameterType="int">
+		update event
+		set
+		join_num = join_num + 1
+		where event_id = #{event_id}
+	</update>
+
+	<select
+		id="selectWinListByEventId"
+		parameterType="int"
+		resultType="EventUserRequestDto">
+		select a.email,a.phone, a.uuid
+		from account a
+		left join win w
+		on a.uuid = w.uuid
+		left join event e
+		on e.event_id = w.event_id
+		where
+		e.event_id = #{event_id};
+	</select>
+
+	<select
+		id="selectParticipationListByEventId"
+		parameterType="int"
+		resultType="EventUserRequestDto">
+		select a.email, a.phone, a.uuid
+		from account a
+		left join participation p
+		on a.uuid = p.uuid
+		left
+		join event e
+		on e.event_id = p.event_id
+		where e.event_id = #{event_id};
+	</select>
+
+	<insert
+		id="upsertSearchHit"
+		parameterType="String">
+		INSERT INTO `search` (word, hit)
+		VALUES (#{word}, 1)
+		ON DUPLICATE KEY
+		UPDATE
+		hit = hit +
+		1;
+	</insert>
+
+	<select
+		id="selectSearchHit"
+		resultType="SearchDto">
+		SELECT * FROM `search`
+		where word != "" or word != null
+		ORDER BY hit DESC;
+	</select>
+
+	<insert
+		id="insertUserIdToParticipation"
+		parameterType="ParticipationDto">
+		INSERT INTO
+		participation(`event_id`,`uuid`)
+		VALUES
+		(#{event_id},#{uuid});
+	</insert>
+
+	<insert
+		id="insertUserIdWinParticipation"
+		parameterType="WinDto">
+		INSERT INTO
+		win(`event_id`,`uuid`)
+		VALUES
+		(#{event_id},#{uuid});
+	</insert>
+
+	<insert
+		id="insertEventImg"
+		parameterType="EventImgFileDto">
+		<selectKey
+			resultType="int"
+			keyProperty="event_id"
+			order="BEFORE">
+			SELECT MAX(event_id) FROM event
+		</selectKey>
+		INSERT INTO
+		event_img_file(`event_id`,`type`,`uuid_file`,`orignal_file`)
+		VALUES
+		(#{event_id}, 0,
+		#{uuid_file}, #{orignal_file});
+	</insert>
+	
+	
+	<select
+		id="selectEventFileNameByEventID"
+		resultType="EventImgFileDto"
+		parameterType="int">
+		select *
+		from event_img_file  
+		where event_id = #{event_id};
+	</select>
+
+</mapper>
