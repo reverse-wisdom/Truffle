@@ -153,6 +153,10 @@ export default {
 .now {
   width: 14vw;
   text-align: center;
+  /* border: 1px solid; */
+  color: #191970;
+  font-weight: 900;
+  font-size: 1rem;
 }
 .status {
   display: flex;
