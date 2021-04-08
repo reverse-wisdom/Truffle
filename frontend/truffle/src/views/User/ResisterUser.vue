@@ -166,7 +166,7 @@ export default {
     async verifyphone() {
       const phone_num = this.phone_num1 + this.phone_num2 + this.phone_num3;
       this.phone = phone_num;
-      // const { data } = await verifyPhone(phone_num);
+      const { data } = await verifyPhone(phone_num);
       this.verifynum2 = data;
     },
     verifychk() {

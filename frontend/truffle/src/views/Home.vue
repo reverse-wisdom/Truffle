@@ -40,14 +40,14 @@ export default {
 .home-btn {
   /* display: block; */
   margin: 10px 0px;
-  width: 30%;
+  width: 10%;
   /* background: #80ff00; */
   background: rgba(255, 255, 255, 1);
   color: #383838;
   font-weight: 700;
   border: none;
   padding: 1rem;
-  border-radius: 8px;
+
   font-size: 1rem;
   text-transform: uppercase;
   letter-spacing: 10px;
@@ -60,13 +60,13 @@ export default {
 .home-btn:hover {
   /* display: block; */
   margin: 10px 0px;
-  width: 30%;
+  width: 10%;
   background: #80ff00;
   color: #383838;
   font-weight: 700;
   border: none;
   padding: 1rem;
-  border-radius: 8px;
+  /* border-radius: 8px; */
   font-size: 1rem;
   text-transform: uppercase;
   letter-spacing: 10px;
