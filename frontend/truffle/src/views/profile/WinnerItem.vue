@@ -1,35 +1,35 @@
 <template>
-  <v-container class="winneritem">
-    <div class="tabs">
-      <div class="tab-header">
-        <div class="active" @click="tabclick()" id="tab1">결제전</div>
-        <div @click="tabclick()" id="tab2">결제완료</div>
-        <div @click="tabclick()" id="tab3">배송준비중</div>
-        <div @click="tabclick()" id="tab4">배송중</div>
-        <div @click="tabclick()" id="tab5">배송완료</div>
+  <div>
+    <v-img :src="banner" max-height="400" max-width="1900" class="mt-14 mb-0 "></v-img>
+    <v-container class="winneritem">
+      <div class="tabs">
+        <div class="tab-header">
+          <div class="active" @click="tabclick()" id="tab1">결제전</div>
+          <div @click="tabclick()" id="tab2">결제완료</div>
+          <div @click="tabclick()" id="tab3">배송준비중</div>
+          <div @click="tabclick()" id="tab4">배송중</div>
+          <div @click="tabclick()" id="tab5">배송완료</div>
+        </div>
+        <div class="tab-content">
+          <div class="a active">
+            <v-data-table :headers="headers" :items="status0" @click:row="detailPage" class=""></v-data-table>
+          </div>
+          <div class="a">
+            <v-data-table :headers="headers" :items="status1" @click:row="detailPage" class=""></v-data-table>
+          </div>
+          <div class="a">
+            <v-data-table :headers="headers" :items="status2" @click:row="detailPage" class=""></v-data-table>
+          </div>
+          <div class="a">
+            <v-data-table :headers="headers" :items="status3" @click:row="detailPage" class=""></v-data-table>
+          </div>
+          <div class="a">
+            <v-data-table :headers="headers" :items="status4" @click:row="detailPage" class=""></v-data-table>
+          </div>
+        </div>
       </div>
-      <div class="tab-content">
-        <div class="a active">
-          <v-data-table :headers="headers" :items="status0" @click:row="detailPage" class=""></v-data-table>
-        </div>
-        <div class="a">
-          <v-data-table :headers="headers" :items="status1" @click:row="detailPage" class=""></v-data-table>
-        </div>
-        <div class="a">
-          <v-data-table :headers="headers" :items="status2" @click:row="detailPage" class=""></v-data-table>
-        </div>
-        <div class="a">
-          <v-data-table :headers="headers" :items="status3" @click:row="detailPage" class=""></v-data-table>
-        </div>
-        <div class="a">
-          <v-data-table :headers="headers" :items="status4" @click:row="detailPage" class=""></v-data-table>
-        </div>
-      </div>
-      <div class="btn-style">
-        <v-btn dark @click="$router.go(-1)">뒤로가기</v-btn>
-      </div>
-    </div>
-  </v-container>
+    </v-container>
+  </div>
 </template>
 
 <script>
@@ -47,6 +47,7 @@ export default {
       status4: [],
       endevent: '',
       state: '',
+      banner: require('@/assets/img/orderbanner.jpg'),
       headers: [
         {
           text: '카테고리',
@@ -94,12 +95,10 @@ export default {
     //// 유저입장
     // 당첨내역조회
     const { data } = await userWinEvent(this.$store.state.email);
-    // console.log('담첨내역', data);
 
     // 이벤트아이디로 결제 조회
     for (let i = 0; i < data.length; i++) {
       const res = await fetchOrder(data[i].event_id);
-      // console.log('결제조회', res);
 
       if (res.data.uuid == this.$store.state.uuid && res.data.ship_status == 1) {
         const response = await eventDetail(data[i].event_id);
@@ -156,11 +155,14 @@ export default {
 .winneritem {
   background: #fff;
   width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   height: 500px;
   position: relative;
-  /* border-radius: 20px; */
-  box-shadow: 2px 5px 20px rgba(119, 119, 119, 0.5);
+  /* border-radius: 20px; *
   /* margin-bottom: 50px; */
+
   left: 0%;
   padding: 30px;
   top: 20%;
@@ -178,7 +180,7 @@ export default {
 } */
 .tabs {
   position: absolute;
-  top: 50%;
+  top: 20%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 80%;
@@ -195,7 +197,6 @@ export default {
   text-align: center;
   line-height: 80px;
   font-weight: 600;
-  color: #f5f5f5;
   cursor: pointer;
   z-index: 2;
 }
@@ -206,7 +207,6 @@ export default {
   left: 0px;
   width: 100%;
   height: 0%;
-  background: #f5f5f5;
   z-index: -1;
 }
 .tabs .tab-header > div:hover:before {
@@ -214,7 +214,9 @@ export default {
   height: 5%;
 }
 .tabs .tab-header > div.active {
-  color: #00acee;
+  /* color: #00acee; */
+  color: #fff;
+  background: #07b8ac;
 }
 .tabs .tab-header > div.active:before {
   transition: all 300ms ease-in-out;
@@ -222,9 +224,9 @@ export default {
 }
 .tabs .tab-content {
   position: relative;
-  background: #f5f5f5;
   height: calc(100% - 80px);
   /* overflow: hidden; */
+  left: 12%;
 }
 .tabs .tab-content > div {
   position: absolute;

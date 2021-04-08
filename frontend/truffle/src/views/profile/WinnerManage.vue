@@ -63,7 +63,6 @@ export default {
 
   async created() {
     const res = await fetchOrder(this.winner.uuid);
-    // console.log(res.data);
     if (res.data) {
       this.first = res.data.ship_status;
     } else {
