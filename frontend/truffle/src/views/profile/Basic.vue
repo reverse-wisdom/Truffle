@@ -248,7 +248,7 @@ h4 {
   border: 1px solid;
 }
 .btn {
-  font-family: 'roboto' sans-serif;
+  font-family: 'roboto', sans-serif;
   text-transform: uppercase;
   font-size: 15px;
   border: 0;

@@ -48,7 +48,10 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @RequestMapping("/event")
 public class EventController {
-
+	
+	private static final String SUCCESS = "SUCCESS";
+	private static final String FAIL = "FAIL";
+	
 	@Autowired
 	private EventServiceImpl eventService;
 
@@ -131,13 +134,13 @@ public class EventController {
 		try {
 			boolean result = eventService.update(eventDto);
 			if (result) {
-				return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+				return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
 			}
 
 		} catch (SQLException e) {
-			return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(FAIL, HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(FAIL, HttpStatus.NO_CONTENT);
 	}
 
 	@ApiOperation(value = "이벤트 페이지 작성", notes = "작성가능한 필드: age category detail end_date gender(남:1,여:2) open_date price product win_num, uuid")
@@ -185,22 +188,22 @@ public class EventController {
 				eventImgFileDto.setOrignal_file(originalFileName);
 				eventImgFileDto.setUuid_file(fileName);
 			} catch (IllegalStateException e) {
-				return new ResponseEntity<String>("FAIL", HttpStatus.NO_CONTENT);
+				return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
 			} catch (IOException e) {
-				return new ResponseEntity<String>("FAIL", HttpStatus.NO_CONTENT);
+				return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
 			}
 
 			try {
 				boolean result = eventService.insert(eventDto, eventImgFileDto);
 
 				if (result) {
-					return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+					return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
 				}
 
 			} catch (SQLException e) {
-				return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+				return new ResponseEntity<>(FAIL, HttpStatus.NO_CONTENT);
 			}
-			return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(FAIL, HttpStatus.NO_CONTENT);
 		}
 
 	}
@@ -211,13 +214,13 @@ public class EventController {
 		try {
 			boolean result = eventService.joinEvent(event_id);
 			if (result) {
-				return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+				return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
 			}
 
 		} catch (SQLException e) {
-			return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(FAIL, HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(FAIL, HttpStatus.NO_CONTENT);
 	}
 
 	@ApiOperation(value = "당첨자 전체조회")
@@ -265,13 +268,13 @@ public class EventController {
 		try {
 			boolean result = eventService.insertUserIdToParticipation(participationDto);
 			if (result) {
-				return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+				return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
 			}
 
 		} catch (SQLException e) {
-			return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(FAIL, HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(FAIL, HttpStatus.NO_CONTENT);
 	}
 
 	@ApiOperation(value = "당첨자 당첨테이블 등록", notes = "필수작성필드: uuid, event_id")
@@ -280,13 +283,13 @@ public class EventController {
 		try {
 			boolean result = eventService.insertUserIdWinParticipation(winDto);
 			if (result) {
-				return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+				return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
 			}
 
 		} catch (SQLException e) {
-			return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(FAIL, HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(FAIL, HttpStatus.NO_CONTENT);
 	}
 
 	@ApiOperation(value = "이벤트 아이디를 통해 이미지 파일 썸네일 출력(base64)")

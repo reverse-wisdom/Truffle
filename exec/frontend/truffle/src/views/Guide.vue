@@ -143,7 +143,6 @@ export default {
   cursor: pointer;
   outline: none;
   z-index: 2;
-  outline: none;
 }
 
 .checkbox:checked {
@@ -172,7 +171,6 @@ export default {
   height: 100%;
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
   font: #ffff;
 }
 .section1 {
@@ -261,7 +259,7 @@ export default {
 .retailer-detail_1 {
   width: auto;
   color: #fff;
-  font-family: 'Recipekorea';
+  font-family: 'Recipekorea', sans-serif;
   font-size: 3rem;
   margin-top: 5%;
   margin-left: 2%;
@@ -270,7 +268,7 @@ export default {
 .retailer-detail_4 {
   width: auto;
   color: #fff;
-  font-family: 'Recipekorea';
+  font-family: 'Recipekorea', sans-serif;
   font-size: 2.5rem;
   margin-top: 5%;
   margin-left: 2%;
@@ -278,7 +276,7 @@ export default {
 }
 .retailer-detail_2 {
   color: #060606;
-  font-family: 'Recipekorea';
+  font-family: 'Recipekorea', sans-serif;
   font-size: 2.5rem;
   margin-top: 5%;
   margin-left: 2%;
@@ -286,7 +284,7 @@ export default {
 }
 .retailer-detail_3 {
   color: #060606;
-  font-family: 'Recipekorea';
+  font-family: 'Recipekorea', sans-serif;
   font-size: 2.5rem;
   margin-top: 5%;
   margin-left: 2%;
@@ -393,7 +391,7 @@ export default {
   font-weight: 900;
   /* top: 285%; */
   right: 3%;
-  font-family: 'Recipekorea';
+  font-family: 'Recipekorea', sans-serif;
 }
 .a1:hover {
   position: fixed;
@@ -411,7 +409,7 @@ export default {
   /* top: 285%; */
   right: 3%;
   font-weight: 900;
-  font-family: 'Recipekorea';
+  font-family: 'Recipekorea', sans-serif;
 }
 .a2 {
   position: fixed;
@@ -429,7 +427,7 @@ export default {
   font-weight: 900;
   /* top: 285%; */
   right: 3%;
-  font-family: 'Recipekorea';
+  font-family: 'Recipekorea', sans-serif;
 }
 .a2:hover {
   position: fixed;
@@ -447,6 +445,6 @@ export default {
   /* top: 285%; */
   right: 3%;
   font-weight: 900;
-  font-family: 'Recipekorea';
+  font-family: 'Recipekorea', sans-serif;
 }
 </style>

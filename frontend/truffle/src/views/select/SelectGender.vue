@@ -90,7 +90,7 @@ export default {
   computed: {
     priceComma: function() {
       return this.GenderArray.map(function(event) {
-        return event.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        return event.price.toLocaleString('ko-KR');
       });
     },
   },
@@ -110,7 +110,15 @@ export default {
       return 0;
     });
     GenderArray.reverse();
-    this.GenderArray = GenderArray.slice(0, 4);
+    const newGenderArray = [];
+    for (let i = 0; i < GenderArray.length; i++) {
+      if (new Date(GenderArray[i].end_date) < Date.now()) {
+        continue;
+      } else {
+        newGenderArray.push(GenderArray[i]);
+      }
+    }
+    this.GenderArray = newGenderArray.slice(0, 4);
     // console.log('성별', this.GenderArray);
 
     $('#gendercontent1').addClass('display');

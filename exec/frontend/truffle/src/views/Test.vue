@@ -34,6 +34,10 @@
       <v-btn depressed color="primary" @click="iamport">결제호출</v-btn>
     </div>
     <div>
+      <h2>콤마정규식</h2>
+      <v-btn depressed color="primary" @click="comma(123456789)">결제호출</v-btn>
+    </div>
+    <div>
       <h2>암호화적용랜덤함수</h2>
       <v-btn depressed color="primary" @click="getRandomIntInclusive(1, 50)">호출</v-btn>
     </div>
@@ -101,6 +105,9 @@ export default {
     this.imgSrc2 = data;
   },
   methods: {
+    comma(price) {
+      console.log(price.toLocaleString('ko-KR'));
+    },
     getRandomIntInclusive(min, max) {
       const randomBuffer = new Uint32Array(1);
       window.crypto.getRandomValues(randomBuffer);

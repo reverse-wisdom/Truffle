@@ -224,7 +224,7 @@ export default {
   computed: {
     priceComma: function() {
       if (this.event.price) {
-        return this.event.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        return this.event.price.toLocaleString('ko-KR');
       }
     },
   },
@@ -293,17 +293,20 @@ export default {
     }
   },
   methods: {
+    getRandomIntInclusive(min, max) {
+      const randomBuffer = new Uint32Array(1);
+      window.crypto.getRandomValues(randomBuffer);
+      let randomNumber = randomBuffer[0] / (0xffffffff + 1);
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(randomNumber * (max - min + 1)) + min;
+      // console.log(Math.floor(randomNumber * (max - min + 1) + min));
+    },
     async raffleGo() {
       if (this.showWinner == false && this.event.join_num >= this.event.win_num) {
         const { data } = await checkPartipants(this.event.event_id);
-        console.log(data);
-        // const partNum = data.length;
-        // console.log('partNum', partNum);
-        // console.log('참여자정보', data);
-        // for (var i = 0; i < partNum; i++) {
-        //   this.uuidList.push(data[i]);
-        // }
-        // console.log('uuidList', this.uuidList);
+        this.event.win_num;
+
         while (data.length >= Number(this.event.win_num)) {
           var moveNum = data.splice(Math.floor(Math.random() * data.length), 1)[0];
           this.raffleList.push(moveNum);
@@ -311,14 +314,13 @@ export default {
             break;
           }
         }
-        console.log('raffleList', this.raffleList);
-        // this.showWinner = true;
 
         const target = document.getElementById('winnerbtn');
         // target.disabled = true;
         target.innerText = '추첨완료';
         // console.log(this.winnerList);
         // console.log('당첨자', this.winnerList);
+
         this.winnerListGo();
       } else if (this.event.join_num < this.event.win_num) {
         this.$swal({
@@ -346,6 +348,7 @@ export default {
         const { data } = await createWinner(winData);
         console.log(data, '당첨자확인');
         this.showWinner = true;
+        this.winnerChk = true;
       }
     },
     async winnerListShow() {
@@ -673,7 +676,6 @@ img {
   font-size: 1.2rem;
 }
 .product-detail ul li {
-  margin: 0;
   list-style: none;
   background: url(../../assets/img/check.jpg) left center no-repeat;
   background-size: 18px;
@@ -728,6 +730,7 @@ img {
   justify-content: center;
   align-items: center;
   user-select: none;
+  margin-top: 5rem;
 }
 .tabs {
   display: flex;

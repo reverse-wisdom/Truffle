@@ -32,6 +32,9 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @RequestMapping("/eventQnA")
 public class EventQnAController {
+	
+	private static final String SUCCESS = "SUCCESS";
+	private static final String FAIL = "FAIL";
 
 	@Autowired
 	private TokenProvider tokenProvider;
@@ -58,13 +61,13 @@ public class EventQnAController {
 		try {
 			boolean result = eventQnAServiceImpl.insert(eventQnADto);
 			if (result) {
-				return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+				return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
 			}
 
 		} catch (SQLException e) {
-			return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(FAIL, HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(FAIL, HttpStatus.NO_CONTENT);
 	}
 
 	@ApiOperation(value = "이벤트 QnA 답변 등록", notes = "필수 입력값 : qna_id, answer, answer_date")
@@ -73,13 +76,13 @@ public class EventQnAController {
 		try {
 			boolean result = eventQnAServiceImpl.updateQnaAnswer(eventQnADto);
 			if (result) {
-				return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+				return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
 			}
 
 		} catch (SQLException e) {
-			return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(FAIL, HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(FAIL, HttpStatus.NO_CONTENT);
 	}
 
 	@ApiOperation(value = "uuid를 통해 회원이 등록한 이벤트 qna 리스트 전체 조회")
@@ -99,20 +102,19 @@ public class EventQnAController {
 	@DeleteMapping("/delete")
 	private ResponseEntity<String> delete(@RequestParam(required = true) final int qna_id, HttpServletRequest request) {
 		
-		System.out.println(request.getHeader("x-auth-token"));
 		if (tokenProvider.validateToken(request.getHeader("x-auth-token"))) {
 			try {
 				boolean result = eventQnAServiceImpl.delete(qna_id);
 				if (result) {
-					return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+					return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
 				}
 			} catch (SQLException e) {
-				return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+				return new ResponseEntity<>(FAIL, HttpStatus.NO_CONTENT);
 			}
 		} else {
-			return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(FAIL, HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<>("FAIL", HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(FAIL, HttpStatus.NO_CONTENT);
 	}
 
 }

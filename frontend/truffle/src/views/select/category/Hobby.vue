@@ -4,7 +4,7 @@
       <div class="card">
         <!-- <div class="idx-box">{{ idx + 1 }}위</div> -->
         <figure>
-          v
+          <img class="detail-image" :src="imgURL + event.event_id" />
         </figure>
 
         <section class="details">
@@ -50,7 +50,7 @@ export default {
   computed: {
     priceComma: function() {
       return this.events.map(function(event) {
-        return event.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        return event.price.toLocaleString('ko-KR');
       });
     },
   },

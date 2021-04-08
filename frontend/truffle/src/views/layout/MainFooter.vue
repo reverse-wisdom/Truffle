@@ -35,7 +35,7 @@ footer {
   background: #111;
   height: auto;
   width: 100vw;
-  font-family: 'Open Sans';
+  font-family: 'Open Sans', sans-serif;
   padding-top: 10px;
   color: #fff;
 }

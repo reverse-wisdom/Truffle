@@ -16,7 +16,7 @@
                 <span>#{{ win.category }}</span>
                 <span v-show="win.gender == 1" outlined>#남성</span>
                 <span v-show="win.gender == 2" outlined>#여성</span>
-                <span>#{{ win.age }}</span>
+                <span>#{{ win.age }}대</span>
               </div>
 
               <div class="">
@@ -48,7 +48,7 @@
                 <span>#{{ win.category }}</span>
                 <span v-show="win.gender == 1" outlined>#남성</span>
                 <span v-show="win.gender == 2" outlined>#여성</span>
-                <span>#{{ win.age }}</span>
+                <span>#{{ win.age }}대</span>
               </div>
 
               <div class="">
@@ -79,7 +79,7 @@ export default {
   },
   computed: {
     priceComma() {
-      return this.win.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      return this.event.price.toLocaleString('ko-KR');
     },
   },
   props: {
