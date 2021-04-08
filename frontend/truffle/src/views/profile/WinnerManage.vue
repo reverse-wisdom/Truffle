@@ -124,9 +124,9 @@ export default {
       } else if (this.status == 1) {
         this.message = '결제완료로 바꾸시겠습니까?';
       } else if (this.status == 2) {
-        this.message = '배송준비중로 바꾸시겠습니까?';
+        this.message = '배송준비중으로 바꾸시겠습니까?';
       } else if (this.status == 3) {
-        this.message = '배송중로 바꾸시겠습니까?';
+        this.message = '배송중으로 바꾸시겠습니까?';
       } else if (this.status == 4) {
         this.message = '배송완료로 바꾸시겠습니까?';
       }
