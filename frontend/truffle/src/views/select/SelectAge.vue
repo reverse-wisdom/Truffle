@@ -46,7 +46,7 @@
                   <div>
                     <div style="font-size: 12px; margin: 10px 0;">이벤트종료일:{{ event.end_date }}</div>
                   </div>
-                  <a href="#" class="btn" style="margin-top:;" @click="eventDetailGo(event.event_id)">자세히보기</a>
+                  <a class="btn" style="margin-top:;" @click="eventDetailGo(event.event_id)">자세히보기</a>
                 </div>
               </section>
             </div>
@@ -79,7 +79,7 @@
                   <div>
                     <div style="font-size: 12px; margin: 10px 0;">이벤트종료일:{{ event.end_date }}</div>
                   </div>
-                  <a href="#" class="btn" style="margin-top:;" @click="eventDetailGo(event.event_id)">자세히보기</a>
+                  <a class="btn" style="margin-top:;" @click="eventDetailGo(event.event_id)">자세히보기</a>
                 </div>
               </section>
             </div>
@@ -112,7 +112,7 @@
                   <div>
                     <div style="font-size: 12px; margin: 10px 0;">이벤트종료일:{{ event.end_date }}</div>
                   </div>
-                  <a href="#" class="btn" style="margin-top:;" @click="eventDetailGo(event.event_id)">자세히보기</a>
+                  <a class="btn" style="margin-top:;" @click="eventDetailGo(event.event_id)">자세히보기</a>
                 </div>
               </section>
             </div>
@@ -145,7 +145,7 @@
                   <div>
                     <div style="font-size: 12px; margin: 10px 0;">이벤트종료일:{{ event.end_date }}</div>
                   </div>
-                  <a href="#" class="btn" style="margin-top:;" @click="eventDetailGo(event.event_id)">자세히보기</a>
+                  <a class="btn" style="margin-top:;" @click="eventDetailGo(event.event_id)">자세히보기</a>
                 </div>
               </section>
             </div>
@@ -177,7 +177,7 @@
                   <div>
                     <div style="margin-top:20px;">이벤트종료일:{{ event.end_date }}</div>
                   </div>
-                  <a href="#" class="btn" style="margin-top:;" @click="eventDetailGo(event.event_id)">자세히보기</a>
+                  <a class="btn" style="margin-top:;" @click="eventDetailGo(event.event_id)">자세히보기</a>
                 </div>
               </section>
             </div>
@@ -209,7 +209,7 @@
                   <div>
                     <div style="font-size: 12px; margin: 10px 0;">이벤트종료일:{{ event.end_date }}</div>
                   </div>
-                  <a href="#" class="btn" style="margin-top:;" @click="eventDetailGo(event.event_id)">자세히보기</a>
+                  <a class="btn" style="margin-top:;" @click="eventDetailGo(event.event_id)">자세히보기</a>
                 </div>
               </section>
             </div>
