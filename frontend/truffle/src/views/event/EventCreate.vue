@@ -209,7 +209,7 @@ export default {
     async eventInsert() {
       const uuid = this.$store.state.uuid;
       var frm = new FormData();
-      frm.append('11', this.image);
+      frm.append('썸네일이미지', this.image);
       frm.append('uuid', this.$store.state.uuid);
       frm.append('age', this.age);
       frm.append('category', this.category);

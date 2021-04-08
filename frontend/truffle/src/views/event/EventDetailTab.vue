@@ -74,6 +74,12 @@ export default {
 </script>
 
 <style scoped>
+@font-face {
+  font-family: 'Recipekorea';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/Recipekorea.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
 .tab-container {
   height: 20vh;
   display: flex;
