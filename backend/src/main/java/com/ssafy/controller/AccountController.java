@@ -195,13 +195,16 @@ public class AccountController {
 			return null;
 		}
 
-		String api_key = "NCSIVOZHLC9Z7CJW";
-		String api_secret = "MJMUXFFTXNCDXYLCX2QECLGFQCMTEKOY";
+//		String api_key = "NCSIVOZHLC9Z7CJW";
+//		String api_secret = "MJMUXFFTXNCDXYLCX2QECLGFQCMTEKOY";
+		String api_key = "NCS7D6DG0ZSPCLMQ";
+		String api_secret = "ZE4B0FYWKDV2Y2LARTVT8AQWTIM9FZ6Q";
 		Message coolsms = new Message(api_key, api_secret);
 
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("to", phone); // 수신전화번호
-		params.put("from", "01094927120"); // 발신전화번호.
+//		params.put("from", "01094927120"); // 발신전화번호.
+		params.put("from", "01032341661"); // 발신전화번호.
 		params.put("type", "SMS");
 		params.put("text", "트러플 휴대폰인증 테스트 메시지 : 인증번호는" + "[" + numStr + "]" + "입니다.");
 		params.put("app_version", "test app 1.2");
