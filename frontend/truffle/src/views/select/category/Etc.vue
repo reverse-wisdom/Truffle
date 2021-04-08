@@ -63,6 +63,10 @@ export default {
 </script>
 
 <style scoped>
+.event-ct {
+  display: flex;
+  flex-wrap: wrap;
+}
 .event {
   width: 15vw;
   margin-bottom: 50px;
