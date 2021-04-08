@@ -43,6 +43,7 @@
 
 <script>
 import { fetchOrder, editOderStatus } from '@/api/order';
+import { userWinEvent, fetchUser } from '@/api/auth';
 export default {
   data() {
     return {
@@ -59,15 +60,23 @@ export default {
     idx: {
       type: Number,
     },
+    event_id: {
+      type: String,
+    },
   },
 
   async created() {
-    const res = await fetchOrder(this.winner.uuid);
-    // console.log(res.data);
-    if (res.data) {
-      this.first = res.data.ship_status;
-    } else {
-      this.first = '0';
+    const response = await fetchUser(this.winner.email);
+    console.log('회원정보', response.data.uuid);
+    const res = await fetchOrder(this.event_id);
+
+    console.log(res.data);
+    for (let i = 0; i < res.data.length; i++) {
+      if (res.data[i] && response.data.uuid == res.data[i].uuid) {
+        this.first = res.data[i].ship_status;
+      } else {
+        this.first = '0';
+      }
     }
     if (this.first == 1) {
       document.getElementById('state1').setAttribute('checked', 'checked');
@@ -88,19 +97,22 @@ export default {
   },
   methods: {
     async checkState() {
-      // console.log(this.status);
-      const res = await fetchOrder(this.winner.uuid);
-      // console.log(res.data);
+      // const { data } = userWinEvent(this.winner.email);
+
+      console.log(this.event_id);
+      const res = await fetchOrder(this.event_id);
+      console.log(res);
       if (res.data) {
         const editdata = {
           uuid: this.winner.uuid,
-          event_id: res.data.event_id,
-          pay_status: res.data.pay_status,
+          event_id: this.event_id,
+          pay_status: res.data[0].pay_status,
           ship_status: this.status,
         };
-        // console.log(editdata);
+        console.log(editdata);
         const data = await editOderStatus(editdata);
         // console.log('상태변경', data);
+        this.$router.go();
       } else {
         // console.log('결제전');
       }
