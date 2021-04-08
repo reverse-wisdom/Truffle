@@ -319,6 +319,7 @@ export default {
         target.innerText = '추첨완료';
         // console.log(this.winnerList);
         // console.log('당첨자', this.winnerList);
+
         this.winnerListGo();
       } else if (this.event.join_num < this.event.win_num) {
         this.$swal({
@@ -346,6 +347,7 @@ export default {
         const { data } = await createWinner(winData);
         console.log(data, '당첨자확인');
         this.showWinner = true;
+        this.winnerChk = true;
       }
     },
     async winnerListShow() {
@@ -728,6 +730,7 @@ img {
   justify-content: center;
   align-items: center;
   user-select: none;
+  margin-top: 5rem;
 }
 .tabs {
   display: flex;
