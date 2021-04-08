@@ -225,7 +225,7 @@ export default {
 
 #retailer {
   position: fixed;
-  top: 43px;
+  top: 3rem;
   right: 60px;
   /* transform: translateY(-50%); */
   color: #fff;
@@ -239,7 +239,7 @@ export default {
 #user {
   position: fixed;
   outline: none;
-  top: 43px;
+  top: 3rem;
   right: 130px;
   /* transform: translateY(-50%); */
   color: #fff;
@@ -389,9 +389,11 @@ export default {
   font-size: 18px;
   letter-spacing: 2px;
   border-radius: 40px;
-  background-color: #07b8ac;
+  background: #07b8ac;
+  font-weight: 900;
   /* top: 285%; */
   right: 3%;
+  font-family: 'Recipekorea';
 }
 .a1:hover {
   position: fixed;
@@ -408,6 +410,8 @@ export default {
   background-color: #f3118e;
   /* top: 285%; */
   right: 3%;
+  font-weight: 900;
+  font-family: 'Recipekorea';
 }
 .a2 {
   position: fixed;
@@ -422,8 +426,10 @@ export default {
   letter-spacing: 2px;
   border-radius: 40px;
   background: #f3118e;
+  font-weight: 900;
   /* top: 285%; */
   right: 3%;
+  font-family: 'Recipekorea';
 }
 .a2:hover {
   position: fixed;
@@ -440,5 +446,7 @@ export default {
   background: #07b8ac;
   /* top: 285%; */
   right: 3%;
+  font-weight: 900;
+  font-family: 'Recipekorea';
 }
 </style>

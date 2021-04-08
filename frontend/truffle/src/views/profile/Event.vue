@@ -4,7 +4,7 @@
       <div class="event-index" ref="event">
         <div class="card">
           <figure>
-            style="margin-bottom: 20px;"
+            <img class="detail-image" :src="imgURL + event.event_id" />
           </figure>
           <section class="details">
             <div class="product-detail">
