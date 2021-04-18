@@ -25,7 +25,7 @@
             <div>
               <div style="font-size: 12px; margin: 10px 0;">이벤트종료일:{{ event.end_date }}</div>
             </div>
-            <a href="#" class="btn" style="margin-top:;" @click="eventDetailGo(event.event_id)">자세히보기</a>
+            <a class="btn" style="margin-top:;" @click="eventDetailGo(event.event_id)">자세히보기</a>
           </div>
         </section>
       </div>
@@ -39,11 +39,11 @@ export default {
   data() {
     return {
       events: [],
-      detailImg: [],
+      imgURL: 'https://j4d110.p.ssafy.io/truffle/event/selectEventImgFileEventID?event_id=',
     };
   },
   async created() {
-    const { data } = await eventSelectCategory('취미');
+    const { data } = await eventSelectCategory('취미/문화');
     // console.log(data);
     this.events = data;
   },

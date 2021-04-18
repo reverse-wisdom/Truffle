@@ -79,7 +79,7 @@ export default {
   },
   computed: {
     priceComma() {
-      return this.event.price.toLocaleString('ko-KR');
+      return this.win.price.toLocaleString('ko-KR');
     },
   },
   props: {

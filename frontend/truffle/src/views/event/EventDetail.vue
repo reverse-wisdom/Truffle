@@ -61,7 +61,7 @@
             </div>
             <v-dialog transition="dialog-top-transition" max-width="600" v-else>
               <template class="join-info" v-slot:activator="{ on, attrs }">
-                <div class="join-info" @click="joinAdd">
+                <div class="join-info">
                   <button class="btn" v-bind="attrs" id="btn-join" v-on="on">응모취소</button>
                 </div>
               </template>
@@ -115,9 +115,9 @@
               </template>
             </v-dialog>
           </v-col>
-          <div v-if="this.$store.state.type == 1">
+          <div v-if="this.$store.state.type == 1 && new Date(this.event.end_date) < Date.now() && winnerChk == true">
             <div class="join-info">
-              <div v-if="paycheck == true && new Date(this.event.end_date) < Date.now()">
+              <div v-if="paycheck == true && winnerChk == true">
                 <button type="button" class="btn" id="payment" @click="iamport">
                   결제하기
                 </button>
@@ -276,19 +276,20 @@ export default {
       for (let i = 0; i < response.data.length; i++) {
         this.winnerEventId.push(response.data[i].event_id);
       }
-      //결제하기 버튼 보일지말지 확인
+      // 결제하기 버튼 보일지말지 확인
       if (this.winnerEventId.includes(this.event.uuid)) {
-        this.paycheck = true;
+        this.winnerChk = true;
       }
     }
-
-    //결제여부
-    // console.log(event_id);
-    const res = await fetchOrder(event_id);
-    // console.log('결제여부', res);
-    for (let i = 0; i < res.data.length; i++) {
-      if (this.$store.state.uuid == res.data[i].uuid) {
-        this.paycheck = false;
+    if (this.$store.state.type == '1') {
+      //결제여부
+      // console.log(event_id);
+      const res = await fetchOrder(event_id);
+      // console.log('결제여부', res);
+      for (let i = 0; i < res.data.length; i++) {
+        if (this.$store.state.uuid == res.data[i].uuid && res.data[i].pay_status == 1) {
+          this.paycheck = false;
+        }
       }
     }
   },
@@ -369,10 +370,10 @@ export default {
     async joinAdd() {
       const email = this.$store.state.email;
       const event_id = this.$route.query.event_id;
-      // console.log(event_id, email);
+      console.log(event_id, email);
       // 로그인한 유저가 참여한적이 있는지 체크
-      const { data } = await checkPartipants(event_id);
-      // console.log(data);
+      const data = await checkPartipants(event_id);
+      console.log(data);
       for (let i = 0; i < data.length; i++) {
         //참여한적이 있으면
         if (data[i].email == email) {
@@ -516,7 +517,7 @@ export default {
       for (let i = 0; i < data.length; i++) {
         if (this.$store.state.uuid == data[i].uuid) {
           const response = await cancleOrder(data[i].imp_uid);
-          // console.log(response);
+          // console.log('cancleOrder', response);
           if (response.data.code == 0) {
             const data = await deleteOrdertable(this.event.event_id);
             // console.log(data);
